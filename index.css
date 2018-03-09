@@ -53,7 +53,8 @@ body {
 }
 
 .square:hover,
-.square:focus {
+.square:focus,
+.square:active {
   transform:
     translateY(-50%)
     translateX(-50%)
