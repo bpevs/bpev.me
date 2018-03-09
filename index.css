@@ -1,9 +1,13 @@
 @keyframes full-rotation {
   0% {
-    transform: rotate(0deg);
+    transform:
+      scale(0.7)
+      rotate(0deg);
   }
   100% {
-    transform: rotate(360deg);
+    transform:
+      scale(0.7)
+      rotate(360deg);
   }
 }
 
@@ -29,7 +33,7 @@ body {
 
 .square {
   z-index: 1;
-  box-shadow: 0px 0px 50px 0px rgba(50, 50, 50, 0.75) inset;
+  box-shadow: 0px 0px 90px 0px rgba(50, 50, 50, 0.8) inset;
   backface-visibility: hidden;
   overflow: hidden;
 
@@ -48,7 +52,8 @@ body {
   left: 50%;
 }
 
-.square:hover {
+.square:hover,
+.square:focus {
   transform:
     translateY(-50%)
     translateX(-50%)
@@ -109,10 +114,12 @@ body {
   transition: fill 0.3s ease-in-out;
 }
 
-.github:hover path {
+.github:hover path,
+.github:focus path {
   fill: #161614;
 }
 
-.youtube:hover path {
+.youtube:hover path,
+.youtube:focus path {
   fill: #E52D27;
 }
