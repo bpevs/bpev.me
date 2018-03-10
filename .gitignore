@@ -4,5 +4,5 @@
 .Trashes
 .vscode
 ._*
-**/*.css
+build
 node_modules

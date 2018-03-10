@@ -12,9 +12,12 @@ before_install:
   - sh -e /etc/init.d/xvfb start
 
 deploy:
+  edge:
+    branch: v1.8.47
+  local-dir: build
   provider: pages
+  fqdn: benpevsner.com
   skip_cleanup: true
   github_token: $GITHUB_TOKEN
-  keep-history: true
   on:
     branch: master

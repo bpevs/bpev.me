@@ -1,25 +1,29 @@
 {
-  "name": "ivebencrazy.github.io",
+  "name": "benpevsner.com",
   "version": "1.0.0",
-  "description": "",
+  "description": "A homepage or something",
   "main": "index.html",
+  "homepage": "http://benpevsner.com",
+  "author": "Ben Pevsner",
+  "license": "MIT",
+  "private": true,
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ivebencrazy/benpevsner.com.git"
+  },
   "scripts": {
     "deploy": "CI=true npm run build",
     "start": "npm run build -- -w",
-    "build": "stylus ./ -o ./",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "postbuild": "cp ./build/index.html ./build/404.html",
+    "prebuild": "mkdir -p ./build",
+    "build": "npm-run-all -p build:*",
+    "build:markup": "pug ./source --out ./build",
+    "build:styles": "stylus ./source -o ./build"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/ivebencrazy/ivebencrazy.github.io.git"
-  },
-  "author": "Ben Pevsner",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/ivebencrazy/ivebencrazy.github.io/issues"
-  },
-  "homepage": "https://github.com/ivebencrazy/ivebencrazy.github.io#readme",
   "devDependencies": {
+    "npm-run-all": "^4.1.2",
+    "pug": "^2.0.1",
+    "pug-cli": "^1.0.0-alpha6",
     "stylus": "^0.54.5"
   }
 }
