@@ -4,3 +4,5 @@
 .Trashes
 .vscode
 ._*
+**/*.css
+node_modules

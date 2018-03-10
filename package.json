@@ -1,0 +1,25 @@
+{
+  "name": "ivebencrazy.github.io",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.html",
+  "scripts": {
+    "deploy": "CI=true npm run build",
+    "start": "npm run build -- -w",
+    "build": "stylus ./ -o ./",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ivebencrazy/ivebencrazy.github.io.git"
+  },
+  "author": "Ben Pevsner",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ivebencrazy/ivebencrazy.github.io/issues"
+  },
+  "homepage": "https://github.com/ivebencrazy/ivebencrazy.github.io#readme",
+  "devDependencies": {
+    "stylus": "^0.54.5"
+  }
+}
