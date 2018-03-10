@@ -12,7 +12,6 @@ before_install:
   - sh -e /etc/init.d/xvfb start
 
 deploy:
-  local_dir: build
   provider: pages
   fqdn: benpevsner.com
   skip_cleanup: true
