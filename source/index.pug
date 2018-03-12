@@ -5,15 +5,13 @@ mixin squares(n)
 
 doctype html
 html(lang="en")
-  head
-    title Ben Pevsner
-    link(rel="stylesheet" href="./index.css")
+  include components/head.pug
 
   body.first(ontouchstart="")
     div.large-square
       +squares(16)
 
     div.info
-      include components/github-icon
+      include components/icons/github
       a.name(target="_blank") BP
-      include components/youtube-icon
+      include components/icons/youtube
