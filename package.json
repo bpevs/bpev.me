@@ -17,6 +17,7 @@
     "postbuild": "cp ./build/index.html ./build/404.html",
     "prebuild": "mkdir -p ./build",
     "build": "npm-run-all -p build:*",
+    "build:assets": "rm -rf build/assets && cp -rp source/assets build/assets",
     "build:markup": "pug ./source --out ./build",
     "build:styles": "stylus ./source -o ./build",
     "watch": "npm-run-all -p watch:*",
