@@ -13,7 +13,7 @@
   },
   "scripts": {
     "deploy": "CI=true npm run build",
-    "start": "npm-run-all serve watch",
+    "start": "npm-run-all -p serve watch",
     "postbuild": "cp ./build/index.html ./build/404.html",
     "prebuild": "mkdir -p ./build",
     "build": "npm-run-all -p build:*",
@@ -22,8 +22,8 @@
     "build:styles": "stylus ./source -o ./build",
     "serve": "static ./build",
     "watch": "npm-run-all -p watch:*",
-    "watch:markup": "npm run build:markup -- --watch",
-    "watch:styles": "npm run build:styles -- --watch"
+    "watch:markup": "pug ./source --out ./build --watch",
+    "watch:styles": "stylus ./source -o ./build --watch"
   },
   "devDependencies": {
     "node-static": "^0.7.10",
