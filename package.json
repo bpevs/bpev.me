@@ -23,7 +23,7 @@
     "build:thumbnails": "mkdir -p build/assets/thumbnails && sharp -i ./source/assets/photos/**/* -o ./build/assets/thumbnails/{name}{ext} --optimize resize 1000 600 --max --kernel lanczos2",
     "serve": "static ./build",
     "watch": "npm-run-all -p watch:*",
-    "watch:photos": "onchange './source/assets/**/*' -- npm run build:photos",
+    "watch:assets": "onchange './source/assets/**/*' -- npm run build:photos & npm run build:thumbnails",
     "watch:markup": "onchange './source/**/*.pug' -- npm run build:markup",
     "watch:styles": "onchange './source/**/*.styl' -- npm run build:styles"
   },
