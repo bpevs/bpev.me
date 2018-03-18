@@ -14,7 +14,6 @@
   "scripts": {
     "deploy": "CI=true npm run build",
     "start": "npm-run-all -p build serve watch",
-    "postbuild": "cp ./build/index.html ./build/404.html",
     "prebuild": "mkdir -p ./build",
     "build": "npm-run-all -p build:*",
     "build:photos": "mkdir -p build/assets/photos && sharp -i ./source/assets/photos/**/* -o ./build/assets/photos/{name}{ext} --optimize ",
