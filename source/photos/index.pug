@@ -1,0 +1,14 @@
+mixin link(name, link, image)
+  a.db.h-25.w-100.m0.p0(href=link)
+    div.db.h-100.w-100.relative.overflow-hidden
+      h1.place.z-2.absolute.fw2.tracked.white(style="margin: 0") #{name}
+      div.background.absolute.t0.b0.l0.r0.h-100.w-100.cover.grow(style="background:url(" + image + ") no-repeat center right;")
+
+doctype html
+html(lang="en")
+  include ../components/head.pug
+
+  body.helvetica.white.bg-black
+    main.vh-100
+      +link("SEOUL", "/photos/2018/jan/seoul", "/assets/photos/SEOUL_01.jpg")
+      +link("SINGAPORE", "/photos/2018/jan/singapore", "/assets/photos/SINGAPORE_01.jpg")
