@@ -7,11 +7,27 @@ doctype html
 html(lang="en")
   include components/head.pug
 
-  body.first(ontouchstart="")
+  body.helvetica.first(ontouchstart="")
     div.large-square
       +squares(16)
 
     div.info
-      include components/icons/github
       a.name(target="_blank") BP
-      include components/icons/youtube
+
+      div.row
+      a.black.link.underline(
+        href="https://github.com/ivebencrazy"
+        rel="external"
+      ) CODE
+
+      a.black.link.underline(
+        href="https://ivebencrazy.bandcamp.com/"
+        rel="external"
+      ) MUSIC
+
+      a.black.link.underline(href="/photos") PHOTOS
+
+      a.black.link.underline(
+        href="https://www.youtube.com/user/IveBenCrazy"
+        rel="external"
+      ) VIDEOS

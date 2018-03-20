@@ -16,13 +16,10 @@
     "start": "npm-run-all -p build serve watch",
     "prebuild": "mkdir -p ./build",
     "build": "npm-run-all -p build:*",
-    "build:photos": "mkdir -p build/assets/photos && sharp -i ./source/assets/photos/**/* -o ./build/assets/photos/{name}{ext} --optimize ",
     "build:markup": "pug ./source --out ./build",
     "build:styles": "gulp",
-    "build:thumbnails": "mkdir -p build/assets/thumbnails && sharp -i ./source/assets/photos/**/* -o ./build/assets/thumbnails/{name}{ext} --optimize resize 800 800 --max",
     "serve": "static ./build",
     "watch": "npm-run-all -p watch:*",
-    "watch:assets": "onchange './source/assets/**/*' -- npm run build:photos & npm run build:thumbnails",
     "watch:markup": "onchange './source/**/*.pug' -- npm run build:markup",
     "watch:styles": "onchange './source/**/*.styl' -- npm run build:styles"
   },

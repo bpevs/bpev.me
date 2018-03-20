@@ -1,111 +1,31 @@
+- var baseURL = "https://benpev.nyc3.digitaloceanspaces.com"
+
+
 mixin image(src)
-  a.pv2.db.no-underline.black(href="/assets/photos/" + src)
-    img.dm.w-100(src="/assets/thumbnails/" + src)
+  a.pv2.db.no-underline.black.overflow-hidden(href = baseURL + "/photos/2018/january/" + src)
+    img.dm.w-100.grow(src = baseURL + "/thumbnails/2018/january/" + src)
 
 
 doctype html
 html(lang="en")
   include ../../../../components/head.pug
 
-  body.helvetica
+  body.helvetica.bg-dark-gray.white
     main.cf.pa2
       h1.f-headline.sans-serif.fw2.tracked.tc Singapore
       br
 
       div.fl.w-100.w-50-l.ph2
-        +image("SINGAPORE_01.jpg")
-        +image("SINGAPORE_02.jpg")
-        +image("SINGAPORE_03.jpg")
-        +image("SINGAPORE_05.jpg")
-        +image("SINGAPORE_06.jpg")
-        +image("SINGAPORE_07.jpg")
-        +image("SINGAPORE_08.jpg")
-        +image("SINGAPORE_09.jpg")
-        +image("SINGAPORE_10.jpg")
-        +image("SINGAPORE_11.jpg")
-        +image("SINGAPORE_12.jpg")
-        +image("SINGAPORE_70.jpg")
-        +image("SINGAPORE_71.jpg")
-        +image("SINGAPORE_72.jpg")
-        +image("SINGAPORE_73.jpg")
-        +image("SINGAPORE_74.jpg")
-        +image("SINGAPORE_87.jpg")
+        - for (var i = 1; i < 20; ++i) {
+          +image("SINGAPORE_" + i + ".jpg")
+        - }
 
       div.fl.w-100.w-50-m.w-25-l.ph2
-        +image("SINGAPORE_13.jpg")
-        +image("SINGAPORE_14.jpg")
-        +image("SINGAPORE_15.jpg")
-        +image("SINGAPORE_16.jpg")
-        +image("SINGAPORE_17.jpg")
-        +image("SINGAPORE_18.jpg")
-        +image("SINGAPORE_19.jpg")
-        +image("SINGAPORE_04.jpg")
-        +image("SINGAPORE_20.jpg")
-        +image("SINGAPORE_21.jpg")
-        +image("SINGAPORE_22.jpg")
-        +image("SINGAPORE_23.jpg")
-        +image("SINGAPORE_24.jpg")
-        +image("SINGAPORE_25.jpg")
-        +image("SINGAPORE_26.jpg")
-        +image("SINGAPORE_27.jpg")
-        +image("SINGAPORE_28.jpg")
-        +image("SINGAPORE_29.jpg")
-        +image("SINGAPORE_60.jpg")
-        +image("SINGAPORE_61.jpg")
-        +image("SINGAPORE_62.jpg")
-        +image("SINGAPORE_63.jpg")
-        +image("SINGAPORE_64.jpg")
-        +image("SINGAPORE_65.jpg")
-        +image("SINGAPORE_66.jpg")
-        +image("SINGAPORE_67.jpg")
-        +image("SINGAPORE_68.jpg")
-        +image("SINGAPORE_69.jpg")
-        +image("SINGAPORE_80.jpg")
-        +image("SINGAPORE_81.jpg")
-        +image("SINGAPORE_82.jpg")
-        +image("SINGAPORE_83.jpg")
-        +image("SINGAPORE_84.jpg")
-        +image("SINGAPORE_85.jpg")
-        +image("SINGAPORE_86.jpg")
-        +image("SINGAPORE_88.jpg")
+        - for (var i = 20; i < 57; ++i) {
+          +image("SINGAPORE_" + i + ".jpg")
+        - }
 
       div.fl.w-100.w-50-m.w-25-l.ph2
-        +image("SINGAPORE_30.jpg")
-        +image("SINGAPORE_31.jpg")
-        +image("SINGAPORE_32.jpg")
-        +image("SINGAPORE_33.jpg")
-        +image("SINGAPORE_34.jpg")
-        +image("SINGAPORE_35.jpg")
-        +image("SINGAPORE_36.jpg")
-        +image("SINGAPORE_37.jpg")
-        +image("SINGAPORE_38.jpg")
-        +image("SINGAPORE_39.jpg")
-        +image("SINGAPORE_40.jpg")
-        +image("SINGAPORE_41.jpg")
-        +image("SINGAPORE_42.jpg")
-        +image("SINGAPORE_43.jpg")
-        +image("SINGAPORE_44.jpg")
-        +image("SINGAPORE_45.jpg")
-        +image("SINGAPORE_46.jpg")
-        +image("SINGAPORE_50.jpg")
-        +image("SINGAPORE_51.jpg")
-        +image("SINGAPORE_52.jpg")
-        +image("SINGAPORE_53.jpg")
-        +image("SINGAPORE_54.jpg")
-        +image("SINGAPORE_55.jpg")
-        +image("SINGAPORE_56.jpg")
-        +image("SINGAPORE_57.jpg")
-        +image("SINGAPORE_58.jpg")
-        +image("SINGAPORE_59.jpg")
-        +image("SINGAPORE_75.jpg")
-        +image("SINGAPORE_76.jpg")
-        +image("SINGAPORE_77.jpg")
-        +image("SINGAPORE_78.jpg")
-        +image("SINGAPORE_79.jpg")
-        +image("SINGAPORE_89.jpg")
-        +image("SINGAPORE_90.jpg")
-        +image("SINGAPORE_91.jpg")
-        +image("SINGAPORE_92.jpg")
-        +image("SINGAPORE_93.jpg")
-        +image("SINGAPORE_94.jpg")
-        +image("SINGAPORE_95.jpg")
+        - for (var i = 57; i <= 95; ++i) {
+          +image("SINGAPORE_" + i + ".jpg")
+        - }
