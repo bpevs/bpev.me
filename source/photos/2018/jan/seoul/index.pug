@@ -1,65 +1,31 @@
+- var baseURL = "https://benpev.nyc3.digitaloceanspaces.com"
+
+
 mixin image(src)
-  a.pv2.db.no-underline.black.overflow-hidden(href="/assets/photos/" + src)
-    img.dm.w-100.grow(src="/assets/thumbnails/" + src)
+  a.pv2.db.no-underline.black.overflow-hidden(href = baseURL + "/photos/2018/january/" + src)
+    img.dm.w-100.grow(src = baseURL + "/thumbnails/2018/january/" + src)
 
 
 doctype html
 html(lang="en")
   include ../../../../components/head.pug
 
-  body.helvetica.bg-black.white
+  body.helvetica.bg-dark-gray.white
     main.cf.pa2
       h1.f-headline.sans-serif.fw2.tracked.tc Seoul
       br
 
       div.fl.w-100.w-50-l.ph2
-        +image("SEOUL_01.jpg")
-        +image("SEOUL_02.jpg")
-        +image("SEOUL_03.jpg")
-        +image("SEOUL_05.jpg")
-        +image("SEOUL_06.jpg")
-        +image("SEOUL_07.jpg")
-        +image("SEOUL_08.jpg")
-        +image("SEOUL_09.jpg")
-        +image("SEOUL_10.jpg")
-        +image("SEOUL_11.jpg")
-        +image("SEOUL_12.jpg")
+        - for (var i = 1; i < 12; ++i) {
+          +image("SEOUL_" + i + ".jpg")
+        - }
 
       div.fl.w-100.w-50-m.w-25-l.ph2
-        +image("SEOUL_13.jpg")
-        +image("SEOUL_14.jpg")
-        +image("SEOUL_15.jpg")
-        +image("SEOUL_16.jpg")
-        +image("SEOUL_17.jpg")
-        +image("SEOUL_18.jpg")
-        +image("SEOUL_19.jpg")
-        +image("SEOUL_04.jpg")
-        +image("SEOUL_20.jpg")
-        +image("SEOUL_21.jpg")
-        +image("SEOUL_22.jpg")
-        +image("SEOUL_23.jpg")
-        +image("SEOUL_24.jpg")
-        +image("SEOUL_25.jpg")
-        +image("SEOUL_26.jpg")
-        +image("SEOUL_27.jpg")
-        +image("SEOUL_28.jpg")
-        +image("SEOUL_29.jpg")
+        - for (var i = 13; i < 30; ++i) {
+          +image("SEOUL_" + i + ".jpg")
+        - }
 
       div.fl.w-100.w-50-m.w-25-l.ph2
-        +image("SEOUL_30.jpg")
-        +image("SEOUL_31.jpg")
-        +image("SEOUL_32.jpg")
-        +image("SEOUL_33.jpg")
-        +image("SEOUL_34.jpg")
-        +image("SEOUL_35.jpg")
-        +image("SEOUL_36.jpg")
-        +image("SEOUL_37.jpg")
-        +image("SEOUL_38.jpg")
-        +image("SEOUL_39.jpg")
-        +image("SEOUL_40.jpg")
-        +image("SEOUL_41.jpg")
-        +image("SEOUL_42.jpg")
-        +image("SEOUL_43.jpg")
-        +image("SEOUL_44.jpg")
-        +image("SEOUL_45.jpg")
-        +image("SEOUL_46.jpg")
+        - for (var i = 30; i <= 46; ++i) {
+          +image("SEOUL_" + i + ".jpg")
+        - }
