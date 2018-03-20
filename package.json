@@ -20,7 +20,7 @@
     "build:styles": "gulp",
     "serve": "static ./build",
     "watch": "npm-run-all -p watch:*",
-    "watch:markup": "onchange './source/**/*.pug' -- npm run build:markup",
+    "watch:markup": "pug ./source --out ./build -w",
     "watch:styles": "onchange './source/**/*.styl' -- npm run build:styles"
   },
   "devDependencies": {
