@@ -4,7 +4,7 @@ Item Model
 
 ```ts
 type coordinates = [ number, number ];
-type tag = "string" | coordinates | Date;
+type tag = string | coordinates | Date;
 
 interface Item = {
   content: any;
