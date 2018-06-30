@@ -1,0 +1,27 @@
+@import "@civility/stylesheets/dist/civility.css";
+
+.sans-serif {
+  font-family: -apple-system, BlinkMacSystemFont,
+               'avenir next', avenir,
+               helvetica, 'helvetica neue',
+               ubuntu,
+               roboto, noto,
+               'segoe ui', arial,
+               sans-serif;
+}
+
+.serif {
+  font-family: georgia, times, serif;
+}
+
+.code {
+  font-family: Consolas, monaco, monospace;
+}
+
+.black {
+  color: black;
+}
+
+.fit-800 {
+  max-width: 800px;
+}

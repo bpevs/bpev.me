@@ -1,0 +1,11 @@
+{
+    "compilerOptions": {
+        "target": "ES6",
+        "module": "commonjs"
+    },
+    "include": [
+      "components/**/*",
+      "pages/**/*",
+      "declarations.d.ts"
+    ]
+}
