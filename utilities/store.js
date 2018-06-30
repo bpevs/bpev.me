@@ -26,7 +26,7 @@ async function fetchArticle(url) {
     metadata.content = content;
   } else if (metadata.contentType === "photo-album") {
     metadata.content = metadata.content.map(file => {
-      return BASE_URL + url + "/full-resolution/" + file;
+      return BASE_URL + url + "/full/" + file;
     });
   }
 

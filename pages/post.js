@@ -24,7 +24,7 @@ function Post(props) {
         <div className="center p2">
           <div className="flex flex-wrap mxn2">
             {props.content.map((url, key) => {
-              return <img src={url} key={key} className="flex fit-50" />;
+              return <img src={url} key={key} className="flex fit-50 cover" />;
             })}
           </div>
         </div>

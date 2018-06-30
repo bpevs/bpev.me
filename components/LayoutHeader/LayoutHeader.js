@@ -5,7 +5,7 @@ const style = {
 
 const Header = () => (
     <nav style={style}>
-        <a href="/" className="h1 black">
+        <a href="/" className="h1 black underline-double">
           Ben Pevsner
         </a>
     </nav>

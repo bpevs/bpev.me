@@ -22,11 +22,22 @@
   color: black;
 }
 
+.underline-double {
+  text-decoration: underline double;
+}
+
+.o5 {
+  opacity: 0.5
+}
+
 .fit-800 {
   max-width: 800px;
 }
 
 .fit-50 {
   max-width: 50%;
+}
+
+.cover {
   object-fit: cover;
 }
