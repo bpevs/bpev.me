@@ -25,3 +25,8 @@
 .fit-800 {
   max-width: 800px;
 }
+
+.fit-50 {
+  max-width: 50%;
+  object-fit: cover;
+}
