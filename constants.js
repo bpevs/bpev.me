@@ -1,1 +1,1 @@
-export const BASE_URL = "http://localhost:3000/assets";
+export const ASSET_URL = "http://localhost:3000/assets";

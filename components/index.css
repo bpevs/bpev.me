@@ -18,6 +18,15 @@
   font-family: Consolas, monaco, monospace;
 }
 
+body {
+  line-height: 1.6;
+  font-size: 110%;
+}
+
+h1 {
+  font-size: 300%;
+}
+
 .black {
   color: black;
 }
@@ -40,4 +49,36 @@
 
 .cover {
   object-fit: cover;
+}
+
+.header-title {
+  border-bottom: 1px solid gray;
+  transition: all 0.1s ease-out;
+  cursor: pointer;
+}
+
+.header-title:hover {
+  border-bottom: 3px solid black;
+}
+
+.link-post {
+  padding-left: 1.2em;
+  padding-top: 0.8em;
+  padding-bottom: 0.8em;
+  border-left: 1px solid black;
+  transition: all 0.1s ease-out;
+  cursor: pointer;
+}
+
+.link-post-title {
+  border-bottom: 1px solid gray;
+}
+
+.link-post:hover {
+  border-left: 2px solid black;
+  padding-left: 1.3em;
+}
+
+.link-post:hover .link-post-title {
+  border-bottom: 2px solid black;
 }

@@ -1,11 +1,6 @@
-const style = {
-  color: "white",
-  width: "100%",
-};
-
 const Header = () => (
-    <nav style={style}>
-        <a href="/" className="h1 black underline-double">
+    <nav className="fit">
+        <a href="/" className="h1 m1 black text-decoration-none header-title">
           Ben Pevsner
         </a>
     </nav>

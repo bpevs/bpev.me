@@ -5,7 +5,7 @@ import stylesheet from "../index.css";
 const LayoutHeader = (props) => (
   <div className="sans-serif container m2">
     <Header />
-    <section className="clearfix">
+    <section className="clearfix mx-auto">
       {props.children}
     </section>
 

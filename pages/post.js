@@ -11,7 +11,7 @@ function Post(props) {
   if (props.contentType === "article") {
     return (
       <Layout>
-        <div className="sm-col sm-col-8 md-col-9 px3 mt2 mb2 fit-800">
+        <div className="mt4 mb4 mx-auto fit-800">
           {compile(props.content).tree}
         </div>
       </Layout>
