@@ -3,17 +3,18 @@ import Link from "next/link";
 export default function LinkPost({ post }) {
   return (
     <Link
+      prefetch
       as={`/post/${post.id}`}
       href={`/post?id=${post.id}`}
-    >
-      <li key={post.id} className="p1 m1 mt3 link-post">
-          <a className="h3 link-post-title">{post.title}</a>
-        {
-          !post.series
-          ? ""
-          : <span className="block pt2 muted o5">{post.series}</span>
-        }
+    ><a className="text-decoration-none">
+      <li key={post.id} className="p1 m1 mt3 link-post" prefetch>
+            <span className="h3 link-post-title">{post.title}</span>
+          {
+            !post.series
+            ? ""
+            : <span className="black block pt2 muted o5">{post.series}</span>
+          }
       </li>
-    </Link>
+    </a></Link>
   );
 };

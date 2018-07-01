@@ -8,7 +8,9 @@ export default function Index(props) {
     <Layout>
       <ul className="list-reset">
         {
-          props.content.map((post, index) => <Link
+          props.content
+          .filter(post => post && !post.draft)
+          .map((post, index) => <Link
             key={index}
             post={post}
           />)

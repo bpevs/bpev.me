@@ -72,6 +72,11 @@ h1 {
 
 .link-post-title {
   border-bottom: 1px solid gray;
+  color: black;
+}
+
+a:visited .link-post-title {
+  color: purple;
 }
 
 .link-post:hover {
