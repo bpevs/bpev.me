@@ -7,7 +7,7 @@ export default function LinkPost({ post }) {
       as={`/post/${post.id}`}
       href={`/post?id=${post.id}`}
     ><a className="text-decoration-none">
-      <li key={post.id} className="p1 m1 mt3 link-post" prefetch>
+      <li key={post.id} className="p1 m1 mt3 link-post">
             <span className="h3 link-post-title">{post.title}</span>
           {
             !post.series
