@@ -107,14 +107,12 @@ a:visited .link-post-title {
 }
 
 .lozad {
-  backface-visibility: hidden;
-  transform: translateZ(0);
-  transition: transform 0.2s ease-in-out;
-  -moz-osx-font-smoothing: grayscale;
+  transition: opacity 0.7s ease-out;
 }
 
-.lozad:hover {
-  transform: scale(1.04);
+.lozad:hover,
+.lozad:focus {
+  opacity: 0.9;
 }
 
 @keyframes fade {
@@ -128,4 +126,8 @@ a:visited .link-post-title {
 
 .pointer {
   cursor: pointer;
+}
+
+.max-height-500 {
+  max-height: 500px;
 }

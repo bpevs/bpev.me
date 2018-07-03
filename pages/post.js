@@ -16,8 +16,7 @@ export class Post extends React.Component {
 
   componentDidMount() {
     require("intersection-observer");
-    const lozad = require("lozad");
-    lozad(".lozad", {
+    require("lozad")(".lozad", {
       threshold: 0.1,
       load(el) {
             el.src = el.dataset.src;
@@ -46,7 +45,12 @@ export class Post extends React.Component {
             <div className="flex flex-wrap mxn2">
               {props.content.map((url, key) => {
                 return (
-                  <a href={url} key={key} className="flex fit-50 overflow-hidden">
+                  <a
+                    className="flex fit-50 overflow-hidden max-height-500"
+                    href={url}
+                    key={key}
+                    target="_blank"
+                  >
                     <img
                       className="cover lozad pointer"
                       data-src={url}
