@@ -1,49 +1,35 @@
 import { find, get } from "lodash";
 import marksy from "marksy";
-import Link from "next/link";
 import { createElement } from "react";
 import Layout from "../components/Layout/Layout";
-import { fetchContent } from "../utilities/store";
+import { fetchContentById } from "../utilities/store";
 
 const compile = marksy({ createElement });
 
 export class Post extends React.Component {
   static async getInitialProps(context) {
-    const content = await fetchContent();
-    const requestedId = context.query.id;
-    return find(content, post => post.id === requestedId) || {};
-  }
-
-  componentDidMount() {
-    require("intersection-observer");
-    require("lozad")(".lozad", {
-      threshold: 0.1,
-      load(el) {
-            el.src = el.dataset.src;
-            el.onload = () => el.classList.add("fade");
-        }
-    }).observe();
+    return await fetchContentById(context.query.id);
   }
 
   render() {
-    const props = this.props;
-    const contentType = get(props, [ "content", "contentType" ]);
-    if (props.contentType === "article") {
+    const { content, contentType } = this.props;
+
+    if (contentType === "article") {
       return (
-        <Layout>
+        <Layout className="fit-800">
           <div className="mt4 mb4 mx-auto fit-800">
-            {compile(props.content).tree}
+            {compile(content).tree}
           </div>
         </Layout>
       );
     }
 
-    if (props.contentType === "photo-album") {
+    if (contentType === "gallery") {
       return (
         <Layout>
           <div className="center p2">
             <div className="flex flex-wrap mxn2">
-              {props.content.map((url, key) => {
+              {content.map((url, key) => {
                 return (
                   <a
                     className="flex fit-50 overflow-hidden max-height-500"
@@ -52,8 +38,8 @@ export class Post extends React.Component {
                     target="_blank"
                   >
                     <img
-                      className="cover lozad pointer"
-                      data-src={url}
+                      className="cover image pointer"
+                      src={url}
                     />
                   </a>
                 );
