@@ -28,9 +28,7 @@ export async function fetchContentById(id) {
     const content = await res.text();
     metadata.content = content;
   } else if (metadata.contentType === "gallery") {
-    metadata.content = metadata.content.map(file => {
-      return root + "/full/" + file;
-    });
+    metadata.root = root;
   }
 
   return metadata;

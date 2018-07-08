@@ -12,7 +12,7 @@ export default function LinkPost({ post }) {
           <span className="h3 link-post-title">{post.title}</span>
           <div>
             <span className="h5 black pt2">{post.createdDate} | {" "}</span>
-            <span>{post.tags.map(tag => <Tag>{tag}</Tag>)}</span>
+            <span>{post.tags.map((tag, index) => <Tag key={index}>{tag}</Tag>)}</span>
           </div>
       </li>
     </a></Link>

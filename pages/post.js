@@ -12,7 +12,7 @@ export class Post extends React.Component {
   }
 
   render() {
-    const { content, contentType } = this.props;
+    const { content, root, contentType } = this.props;
 
     if (contentType === "article") {
       return (
@@ -29,17 +29,17 @@ export class Post extends React.Component {
         <Layout>
           <div className="center p2">
             <div className="flex flex-wrap mxn2">
-              {content.map((url, key) => {
+              {content.map((name, key) => {
                 return (
                   <a
                     className="flex fit-50 overflow-hidden max-height-500"
-                    href={url}
+                    href={root + "/raw/" + name}
                     key={key}
                     target="_blank"
                   >
                     <img
                       className="cover image pointer"
-                      src={url}
+                      src={root + "/medium/" + name}
                     />
                   </a>
                 );
