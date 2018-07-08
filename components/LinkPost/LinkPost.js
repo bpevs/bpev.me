@@ -11,7 +11,7 @@ export default function LinkPost({ post }) {
       <li key={post.id} className="p1 m1 mt3 link-post">
           <span className="h3 link-post-title">{post.title}</span>
           <div>
-            <span className="h4 black pt2 o5">{post.createdDate} | {" "}</span>
+            <span className="h5 black pt2">{post.createdDate} | {" "}</span>
             <span>{post.tags.map(tag => <Tag>{tag}</Tag>)}</span>
           </div>
       </li>

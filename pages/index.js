@@ -24,9 +24,10 @@ export default class Index extends React.Component {
     const search = this.state.search;
     return (
       <Layout className="fit-800">
-        <div className="ml1 mt3 p1 center search-input">
+        <div className="ml1 mt3 p1 center search-input jsonly">
           <label className="p1 h4">filter</label>
           <input
+            autoFocus
             className="h4 p1"
             onChange={this.onChange.bind(this)}
             placeholder="e.g. code, coffee, music"

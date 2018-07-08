@@ -1,17 +1,17 @@
 {
-  "name": "openacappella.com",
+  "name": "benpevsner.com",
   "version": "2.0.0",
   "author": "Ben Pevsner",
   "description": "Acappella articles and stuff",
   "main": "index.js",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/ivebencrazy/openacappella.com.git"
+    "url": "git+https://github.com/ivebencrazy/benpevsner.com.git"
   },
   "scripts": {
     "build": "next build",
     "start": "node server.js",
-    "serve": "next start"
+    "serve": "NODE_ENV=production node server.js"
   },
   "license": "MIT",
   "dependencies": {
