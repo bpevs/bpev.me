@@ -33,7 +33,7 @@ export class Post extends React.Component {
                 return (
                   <a
                     className="flex fit-50 overflow-hidden max-height-500"
-                    href={root + "/raw/" + name}
+                    href={root + "/large/" + name}
                     key={key}
                     target="_blank"
                   >
