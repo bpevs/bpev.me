@@ -1,0 +1,146 @@
+@import "@civility/stylesheets/dist/civility.css";
+
+.sans-serif {
+  font-family: -apple-system, BlinkMacSystemFont,
+               'avenir next', avenir,
+               helvetica, 'helvetica neue',
+               ubuntu,
+               roboto, noto,
+               'segoe ui', arial,
+               sans-serif;
+}
+
+.serif {
+  font-family: georgia, times, serif;
+}
+
+.code {
+  font-family: Consolas, monaco, monospace;
+}
+
+body {
+  line-height: 1.6;
+  font-size: 110%;
+  background-color: #f4f4f4;
+}
+
+h1 {
+  font-size: 300%;
+}
+
+.black {
+  color: black;
+}
+
+.underline-double {
+  text-decoration: underline double;
+}
+
+.o5 {
+  opacity: 0.5
+}
+
+.fit-800 {
+  max-width: 800px;
+}
+
+.fit-50 {
+  max-width: 50%;
+}
+
+@media only screen and (min-width: 1500px) {
+  .fit-50 {
+    max-width: 33.3%;
+  }
+}
+
+@media only screen and (max-width: 700px) {
+  .fit-50 {
+    margin: 1px;
+    max-width: 100%;
+  }
+}
+
+.cover {
+  object-fit: cover;
+  object-position: 50% 50%;
+}
+
+.header-title {
+  border-bottom: 1px solid gray;
+  transition: all 0.1s ease-out;
+  cursor: pointer;
+}
+
+.header-title:hover {
+  border-bottom: 3px solid black;
+}
+
+.link-post {
+  padding-left: 1.2em;
+  padding-top: 0.8em;
+  padding-bottom: 1.5em;
+  border: 1px solid rgba(0,0,0,0);
+  border-left: 1px solid black;
+  transition: all 0.2s ease-out;
+  cursor: pointer;
+}
+
+.link-post-title {
+  color: rgba(0,40,176,0.6);
+}
+
+a:visited .link-post-title {
+  color: purple;
+}
+
+.link-post:hover {
+  background-color: rgba(228, 236, 238, 0.2);
+  border: 1px solid rgba(0,0,0,0.1);
+  border-left: 3px solid rgba(0,100,256,0.4);
+  padding-left: 1.3em;
+}
+
+.search-input input {
+  border: 1px solid rgba(0,0,0,0.1);
+  vertical-align: middle;
+}
+
+.search-input label {
+  background-color: rgba(0,0,0,0.02);
+  border-left: 1px solid rgba(0,0,0,0.1);
+  border-bottom: 1px solid rgba(0,0,0,0.1);
+  border-top: 1px solid rgba(0,0,0,0.1);
+  color: rgba(0,0,0,0.9);
+  vertical-align: middle;
+}
+
+.search-input input:focus {
+  border: 1px solid rgba(0,100,256,0.4);
+}
+
+.max-height-500 {
+  max-height: 500px;
+}
+
+.max-height-800 {
+  max-height: 800px;
+}
+
+.tag {
+  padding: 2px;
+  text-transform: lowercase;
+  color: black;
+  background-color: rgba(0,0,0,0.05);
+  border: 1px solid rgba(0,0,0,0.08);
+  opacity: 0.7;
+}
+
+.flex {
+  flex-grow: 3;
+}
+
+.image {
+  height: 100%;
+  width: 100%;
+}
