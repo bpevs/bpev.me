@@ -2,17 +2,18 @@
   "name": "benpevsner.com",
   "version": "2.0.0",
   "author": "Ben Pevsner",
-  "description": "Acappella articles and stuff",
-  "main": "index.js",
+  "description": "Personal Website",
+  "main": "pages/index.js",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/ivebencrazy/benpevsner.com.git"
   },
   "scripts": {
     "build": "next build",
-    "start": "npm run build && NODE_ENV=production node server.js -p $PORT",
+    "build:blog": "blog-o-matic --in=./content --out=./public/blog",
+    "dev": "node server.js -p $PORT",
     "heroku-postbuild": "next build",
-    "dev": "node server.js -p $PORT"
+    "start": "npm run build && NODE_ENV=production node server.js -p $PORT"
   },
   "license": "MIT",
   "dependencies": {
@@ -30,6 +31,7 @@
     "@types/lodash": "^4.14.74",
     "@types/react": "^16.0.23",
     "autoprefixer": "^7.2.5",
+    "blog-o-matic": "^3.0.0",
     "postcss-easy-import": "^3.0.0",
     "postcss-loader": "^2.1.0",
     "raw-loader": "^0.5.1"
