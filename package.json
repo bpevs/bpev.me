@@ -3,19 +3,16 @@
   "version": "2.0.0",
   "author": "Ben Pevsner",
   "description": "Personal Website",
+  "license": "MIT",
   "main": "pages/index.js",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/ivebencrazy/benpevsner.com.git"
-  },
+  "repository": "git+https://github.com/ivebencrazy/benpevsner.com.git",
   "scripts": {
     "build": "next build",
-    "build:blog": "blog-o-matic --in=./content --out=./public/blog",
-    "dev": "node server.js -p $PORT",
+    "build:blog": "blog-o-matic --in=./blog-content --out=./static/blog",
     "heroku-postbuild": "next build",
-    "start": "npm run build && NODE_ENV=production node server.js -p $PORT"
+    "start": "npm run build && NODE_ENV=production node server.js -p $PORT",
+    "start:dev": "node server.js -p $PORT"
   },
-  "license": "MIT",
   "dependencies": {
     "express": "^4.16.2",
     "isomorphic-unfetch": "^2.0.0",
@@ -28,12 +25,12 @@
   "devDependencies": {
     "@civility/stylesheets": "0.0.6",
     "@types/express": "^4.16.0",
-    "@types/lodash": "^4.14.74",
+    "@types/lodash": "^4.14.111",
     "@types/react": "^16.0.23",
     "autoprefixer": "^7.2.5",
     "blog-o-matic": "^3.0.0",
     "postcss-easy-import": "^3.0.0",
-    "postcss-loader": "^2.1.0",
+    "postcss-loader": "^2.1.6",
     "raw-loader": "^0.5.1"
   }
 }
