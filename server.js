@@ -43,7 +43,7 @@ if (!dev && cluster.isMaster) {
         });
       }
 
-      server.use("/assets", express.static("assets"));
+      server.use("/static", express.static("static"));
 
       server.get("/post/:id", (req, res) => {
         const actualPage = "/post";

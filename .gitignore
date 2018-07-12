@@ -1,10 +1,8 @@
 # Ignore Build Files
-/assets
 /coverage
-/content
-/public
-/dist
+/blog-content
 /node_modules
+/static/blog
 /.next
 
 # Ignore system-created files

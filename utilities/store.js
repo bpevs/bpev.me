@@ -5,7 +5,7 @@ let store = null;
 
 export async function fetchMeta() {
   if (!store) {
-    const response = await fetch(ASSET_URL + "/content.json");
+    const response = await fetch(ASSET_URL + "/blog/content.json");
     store = Object.assign({}, store, await response.json());
   }
 
@@ -19,8 +19,8 @@ export async function fetchContentById(id) {
   if (!existing) return null;
   if (existing.content) return existing;
 
-  const root = ASSET_URL + existing.contentRoot;
-  const res = await fetch(root + "/metadata.json");
+  const root = ASSET_URL + "/blog" + existing.contentRoot;
+  const res = await fetch(root);
   const metadata = await res.json();
 
   if (metadata.contentType === "article") {
@@ -28,7 +28,8 @@ export async function fetchContentById(id) {
     const content = await res.text();
     metadata.content = content;
   } else if (metadata.contentType === "gallery") {
-    metadata.root = root;
+    const rootArr = root.split("/");
+    metadata.root = rootArr.slice(0, rootArr.length - 1).join("/");
   }
 
   return metadata;
