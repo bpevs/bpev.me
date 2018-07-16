@@ -1,10 +1,15 @@
-import { find, get } from "lodash";
 import marksy from "marksy";
 import { createElement } from "react";
 import Layout from "../components/Layout/Layout";
+import Image from "../components/MediaImage/Image";
 import { fetchContentById } from "../utilities/store";
 
-const compile = marksy({ createElement });
+const compile = marksy({
+  createElement,
+  elements: {
+    img: Image,
+  }
+});
 
 export class Post extends React.Component {
   static async getInitialProps(context) {
@@ -12,13 +17,13 @@ export class Post extends React.Component {
   }
 
   render() {
-    const { content, root, contentType } = this.props;
+    const { content, contentType, id, root } = this.props;
 
     if (contentType === "article") {
       return (
         <Layout className="fit-800">
           <div className="mt4 mb4 mx-auto fit-800">
-            {compile(content).tree}
+            {compile(content, null, { type: "blog", id }).tree}
           </div>
         </Layout>
       );

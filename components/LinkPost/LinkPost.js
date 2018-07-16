@@ -4,7 +4,6 @@ import Tag from "../Tag/Tag";
 export default function LinkPost({ post }) {
   return (
     <Link
-      prefetch
       as={`/post/${post.id}`}
       href={`/post?id=${post.id}`}
     ><a className="text-decoration-none">
