@@ -65,5 +65,5 @@ function matchesSearch(searchString, post) {
 }
 
 function sortByDate(a, b) {
-  return new Date(b.createdDate) - new Date(a.createdDate);
+  return new Date(b.updatedDate) - new Date(a.updatedDate);
 }
