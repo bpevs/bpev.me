@@ -9,7 +9,7 @@ export function getStore() {
 
 export async function fetchMeta() {
   if (!store) {
-    const response = await fetch(ASSET_URL + "/blog/content.json");
+    const response = await fetch(ASSET_URL + "/content.json");
     store = Object.assign({}, store, await response.json());
   }
 
@@ -23,7 +23,7 @@ export async function fetchContentById(id) {
   if (!existing) return null;
   if (existing.content) return existing;
 
-  const root = ASSET_URL + "/blog" + existing.contentRoot;
+  const root = ASSET_URL + existing.contentRoot;
   const res = await fetch(root + "/metadata.json");
   const metadata = await res.json();
 

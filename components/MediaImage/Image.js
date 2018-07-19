@@ -1,4 +1,5 @@
 import { getStore } from "../../utilities/store";
+import { ASSET_URL } from "../../constants";
 
 export default function Image(props) {
   if (
@@ -14,11 +15,12 @@ export default function Image(props) {
   const store = getStore();
   if (store) {
     const article = getStore().metadata.find(({ id }) => id === props.context.id);
-    src = article.contentRoot.split("/");
-    src.pop();
-    src.push(props.src);
-    src = src.join("/");
-    src = "/static/blog" + src.replace("./", "")
+    if (article && article.contentRoot) {
+      src = article.contentRoot + props.src
+        .replace("./", "/")
+        .replace("images/", "medium/")
+      src = ASSET_URL + src
+    }
   }
 
   return <img
