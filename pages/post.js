@@ -1,13 +1,13 @@
 import marksy from "marksy";
 import { createElement } from "react";
 import Layout from "../components/Layout/Layout";
-import Image from "../components/MediaImage/Image";
+import Media from "../components/Media/Media";
 import { fetchContentById } from "../utilities/store";
 
 const compile = marksy({
   createElement,
   elements: {
-    img: Image,
+    img: Media,
   }
 });
 
