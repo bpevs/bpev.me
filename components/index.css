@@ -103,6 +103,7 @@ a:visited .link-post-title {
 
 .search-input input {
   border: 1px solid rgba(0,0,0,0.1);
+  border-radius: 0;
   vertical-align: middle;
 }
 
@@ -143,4 +144,12 @@ a:visited .link-post-title {
 .image {
   height: 100%;
   width: 100%;
+}
+
+.article p,
+.article img,
+.article iframe,
+.article video {
+  margin-top: 2em;
+  margin-bottom: 2em;
 }

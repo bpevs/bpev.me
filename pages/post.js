@@ -22,7 +22,7 @@ export class Post extends React.Component {
     if (contentType === "article") {
       return (
         <Layout className="fit-800">
-          <div className="mt4 mb4 mx-auto fit-800">
+          <div className="mt4 mb4 mx-auto fit-800 article">
             {compile(content, null, { type: "blog", id }).tree}
           </div>
         </Layout>
