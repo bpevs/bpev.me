@@ -7,7 +7,6 @@ const VIDEO = "video";
 
 
 export default function (props) {
-  console.log(props.src, getType(props.src))
   switch(getType(props.src)) {
     case VIDEO:
       return <Video {...props} />;
