@@ -64,6 +64,8 @@ function matchesSearch(searchString, post) {
   return tags && tags.some(tag => ~tag.toLowerCase().indexOf(search));
 }
 
-function sortByDate(a, b) {
-  return new Date(b.updatedDate) - new Date(a.updatedDate);
+function sortByDate(a = "", b = "") {
+  const [ aYear, aMonth, aDay ] = a.createdDate.split("-");
+  const [ bYear, bMonth, bDay ] = b.createdDate.split("-");
+  return new Date(bYear, bMonth, bDay) - new Date(aYear, aMonth, aDay);
 }
