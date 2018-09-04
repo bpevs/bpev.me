@@ -1,4 +1,5 @@
 @import "@civility/stylesheets/dist/civility.css";
+@import "highlight.js/styles/ocean.css";
 
 .sans-serif {
   font-family: -apple-system, BlinkMacSystemFont,
@@ -152,4 +153,31 @@ a:visited .link-post-title {
 .article video {
   margin-top: 2em;
   margin-bottom: 2em;
+}
+
+.article pre {
+  background-color: rgb(44, 48, 58);
+  border-radius: 6px;
+  color: rgba(256, 256, 256, 0.7);
+  line-height: 1.6;
+  overflow: scroll;
+  padding: 2em;
+}
+
+.article code {
+  background-color: rgb(44, 48, 58);
+  border-radius: 3px;
+  color: rgba(256, 256, 256, 0.7);
+  padding: 0.2em 0.4em 0.2em 0.4em;
+}
+
+table {
+  border-collapse: collapse;
+  padding: 1em;
+  vertical-align: middle;
+}
+
+th, td {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+  padding: 1em;
 }
