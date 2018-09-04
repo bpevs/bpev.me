@@ -3,12 +3,20 @@ import { createElement } from "react";
 import Layout from "../components/Layout/Layout";
 import Media from "../components/Media/Media";
 import { fetchContentById } from "../utilities/store";
+import hljs from "highlight.js/lib/highlight";
+import hljsJavascript from "highlight.js/lib/languages/javascript";
+
+
+hljs.registerLanguage("javascript", hljsJavascript);
 
 const compile = marksy({
   createElement,
   elements: {
     img: Media,
-  }
+  },
+  highlight(language, code) {
+    return hljs.highlight(language, code).value
+  },
 });
 
 export class Post extends React.Component {
