@@ -1,17 +1,14 @@
 import Head from "next/head";
 import Header from "../LayoutHeader/LayoutHeader";
 import stylesheet from "../index.css";
-import NProgress from "nprogress"
-import Router from "next/router"
-import Link from "next/link";
+import NProgress from "nprogress";
+import Router from "next/router";
 
-const LayoutHeader = (props) => {
+export default (props) => {
   if (Router.router) {
-    Router.router.events.on("routeChangeStart", (url) => {
-      NProgress.start()
-    })
-    Router.router.events.on("routeChangeComplete", () => NProgress.done())
-    Router.router.events.on("routeChangeError", () => NProgress.done())
+    Router.router.events.on("routeChangeStart", () => NProgress.start());
+    Router.router.events.on("routeChangeComplete", () => NProgress.done());
+    Router.router.events.on("routeChangeError", () => NProgress.done());
   }
 
   return (
@@ -31,6 +28,4 @@ const LayoutHeader = (props) => {
       </div>
     </div>
   );
-}
-
-export default LayoutHeader;
+};
