@@ -12,7 +12,7 @@ export default class Index extends React.Component {
   }
 
   static async getInitialProps() {
-  return { content: await fetchMeta() };
+    return { content: await fetchMeta() };
   }
 
   onChange(evt) {
