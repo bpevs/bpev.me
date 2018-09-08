@@ -1,9 +1,11 @@
-const Header = () => (
+import Link from "next/link";
+
+export default () => (
     <nav className="fit">
-        <a href="/" className="h1 m1 black text-decoration-none header-title">
-          Ben Pevsner
-        </a>
+        <Link as={`/`} href={`/`} prefetch>
+          <a className="h1 m1 black text-decoration-none header-title">
+            Ben Pevsner
+          </a>
+        </Link>
     </nav>
 );
-
-export default Header;

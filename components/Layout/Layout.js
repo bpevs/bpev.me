@@ -6,7 +6,11 @@ import Router from "next/router";
 
 export default (props) => {
   if (Router.router) {
-    Router.router.events.on("routeChangeStart", () => NProgress.start());
+    Router.router.events.on("routeChangeStart", route => {
+      if (Router.router.asPath.split("?")[0] !== route.split("?")[0]) {
+        NProgress.start();
+      }
+    });
     Router.router.events.on("routeChangeComplete", () => NProgress.done());
     Router.router.events.on("routeChangeError", () => NProgress.done());
   }

@@ -6,7 +6,8 @@ export default function LinkPost({ post }) {
     <Link
       as={`/post/${post.id}`}
       href={`/post?id=${post.id}`}
-    ><a className="text-decoration-none">
+      prefetch
+    ><a className="text-decoration-none" onClick={() => window.scrollTo(0, 0)}>
       <li key={post.id} className="p1 m1 mt3 link-post">
           <span className="h3 link-post-title">{post.title}</span>
           <div>

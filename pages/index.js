@@ -1,5 +1,7 @@
+import Router from "next/router";
 import Layout from "../components/Layout/Layout";
 import Link from "../components/LinkPost/LinkPost";
+import Tag from "../components/Tag/Tag";
 import { fetchMeta } from "../utilities/store";
 
 
@@ -11,31 +13,44 @@ export default class Index extends React.Component {
     super(props);
   }
 
-  static async getInitialProps() {
-    return { content: await fetchMeta() };
+  static async getInitialProps({ query }) {
+    return {
+      content: await fetchMeta(),
+      search: query.filter,
+    };
   }
 
   onChange(evt) {
     this.setState({ search: evt.target.value });
+    const href = `/?filter=${evt.target.value}`;
+    const as = href
+    Router.replace(href, as, { shallow: true });
   }
 
   render() {
     const { content } = this.props;
-    const search = this.state.search;
+    const search = this.state.search == null ? this.props.search : this.state.search;
+    const tags = [ "code", "music", "photos", "coffee" ].map(name => {
+      const onClick = this.onChange.bind(this, { target: { value: name }});
+      return <Tag key={name} children={<a children={name} onClick={onClick} />} />;
+    });
+
     return (
       <Layout className="fit-800">
         <div className="ml1 mt3 p1 center search-input jsonly">
           <label className="p1 h4">filter</label>
           <input
-            autoFocus
-            className="h4 p1"
+            autoComplete="true"
+            autoFocus="true"
+            className="col-5 h4 p1"
             onChange={this.onChange.bind(this)}
             placeholder="e.g. code, coffee, music"
             role="search"
             title="filter blog posts"
             type="search"
-            value={this.state.value}
+            value={search || ""}
           />
+          <div>{tags}</div>
         </div>
         <ul className="list-reset">
           {
