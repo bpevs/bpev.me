@@ -199,6 +199,40 @@ th, td {
   padding: 1em;
 }
 
+blockquote {
+  font-style: italic;
+  font-weight: bold;
+  text-align: center;
+  margin: 1em auto 1em auto;
+  padding: 1.5em;
+  position: relative;
+  max-width: 400px;
+}
+
+blockquote:before {
+  content: open-quote;
+  font-family: 'Times New Roman', Times, serif;
+  font-size: 4em;
+  margin-left: -0.6em;
+  margin-top: -0.9em;
+  position: absolute;
+}
+
+blockquote:after {
+  bottom: 0;
+  content: close-quote;
+  font-family: 'Times New Roman', Times, serif;
+  font-size: 4em;
+  margin-bottom: -0.9em;
+  margin-right: -0em;
+  position: absolute;
+  right: 0;
+}
+
+blockquote p {
+  display: inline;
+}
+
 /* Make clicks pass-through */
 #nprogress {
   pointer-events: none;
