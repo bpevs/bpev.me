@@ -25,7 +25,7 @@ export default (props) => {
       </Head>
 
       <div className={"header sans-serif container m2 block mx-auto " + (props.className || "")}>
-        <Header />
+        { props.header === false ? "" : <Header align={props.header} /> }
         <section className="clearfix mx-auto">
           {props.children}
         </section>
