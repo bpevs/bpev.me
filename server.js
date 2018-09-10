@@ -1,7 +1,5 @@
 const express = require("express");
 const next = require("next");
-const path = require("path");
-const url = require("url");
 const cluster = require("cluster");
 const numCPUs = require("os").cpus().length;
 
@@ -50,6 +48,15 @@ if (!dev && cluster.isMaster) {
         const queryParams = { id: req.params.id };
         nextApp.render(req, res, actualPage, queryParams);
       });
+
+      server.get("/media/:post/:id", (req, res) => {
+        const actualPage = "/media";
+        const queryParams = {
+          id: req.params.id,
+          post: req.params.post,
+        };
+        nextApp.render(req, res, actualPage, queryParams);
+      })
 
       server.get("*", (req, res) => {
         return nextHandler(req, res);

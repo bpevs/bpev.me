@@ -1,10 +1,10 @@
 import marksy from "marksy";
 import { intersection, sampleSize } from "lodash";
+import Link from "next/link";
 import { createElement } from "react";
 import Layout from "../components/Layout/Layout";
 import LinkPost from "../components/LinkPost/LinkPost";
 import Media from "../components/Media/Media";
-import Tag from "../components/Tag/Tag";
 import { fetchContentById, fetchMeta } from "../utilities/store";
 import hljs from "highlight.js/lib/highlight";
 import hljsJavascript from "highlight.js/lib/languages/javascript";
@@ -65,24 +65,28 @@ export class Post extends React.Component {
             <div className="flex flex-wrap mxn2">
               {content.map((name, key) => {
                 return (
-                  <a
-                    className="flex fit-50 overflow-hidden height-500"
-                    href={root + "/large/" + name}
-                    key={key}
-                    target="_blank"
-                  >
-                    <span className="image-wrapper">
-                      <img
-                        width="600"
-                        height="600"
-                        className="cover image pointer"
-                        src={root + "/medium/" + name}
-                      />
-                      <span className="spinner-wrapper">
-                        <div className="spinner" />
+                  <Link
+                    as={`/media/${id}/${name}`}
+                    href={`/media?post=${id}&id=${name}`}>
+                    <a
+                      className="flex fit-50 overflow-hidden height-500"
+                      href={root + "/large/" + name}
+                      key={key}
+                      target="_blank"
+                    >
+                      <span className="image-wrapper">
+                        <img
+                          width="600"
+                          height="600"
+                          className="cover image pointer"
+                          src={root + "/medium/" + name}
+                        />
+                        <span className="spinkit-wrapper">
+                          <div className="spinkit" />
+                        </span>
                       </span>
-                    </span>
-                  </a>
+                    </a>
+                  </Link>
                 );
               })}
             </div>

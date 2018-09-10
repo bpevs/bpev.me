@@ -25,7 +25,7 @@ export default function Image(props) {
 
   return <img
     {...props}
-    className="col-12"
+    className={ "col-12 " + (props.className || "") }
     src={src}
   />;
 }
