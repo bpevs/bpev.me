@@ -33,7 +33,7 @@ export default class MediaPage extends React.Component {
 
       if (nextIndex >= 0 && nextIndex < post.content.length) {
         const id = post.content[nextIndex];
-        Router.push({
+        Router.replace({
           pathname: "/media",
           query: { post: postId, id },
         }, `/media/${postId}/${id}`);
@@ -48,10 +48,10 @@ export default class MediaPage extends React.Component {
   render() {
     const { id, post } = this.props;
     const index = post.content.indexOf(id);
-    const indexToPreload = [ 1, 2, -1, -2 ];
+    const preloadRange = [ 1, 2, 3, -1, -2, -3 ];
 
     if (Router && Router.router) {
-      indexToPreload.forEach(diff => {
+      preloadRange.forEach(diff => {
         const nextUrl = post.content[index + diff];
         if (nextUrl) {
           new Image().src = post.root + "/large/" + nextUrl
