@@ -2,13 +2,27 @@
 @import "highlight.js/styles/ocean.css";
 
 .sans-serif {
-  font-family: -apple-system, BlinkMacSystemFont,
+  font-family: BlinkMacSystemFont,
                'avenir next', avenir,
                helvetica, 'helvetica neue',
                ubuntu,
                roboto, noto,
                'segoe ui', arial,
                sans-serif;
+}
+
+.footer {
+  background-color: rgb(44, 48, 58);
+  text-align: center;
+  width: 100%;
+}
+
+.footer .row a {
+  transition: 0.15s ease-in-out;
+}
+
+.footer .row a:hover {
+  opacity: 0.8;
 }
 
 .serif {
@@ -20,9 +34,11 @@
 }
 
 body {
-  line-height: 1.6;
-  font-size: 110%;
   background-color: #f4f4f4;
+  font-size: 110%;
+  line-height: 1.6;
+  margin: 0;
+  padding: 0;
 }
 
 h1 {
@@ -31,6 +47,10 @@ h1 {
 
 .black {
   color: black;
+}
+
+.white {
+  color: white;
 }
 
 .underline-double {
@@ -202,6 +222,11 @@ a:visited .link-post-title {
   margin-bottom: 2em;
 }
 
+.article p:first-of-type, blockquote {
+  font-size: 1.5em;
+  color: rgb(44, 48, 58);
+}
+
 .article pre {
   background-color: rgb(44, 48, 58);
   border-radius: 6px;
@@ -241,7 +266,7 @@ blockquote {
 
 blockquote:before {
   content: open-quote;
-  font-family: 'Times New Roman', Times, serif;
+  font-family: georgia, times, serif;
   font-size: 4em;
   margin-left: -0.6em;
   margin-top: -0.9em;
@@ -251,7 +276,7 @@ blockquote:before {
 blockquote:after {
   bottom: 0;
   content: close-quote;
-  font-family: 'Times New Roman', Times, serif;
+  font-family: georgia, times, serif;
   font-size: 4em;
   margin-bottom: -0.9em;
   margin-right: -0em;
