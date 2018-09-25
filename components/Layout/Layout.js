@@ -32,12 +32,13 @@ export default (props) => {
         </noscript>
       </Head>
 
-      <div className={"header sans-serif container m2 block mx-auto " + (props.className || "")}>
+      <div className={"content sans-serif container m2 block mx-auto " + (props.className || "")}>
         { props.header === false ? "" : <Header align={props.header} /> }
         <section className="clearfix mx-auto">
           {props.children}
         </section>
       </div>
+
       <Footer />
     </div>
   );

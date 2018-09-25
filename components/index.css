@@ -33,6 +33,10 @@
   font-family: Consolas, monaco, monospace;
 }
 
+html, body, #__next, #__next > div {
+  height: 100%;
+}
+
 body {
   background-color: #f4f4f4;
   font-size: 110%;
@@ -102,6 +106,10 @@ h1 {
 .scale-down {
   object-fit: scale-down;
   object-position: 50% 50%;
+}
+
+.content {
+  min-height: 100%;
 }
 
 .header-title {
