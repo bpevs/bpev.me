@@ -11,8 +11,8 @@ export default class MediaPage extends React.Component {
 
   static async getInitialProps(context) {
     return {
-      id: context.query.id,
-      post: await fetchContentById(context.query.post),
+      id: context.query.mediaId,
+      post: await fetchContentById(context.query.postId),
     };
   }
 

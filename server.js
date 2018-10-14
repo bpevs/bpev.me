@@ -43,19 +43,16 @@ if (!dev && cluster.isMaster) {
 
       server.use("/static", express.static("static"));
 
-      server.get("/post/:id", (req, res) => {
-        const actualPage = "/post";
-        const queryParams = { id: req.params.id };
-        nextApp.render(req, res, actualPage, queryParams);
+      server.get("/:postId", (req, res) => {
+        nextApp.render(req, res, "/post", req.params);
       });
 
-      server.get("/media/:post/:id", (req, res) => {
-        const actualPage = "/media";
-        const queryParams = {
-          id: req.params.id,
-          post: req.params.post,
-        };
-        nextApp.render(req, res, actualPage, queryParams);
+      server.get("/post/:postId", (req, res) => {
+        nextApp.render(req, res, "/post", req.params);
+      });
+
+      server.get("/:postId/:mediaId", (req, res) => {
+        nextApp.render(req, res, "/media", req.params);
       })
 
       server.get("*", (req, res) => {
