@@ -26,11 +26,22 @@ export class Post extends React.Component {
   static async getInitialProps(context) {
     return {
       meta: await fetchMeta(),
-      post: await fetchContentById(context.query.id)
+      post: await fetchContentById(context.query.postId)
     };
   }
 
   render() {
+    if (!this.props.post) {
+      return (
+        <Layout className="fit-800">
+          <h1 className="center pt4 mt4">{"There's nothing here!"}</h1>
+          <p className="center">
+            Try looking on the <Link href="/" prefetch><a>homepage</a></Link>
+          </p>
+        </Layout>
+      )
+    }
+
     const { content, contentType, id, root } = this.props.post;
     const similarPostComponents = sampleSize(this.props.meta.metadata
       .filter(post => {
@@ -66,13 +77,11 @@ export class Post extends React.Component {
               {content.map((name, key) => {
                 return (
                   <Link
-                    as={`/media/${id}/${name}`}
-                    href={`/media?post=${id}&id=${name}`}>
+                    as={`/${id}/${name}`}
+                    key={key}
+                    href={`/media?postId=${id}&mediaId=${name}`}>
                     <a
                       className="flex fit-50 overflow-hidden height-500"
-                      href={root + "/large/" + name}
-                      key={key}
-                      target="_blank"
                     >
                       <span className="image-wrapper">
                         <img

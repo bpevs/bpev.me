@@ -4,8 +4,8 @@ import Tag from "../Tag/Tag";
 export default function LinkPost({ post }) {
   return (
     <Link
-      as={`/post/${post.id}`}
-      href={`/post?id=${post.id}`}
+      as={`/${post.id}`}
+      href={`/post?postId=${post.id}`}
       prefetch
     ><a className="text-decoration-none" onClick={() => window.scrollTo(0, 0)}>
       <li key={post.id} className="p1 m1 mt3 link-post">

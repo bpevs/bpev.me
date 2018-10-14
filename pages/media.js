@@ -11,15 +11,15 @@ export default class MediaPage extends React.Component {
 
   static async getInitialProps(context) {
     return {
-      id: context.query.id,
-      post: await fetchContentById(context.query.post),
+      id: context.query.mediaId,
+      post: await fetchContentById(context.query.postId),
     };
   }
 
   componentDidMount() {
     this.listener = document.addEventListener("keypress", evt => {
       const { id, post } = this.props;
-      const postId = Router.router.query.post;
+      const postId = Router.router.query.postId;
       const index = post.content.indexOf(id);
 
       let nextIndex = -1;
@@ -28,15 +28,15 @@ export default class MediaPage extends React.Component {
       } else if (evt.key === "ArrowLeft") {
         nextIndex = index - 1;
       } else if (evt.key === "ArrowUp") {
-        Router.push({ pathname: "/post", query: { id: postId } }, `/post/${postId}`);
+        Router.push({ pathname: "/post", query: { postId: postId } }, `/${postId}`);
       }
 
       if (nextIndex >= 0 && nextIndex < post.content.length) {
         const id = post.content[nextIndex];
         Router.replace({
           pathname: "/media",
-          query: { post: postId, id },
-        }, `/media/${postId}/${id}`);
+          query: { postId: postId, mediaId: id },
+        }, `/${postId}/${id}`);
       }
     });
   }
