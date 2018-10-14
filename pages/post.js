@@ -34,7 +34,7 @@ export class Post extends React.Component {
     if (!this.props.post) {
       return (
         <Layout className="fit-800">
-          <h1 className="center pt4 mt4">There's nothing here!</h1>
+          <h1 className="center pt4 mt4">{"There's nothing here!"}</h1>
           <p className="center">
             Try looking on the <Link href="/" prefetch><a>homepage</a></Link>
           </p>
