@@ -77,13 +77,11 @@ export class Post extends React.Component {
               {content.map((name, key) => {
                 return (
                   <Link
-                    as={`/media/${id}/${name}`}
-                    href={`/media?post=${id}&id=${name}`}>
+                    as={`/${id}/${name}`}
+                    key={key}
+                    href={`/media?postId=${id}&mediaId=${name}`}>
                     <a
                       className="flex fit-50 overflow-hidden height-500"
-                      href={root + "/large/" + name}
-                      key={key}
-                      target="_blank"
                     >
                       <span className="image-wrapper">
                         <img
