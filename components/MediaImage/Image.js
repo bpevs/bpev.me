@@ -1,5 +1,6 @@
-import { getStore } from "../../utilities/store";
-import { ASSET_URL } from "../../constants";
+import React from "react"
+import { ASSET_URL } from "../../constants"
+import { getStore } from "../../utilities/store"
 
 export default function Image(props) {
   if (
@@ -8,13 +9,13 @@ export default function Image(props) {
     !props.context.id ||
     (props.context.type !== "blog")
   ) {
-    return <img {...props} />;
+    return <img {...props} />
   }
 
-  let src = props.src;
-  const store = getStore();
+  let src = props.src
+  const store = getStore()
   if (store) {
-    const article = getStore().metadata.find(({ id }) => id === props.context.id);
+    const article = getStore().metadata.find(({ id }) => id === props.context.id)
     if (article && article.contentRoot) {
       src = article.contentRoot + props.src
         .replace("./", "/")
@@ -27,5 +28,5 @@ export default function Image(props) {
     {...props}
     className={ "col-12 " + (props.className || "") }
     src={src}
-  />;
+  />
 }

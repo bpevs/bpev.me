@@ -1,5 +1,6 @@
-import Link from "next/link";
-import Tag from "../Tag/Tag";
+import Link from "next/link"
+import React from "react"
+import Tag from "../Tag/Tag"
 
 export default function LinkPost({ post }) {
   return (
@@ -16,5 +17,5 @@ export default function LinkPost({ post }) {
           </div>
       </li>
     </a></Link>
-  );
-};
+  )
+}
