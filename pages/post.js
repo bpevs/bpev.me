@@ -36,18 +36,18 @@ export class Post extends React.Component {
         <Layout className="fit-800">
           <h1 className="center pt4 mt4">{"There's nothing here!"}</h1>
           <p className="center">
-            Try looking on the <Link href="/" prefetch><a>homepage</a></Link>
+            Try looking on the <Link href="/"><a>homepage</a></Link>
           </p>
         </Layout>
       )
     }
 
     const { content, contentType, id, root } = this.props.post;
-    const similarPostComponents = sampleSize(this.props.meta.metadata
+    const similarPostComponents = this.props.meta.metadata
       .filter(post => {
         return post.id !== this.props.post.id && !post.draft &&
           intersection(this.props.post.tags, post.tags).length;
-      }), 3)
+      })
       .map(post => <LinkPost key={post.id} post={post} />)
       .slice(0, 3);
 
@@ -80,9 +80,7 @@ export class Post extends React.Component {
                     as={`/${id}/${name}`}
                     key={key}
                     href={`/media?postId=${id}&mediaId=${name}`}>
-                    <a
-                      className="flex fit-50 overflow-hidden height-500"
-                    >
+                    <a className="flex fit-50 overflow-hidden height-500">
                       <span className="image-wrapper">
                         <img
                           width="600"
