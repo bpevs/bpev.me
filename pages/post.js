@@ -1,6 +1,6 @@
 import hljs from "highlight.js/lib/highlight"
 import hljsJavascript from "highlight.js/lib/languages/javascript"
-import { intersection, sampleSize } from "lodash"
+import { intersection } from "lodash"
 import marksy from "marksy"
 import Link from "next/link"
 import React, { createElement } from "react"
@@ -17,6 +17,7 @@ const compile = marksy({
   elements: {
     img: Media,
   },
+
   highlight(language, code) {
     return hljs.highlight(language, code).value
   },
@@ -108,9 +109,3 @@ export class Post extends React.Component {
 }
 
 export default Post
-
-function sortByDate(a = "", b = "") {
-  const [ aYear, aMonth, aDay ] = a.createdDate.split("-")
-  const [ bYear, bMonth, bDay ] = b.createdDate.split("-")
-  return new Date(bYear, bMonth, bDay) - new Date(aYear, aMonth, aDay)
-}

@@ -1,3 +1,4 @@
+import { get } from "lodash"
 import Router from "next/router"
 import React from "react"
 import Layout from "../components/Layout/Layout"
@@ -6,53 +7,45 @@ import { fetchContentById } from "../utilities/store"
 
 
 export default class MediaPage extends React.Component {
+
+  // Index range to preload images from
+  preloadRange = [ 1, 2, 3, -1, -2, -3 ]
+
+  /**
+   * Setup page-turn listener
+   * @param {object} props
+   */
   constructor(props) {
     super(props)
+    this._listenForPageTurn = this._listenForPageTurn.bind(this)
   }
 
+  /**
+   *
+   * @param {object} context
+   */
   static async getInitialProps(context) {
-    return {
-      id: context.query.mediaId,
-      post: await fetchContentById(context.query.postId),
-    }
+    const { mediaId, postId } = get(context, "query", {})
+    const post = await fetchContentById(postId)
+    return { mediaId, post }
   }
 
   componentDidMount() {
-    this.listener = document.addEventListener("keypress", evt => {
-      const { id, post } = this.props
-      const postId = Router.router.query.postId
-      const index = post.content.indexOf(id)
-
-      let nextIndex = -1
-      if (evt.key === "ArrowRight") {
-        nextIndex = index + 1
-      } else if (evt.key === "ArrowLeft") {
-        nextIndex = index - 1
-      } else if (evt.key === "ArrowUp") {
-        Router.push({ pathname: "/post", query: { postId: postId } }, `/${postId}`)
-      }
-
-      if (nextIndex >= 0 && nextIndex < post.content.length) {
-        const id = post.content[nextIndex]
-        Router.replace({
-          pathname: "/media",
-          query: { postId: postId, mediaId: id },
-        }, `/${postId}/${id}`)
-      }
-    })
+    document.addEventListener("keypress", this._listenForPageTurn)
   }
 
   componentWillUnmount() {
-    document.removeEventListener("keypress", this.listener)
+    document.removeEventListener("keypress", this._listenForPageTurn)
   }
 
   render() {
-    const { id, post } = this.props
-    const index = post.content.indexOf(id)
-    const preloadRange = [ 1, 2, 3, -1, -2, -3 ]
+    const { mediaId, post } = this.props
+    const index = post.content.indexOf(mediaId)
 
+    // Preload images 3 after and 2 before current image
+    // For performance, particularly during quick-scrolling
     if (Router && Router.router) {
-      preloadRange.forEach(diff => {
+      this.preloadRange.forEach(diff => {
         const nextUrl = post.content[index + diff]
         if (nextUrl) {
           new Image().src = post.root + "/large/" + nextUrl
@@ -62,14 +55,48 @@ export default class MediaPage extends React.Component {
 
     return (
       <Layout header="center">
-        <div autoFocus>
+        <div>
           <Media
             className="sm-col-10 md-col-6 center-block scale-down"
-            src={post.root + "/large/" + id}
+            src={post.root + "/large/" + mediaId}
           />
           <p className="center">{index + 1}/{post.content.length}</p>
         </div>
       </Layout>
     )
+  }
+
+  /**
+   * Listens for arrow keys and acts accordingly
+   * @param {object} evt Key Event
+   */
+  _listenForPageTurn({ key }) {
+    const { mediaId, post } = this.props
+    const postId = get(Router, "router.query.postId")
+    if (!postId) return
+
+    // Exit to previous article
+    if (key === "ArrowUp") {
+      return Router.push({
+        pathname: "/post",
+        query: { postId } },
+        `/${postId}`,
+      )
+    }
+
+    // Turn page forward or backward
+    let nextIndex = post.content.indexOf(mediaId)
+
+    if (key === "ArrowRight") ++nextIndex
+    else if (key === "ArrowLeft") --nextIndex
+    else return
+
+    if (nextIndex < post.content.length && nextIndex >= 0) {
+      const mediaId = post.content[nextIndex]
+      Router.replace({
+        pathname: "/media",
+        query: { postId, mediaId },
+      }, `/${postId}/${mediaId}`)
+    }
   }
 }
