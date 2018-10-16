@@ -17,6 +17,7 @@ export async function fetchMeta() {
 }
 
 export async function fetchContentById(id) {
+  if (!id) return
   if (!store) await fetchMeta()
 
   const existing = store.metadata.find(item => item.id === id)
