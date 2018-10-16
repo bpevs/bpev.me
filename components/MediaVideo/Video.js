@@ -1,6 +1,8 @@
+import React from "react"
+
 export default function MediaVideo(props) {
-  const url = props.src.split("/");
-  const id = url.pop();
+  const url = props.src.split("/")
+  const id = url.pop()
 
   return <iframe
     className="center col-12"
@@ -8,5 +10,5 @@ export default function MediaVideo(props) {
     width="640"
     height="427"
     frameBorder="0"
-    allowFullScreen />;
+    allowFullScreen />
 }

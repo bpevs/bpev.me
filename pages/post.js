@@ -1,16 +1,16 @@
-import marksy from "marksy";
-import { intersection, sampleSize } from "lodash";
-import Link from "next/link";
-import { createElement } from "react";
-import Layout from "../components/Layout/Layout";
-import LinkPost from "../components/LinkPost/LinkPost";
-import Media from "../components/Media/Media";
-import { fetchContentById, fetchMeta } from "../utilities/store";
-import hljs from "highlight.js/lib/highlight";
-import hljsJavascript from "highlight.js/lib/languages/javascript";
+import hljs from "highlight.js/lib/highlight"
+import hljsJavascript from "highlight.js/lib/languages/javascript"
+import { intersection, sampleSize } from "lodash"
+import marksy from "marksy"
+import Link from "next/link"
+import React, { createElement } from "react"
+import Layout from "../components/Layout/Layout"
+import LinkPost from "../components/LinkPost/LinkPost"
+import Media from "../components/Media/Media"
+import { fetchContentById, fetchMeta } from "../utilities/store"
 
 
-hljs.registerLanguage("javascript", hljsJavascript);
+hljs.registerLanguage("javascript", hljsJavascript)
 
 const compile = marksy({
   createElement,
@@ -20,14 +20,14 @@ const compile = marksy({
   highlight(language, code) {
     return hljs.highlight(language, code).value
   },
-});
+})
 
 export class Post extends React.Component {
   static async getInitialProps(context) {
     return {
       meta: await fetchMeta(),
-      post: await fetchContentById(context.query.postId)
-    };
+      post: await fetchContentById(context.query.postId),
+    }
   }
 
   render() {
@@ -42,21 +42,21 @@ export class Post extends React.Component {
       )
     }
 
-    const { content, contentType, id, root } = this.props.post;
+    const { content, contentType, id, root } = this.props.post
     const similarPostComponents = this.props.meta.metadata
       .filter(post => {
         return post.id !== this.props.post.id && !post.draft &&
-          intersection(this.props.post.tags, post.tags).length;
+          intersection(this.props.post.tags, post.tags).length
       })
       .map(post => <LinkPost key={post.id} post={post} />)
-      .slice(0, 3);
+      .slice(0, 3)
 
     const similarPosts = (
       <ul className="list-reset">
         <h1>Similar Posts...</h1>
         {similarPostComponents}
       </ul>
-    );
+    )
 
     if (contentType === "article") {
       return (
@@ -66,7 +66,7 @@ export class Post extends React.Component {
           </div>
           { similarPostComponents.length ? similarPosts : "" }
         </Layout>
-      );
+      )
     }
 
     if (contentType === "gallery") {
@@ -94,23 +94,23 @@ export class Post extends React.Component {
                       </span>
                     </a>
                   </Link>
-                );
+                )
               })}
             </div>
             { similarPostComponents.length ? similarPosts : "" }
           </div>
         </Layout>
-      );
+      )
     }
 
-    return <Layout>Content Not Found</Layout>;
+    return <Layout>Content Not Found</Layout>
   }
 }
 
-export default Post;
+export default Post
 
 function sortByDate(a = "", b = "") {
-  const [ aYear, aMonth, aDay ] = a.createdDate.split("-");
-  const [ bYear, bMonth, bDay ] = b.createdDate.split("-");
-  return new Date(bYear, bMonth, bDay) - new Date(aYear, aMonth, aDay);
+  const [ aYear, aMonth, aDay ] = a.createdDate.split("-")
+  const [ bYear, bMonth, bDay ] = b.createdDate.split("-")
+  return new Date(bYear, bMonth, bDay) - new Date(aYear, aMonth, aDay)
 }

@@ -1,0 +1,9 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Should Render Tag 1`] = `
+<span
+  className="tag h6 border rounded ml1"
+>
+  Hello
+</span>
+`;

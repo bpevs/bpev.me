@@ -1,39 +1,40 @@
-import Router from "next/router";
-import Layout from "../components/Layout/Layout";
-import Link from "../components/LinkPost/LinkPost";
-import Tag from "../components/Tag/Tag";
-import { fetchMeta } from "../utilities/store";
+import Router from "next/router"
+import React from "react"
+import Layout from "../components/Layout/Layout"
+import Link from "../components/LinkPost/LinkPost"
+import Tag from "../components/Tag/Tag"
+import { fetchMeta } from "../utilities/store"
 
 
 export default class Index extends React.Component {
 
-  state = {};
+  state = {}
 
   constructor(props) {
-    super(props);
+    super(props)
   }
 
   static async getInitialProps({ query }) {
     return {
       content: await fetchMeta(),
       search: query.filter,
-    };
+    }
   }
 
   onChange(evt) {
-    this.setState({ search: evt.target.value });
-    const href = `/?filter=${evt.target.value}`;
+    this.setState({ search: evt.target.value })
+    const href = `/?filter=${evt.target.value}`
     const as = href
-    Router.replace(href, as, { shallow: true });
+    Router.replace(href, as, { shallow: true })
   }
 
   render() {
-    const { content } = this.props;
-    const search = this.state.search == null ? this.props.search : this.state.search;
+    const { content } = this.props
+    const search = this.state.search == null ? this.props.search : this.state.search
     const tags = [ "code", "music", "photos", "coffee" ].map(name => {
-      const onClick = this.onChange.bind(this, { target: { value: name }});
-      return <Tag key={name} children={<a children={name} onClick={onClick} />} />;
-    });
+      const onClick = this.onChange.bind(this, { target: { value: name }})
+      return <Tag key={name} children={<a children={name} onClick={onClick} />} />
+    })
 
     return (
       <Layout className="fit-800">
@@ -64,23 +65,23 @@ export default class Index extends React.Component {
           }
         </ul>
       </Layout>
-    ); 
+    )
   }
 }
 
 function matchesSearch(searchString, post) {
-  if (!searchString) return true;
-  const search = searchString.toLowerCase();
-  const { author, series, title, tags } = post;
+  if (!searchString) return true
+  const search = searchString.toLowerCase()
+  const { author, series, title, tags } = post
 
-  if (title && ~title.toLowerCase().indexOf(search)) return true;
-  if (series && ~series.toLowerCase().indexOf(search)) return true;
-  if (author && ~author.toLowerCase().indexOf(search)) return true;
-  return tags && tags.some(tag => ~tag.toLowerCase().indexOf(search));
+  if (title && title.toLowerCase().indexOf(search) !== -1) return true
+  if (series && series.toLowerCase().indexOf(search) !== -1) return true
+  if (author && author.toLowerCase().indexOf(search) !== -1) return true
+  return tags && tags.some(tag => tag.toLowerCase().indexOf(search) !== -1)
 }
 
 function sortByDate(a = "", b = "") {
-  const [ aYear, aMonth, aDay ] = a.createdDate.split("-");
-  const [ bYear, bMonth, bDay ] = b.createdDate.split("-");
-  return new Date(bYear, bMonth, bDay) - new Date(aYear, aMonth, aDay);
+  const [ aYear, aMonth, aDay ] = a.createdDate.split("-")
+  const [ bYear, bMonth, bDay ] = b.createdDate.split("-")
+  return new Date(bYear, bMonth, bDay) - new Date(aYear, aMonth, aDay)
 }

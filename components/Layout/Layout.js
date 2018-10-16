@@ -1,19 +1,20 @@
-import Head from "next/head";
-import Header from "../LayoutHeader/LayoutHeader";
-import Footer from "../LayoutFooter/LayoutFooter";
-import stylesheet from "../index.css";
-import NProgress from "nprogress";
-import Router from "next/router";
+import Head from "next/head"
+import Router from "next/router"
+import NProgress from "nprogress"
+import React from "react"
+import stylesheet from "../index.css"
+import Footer from "../LayoutFooter/LayoutFooter"
+import Header from "../LayoutHeader/LayoutHeader"
 
 export default (props) => {
   if (Router.router) {
     Router.router.events.on("routeChangeStart", route => {
       if (Router.router.asPath.split("?")[0] !== route.split("?")[0]) {
-        NProgress.start();
+        NProgress.start()
       }
-    });
-    Router.router.events.on("routeChangeComplete", () => NProgress.done());
-    Router.router.events.on("routeChangeError", () => NProgress.done());
+    })
+    Router.router.events.on("routeChangeComplete", () => NProgress.done())
+    Router.router.events.on("routeChangeError", () => NProgress.done())
   }
 
   return (
@@ -23,7 +24,9 @@ export default (props) => {
         <meta name="author" content="Ben Pevsner" />
         <meta name="title" content="Ben Pevsner" />
         <meta name="description" content="Eating candy and doin stuff" />
-        <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, minimum-scale=1.0" />
+        <meta
+          name="viewport"
+          content="width=device-width, height=device-height, initial-scale=1.0, minimum-scale=1.0" />
         <link rel="shortcut icon" href="/static/favicon.ico" />
 
         <style dangerouslySetInnerHTML={{ __html: stylesheet }} />
@@ -41,5 +44,5 @@ export default (props) => {
 
       <Footer />
     </div>
-  );
-};
+  )
+}

@@ -1,4 +1,5 @@
-import Link from "next/link";
+import Link from "next/link"
+import React from "react"
 
 
 export default function LayoutFooter() {
@@ -19,5 +20,5 @@ export default function LayoutFooter() {
         </Link>
       </div>
     </footer>
-  );
-};
+  )
+}
