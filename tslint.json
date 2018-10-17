@@ -45,7 +45,7 @@
     "object-literal-sort-keys": [ true, "ignore-case", "shorthand-first" ],
     "ordered-imports": true,
     "prefer-const": true,
-    "prefer-function-over-method": true,
+    "prefer-function-over-method": false,
     "quotemark": [ true, "double", "jsx-double", "avoid-template" ],
     "semicolon": [ true, "never" ],
     "trailing-comma": [true, { "multiline": "always", "singleline": "never" }],

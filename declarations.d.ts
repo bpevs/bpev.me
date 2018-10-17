@@ -1,3 +1,8 @@
+declare module "*.css" {
+  const content: any;
+  export default content;
+}
+
 declare module "marksy" {
   const value: any
   export default value

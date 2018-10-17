@@ -6,43 +6,55 @@ import stylesheet from "../index.css"
 import Footer from "../LayoutFooter/LayoutFooter"
 import Header from "../LayoutHeader/LayoutHeader"
 
-export default (props) => {
-  if (Router.router) {
-    Router.router.events.on("routeChangeStart", route => {
-      if (Router.router.asPath.split("?")[0] !== route.split("?")[0]) {
+
+export default class Layout extends React.Component {
+  constructor(props) {
+    super(props)
+  }
+
+  componentDidMount() {
+    if (!Router || !Router.router) return
+    const { asPath= "", events } = Router.router
+
+    events.on("routeChangeStart", route => {
+      if (asPath.split("?")[0] !== route.split("?")[0]) {
         NProgress.start()
       }
     })
-    Router.router.events.on("routeChangeComplete", () => NProgress.done())
-    Router.router.events.on("routeChangeError", () => NProgress.done())
+    events.on("routeChangeComplete", () => NProgress.done())
+    events.on("routeChangeError", () => NProgress.done())
   }
 
-  return (
-    <div>
-      <Head>
-        <title>Ben Pevsner</title>
-        <meta name="author" content="Ben Pevsner" />
-        <meta name="title" content="Ben Pevsner" />
-        <meta name="description" content="Eating candy and doin stuff" />
-        <meta
-          name="viewport"
-          content="width=device-width, height=device-height, initial-scale=1.0, minimum-scale=1.0" />
-        <link rel="shortcut icon" href="/static/favicon.ico" />
+  render() {
+    const { children, className, error, header } = this.props
 
-        <style dangerouslySetInnerHTML={{ __html: stylesheet }} />
-        <noscript>
-          <style dangerouslySetInnerHTML={{ __html: ".jsonly { display: none }" }} />
-        </noscript>
-      </Head>
+    return (
+      <div>
+        <Head>
+          <title>Ben Pevsner</title>
+          <meta name="author" content="Ben Pevsner" />
+          <meta name="title" content="Ben Pevsner" />
+          <meta name="description" content="Eating candy and doin stuff" />
+          <meta
+            name="viewport"
+            content="width=device-width, height=device-height, initial-scale=1.0, minimum-scale=1.0" />
+          <link rel="shortcut icon" href="/static/favicon.ico" />
 
-      <div className={"content sans-serif container m2 block mx-auto " + (props.className || "")}>
-        { props.header === false ? "" : <Header align={props.header} /> }
-        <section className="clearfix mx-auto">
-          {props.children}
-        </section>
+          <style dangerouslySetInnerHTML={{ __html: stylesheet }} />
+          <noscript>
+            <style dangerouslySetInnerHTML={{ __html: ".jsonly { display: none }" }} />
+          </noscript>
+        </Head>
+
+        <div className={"content sans-serif container m2 block mx-auto " + (className || "")}>
+          { header === false ? "" : <Header align={header} /> }
+          <section className="clearfix mx-auto">
+            {error ? "OOPS SOMETHING BROKE" : children}
+          </section>
+        </div>
+
+        <Footer />
       </div>
-
-      <Footer />
-    </div>
-  )
+    )
+  }
 }

@@ -1,4 +1,6 @@
-export const ASSET_URL = "https://static.bpev.me"
+import { get } from "lodash"
+
+export const ASSET_URL = get(process, ["env", "ASSET_URL"], "https://static.bpev.me")
 
 export const CONTENT_TYPE = {
   ARTICLE: "article",

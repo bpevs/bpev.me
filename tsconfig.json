@@ -12,7 +12,8 @@
       "scripthost"
     ],
     "module": "commonjs",
-    "noImplicitAny": true,
+    "noImplicitAny": false,
+    "outDir": "placeholder",
     "paths": {
       "*": [
         "node_modules/*",
@@ -24,6 +25,7 @@
     "target": "ES6"
   },
   "exclude": [
+    "**/*.css",
     "**/*.test.js",
     "**/*.test.jsx",
   ],
