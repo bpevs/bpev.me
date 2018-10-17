@@ -7,7 +7,7 @@ import React, { createElement } from "react"
 import Layout from "../components/Layout/Layout"
 import LinkPost from "../components/LinkPost/LinkPost"
 import Media from "../components/Media/Media"
-import { fetchContentById, fetchMeta } from "../utilities/store"
+import { fetchContentById, fetchMeta, getError } from "../utilities/store"
 
 
 hljs.registerLanguage("javascript", hljsJavascript)
@@ -26,6 +26,7 @@ const compile = marksy({
 export class Post extends React.Component {
   static async getInitialProps(context) {
     return {
+      error: await getError(),
       meta: await fetchMeta(),
       post: await fetchContentById(context.query.postId),
     }

@@ -3,7 +3,7 @@ import Router from "next/router"
 import React from "react"
 import Layout from "../components/Layout/Layout"
 import Media from "../components/Media/Media"
-import { fetchContentById } from "../utilities/store"
+import { fetchContentById, getError } from "../utilities/store"
 
 
 export default class MediaPage extends React.Component {
@@ -20,18 +20,28 @@ export default class MediaPage extends React.Component {
     this._listenForPageTurn = this._listenForPageTurn.bind(this)
   }
 
-  /**
-   *
-   * @param {object} context
-   */
   static async getInitialProps(context) {
     const { mediaId, postId } = get(context, "query", {})
     const post = await fetchContentById(postId)
-    return { mediaId, post }
+    const error = await getError()
+    return { error, mediaId, post }
   }
 
   componentDidMount() {
     document.addEventListener("keypress", this._listenForPageTurn)
+  }
+
+  // Preload images 3 after and 2 before current image
+  // For performance, particularly during quick-scrolling
+  componentDidUpdate() {
+    const { mediaId, post } = this.props
+    const index = post.content.indexOf(mediaId)
+
+    this.preloadRange.forEach(diff => {
+      const nextImage = post.content[index + diff]
+      const nextURL = post.root + "/large/" + nextImage
+      if (nextImage) new Image().src = nextURL
+    })
   }
 
   componentWillUnmount() {
@@ -40,27 +50,18 @@ export default class MediaPage extends React.Component {
 
   render() {
     const { mediaId, post } = this.props
-    const index = post.content.indexOf(mediaId)
-
-    // Preload images 3 after and 2 before current image
-    // For performance, particularly during quick-scrolling
-    if (Router && Router.router) {
-      this.preloadRange.forEach(diff => {
-        const nextUrl = post.content[index + diff]
-        if (nextUrl) {
-          new Image().src = post.root + "/large/" + nextUrl
-        }
-      })
-    }
+    const itemURL = post.root + "/large/" + mediaId
+    const itemNum = post.content.indexOf(mediaId) + 1
+    const itemTotal = post.content.length
 
     return (
       <Layout header="center">
         <div>
           <Media
             className="sm-col-10 md-col-6 center-block scale-down"
-            src={post.root + "/large/" + mediaId}
+            src={itemURL}
           />
-          <p className="center">{index + 1}/{post.content.length}</p>
+          <p className="center">{itemNum}/{itemTotal}</p>
         </div>
       </Layout>
     )

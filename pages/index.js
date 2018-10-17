@@ -1,48 +1,54 @@
+import { get } from "lodash"
 import Router from "next/router"
 import React from "react"
 import Layout from "../components/Layout/Layout"
 import Link from "../components/LinkPost/LinkPost"
 import Tag from "../components/Tag/Tag"
-import { fetchMeta } from "../utilities/store"
-
+import { shouldShowPost } from "../utilities/predicates"
+import { sortByDateString } from "../utilities/sorts"
+import { fetchMeta, getError } from "../utilities/store"
 
 export default class Index extends React.Component {
 
-  state = {}
+  mainCategories = [ "code", "music", "photos", "coffee" ]
+
+  state = {
+    search: "",
+  }
 
   constructor(props) {
     super(props)
   }
 
   static async getInitialProps({ query }) {
-    return {
-      content: await fetchMeta(),
-      search: query.filter,
-    }
+    const content = await fetchMeta()
+    const error = await getError()
+    const search = query.filter
+    return { content, error, search }
   }
 
-  onChange(evt) {
-    this.setState({ search: evt.target.value })
-    const href = `/?filter=${evt.target.value}`
-    const as = href
-    Router.replace(href, as, { shallow: true })
+  onChange({ target }) {
+    const search = target.value
+    const href = `/?filter=${search}`
+
+    this.setState({ search })
+    Router.replace(href, href, { shallow: true })
   }
 
   render() {
-    const { content } = this.props
+    const { content, error } = this.props
     const search = this.state.search == null ? this.props.search : this.state.search
-    const tags = [ "code", "music", "photos", "coffee" ].map(name => {
+    const tags = this.mainCategories.map(name => {
       const onClick = this.onChange.bind(this, { target: { value: name }})
       return <Tag key={name} children={<a children={name} onClick={onClick} />} />
     })
 
     return (
-      <Layout className="fit-800">
+      <Layout className="fit-800" error={error}>
         <div className="ml1 mt3 p1 center search-input jsonly">
           <label className="p1 h4">filter</label>
           <input
             autoComplete="true"
-            autoFocus="true"
             className="col-5 h4 p1"
             onChange={this.onChange.bind(this)}
             placeholder="e.g. code, coffee, music"
@@ -55,33 +61,13 @@ export default class Index extends React.Component {
         </div>
         <ul className="list-reset">
           {
-            content && content.metadata
-            .filter(post => post && !post.draft && matchesSearch(search, post))
-            .sort(sortByDate)
-            .map((post, index) => <Link
-              key={index}
-              post={post}
-            />)
+            get(content, "metadata", [])
+              .filter(post => shouldShowPost(search, post))
+              .sort((a, b) => sortByDateString(a.createdDate, b.createdDate))
+              .map((post, index) => <Link key={index} post={post} />)
           }
         </ul>
       </Layout>
     )
   }
-}
-
-function matchesSearch(searchString, post) {
-  if (!searchString) return true
-  const search = searchString.toLowerCase()
-  const { author, series, title, tags } = post
-
-  if (title && title.toLowerCase().indexOf(search) !== -1) return true
-  if (series && series.toLowerCase().indexOf(search) !== -1) return true
-  if (author && author.toLowerCase().indexOf(search) !== -1) return true
-  return tags && tags.some(tag => tag.toLowerCase().indexOf(search) !== -1)
-}
-
-function sortByDate(a = "", b = "") {
-  const [ aYear, aMonth, aDay ] = a.createdDate.split("-")
-  const [ bYear, bMonth, bDay ] = b.createdDate.split("-")
-  return new Date(bYear, bMonth, bDay) - new Date(aYear, aMonth, aDay)
 }
