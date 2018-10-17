@@ -1,6 +1,6 @@
 import hljs from "highlight.js/lib/highlight"
 import hljsJavascript from "highlight.js/lib/languages/javascript"
-import { intersection } from "lodash"
+import { get, intersection } from "lodash"
 import marksy from "marksy"
 import Link from "next/link"
 import React, { createElement } from "react"
@@ -45,7 +45,7 @@ export class Post extends React.Component {
     }
 
     const { content, contentType, id, root } = this.props.post
-    const similarPostComponents = this.props.meta.metadata
+    const similarPostComponents = get(this, "props.meta.metadata", [])
       .filter(post => {
         return post.id !== this.props.post.id && !post.draft &&
           intersection(this.props.post.tags, post.tags).length
