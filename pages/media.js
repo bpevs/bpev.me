@@ -10,6 +10,7 @@ export default class MediaPage extends React.Component {
 
   // Index range to preload images from
   preloadRange = [ 1, 2, 3, -1, -2, -3 ]
+  state = {}
 
   /**
    * Setup page-turn listener
@@ -25,6 +26,11 @@ export default class MediaPage extends React.Component {
     const post = await fetchContentById(postId)
     const error = await getError()
     return { error, mediaId, post }
+  }
+
+  componentDidCatch(error, info) {
+    console.warn(error, info)
+    this.setState({ hasError: true })
   }
 
   componentDidMount() {
@@ -55,7 +61,7 @@ export default class MediaPage extends React.Component {
     const itemTotal = post.content.length
 
     return (
-      <Layout header="center">
+      <Layout header="center" error={this.state.hasError}>
         <div>
           <Media
             className="sm-col-10 md-col-6 center-block scale-down"
