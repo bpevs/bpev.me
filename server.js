@@ -4,7 +4,8 @@ const cluster = require("cluster");
 const numCPUs = require("os").cpus().length;
 
 const dev = process.env.NODE_ENV !== "production";
-const port = process.env.PORT || (dev ? 3000 : 80);
+const port = process.env.PORT || 3000;
+const host = dev ? "localhost" : "0.0.0.0";
 
 // Multi-process to utilize all CPU cores.
 if (!dev && cluster.isMaster) {
@@ -45,7 +46,7 @@ if (!dev && cluster.isMaster) {
         return nextHandler(req, res);
       });
 
-      server.listen(port, (err) => {
+      server.listen(host, port, (err) => {
         if (err) throw err;
         console.log(`Listening on port ${port}`);
       });
