@@ -4,7 +4,7 @@ const cluster = require("cluster");
 const numCPUs = require("os").cpus().length;
 
 const dev = process.env.NODE_ENV !== "production";
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || (dev ? 3000 : 80);
 
 // Multi-process to utilize all CPU cores.
 if (!dev && cluster.isMaster) {
@@ -26,20 +26,6 @@ if (!dev && cluster.isMaster) {
   nextApp.prepare()
     .then(() => {
       const server = express();
-
-      if (!dev) {
-        // Enforce SSL & HSTS in production
-        server.use(function(req, res, next) {
-          var proto = req.headers["x-forwarded-proto"];
-          if (proto === "https") {
-            res.set({
-              "Strict-Transport-Security": "max-age=31557600" // one-year
-            });
-            return next();
-          }
-          res.redirect("https://" + req.headers.host + req.url);
-        });
-      }
 
       server.use("/static", express.static("static"));
 
