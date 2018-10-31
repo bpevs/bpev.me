@@ -24,6 +24,8 @@ const compile = marksy({
 })
 
 export class Post extends React.Component {
+  state = {}
+
   static async getInitialProps(context) {
     return {
       error: await getError(),
@@ -32,10 +34,15 @@ export class Post extends React.Component {
     }
   }
 
+  componentDidCatch(error, info) {
+    console.warn(error, info)
+    this.setState({ hasError: true })
+  }
+
   render() {
     if (!this.props.post) {
       return (
-        <Layout className="fit-800">
+        <Layout error={this.state.hasError} className="fit-800">
           <h1 className="center pt4 mt4">{"There's nothing here!"}</h1>
           <p className="center">
             Try looking on the <Link href="/"><a>homepage</a></Link>
@@ -62,7 +69,7 @@ export class Post extends React.Component {
 
     if (contentType === "article") {
       return (
-        <Layout className="fit-800">
+        <Layout error={this.state.hasError} className="fit-800">
           <div className="mt4 mb4 mx-auto fit-800 article">
             {compile(content, null, { type: "blog", id }).tree}
           </div>
@@ -73,7 +80,7 @@ export class Post extends React.Component {
 
     if (contentType === "gallery") {
       return (
-        <Layout>
+        <Layout error={this.state.hasError}>
           <div className="center p2">
             <div className="flex flex-wrap mxn2">
               {content.map((name, key) => {

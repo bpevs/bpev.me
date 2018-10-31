@@ -6,7 +6,7 @@ import Link from "../components/LinkPost/LinkPost"
 import Tag from "../components/Tag/Tag"
 import { shouldShowPost } from "../utilities/predicates"
 import { sortByDateString } from "../utilities/sorts"
-import { fetchMeta, getError } from "../utilities/store"
+import { fetchMeta } from "../utilities/store"
 
 export default class Index extends React.Component {
 
@@ -22,9 +22,13 @@ export default class Index extends React.Component {
 
   static async getInitialProps({ query }) {
     const content = await fetchMeta()
-    const error = await getError()
     const search = query.filter
-    return { content, error, search }
+    return { content, search }
+  }
+
+  componentDidCatch(error, info) {
+    console.warn(error, info)
+    this.setState({ hasError: true })
   }
 
   onChange({ target }) {
@@ -36,7 +40,7 @@ export default class Index extends React.Component {
   }
 
   render() {
-    const { content, error } = this.props
+    const { content } = this.props
     const search = this.state.search == null ? this.props.search : this.state.search
     const tags = this.mainCategories.map(name => {
       const onClick = this.onChange.bind(this, { target: { value: name }})
@@ -44,7 +48,7 @@ export default class Index extends React.Component {
     })
 
     return (
-      <Layout className="fit-800" error={error}>
+      <Layout className="fit-800" error={this.state.hasError}>
         <div className="ml1 mt3 p1 center search-input jsonly">
           <label className="p1 h4">filter</label>
           <input
