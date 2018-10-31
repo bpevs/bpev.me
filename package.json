@@ -11,7 +11,7 @@
     "build:blog": "blog-o-matic --in=./blog-content --out=./static/blog",
     "heroku-postbuild": "next build",
     "start": "node server.js -p $PORT",
-    "start:prod": "npm run build && NODE_ENV=production node server.js -p $PORT",
+    "start:prod": "NODE_ENV=production node server.js -p $PORT",
     "test": "npm-run-all -p test:*",
     "test:lint": "tslint --project ./tsconfig.json",
     "test:unit": "jest"
