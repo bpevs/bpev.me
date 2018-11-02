@@ -2,6 +2,7 @@ import hljs from "highlight.js/lib/highlight"
 import hljsJavascript from "highlight.js/lib/languages/javascript"
 import { get, intersection } from "lodash"
 import marksy from "marksy"
+import Error from "next/error"
 import Link from "next/link"
 import React, { createElement } from "react"
 import Layout from "../components/Layout/Layout"
@@ -36,26 +37,19 @@ export class Post extends React.Component {
 
   componentDidCatch(error, info) {
     console.warn(error, info)
-    this.setState({ hasError: true })
+    this.setState({ Error })
   }
 
   render() {
-    if (!this.props.post) {
-      return (
-        <Layout error={this.state.hasError} className="fit-800">
-          <h1 className="center pt4 mt4">{"There's nothing here!"}</h1>
-          <p className="center">
-            Try looking on the <Link href="/"><a>homepage</a></Link>
-          </p>
-        </Layout>
-      )
-    }
+    const { error, post } = this.props
 
-    const { content, contentType, id, root } = this.props.post
+    if (error) return <Error statusCode={error.statusCode} />
+    if (!post) return <Error statusCode={404} />
+
+    const { content, contentType, id, root } = post
     const similarPostComponents = get(this, "props.meta.metadata", [])
-      .filter(post => {
-        return post.id !== this.props.post.id && !post.draft &&
-          intersection(this.props.post.tags, post.tags).length
+      .filter(({ draft, id, tags }) => {
+        return (id !== post.id) && !draft && intersection(tags, post.tags).length
       })
       .map(post => <LinkPost key={post.id} post={post} />)
       .slice(0, 3)
@@ -69,7 +63,7 @@ export class Post extends React.Component {
 
     if (contentType === "article") {
       return (
-        <Layout error={this.state.hasError} className="fit-800">
+        <Layout className="fit-800">
           <div className="mt4 mb4 mx-auto fit-800 article">
             {compile(content, null, { type: "blog", id }).tree}
           </div>
@@ -80,7 +74,7 @@ export class Post extends React.Component {
 
     if (contentType === "gallery") {
       return (
-        <Layout error={this.state.hasError}>
+        <Layout>
           <div className="center p2">
             <div className="flex flex-wrap mxn2">
               {content.map((name, key) => {

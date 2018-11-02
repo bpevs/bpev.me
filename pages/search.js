@@ -1,4 +1,5 @@
 import { get } from "lodash"
+import Error from "next/error"
 import Router from "next/router"
 import React from "react"
 import Layout from "../components/Layout/Layout"
@@ -40,7 +41,9 @@ export default class Index extends React.Component {
   }
 
   render() {
-    const { content } = this.props
+    const { content, error } = this.props
+    if (error) return <Error statusCode={error.statusCode} />
+
     const search = this.state.search == null ? this.props.search : this.state.search
     const tags = this.mainCategories.map(name => {
       const onClick = this.onChange.bind(this, { target: { value: name }})
@@ -48,7 +51,7 @@ export default class Index extends React.Component {
     })
 
     return (
-      <Layout className="fit-800" error={this.state.hasError}>
+      <Layout className="fit-800">
         <div className="ml1 mt3 p1 center search-input jsonly">
           <label className="p1 h4">filter</label>
           <input

@@ -1,10 +1,10 @@
 import { get } from "lodash"
+import Error from "next/error"
 import Router from "next/router"
 import React from "react"
 import Layout from "../components/Layout/Layout"
 import Media from "../components/Media/Media"
 import { fetchContentById, getError } from "../utilities/store"
-
 
 export default class MediaPage extends React.Component {
 
@@ -30,7 +30,7 @@ export default class MediaPage extends React.Component {
 
   componentDidCatch(error, info) {
     console.warn(error, info)
-    this.setState({ hasError: true })
+    this.setState({ error })
   }
 
   componentDidMount() {
@@ -55,20 +55,21 @@ export default class MediaPage extends React.Component {
   }
 
   render() {
-    const { mediaId, post } = this.props
+    const { error, mediaId, post } = this.props
+
+    if (error) return <Error statusCode={error.statusCode} />
+
+    const itemNum = get(post, "content", []).indexOf(mediaId) + 1
+    if (itemNum === 0) return <Error statusCode={404} />
+
     const itemURL = post.root + "/large/" + mediaId
-    const itemNum = post.content.indexOf(mediaId) + 1
     const itemTotal = post.content.length
+    const imageClass = "sm-col-10 md-col-6 center-block scale-down"
 
     return (
-      <Layout header="center" error={this.state.hasError}>
-        <div>
-          <Media
-            className="sm-col-10 md-col-6 center-block scale-down"
-            src={itemURL}
-          />
-          <p className="center">{itemNum}/{itemTotal}</p>
-        </div>
+      <Layout headerAlign="center">
+        <Media className={imageClass} src={itemURL} />
+        <p className="center">{itemNum}/{itemTotal}</p>
       </Layout>
     )
   }
