@@ -1,28 +1,10 @@
-import hljs from "highlight.js/lib/highlight"
-import hljsJavascript from "highlight.js/lib/languages/javascript"
-import { get, intersection } from "lodash"
-import marksy from "marksy"
+import { get } from "lodash"
 import Error from "next/error"
-import Link from "next/link"
-import React, { createElement } from "react"
-import Layout from "../components/Layout/Layout"
-import LinkPost from "../components/LinkPost/LinkPost"
-import Media from "../components/Media/Media"
+import React from "react"
+import ContentArticle from "../components/ContentArticle/ContentArticle"
+import ContentPhotoAlbum from "../components/ContentPhotoAlbum/ContentPhotoAlbum"
 import { fetchContentById, fetchMeta, getError } from "../utilities/store"
 
-
-hljs.registerLanguage("javascript", hljsJavascript)
-
-const compile = marksy({
-  createElement,
-  elements: {
-    img: Media,
-  },
-
-  highlight(language, code) {
-    return hljs.highlight(language, code).value
-  },
-})
 
 export class Post extends React.Component {
   state = {}
@@ -42,71 +24,16 @@ export class Post extends React.Component {
 
   render() {
     const { error, post } = this.props
+    const relatedPosts = get(this, "props.meta.metadata", [])
+    const postProps = { post, relatedPosts }
 
     if (error) return <Error statusCode={error.statusCode} />
-    if (!post) return <Error statusCode={404} />
 
-    const { content, contentType, id, root } = post
-    const similarPostComponents = get(this, "props.meta.metadata", [])
-      .filter(({ draft, id, tags }) => {
-        return (id !== post.id) && !draft && intersection(tags, post.tags).length
-      })
-      .map(post => <LinkPost key={post.id} post={post} />)
-      .slice(0, 3)
-
-    const similarPosts = (
-      <ul className="list-reset">
-        <h1>Similar Posts...</h1>
-        {similarPostComponents}
-      </ul>
-    )
-
-    if (contentType === "article") {
-      return (
-        <Layout className="fit-800">
-          <div className="mt4 mb4 mx-auto fit-800 article">
-            {compile(content, null, { type: "blog", id }).tree}
-          </div>
-          { similarPostComponents.length ? similarPosts : "" }
-        </Layout>
-      )
+    switch (post && post.contentType) {
+      case "article": return (<ContentArticle {...postProps} />)
+      case "gallery": return (<ContentPhotoAlbum {...postProps} />)
+      default: return <Error statusCode={404} />
     }
-
-    if (contentType === "gallery") {
-      return (
-        <Layout>
-          <div className="center p2">
-            <div className="flex flex-wrap mxn2">
-              {content.map((name, key) => {
-                return (
-                  <Link
-                    as={`/${id}/${name}`}
-                    key={key}
-                    href={`/media?postId=${id}&mediaId=${name}`}>
-                    <a className="flex fit-50 overflow-hidden height-500">
-                      <span className="image-wrapper">
-                        <img
-                          width="600"
-                          height="600"
-                          className="cover image pointer"
-                          src={root + "/medium/" + name}
-                        />
-                        <span className="spinkit-wrapper">
-                          <div className="spinkit" />
-                        </span>
-                      </span>
-                    </a>
-                  </Link>
-                )
-              })}
-            </div>
-            { similarPostComponents.length ? similarPosts : "" }
-          </div>
-        </Layout>
-      )
-    }
-
-    return <Layout>Content Not Found</Layout>
   }
 }
 
