@@ -33,6 +33,7 @@ if (!dev && cluster.isMaster) {
       server.get("/:postId", renderRoute("/post"))
       server.get("/post/:postId", renderRoute("/post"))
       server.get("/:postId/:mediaId", renderRoute("/media"))
+      server.get("/", renderRoute("/search"))
       server.get("*", (req, res) => nextHandler(req, res))
 
       server.listen(port, host, (err) => {
