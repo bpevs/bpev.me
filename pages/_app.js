@@ -3,7 +3,6 @@ import Head from "next/head"
 import Router from "next/router"
 import NProgress from "nprogress"
 import React from "react"
-const router = Router.router
 
 
 export default class MyApp extends App {
@@ -17,7 +16,8 @@ export default class MyApp extends App {
     return { pageProps }
   }
 
-  static componentDidMount() {
+  componentDidMount() {
+    const router = Router.router
     if (!router) return
     const { asPath= "", events } = router
 
