@@ -2,6 +2,7 @@ const express = require("express")
 const next = require("next")
 const cluster = require("cluster")
 const numCPUs = require("os").cpus().length
+const url = require("url")
 
 const dev = process.env.NODE_ENV !== "production"
 const port = Number(process.env.PORT) || 3000
@@ -43,6 +44,14 @@ if (!dev && cluster.isMaster) {
     })
 
   function renderRoute(route) {
-    return (req, res) => nextApp.render(req, res, route, req.params)
+    return (req, res) => {
+      const host = (req.headers.host || "").split(".")
+
+      nextApp.render(req, res, route, {
+        ...req.query,
+        ...req.params,
+        subDomain: host.length > 2 ? host[0] : null
+      })
+    }
   }
 }

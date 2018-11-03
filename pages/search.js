@@ -1,6 +1,5 @@
 import { get } from "lodash"
 import Error from "next/error"
-import Router from "next/router"
 import React from "react"
 import Layout from "../components/Layout/Layout"
 import Link from "../components/LinkPost/LinkPost"
@@ -9,35 +8,35 @@ import { shouldShowPost } from "../utilities/predicates"
 import { sortByDateString } from "../utilities/sorts"
 import { fetchMeta } from "../utilities/store"
 
-export default class Index extends React.Component {
+
+class Index extends React.Component {
 
   mainCategories = [ "code", "music", "photos", "coffee" ]
 
   state = {
-    search: "",
+    search: null,
   }
 
   constructor(props) {
     super(props)
   }
 
-  static async getInitialProps({ query }) {
+  static async getInitialProps(props) {
     const content = await fetchMeta()
-    const search = query.filter
+    const search = props.query.subDomain || props.query.filter
     return { content, search }
   }
 
   componentDidCatch(error, info) {
     console.warn(error, info)
-    this.setState({ hasError: true })
+    this.setState({ error })
   }
 
-  onChange({ target }) {
-    const search = target.value
+  onChange(evt) {
+    const search = evt.target.value || null
     const href = `/?filter=${search}`
-
     this.setState({ search })
-    Router.replace(href, href, { shallow: true })
+    history.replaceState({}, "", href)
   }
 
   render() {
@@ -49,6 +48,17 @@ export default class Index extends React.Component {
       const onClick = this.onChange.bind(this, { target: { value: name }})
       return <Tag key={name} children={<a children={name} onClick={onClick} />} />
     })
+
+    const searchResults = (
+      <ul className="list-reset">
+        {
+          get(content, "metadata", [])
+            .filter(post => shouldShowPost(search, post))
+            .sort((a, b) => sortByDateString(a.createdDate, b.createdDate))
+            .map((post, index) => <Link key={index} post={post} />)
+        }
+      </ul>
+    )
 
     return (
       <Layout className="fit-800">
@@ -66,15 +76,10 @@ export default class Index extends React.Component {
           />
           <div>{tags}</div>
         </div>
-        <ul className="list-reset">
-          {
-            get(content, "metadata", [])
-              .filter(post => shouldShowPost(search, post))
-              .sort((a, b) => sortByDateString(a.createdDate, b.createdDate))
-              .map((post, index) => <Link key={index} post={post} />)
-          }
-        </ul>
+        {searchResults}
       </Layout>
     )
   }
 }
+
+export default Index
