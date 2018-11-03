@@ -51,7 +51,7 @@ if (!dev && cluster.isMaster) {
       nextApp.render(req, res, route, {
         ...req.query,
         ...req.params,
-        subDomain: subDomain === "www" ? null : subDomain
+        subDomain: subDomain === "www" ? null : subDomain,
       })
     }
   }
