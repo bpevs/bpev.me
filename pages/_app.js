@@ -6,12 +6,14 @@ import React from "react"
 
 
 export default class MyApp extends App {
-  static async getInitialProps({ Component, ctx }) {
+  static async getInitialProps({ Component, ctx, router }) {
     let pageProps = {}
 
     if (Component.getInitialProps) {
       pageProps = await Component.getInitialProps(ctx)
     }
+
+    pageProps.router = router
 
     return { pageProps }
   }
