@@ -23,7 +23,7 @@ class Index extends React.Component {
 
   static async getInitialProps(props) {
     const content = await fetchMeta()
-    const search = props.query.subDomain || props.query.filter
+    const search = props.query.filter || props.query.subDomain
     return { content, search }
   }
 
