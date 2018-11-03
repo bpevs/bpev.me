@@ -46,11 +46,12 @@ if (!dev && cluster.isMaster) {
   function renderRoute(route) {
     return (req, res) => {
       const host = (req.headers.host || "").split(".")
+      const subDomain = host.length > 2 ? host[0] : null
 
       nextApp.render(req, res, route, {
         ...req.query,
         ...req.params,
-        subDomain: host.length > 2 ? host[0] : null
+        subDomain: subDomain === "www" ? null : subDomain
       })
     }
   }
