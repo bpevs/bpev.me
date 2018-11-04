@@ -33,8 +33,8 @@ class Index extends React.Component {
   }
 
   onChange(evt) {
-    const search = evt.target.value || null
-    const href = `/?filter=${search}`
+    const search = evt.target.value || ""
+    const href = search ? `/?filter=${search}` : "/"
     this.setState({ search })
     history.replaceState({}, "", href)
   }

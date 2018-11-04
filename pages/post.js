@@ -10,7 +10,6 @@ export class Post extends React.Component {
   state = {}
 
   static async getInitialProps(context) {
-    console.log(context.query)
     return {
       error: await getError(),
       meta: await fetchMeta(),
@@ -29,7 +28,7 @@ export class Post extends React.Component {
     const postProps = { post, relatedPosts }
 
     if (error) return <Error statusCode={error.statusCode} />
-    console.log(post)
+
     switch (post && post.contentType) {
       case "article": return (<ContentArticle {...postProps} />)
       case "gallery": return (<ContentPhotoAlbum {...postProps} />)
