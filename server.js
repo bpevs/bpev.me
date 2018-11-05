@@ -31,6 +31,7 @@ if (!dev && cluster.isMaster) {
 
       server.use("/static", express.static("static"))
 
+      server.get("/login", renderRoute("/login"))
       server.get("/:postId", renderRoute("/post"))
       server.get("/post/:postId", renderRoute("/post"))
       server.get("/:postId/:mediaId", renderRoute("/media"))
