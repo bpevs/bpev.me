@@ -1,11 +1,11 @@
 import React, { useState } from "react"
+import { updateAuthState } from "../../services/authServices"
 import { readErrorMessage } from "../../services/errorServices"
+import { createUser } from "../../services/userServices"
 import InputText from "../InputText/InputText"
 
 
 const heading = {
-  loading: "Loading...",
-  none: "There's no Comments! Join the discussion!",
   signIn: "Sign In",
   signUp: "Sign Up",
 }
@@ -20,11 +20,12 @@ const usernamePlaceholder = {
 }
 
 
-export const SigninForm = ({
-  signinType= "signIn",
-  signIn= (username, password) => { console.log(username, password) },
-  signUp= (a, b, c) => { console.log(a, b, c) },
-}) => {
+/**
+ *
+ * @param {object} props
+ * @property {string} signinType Are we signing in or signing up?
+ */
+export const SigninForm = ({ signinType = "signIn" }) => {
   const [ email, setEmail ] = useState("")
   const [ username, setUsername ] = useState("")
   const [ password, setPassword ] = useState("")
@@ -36,12 +37,12 @@ export const SigninForm = ({
     if (type !== "signIn" && type !== "signUp") return
 
     try {
-      if (type === "signIn") await signIn(email, password)
-      if (type === "signUp") await signUp(email, password, username)
+      if (type === "signIn") await updateAuthState(email, password)
+      if (type === "signUp") await createUser(email, password, username)
 
       location.assign("/")
     } catch (error) {
-      alert(readErrorMessage(error.code))
+      alert(readErrorMessage(error))
     }
   }
 

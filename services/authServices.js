@@ -12,6 +12,21 @@ export async function updateAuthState(email= "", password= "") {
   return auth().signInWithEmailAndPassword(email, password)
 }
 
-export function onAuthStateChanged(func) {
-  auth().onAuthStateChanged(func)
+export function onAuthStateChanged(callback) {
+  auth().onAuthStateChanged(user => {
+    if (!user) return callback(null)
+
+    callback({
+      displayName: user.displayName,
+      email: user.email,
+      emailVerified: user.emailVerified,
+      isAnonymous: user.isAnonymous,
+      metadata: user.metadata,
+      phoneNumber: user.phoneNumber,
+      photoURL: user.photoURL,
+      providerData: user.providerData,
+      refreshToken: user.refreshToken,
+      uid: user.uid,
+    })
+  })
 }

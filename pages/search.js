@@ -41,6 +41,7 @@ class Index extends React.Component {
 
   render() {
     const { content, error } = this.props
+    console.log(this.props.user)
     if (error) return <Error statusCode={error.statusCode} />
 
     const search = this.state.search == null ? this.props.search : this.state.search
