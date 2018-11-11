@@ -28,15 +28,6 @@ export default class extends React.Component {
           signUp={createUser}
           signinType={this.state.signinType}
         />
-        {
-          this.state.signinType === "signIn"
-            ? <button
-              children="Sign Up"
-              onClick={() => this.setState({ signinType: "signUp"})} />
-            : <button
-              children="Sign In"
-              onClick={() => this.setState({ signinType: "signIn"})} />
-        }
       </Layout>
     )
   }

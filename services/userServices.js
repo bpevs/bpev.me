@@ -1,4 +1,3 @@
-import { readErrorMessage } from "./errorServices"
 import { auth, database } from "./firebase"
 
 /**
@@ -33,12 +32,7 @@ export async function deleteUser() {
  * @param {string} password User's desired password
  */
 export async function createUser(email, password) {
-  try {
-    await auth().createUserWithEmailAndPassword(email, password)
-  } catch (error) {
-    alert(readErrorMessage(error.code))
-    throw error
-  }
+  await auth().createUserWithEmailAndPassword(email, password)
 }
 
 /**
