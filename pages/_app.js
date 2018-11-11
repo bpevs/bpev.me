@@ -3,9 +3,15 @@ import Head from "next/head"
 import Router from "next/router"
 import NProgress from "nprogress"
 import React from "react"
+import { onAuthStateChanged } from "../services/authServices"
 
 
 export default class MyApp extends App {
+
+  state = {
+    user: null,
+  }
+
   static async getInitialProps({ Component, ctx, router }) {
     let pageProps = {}
 
@@ -18,7 +24,7 @@ export default class MyApp extends App {
     return { pageProps }
   }
 
-  componentDidMount() {
+  async componentDidMount() {
     const router = Router.router
     if (!router) return
     const { asPath= "", events } = router
@@ -30,6 +36,8 @@ export default class MyApp extends App {
     })
     events.on("routeChangeComplete", () => NProgress.done())
     events.on("routeChangeError", () => NProgress.done())
+
+    onAuthStateChanged(user => this.setState({ user }))
   }
 
   render() {
@@ -40,7 +48,7 @@ export default class MyApp extends App {
         <Head>
           <title>Ben Pevsner</title>
         </Head>
-        <Component {...pageProps} />
+        <Component {...pageProps } user={this.state.user} />
       </Container>
     )
   }

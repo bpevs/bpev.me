@@ -3,33 +3,31 @@ import Error from "next/error"
 import React from "react"
 import ContentArticle from "../components/ContentArticle/ContentArticle"
 import ContentPhotoAlbum from "../components/ContentPhotoAlbum/ContentPhotoAlbum"
-import { fetchContentById, fetchMeta, getError } from "../utilities/store"
+import { readBlogMeta, readPost } from "../services/contentServices"
 
 
 export class Post extends React.Component {
   state = {}
 
   static async getInitialProps(context) {
-    console.log(context.query)
     return {
-      error: await getError(),
-      meta: await fetchMeta(),
-      post: await fetchContentById(context.query.postId),
+      meta: await readBlogMeta(),
+      post: await readPost(context.query.postId),
     }
   }
 
   componentDidCatch(error, info) {
     console.warn(error, info)
-    this.setState({ Error })
+    this.setState({ error })
   }
 
   render() {
-    const { error, post } = this.props
+    const { post } = this.props
     const relatedPosts = get(this, "props.meta.metadata", [])
     const postProps = { post, relatedPosts }
 
-    if (error) return <Error statusCode={error.statusCode} />
-    console.log(post)
+    if (this.state.error) return <Error statusCode={this.state.error.statusCode} />
+
     switch (post && post.contentType) {
       case "article": return (<ContentArticle {...postProps} />)
       case "gallery": return (<ContentPhotoAlbum {...postProps} />)

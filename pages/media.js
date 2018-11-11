@@ -4,7 +4,8 @@ import Router from "next/router"
 import React from "react"
 import Layout from "../components/Layout/Layout"
 import Media from "../components/Media/Media"
-import { fetchContentById, getError } from "../utilities/store"
+import { readPost } from "../services/contentServices"
+
 
 export default class MediaPage extends React.Component {
 
@@ -23,9 +24,8 @@ export default class MediaPage extends React.Component {
 
   static async getInitialProps(context) {
     const { mediaId, postId } = get(context, "query", {})
-    const post = await fetchContentById(postId)
-    const error = await getError()
-    return { error, mediaId, post }
+    const post = await readPost(postId)
+    return { mediaId, post }
   }
 
   componentDidCatch(error, info) {

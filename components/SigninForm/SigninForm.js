@@ -1,7 +1,7 @@
 import { debounce } from "lodash"
-import React, { useEffect, useState } from "react"
-import InputText from "../components/InputText/InputText"
-import Layout from "../components/Layout/Layout"
+import React, { Fragment, useState } from "react"
+import InputText from "../InputText/InputText"
+
 
 const heading = {
   loading: "Loading...",
@@ -20,23 +20,17 @@ const usernamePlaceholder = {
 }
 
 
-export default ({
+export const SigninForm = ({
   signinType= "signIn",
-  signIn= (username, password) => { console.log(username, password) },
-  signUp= (a, b, c) => { console.log(a, b, c) },
-  updateSigninType= (email) => { console.log(email) },
+  signIn = (username, password) => { console.log(username, password) },
+  signUp = (a, b, c) => { console.log(a, b, c) },
 }) => {
   const [ email, setEmail ] = useState("")
   const [ username, setUsername ] = useState("")
   const [ password, setPassword ] = useState("")
-  const debouncedUpdateSigninType = debounce(updateSigninType, 500)
 
-  useEffect(() => {
-    const isValidEmail = email && (/\S+@\S+\.\S+/).test(email)
-    if (isValidEmail) debouncedUpdateSigninType(email)
-  })
-
-  const onSubmit = async () => {
+  const onSubmit = async (evt) => {
+    evt.preventDefault()
     if (!email || !password) return
     if (signinType === "signIn") await signIn(email, password)
     if (signinType === "signUp") await signUp(email, password, username)
@@ -44,31 +38,34 @@ export default ({
   }
 
   return (
-    <Layout>
+    <Fragment>
       <h2>{heading[signinType]}</h2>
       <form onSubmit={onSubmit}>
         <InputText
           onChange={({ target }) => setEmail(target.value)}
           name="email" type="email" label="Email"
           placeholder="Enter email"
-          value={this.state.email} />
+          value={email} />
+
         <InputText
           onChange={({ target }) => setUsername(target.value)}
           name="username" type="username" label="Username"
           placeholder={usernamePlaceholder[signinType]}
           disabled={!usernamePlaceholder[signinType]}
-          value={this.state.username} />
+          value={username} />
+
         <InputText
           onChange={({ target }) => setPassword(target.value)}
           name="password" type="password" label="Password"
           placeholder={passwordPlaceholder[signinType]}
           disabled={!passwordPlaceholder[signinType]}
-          value={this.state.password} />
+          value={password} />
+
         <button
           children="Submit"
           disabled={!passwordPlaceholder[signinType]}
         />
       </form>
-    </Layout>
+    </Fragment>
   )
 }
