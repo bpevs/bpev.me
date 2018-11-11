@@ -4,9 +4,9 @@ import React from "react"
 import Layout from "../components/Layout/Layout"
 import Link from "../components/LinkPost/LinkPost"
 import Tag from "../components/Tag/Tag"
+import { readBlogMeta } from "../services/contentServices"
 import { shouldShowPost } from "../utilities/predicates"
 import { sortByDateString } from "../utilities/sorts"
-import { fetchMeta } from "../utilities/store"
 
 
 class Index extends React.Component {
@@ -22,7 +22,7 @@ class Index extends React.Component {
   }
 
   static async getInitialProps(props) {
-    const content = await fetchMeta()
+    const content = await readBlogMeta()
     const search = props.query.filter || props.query.subDomain
     return { content, search }
   }
@@ -41,6 +41,7 @@ class Index extends React.Component {
 
   render() {
     const { content, error } = this.props
+    console.log(this.props.user)
     if (error) return <Error statusCode={error.statusCode} />
 
     const search = this.state.search == null ? this.props.search : this.state.search
@@ -62,6 +63,7 @@ class Index extends React.Component {
 
     return (
       <Layout className="fit-800">
+        { this.props.user ? "LOGGED IN" : ""}
         <div className="ml1 mt3 p1 center search-input jsonly">
           <label className="p1 h4">filter</label>
           <input
