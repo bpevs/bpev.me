@@ -2,7 +2,7 @@ import React, { useState } from "react"
 import { updateAuthState } from "../../services/authServices"
 import { readErrorMessage } from "../../services/errorServices"
 import { createUser } from "../../services/userServices"
-import InputText from "../InputText/InputText"
+import { Input } from "../Input/Input"
 
 
 const heading = {
@@ -49,7 +49,7 @@ export const SigninForm = ({ signinType = "signIn" }) => {
   return (
     <form onSubmit={onSubmit} className="sm-col-6 mx-auto">
       <h2>{heading[type]}</h2>
-      <InputText
+      <Input
         className="block col-12 field h4"
         onChange={({ target }) => setEmail(target.value)}
         name="email" type="email" label="Email"
@@ -58,7 +58,7 @@ export const SigninForm = ({ signinType = "signIn" }) => {
 
       {
         type === "signUp"
-          ? <InputText
+          ? <Input
             className="block col-12 field h4"
             onChange={({ target }) => setUsername(target.value)}
             name="username" type="username" label="Username"
@@ -68,7 +68,7 @@ export const SigninForm = ({ signinType = "signIn" }) => {
           : ""
       }
 
-      <InputText
+      <Input
         className="block col-12 field h4"
         onChange={({ target }) => setPassword(target.value)}
         name="password" type="password" label="Password"

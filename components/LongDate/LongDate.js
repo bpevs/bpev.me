@@ -1,27 +1,24 @@
 import React from "react"
 
-const months = [
-  "January",
-  "Febuary",
-  "March",
-  "April",
-  "May",
-  "June",
-  "July",
-  "August",
-  "September",
-  "October",
-  "November",
-  "December",
-]
+const DEFAULT_OPTIONS = {
+  day: "numeric",
+  month: "long",
+  weekday: "long",
+  year: "numeric",
+}
 
-export default function LongDate({ date }) {
-  if (!date) return <span></span>
+export default function DateTime({
+  locale,
+  options = {},
+  timestamp,
+  ...props,
+}) {
+  const date = new Date(timestamp)
+  const text = date.toLocaleString(locale, { ...DEFAULT_OPTIONS, ...options })
 
-  const [ y, m, d ] = date.split("-")
-
-  return <span
-    children={`${months[Number(m) - 1]} ${d}, ${y}`}
-    className="h5 black pt2"
+  return <time
+    {...props}
+    children={text}
+    dateTime={timestamp}
   />
 }
