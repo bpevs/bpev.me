@@ -4,7 +4,7 @@ import React from "react"
 
 export function Button({
   className,
-  ...props,
+  ...props
 }) {
   return <button
     {...props}

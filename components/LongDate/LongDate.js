@@ -11,7 +11,7 @@ export default function DateTime({
   locale,
   options = {},
   timestamp,
-  ...props,
+  ...props
 }) {
   const date = new Date(timestamp)
   const text = date.toLocaleString(locale, { ...DEFAULT_OPTIONS, ...options })

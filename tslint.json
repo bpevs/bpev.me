@@ -48,7 +48,7 @@
     "prefer-function-over-method": false,
     "quotemark": [ true, "double", "jsx-double", "avoid-template" ],
     "semicolon": [ true, "never" ],
-    "trailing-comma": [true, { "multiline": "always", "singleline": "never" }],
+    "trailing-comma": [true, { "multiline": "always", "singleline": "never", "esSpecCompliant": true }],
     "whitespace": [
       true,
       "check-branch",
