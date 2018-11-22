@@ -176,6 +176,10 @@ a:visited .link-post-title {
 
 .tag {
   padding: 2px;
+  padding-left: 4px;
+  padding-right: 4px;
+  margin-top: -2px;
+  display: inline-block;
   text-transform: lowercase;
   color: black;
   cursor: pointer;

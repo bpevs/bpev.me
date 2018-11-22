@@ -1,6 +1,6 @@
+import { DateTime } from "@civility/react"
 import Link from "next/link"
 import React from "react"
-import LongDate from "../LongDate/LongDate"
 import Tags from "../Tags/Tags"
 
 
@@ -11,7 +11,7 @@ export default function LinkPost({ post }) {
         <li key={post.id} className="p1 m1 mt3 link-post">
           <span className="h3 link-post-title">{post.title}</span>
           <div>
-            <LongDate date={post.createdDate} />
+            <DateTime className="h4" timestamp={new Date(post.createdDate).getTime()} />
             <Tags tags={post.tags} />
           </div>
         </li>

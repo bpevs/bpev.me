@@ -1,8 +1,8 @@
+import { Button, Input } from "@civility/react"
 import React, { useState } from "react"
 import { updateAuthState } from "../../services/authServices"
 import { readErrorMessage } from "../../services/errorServices"
 import { createUser } from "../../services/userServices"
-import { Input } from "../Input/Input"
 
 
 const heading = {
@@ -76,13 +76,13 @@ export const SigninForm = ({ signinType = "signIn" }) => {
         disabled={!passwordPlaceholder[signinType]}
         value={password} />
 
-      <button
+      <Button
         children={heading[type]}
         className="btn btn-primary bold h4 inline-block mt2"
         disabled={!passwordPlaceholder[signinType]}
       />
 
-      <button
+      <Button
         children={type === "signIn" ? "Sign Up" : "Sign In"}
         className="btn link h4 inline-block mt2 ml2"
         onClick={evt => {
