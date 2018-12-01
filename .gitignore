@@ -3,6 +3,7 @@
 /blog-content
 /node_modules
 /static/blog
+/.cache
 /.next
 
 # Ignore system-created files
