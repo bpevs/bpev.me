@@ -1,8 +1,8 @@
 import { Button, Input } from "@civility/react"
 import React, { useState } from "react"
-import { updateAuthState } from "../../services/authServices"
-import { readErrorMessage } from "../../services/errorServices"
-import { createUser } from "../../services/userServices"
+import { updateAuthState } from "../services/authServices"
+import { readErrorMessage } from "../services/errorServices"
+import { createUser } from "../services/userServices"
 
 
 const heading = {

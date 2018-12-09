@@ -1,9 +1,9 @@
-import { get } from "lodash"
+import { Tag } from "@civility/react"
+import { get } from "@civility/utilities"
 import Error from "next/error"
 import React from "react"
-import Layout from "../components/Layout/Layout"
-import Link from "../components/LinkPost/LinkPost"
-import Tag from "../components/Tag/Tag"
+import Layout from "../components/Layout"
+import Link from "../components/LinkPost"
 import { readBlogMeta } from "../services/contentServices"
 import { shouldShowPost } from "../utilities/predicates"
 import { sortByDateString } from "../utilities/sorts"
@@ -41,7 +41,6 @@ class Index extends React.Component {
 
   render() {
     const { content, error } = this.props
-    console.log(this.props.user)
     if (error) return <Error statusCode={error.statusCode} />
 
     const search = this.state.search == null ? this.props.search : this.state.search
@@ -53,7 +52,7 @@ class Index extends React.Component {
     const searchResults = (
       <ul className="list-reset">
         {
-          get(content, "metadata", [])
+          (get(content, [ "metadata" ]) || [])
             .filter(post => shouldShowPost(search, post))
             .sort((a, b) => sortByDateString(a.createdDate, b.createdDate))
             .map((post, index) => <Link key={index} post={post} />)

@@ -7,7 +7,7 @@ export default function LinkPost({ post }) {
   return (
     <li className="p0 m0 link-post">
       <Link as={"/" + post.id} href={"/post?postId=" + post.id} prefetch>
-        <a className="text-decoration-none" onClick={() => window.scrollTo(0, 0)}>
+        <a className="text-decoration-none">
           <div key={post.id} className="p0 m0">
             <span className="h3 link-post-title align-middle">{post.title} - </span>
             <DateTime

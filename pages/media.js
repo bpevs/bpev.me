@@ -1,9 +1,9 @@
-import { get } from "lodash"
+import { get } from "@civility/utilities"
 import Error from "next/error"
 import Router from "next/router"
 import React from "react"
-import Layout from "../components/Layout/Layout"
-import Media from "../components/Media/Media"
+import Layout from "../components/Layout"
+import Media from "../components/Media"
 import { readPost } from "../services/contentServices"
 
 
@@ -23,7 +23,7 @@ export default class MediaPage extends React.Component {
   }
 
   static async getInitialProps(context) {
-    const { mediaId, postId } = get(context, "query", {})
+    const { mediaId, postId } = get(context, [ "query" ]) || {}
     const post = await readPost(postId)
     return { mediaId, post }
   }
@@ -59,7 +59,7 @@ export default class MediaPage extends React.Component {
 
     if (error) return <Error statusCode={error.statusCode} />
 
-    const itemNum = get(post, "content", []).indexOf(mediaId) + 1
+    const itemNum = (get(post, [ "content" ]) || []).indexOf(mediaId) + 1
     if (itemNum === 0) return <Error statusCode={404} />
 
     const itemURL = post.root + "/large/" + mediaId
@@ -80,7 +80,7 @@ export default class MediaPage extends React.Component {
    */
   _listenForPageTurn({ key }) {
     const { mediaId, post } = this.props
-    const postId = get(Router, "router.query.postId")
+    const postId = get(Router, [ "router", "query", "postId" ])
     if (!postId) return
 
     // Exit to previous article

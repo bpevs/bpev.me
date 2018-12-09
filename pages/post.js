@@ -1,8 +1,8 @@
-import { get } from "lodash"
+import { get } from "@civility/utilities"
 import Error from "next/error"
 import React from "react"
-import ContentArticle from "../components/ContentArticle/ContentArticle"
-import ContentPhotoAlbum from "../components/ContentPhotoAlbum/ContentPhotoAlbum"
+import ContentArticle from "../components/ContentArticle"
+import ContentPhotoAlbum from "../components/ContentPhotoAlbum"
 import { readBlogMeta, readPost } from "../services/contentServices"
 
 
@@ -23,7 +23,7 @@ export class Post extends React.Component {
 
   render() {
     const { post } = this.props
-    const relatedPosts = get(this, "props.meta.metadata", [])
+    const relatedPosts = get(this, [ "props", "meta", "metadata" ]) || []
     const postProps = { post, relatedPosts }
 
     if (this.state.error) return <Error statusCode={this.state.error.statusCode} />
