@@ -27,7 +27,7 @@ export default function ContentArticle({ post, relatedPosts }) {
   return (
     <Layout className="fit-800">
       <div className="mt4 mb4 mx-auto fit-800 article">
-        {compile(post.content, null, { type: "blog", id: post.id }).tree}
+        {compile(post.content, null, { type: "blog", post }).tree}
       </div>
       <RelatedPosts post={post} relatedPosts={relatedPosts} />
     </Layout>

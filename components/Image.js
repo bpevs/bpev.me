@@ -1,26 +1,17 @@
 import { get } from "@civility/utilities"
-import React, { useEffect, useState } from "react"
-import { readPost } from "../services/contentServices"
+import React from "react"
+
 
 export default function Image({ context, ...props }) {
-  const postId = get(context, [ "id" ])
+  const post = get(context, [ "post" ])
 
-  if (!postId || (context.type !== "blog")) {
+  if (!post || !post.id || (context.type !== "blog")) {
     return <img {...props} />
   }
 
-  const [ src, setSrc ] = useState("")
-
-  useEffect(() => {
-    readPost(postId)
-      .then(post => {
-        if (src || !post || !post.contentRoot) return
-        setSrc(post.contentRoot + props.src
-          .replace("./", "/")
-          .replace("images/", "medium/"),
-        )
-      })
-  })
+  const src = post.contentRoot + props.src
+    .replace("./", "/")
+    .replace("images/", "medium/")
 
   return <img
     {...props}
