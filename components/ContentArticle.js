@@ -2,9 +2,9 @@ import hljs from "highlight.js/lib/highlight"
 import hljsJavascript from "highlight.js/lib/languages/javascript"
 import marksy from "marksy"
 import React, { createElement } from "react"
-import Layout from "../Layout/Layout"
-import Media from "../Media/Media"
-import RelatedPosts from "../RelatedPosts/RelatedPosts"
+import Layout from "./Layout"
+import Media from "./Media"
+import RelatedPosts from "./RelatedPosts"
 
 
 // Syntax Highlighting

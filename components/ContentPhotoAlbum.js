@@ -1,7 +1,7 @@
 import Link from "next/link"
 import React from "react"
-import Layout from "../Layout/Layout"
-import RelatedPosts from "../RelatedPosts/RelatedPosts"
+import Layout from "./Layout"
+import RelatedPosts from "./RelatedPosts"
 
 
 export default ({ post, relatedPosts }) => {

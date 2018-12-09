@@ -1,6 +1,6 @@
 import React from "react"
-import Image from "../MediaImage/Image"
-import Video from "../MediaVideo/Video"
+import Image from "./Image"
+import Video from "./Video"
 
 
 const IMAGE = "image"

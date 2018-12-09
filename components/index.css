@@ -1,6 +1,14 @@
 @import "@civility/stylesheets/dist/civility.css";
 @import "highlight.js/styles/ocean.css";
 
+:root {
+  --h1: 2rem;
+  --space-1: 0.5rem;
+  --space-2: 1rem;
+  --space-3: 2rem;
+  --space-4: 4rem;
+}
+
 .sans-serif {
   font-family: BlinkMacSystemFont,
                'avenir next', avenir,
@@ -65,6 +73,10 @@ h1 {
   opacity: 0.5
 }
 
+.o7 {
+  opacity: 0.7
+}
+
 .fit-800 {
   max-width: 800px;
 }
@@ -124,10 +136,8 @@ h1 {
 
 .link-post {
   padding-left: 1.2em;
-  padding-top: 0.8em;
-  padding-bottom: 1.5em;
-  border: 1px solid rgba(0,0,0,0);
-  border-left: 1px solid black;
+  padding-top: 0.5em;
+  padding-bottom: 0.5em;
   transition: all 0.2s ease-out;
   cursor: pointer;
 }
@@ -141,8 +151,7 @@ a:visited .link-post-title {
 }
 
 .link-post:hover {
-  background-color: rgba(228, 236, 238, 0.2);
-  border: 1px solid rgba(0,0,0,0.1);
+  background-color: rgba(228, 236, 238, 0.5);
   border-left: 3px solid rgba(0,100,256,0.4);
   padding-left: 1.3em;
 }
@@ -172,26 +181,6 @@ a:visited .link-post-title {
 
 .max-height-800 {
   max-height: 800px;
-}
-
-.tag {
-  padding: 2px;
-  padding-left: 4px;
-  padding-right: 4px;
-  margin-top: -2px;
-  display: inline-block;
-  text-transform: lowercase;
-  color: black;
-  cursor: pointer;
-  background-color: rgba(0,0,0,0.05);
-  border: 1px solid rgba(0,0,0,0.08);
-  opacity: 0.7;
-  user-select: none;
-}
-
-.tag a {
-  color: black;
-  text-decoration: none;
 }
 
 .flex {
@@ -242,7 +231,7 @@ a:visited .link-post-title {
 .article pre {
   background-color: rgb(44, 48, 58);
   border-radius: 6px;
-  color: rgba(256, 256, 256, 0.7);
+  color: rgba(256, 256, 256, 0.9);
   line-height: 1.6;
   overflow: scroll;
   padding: 2em;
@@ -251,7 +240,7 @@ a:visited .link-post-title {
 .article code {
   background-color: rgb(44, 48, 58);
   border-radius: 3px;
-  color: rgba(256, 256, 256, 0.7);
+  color: rgba(256, 256, 256, 0.9);
   padding: 0.2em 0.4em 0.2em 0.4em;
 }
 

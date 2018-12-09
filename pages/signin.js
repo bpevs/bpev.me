@@ -1,6 +1,6 @@
 import React from "react"
-import Layout from "../components/Layout/Layout"
-import { SigninForm } from "../components/SigninForm/SigninForm"
+import Layout from "../components/Layout"
+import { SigninForm } from "../components/SigninForm"
 
 
 export default class extends React.Component {

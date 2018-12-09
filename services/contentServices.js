@@ -1,5 +1,5 @@
+import { memoize } from "@civility/utilities"
 import "isomorphic-unfetch"
-import { memoize } from "lodash"
 import { ASSET_URL } from "../constants"
 
 

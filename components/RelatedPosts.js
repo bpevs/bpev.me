@@ -1,6 +1,5 @@
-import { intersection } from "lodash"
 import React from "react"
-import LinkPost from "../LinkPost/LinkPost"
+import LinkPost from "./LinkPost"
 
 
 export default function RelatedPosts({ post= {}, relatedPosts= [] }) {
@@ -22,6 +21,9 @@ export default function RelatedPosts({ post= {}, relatedPosts= [] }) {
 function isRelatedPost(relatedPost) {
   if (!this || !relatedPost) return false
   if (relatedPost.draft) return false
-  if (this.id !== relatedPost.id) return false
-  return intersection(this.tags, relatedPost.tags).length > 0
+  if (this.id === relatedPost.id) return false
+
+  return this.tags
+    .filter(tag => relatedPost.tags.indexOf(tag) !== -1)
+    .length > 0
 }

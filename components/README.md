@@ -35,3 +35,11 @@ Example URLs
 ### Audio (soundcloud, spotify, bandcamp embeds)
 - __standard audio__: https://cdn.bpev.md/photos/my-audio.mp3
 - __embedded audio__: https://w.soundcloud.com/player/url=some-url
+
+
+MediaList
+========
+
+For lists that are entirely made of [`<Media />`](../Media) components, we should make an album or playlist, depending on the type of content.
+
+This component is expected to be used in conjunction with our Media component, and should be able to be used with that, OR with its more specialize counterparts, [`<Image />`](../MediaImage), [`<Video />`](../MediaImage), or [`<Audio />`](../MediaAudio).

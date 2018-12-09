@@ -25,15 +25,12 @@
     "target": "ES6"
   },
   "exclude": [
-    "**/*.css",
-    "**/*.test.js",
-    "**/*.test.jsx",
+    "**/*.css"
   ],
   "include": [
     "components/**/*",
     "pages/**/*",
     "utilities/**/*",
     "declarations.d.ts",
-    "jestsetup.js",
   ]
 }
