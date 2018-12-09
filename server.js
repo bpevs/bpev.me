@@ -2,7 +2,6 @@ const express = require("express")
 const next = require("next")
 const cluster = require("cluster")
 const numCPUs = require("os").cpus().length
-const url = require("url")
 
 const dev = process.env.NODE_ENV !== "production"
 const port = Number(process.env.PORT) || 3000
@@ -33,10 +32,11 @@ if (!dev && cluster.isMaster) {
 
       server.get("/login", renderRoute("/signin"))
       server.get("/signin", renderRoute("/signin"))
+      server.get("/search", renderRoute("/search"))
       server.get("/:postId", renderRoute("/post"))
       server.get("/post/:postId", renderRoute("/post"))
       server.get("/:postId/:mediaId", renderRoute("/media"))
-      server.get("/", renderRoute("/search"))
+      server.get("/", renderRoute("/index"))
       server.get("*", (req, res) => nextHandler(req, res))
 
       server.listen(port, host, (err) => {

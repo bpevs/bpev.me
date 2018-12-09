@@ -1,4 +1,4 @@
-import { get } from "lodash"
+import { get, isNumber } from "@civility/utilities"
 import Error from "next/error"
 import React from "react"
 import Layout from "../components/Layout/Layout"
@@ -42,21 +42,40 @@ class Index extends React.Component {
 
     const search = this.state.search == null ? this.props.search : this.state.search
 
-    const searchResults = (
-      <ul className="list-reset">
-        {
-          get(content, "metadata", [])
-            .filter(post => shouldShowPost(search, post))
-            .sort((a, b) => sortByDateString(a.createdDate, b.createdDate))
-            .map((post, index) => <Link key={index} post={post} />)
-        }
-      </ul>
-    )
+    const searchResults = get(content, [ "metadata" ], [])
+      .filter(post => post && shouldShowPost(search, post))
+      .sort((a, b) => sortByDateString(a.createdDate, b.createdDate))
+      .reduce((all, post, currIndex, arr) => {
+        const thisYear = parseInt(post.createdDate.slice(0, 4), 10)
+        if (!all.length) return [ thisYear, post ]
+        const lastPost = arr[currIndex - 1]
+        if (isNumber(lastPost)) return all.concat(post)
+        const lastYear = parseInt(lastPost.createdDate.slice(0, 4), 10)
+        return all.concat(lastYear !== thisYear ? [ thisYear, post ] : [ post ])
+      }, [])
+      .map((post, index) => isNumber(post)
+        ? <h2 key={index}>{post}</h2>
+        : <Link key={index} post={post} />,
+      )
+
 
     return (
       <Layout className="fit-800">
         { this.props.user ? "LOGGED IN" : ""}
-        {searchResults}
+        <h1 className="center">HI HI HI 👋</h1>
+        <p>
+          I'm Ben. I make things. Mostly code and music.  If you're familiar with my work,
+          {" "}you probably use <a href="https://favioli.com">Favioli</a>, saw me on
+          {" "}<a href="https://www.youtube.com/channel/UCpznF0d3ky603SFPzJwtT0g">Youtube</a>, or know me personally.
+          {" "}So I apologize for whichever of those you have experienced.
+        </p>
+        <p>
+          This blog is basically a place to put random thoughts and stuff. If you haven't gotten
+          {" "}enough of me, then feel free to poke around. I try to write stuff in a way that
+          {" "}is readable and teaches new things. So hopefully you will learn something new.
+        </p>
+        <br />
+        <ul className="list-reset">{searchResults}</ul>
       </Layout>
     )
   }
