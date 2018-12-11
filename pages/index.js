@@ -60,11 +60,11 @@ class Index extends React.Component {
 
 
     return (
-      <Layout className="fit-800">
+      <Layout className="fit-800 pl3 pr3 justify-center">
         { this.props.user ? "LOGGED IN" : ""}
-        <h1 className="center">HI HI HI 👋</h1>
+        <h1 className="center h1 p3">Hi! I'm Ben! 👋</h1>
         <p>
-          I'm Ben. I make things. Mostly code and music.  If you're familiar with my work,
+          I make things. Mostly code and music.  If you're familiar with my work,
           {" "}you probably use <a href="https://favioli.com">Favioli</a>, saw me on
           {" "}<a href="https://www.youtube.com/channel/UCpznF0d3ky603SFPzJwtT0g">Youtube</a>, or know me personally.
           {" "}So I apologize for whichever of those you have experienced.
