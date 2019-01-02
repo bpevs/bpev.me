@@ -33,6 +33,7 @@ if (!dev && cluster.isMaster) {
       server.get("/login", renderRoute("/signin"))
       server.get("/signin", renderRoute("/signin"))
       server.get("/search", renderRoute("/search"))
+      server.get("/vx1", renderRoute("/vx1"))
       server.get("/:postId", renderRoute("/post"))
       server.get("/post/:postId", renderRoute("/post"))
       server.get("/:postId/:mediaId", renderRoute("/media"))

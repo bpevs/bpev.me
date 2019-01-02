@@ -39,7 +39,7 @@
     "nprogress": "^0.2.0",
     "postcss-easy-import": "^3.0.0",
     "postcss-loader": "^3.0.0",
-    "raw-loader": "^0.5.1",
+    "raw-loader": "^1.0.0",
     "react": "^16.7.0-alpha.0",
     "react-dom": "^16.7.0-alpha.0",
     "xss-filters": "^1.2.7"
@@ -49,7 +49,7 @@
     "@types/next": "^7.0.5",
     "@types/nprogress": "0.0.29",
     "@types/react": "^16.7.11",
-    "blog-o-matic": "^3.0.3",
+    "blog-o-matic": "^4.1.0",
     "husky": "^1.2.0",
     "tslint": "^5.11.0",
     "tslint-eslint-rules": "^5.4.0",
