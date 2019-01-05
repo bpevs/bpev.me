@@ -51,6 +51,11 @@ if (!dev && cluster.isMaster) {
       const query = { ...req.query, ...req.params }
       const host = (req.headers.host || "").split(".")
       const subDomain = host.length > 2 ? host[0] : ""
+
+      if (subDomain === "vx1") {
+        return nextApp.render(req, res, "/vx1", query)
+      }
+
       if (subDomain && subDomain !== "www") {
         query.subDomain = subDomain
       }

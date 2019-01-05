@@ -309,7 +309,7 @@ blockquote p {
   left: 50%;
   transform: translate(-50%, -50%);
   display: block;
-  height: 50%;
+  height: 25%;
   z-index: 10;
 }
 
