@@ -36,8 +36,12 @@ export const readPostMeta = memoize(fetchPostMeta)
  * @returns {Promise<BlogMeta>}
  */
 async function fetchBlogMeta() {
-    const response = await fetch(ASSET_URL + "/content.json")
-    return response.json()
+    const response = await fetch(ASSET_URL + "/index.json")
+    const items = await response.json()
+    return items.map(item => {
+      item.id = item.permalink.substring(7)
+      return item
+    })
 }
 
 /**
@@ -46,7 +50,7 @@ async function fetchBlogMeta() {
  * @returns {Promise<PostMeta>} metadata describing a post
  */
 async function fetchPostMeta(path) {
-  const response = await fetch(path + "/metadata.json")
+  const response = await fetch(path + "/index.json")
   return response.json()
 }
 
@@ -56,7 +60,7 @@ async function fetchPostMeta(path) {
  * @returns {Promise<string>} Post text string
  */
 async function fetchArticleText(path) {
-  const README = await fetch(path + "/README.md")
+  const README = await fetch(path + "/index.md")
   return await README.text()
 }
 
@@ -66,20 +70,17 @@ async function fetchArticleText(path) {
  * @returns {Promise<PostMeta>} Updated with content
  */
 export async function fetchPost(postId) {
-  const blogMeta = await readBlogMeta()
+  const indexList = await readBlogMeta()
+  const post = indexList.find(item => item.id === postId)
 
-  const post = blogMeta.metadata.find(item => item.id === postId)
   if (!post) throw new Error(`No post with id: ${postId}`)
 
-  const path = ASSET_URL + post.contentRoot
+  const path = ASSET_URL + "/posts" + post.permalink
   const metadata = await readPostMeta(path)
-  const type = metadata.contentType
+  const content = await readArticleText(path)
 
-  if (type === "article") {
-    const content = await readArticleText(path)
-    return { ...metadata, content, contentRoot: path }
-  }
+  return { ...metadata, content, contentRoot: ASSET_URL + post.permalink }
 
-  if (type === "gallery") return { ...metadata, root: path }
+  // if (type === "gallery") return { ...metadata, root: path }
   return metadata
 }

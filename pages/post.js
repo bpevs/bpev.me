@@ -2,7 +2,6 @@ import { get } from "@civility/utilities"
 import Error from "next/error"
 import React from "react"
 import ContentArticle from "../components/ContentArticle"
-import ContentPhotoAlbum from "../components/ContentPhotoAlbum"
 import { readBlogMeta, readPost } from "../services/contentServices"
 
 
@@ -23,16 +22,10 @@ export class Post extends React.Component {
 
   render() {
     const { post } = this.props
-    const relatedPosts = get(this, [ "props", "meta", "metadata" ]) || []
+    const relatedPosts = get(this, [ "props", "meta" ]) || []
     const postProps = { post, relatedPosts }
-
     if (this.state.error) return <Error statusCode={this.state.error.statusCode} />
-
-    switch (post && post.contentType) {
-      case "article": return (<ContentArticle {...postProps} />)
-      case "gallery": return (<ContentPhotoAlbum {...postProps} />)
-      default: return <Error statusCode={404} />
-    }
+    return (<ContentArticle {...postProps} />)
   }
 }
 

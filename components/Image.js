@@ -4,14 +4,11 @@ import React from "react"
 
 export default function Image({ context, ...props }) {
   const post = get(context, [ "post" ])
-
-  if (!post || !post.id || (context.type !== "blog")) {
+  if (!post || (context.type !== "blog")) {
     return <img {...props} />
   }
 
-  const src = post.contentRoot + props.src
-    .replace("./", "/")
-    .replace("images/", "medium/")
+  const src = (post.contentRoot + "/" + props.src).replace("medium", "large")
 
   return <img
     {...props}
