@@ -12,7 +12,7 @@ export default function LinkPost({ post }) {
             <span className="h3 link-post-title align-middle">{post.title} - </span>
             <DateTime
               className="h4 align-middle o7"
-              timestamp={new Date(post.createdDate).getTime()}
+              timestamp={new Date(post.created).getTime()}
               options={{ weekday: undefined, year: undefined }}
             />
           </div>

@@ -5,7 +5,6 @@ import Layout from "../components/Layout"
 import Link from "../components/LinkPost"
 import { readBlogMeta } from "../services/contentServices"
 import { shouldShowPost } from "../utilities/predicates"
-import { sortByDateString } from "../utilities/sorts"
 
 
 class Index extends React.Component {
@@ -42,15 +41,15 @@ class Index extends React.Component {
 
     const search = this.state.search == null ? this.props.search : this.state.search
 
-    const searchResults = get(content, [ "metadata" ], [])
+    const searchResults = get(content, [])
       .filter(post => post && shouldShowPost(search, post))
-      .sort((a, b) => sortByDateString(a.createdDate, b.createdDate))
+      .sort((a, b) => new Date(b.created).getTime() - new Date(a.created).getTime())
       .reduce((all, post, currIndex, arr) => {
-        const thisYear = parseInt(post.createdDate.slice(0, 4), 10)
+        const thisYear = new Date(post.created).getFullYear()
         if (!all.length) return [ thisYear, post ]
         const lastPost = arr[currIndex - 1]
         if (isNumber(lastPost)) return all.concat(post)
-        const lastYear = parseInt(lastPost.createdDate.slice(0, 4), 10)
+        const lastYear = new Date(lastPost.created).getFullYear()
         return all.concat(lastYear !== thisYear ? [ thisYear, post ] : [ post ])
       }, [])
       .map((post, index) => isNumber(post)

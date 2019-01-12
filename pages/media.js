@@ -23,7 +23,7 @@ export default class MediaPage extends React.Component {
   }
 
   static async getInitialProps(context) {
-    const { mediaId, postId } = get(context, [ "query" ]) || {}
+    const { mediaId = null, postId = null } = get(context, [ "query" ]) || {}
     const post = await readPost(postId)
     return { mediaId, post }
   }
