@@ -8,7 +8,7 @@ export default function Image({ context, ...props }) {
     return <img {...props} />
   }
 
-  const src = (post.contentRoot + "/" + props.src).replace("medium", "large")
+  const src = (post.contentRoot + "/" + props.src)
 
   return <img
     {...props}
