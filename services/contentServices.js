@@ -39,7 +39,7 @@ async function fetchBlogMeta() {
     const response = await fetch(ASSET_URL + "/index.json")
     const items = await response.json()
     return items.map(item => {
-      item.id = item.permalink.substring(7)
+      item.id = item.permalink
       return item
     })
 }
@@ -75,11 +75,11 @@ export async function fetchPost(postId) {
 
   if (!post) throw new Error(`No post with id: ${postId}`)
 
-  const path = ASSET_URL + "/posts" + post.permalink
+  const path = ASSET_URL + "/posts/" + post.permalink
   const metadata = await readPostMeta(path)
   const content = await readArticleText(path)
 
-  return { ...metadata, content, contentRoot: ASSET_URL + post.permalink }
+  return { ...metadata, content, contentRoot: ASSET_URL + "/posts/" + post.permalink }
 
   // if (type === "gallery") return { ...metadata, root: path }
   return metadata

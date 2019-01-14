@@ -2,7 +2,7 @@ import React from "react"
 import LinkPost from "./LinkPost"
 
 
-export default function RelatedPosts({ post= {}, relatedPosts= [] }) {
+export default function RelatedPosts({ post = {}, relatedPosts = [] }) {
   const relatedPostComponents = relatedPosts
     .filter(isRelatedPost.bind(post))
     .map(post => <LinkPost key={post.id} post={post} />)
@@ -21,9 +21,9 @@ export default function RelatedPosts({ post= {}, relatedPosts= [] }) {
 function isRelatedPost(relatedPost) {
   if (!this || !relatedPost) return false
   if (relatedPost.draft) return false
-  if (this.id === relatedPost.id) return false
+  if (this.permalink === relatedPost.permalink) return false
 
-  return this.tags
-    .filter(tag => relatedPost.tags.indexOf(tag) !== -1)
+  return ((this && this.tags) || [])
+    .filter(tag => relatedPost && relatedPost.tags && relatedPost.tags.indexOf(tag) !== -1)
     .length > 0
 }
