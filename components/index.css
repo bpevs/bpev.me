@@ -244,6 +244,29 @@ a:visited .link-post-title {
   padding: 0.2em 0.4em 0.2em 0.4em;
 }
 
+.image-list {
+  list-style: none;
+}
+
+.image-list li {
+  display: inline-block;
+  width: 40%;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  max-height: 300px;
+  text-align: center;
+  margin: 10px;
+  border: 4px solid black;
+}
+
+.image-list img {
+  height: 300px;
+  margin: 0;
+  padding: 0;
+  width: auto;
+}
+
 table {
   border-collapse: collapse;
   padding: 1em;

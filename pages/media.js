@@ -3,8 +3,6 @@ import Error from "next/error"
 import Router from "next/router"
 import React from "react"
 import Layout from "../components/Layout"
-import Media from "../components/Media"
-import { readPost } from "../services/contentServices"
 
 
 export default class MediaPage extends React.Component {
@@ -24,8 +22,7 @@ export default class MediaPage extends React.Component {
 
   static async getInitialProps(context) {
     const { mediaId = null, postId = null } = get(context, [ "query" ]) || {}
-    const post = await readPost(postId)
-    return { mediaId, post }
+    return { mediaId }
   }
 
   componentDidCatch(error, info) {
@@ -68,7 +65,7 @@ export default class MediaPage extends React.Component {
 
     return (
       <Layout headerAlign="center">
-        <Media className={imageClass} src={itemURL} />
+        {/* <Media className={imageClass} src={itemURL} /> */}
         <p className="center">{itemNum}/{itemTotal}</p>
       </Layout>
     )
