@@ -1,8 +1,9 @@
+import { Blog } from "@blog-o-matic/react"
 import { get } from "@civility/utilities"
-import Error from "next/error"
 import React from "react"
-import ContentArticle from "../components/ContentArticle"
-import { readBlogMeta, readPost } from "../services/contentServices"
+import Layout from "../components/Layout"
+import RelatedPosts from "../components/RelatedPosts"
+import { readBlogMeta } from "../services/contentServices"
 
 
 export class Post extends React.Component {
@@ -11,7 +12,6 @@ export class Post extends React.Component {
   static async getInitialProps(context) {
     return {
       meta: await readBlogMeta(),
-      post: await readPost(context.query.postId),
     }
   }
 
@@ -23,9 +23,17 @@ export class Post extends React.Component {
   render() {
     const { post } = this.props
     const relatedPosts = get(this, [ "props", "meta" ]) || []
-    const postProps = { post, relatedPosts }
-    if (this.state.error) return <Error statusCode={this.state.error.statusCode} />
-    return (<ContentArticle {...postProps} />)
+    return (
+      <Layout className="fit-800">
+        <Blog
+          className=""
+          style={{}}
+          root="https://static.bpev.me/"
+          id={get(this, [ "props", "router", "query" , "postId" ])}
+        />
+        <RelatedPosts post={post} relatedPosts={relatedPosts} />
+      </Layout>
+    )
   }
 }
 
