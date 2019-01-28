@@ -1,11 +1,8 @@
-import { get, isNumber } from "@civility/utilities"
+import { Blog } from "@blog-o-matic/react"
 import Error from "next/error"
 import React from "react"
 import Layout from "../components/Layout"
-import Link from "../components/LinkPost"
 import { readBlogMeta } from "../services/contentServices"
-import { shouldShowPost } from "../utilities/predicates"
-
 
 class Index extends React.Component {
 
@@ -36,27 +33,8 @@ class Index extends React.Component {
   }
 
   render() {
-    const { content, error } = this.props
+    const { error } = this.props
     if (error) return <Error statusCode={error.statusCode} />
-
-    const search = this.state.search == null ? this.props.search : this.state.search
-
-    const searchResults = get(content, [])
-      .filter(post => post && shouldShowPost(search, post))
-      .sort((a, b) => new Date(b.created).getTime() - new Date(a.created).getTime())
-      .reduce((all, post, currIndex, arr) => {
-        const thisYear = new Date(post.created).getFullYear()
-        if (!all.length) return [ thisYear, post ]
-        const lastPost = arr[currIndex - 1]
-        if (isNumber(lastPost)) return all.concat(post)
-        const lastYear = new Date(lastPost.created).getFullYear()
-        return all.concat(lastYear !== thisYear ? [ thisYear, post ] : [ post ])
-      }, [])
-      .map((post, index) => isNumber(post)
-        ? <h2 key={index}>{post}</h2>
-        : <Link key={index} post={post} />,
-      )
-
 
     return (
       <Layout className="fit-800 pl3 pr3 justify-center">
@@ -74,7 +52,7 @@ class Index extends React.Component {
           {" "}is readable and teaches new things. So hopefully you will learn something new.
         </p>
         <br />
-        <ul className="list-reset">{searchResults}</ul>
+        <Blog root="https://static.bpev.me/" />
       </Layout>
     )
   }
