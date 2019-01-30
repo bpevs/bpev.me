@@ -22,7 +22,7 @@
     "@babel/preset-env": "^7.1.6",
     "@babel/preset-react": "^7.0.0",
     "@babel/runtime": "^7.1.5",
-    "@blog-o-matic/react": "^4.3.1",
+    "@blog-o-matic/react": "^4.3.2",
     "@civility/firebase": "^0.1.1",
     "@civility/react": "^0.1.3",
     "@civility/store": "^0.1.3",

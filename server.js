@@ -34,9 +34,9 @@ if (!dev && cluster.isMaster) {
       server.get("/signin", renderRoute("/signin"))
       server.get("/search", renderRoute("/search"))
       server.get("/vx1", renderRoute("/vx1"))
-      server.get("/:postId", renderRoute("/post"))
-      server.get("/post/:postId", renderRoute("/post"))
       server.get("/:postId/:mediaId", renderRoute("/media"))
+      server.get("/:postId", renderRoute("/index"))
+      server.get("/post/:postId", renderRoute("/index"))
       server.get("/", renderRoute("/index"))
       server.get("*", (req, res) => nextHandler(req, res))
 
