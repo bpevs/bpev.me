@@ -3,7 +3,6 @@ import Head from "next/head"
 import Router from "next/router"
 import NProgress from "nprogress"
 import React from "react"
-import { onAuthStateChanged } from "../services/authServices"
 
 
 export default class MyApp extends App {
@@ -36,8 +35,6 @@ export default class MyApp extends App {
     })
     events.on("routeChangeComplete", () => NProgress.done())
     events.on("routeChangeError", () => NProgress.done())
-
-    onAuthStateChanged(user => this.setState({ user }))
   }
 
   render() {
