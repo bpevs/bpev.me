@@ -29,6 +29,11 @@ if (!dev && cluster.isMaster) {
       const server = express()
 
       server.use("/static", express.static("static"))
+      server.get("/rss.xml", (req, res) => {
+        res.charset = "utf-8"
+        res.set("Content-Type", "application/xml")
+        res.redirect("https://static.bpev.me/rss.xml")
+      });
 
       server.get("/login", renderRoute("/signin"))
       server.get("/search", renderRoute("/search"))
@@ -49,7 +54,7 @@ if (!dev && cluster.isMaster) {
     return (req, res) => {
       const query = { ...req.query, ...req.params }
       const host = (req.headers.host || "").split(".")
-      const subDomain = host.length > 2 ? host[0] : ""
+      const subDomain = host.length > 2 ? host[ 0 ] : ""
 
       if (subDomain === "vx1") {
         return nextApp.render(req, res, "/vx1", query)
