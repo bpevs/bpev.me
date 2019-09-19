@@ -9,12 +9,11 @@ const VX1Page = () => {
         line_linked: {
           color: "#ffffff",
           distance: 0,
-          enable_auto: false,
           opacity: 0.4,
           width: 1,
         },
         move: {
-          "attract.enable": false,
+          attract: { enable: false },
           direction: "bottom",
           enable: true,
           out_mode: "out",
@@ -34,7 +33,7 @@ const VX1Page = () => {
           value: 2,
         },
       },
-    }}/>
+    }} />
     <img src="/static/cover.png" />
   </div>
 }

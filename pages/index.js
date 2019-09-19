@@ -7,15 +7,16 @@ import React from "react"
 import AboutMe from "../components/AboutMe"
 import Layout from "../components/Layout"
 
-const ROOT = "https://static.bpev.me/"
+const POSTS_ROOT = "https://static.bpev.me/"
+const POST_ROOT = "https://static.bpev.me/posts/"
 
 class Index extends React.Component {
   static async getInitialProps(props) {
     const { filter, postId, subDomain } = props.query
 
     return {
-      list: await fetchPosts(ROOT),
-      post: postId ? await fetchPost(ROOT, postId) : null,
+      list: await fetchPosts(POSTS_ROOT),
+      post: postId ? await fetchPost(POST_ROOT, postId) : null,
       search: filter || subDomain,
     }
   }
@@ -36,7 +37,7 @@ class Index extends React.Component {
         <Blog
           list={list}
           post={post}
-          root={ROOT}
+          root={POSTS_ROOT}
           shouldFetch={false}
         />
       </Layout>
