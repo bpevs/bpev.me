@@ -931,30 +931,31 @@
     react "^16.8.1"
     react-dom "^16.8.1"
 
-"@civility/store@^0.1.4":
-  version "0.1.4"
-  resolved "https://registry.yarnpkg.com/@civility/store/-/store-0.1.4.tgz#645b68cdd2724fb91e757af9cce7e67aca3cfc5f"
-  integrity sha512-70QQoypi6e0qmV48tykTW8tCw3OtjDsCxSLhxk+ssxuwKNn8V84j4LhoAdJkvMCFxI0jWeniI/6uU6WgLf0fEQ==
+"@civility/react@^0.2.2":
+  version "0.2.2"
+  resolved "https://registry.yarnpkg.com/@civility/react/-/react-0.2.2.tgz#9dba998c19f2dbe557f4b9a3c619689ff30d0b7f"
+  integrity sha512-7ja3kBXaXWPxMPcvYURhqPIuDZKmr/6aeIzINtNGcSP4Tk20NgKAjOvVEeLQCvav0Miy60Gpa2JNqcTRg/zFkA==
   dependencies:
-    "@civility/utilities" "^0.1.4"
-    redux "^4.0.1"
+    "@civility/utilities" "^0.2.2"
+    react "~16.8.0"
+    react-dom "~16.8.0"
 
-"@civility/stylesheets@^0.2.0":
-  version "0.2.0"
-  resolved "https://registry.yarnpkg.com/@civility/stylesheets/-/stylesheets-0.2.0.tgz#cbcc7bad25c7535778a8a4b4a2dea27eb3c9c7b9"
-  integrity sha512-naqmKpRGRRd5L2sqDcj+6bDsaS+3v4iWfZIjNwKfPoDK15si5g6lJD9Hcr5w2sSnqqDJQftE40xorpJrOLgVdQ==
+"@civility/stylesheets@^0.2.2":
+  version "0.2.2"
+  resolved "https://registry.yarnpkg.com/@civility/stylesheets/-/stylesheets-0.2.2.tgz#7814efc03d3b77a3c1f7c99db2ce368316a04bfa"
+  integrity sha512-FfLfWReDH9GtrB+dOUjzyU8ZJvxUhEEce7LmDOlVJQffyEKSz0vpV6cHo1+8BbtIFBvFdVeZu82oP8S3CwGrsg==
   dependencies:
-    basscss "^8.0.10"
-
-"@civility/utilities@^0.1.4":
-  version "0.1.4"
-  resolved "https://registry.yarnpkg.com/@civility/utilities/-/utilities-0.1.4.tgz#37d9cf2b6fd287d4f04dee115a95d89016138b38"
-  integrity sha512-osFkCSke/KJzbdNUCnWNTW1AvhlNBgY1TwshE2vncmkGRP+skDCfo+UmiG3RGr0cuEyqPC3lLbYy/tmIcetnyw==
+    basscss "~8.0.0"
 
 "@civility/utilities@^0.2.1":
   version "0.2.1"
   resolved "https://registry.yarnpkg.com/@civility/utilities/-/utilities-0.2.1.tgz#bffd70b7e68a73a7b3569e4031a9176e1bb36ccb"
   integrity sha512-D2bsC3996bG2nN/QxQSb3/tnsiqyFpbJ8iWNoSeh4usgpGlIiw/r3liJvTpXgfskd8+uAKmtwPE/c+IIw5gaJQ==
+
+"@civility/utilities@^0.2.2":
+  version "0.2.2"
+  resolved "https://registry.yarnpkg.com/@civility/utilities/-/utilities-0.2.2.tgz#58c60c2acda6f032f7a73d2277cfa72e2d1fc869"
+  integrity sha512-qINZpWca+Hc9zytNkiVQIccptf2py+yzrrGbQz1P6tigr7P/KcohURYp4tubnZ1FtBuB/hvZk9jcGuJZ8dpNpQ==
 
 "@types/anymatch@*":
   version "1.3.1"
@@ -1640,10 +1641,10 @@ basscss-typography@^3.0.4:
   resolved "https://registry.yarnpkg.com/basscss-typography/-/basscss-typography-3.0.4.tgz#ec946a2bad8dd1af97be9ea108ad4bb7be932464"
   integrity sha512-PMCxUfYPpAj8gQV8qI09lfNp7eWNrKtQFkCN2fZjLyReSY/wnw8QP8irpvbJ67vSEhlkA6ZP8j7vmTDoxkyu8g==
 
-basscss@^8.0.10:
-  version "8.1.0"
-  resolved "https://registry.yarnpkg.com/basscss/-/basscss-8.1.0.tgz#ede4ed0a8a8433fa18edda90a90d2311d1223695"
-  integrity sha512-SJ48HWDKqX1OnzeZgqwweFPVM98h0lNtvC+megWPCEJ1R6LIbx6dnj3rpCJueElVn9giWipZhoozMEBRAIlnUw==
+basscss@~8.0.0:
+  version "8.0.10"
+  resolved "https://registry.yarnpkg.com/basscss/-/basscss-8.0.10.tgz#a94f6c79bc89a0980e3b8f2b4f4166a38f34e396"
+  integrity sha512-cbDAt6Kso5RpPvXKebIgCK2X7iseNXuSeFA1ERWVr2iy/I4pl3HFyErpRUgrQ0kMyKzB/HedFhQErQRjSCcA1A==
   dependencies:
     basscss-align "^1.0.2"
     basscss-border "^4.0.2"
@@ -4663,6 +4664,16 @@ react-dom@^16.8.1, react-dom@^16.9.0:
     prop-types "^15.6.2"
     scheduler "^0.15.0"
 
+react-dom@~16.8.0:
+  version "16.8.6"
+  resolved "https://registry.yarnpkg.com/react-dom/-/react-dom-16.8.6.tgz#71d6303f631e8b0097f56165ef608f051ff6e10f"
+  integrity sha512-1nL7PIq9LTL3fthPqwkvr2zY7phIPjYrT0jp4HjyEQrEROnw4dG41VVwi/wfoCneoleqrNX7iAD+pXebJZwrwA==
+  dependencies:
+    loose-envify "^1.1.0"
+    object-assign "^4.1.1"
+    prop-types "^15.6.2"
+    scheduler "^0.13.6"
+
 react-error-overlay@5.1.6:
   version "5.1.6"
   resolved "https://registry.yarnpkg.com/react-error-overlay/-/react-error-overlay-5.1.6.tgz#0cd73407c5d141f9638ae1e0c63e7b2bf7e9929d"
@@ -4693,6 +4704,16 @@ react@^16.8.1, react@^16.9.0:
     loose-envify "^1.1.0"
     object-assign "^4.1.1"
     prop-types "^15.6.2"
+
+react@~16.8.0:
+  version "16.8.6"
+  resolved "https://registry.yarnpkg.com/react/-/react-16.8.6.tgz#ad6c3a9614fd3a4e9ef51117f54d888da01f2bbe"
+  integrity sha512-pC0uMkhLaHm11ZSJULfOBqV4tIZkx87ZLvbbQYunNixAAvjnC+snJCg0XQXn9VIsttVsbZP/H/ewzgsd5fxKXw==
+  dependencies:
+    loose-envify "^1.1.0"
+    object-assign "^4.1.1"
+    prop-types "^15.6.2"
+    scheduler "^0.13.6"
 
 read-cache@^1.0.0:
   version "1.0.0"
@@ -4741,14 +4762,6 @@ readdirp@^2.2.1:
     graceful-fs "^4.1.11"
     micromatch "^3.1.10"
     readable-stream "^2.0.2"
-
-redux@^4.0.1:
-  version "4.0.4"
-  resolved "https://registry.yarnpkg.com/redux/-/redux-4.0.4.tgz#4ee1aeb164b63d6a1bcc57ae4aa0b6e6fa7a3796"
-  integrity sha512-vKv4WdiJxOWKxK0yRoaK3Y4pxxB0ilzVx6dszU2W8wLxlb2yikRph4iV/ymtdJ6ZxpBLFbyrxklnT5yBbQSl3Q==
-  dependencies:
-    loose-envify "^1.4.0"
-    symbol-observable "^1.2.0"
 
 reflect.ownkeys@^0.2.0:
   version "0.2.0"
@@ -4924,6 +4937,14 @@ sax@^1.2.4:
   version "1.2.4"
   resolved "https://registry.yarnpkg.com/sax/-/sax-1.2.4.tgz#2816234e2378bddc4e5354fab5caa895df7100d9"
   integrity sha512-NqVDv9TpANUjFm0N8uM5GxL36UgKi9/atZw+x7YFnQ8ckwFGKrl4xX4yWtrey3UJm5nP1kUbnYgLopqWNSRhWw==
+
+scheduler@^0.13.6:
+  version "0.13.6"
+  resolved "https://registry.yarnpkg.com/scheduler/-/scheduler-0.13.6.tgz#466a4ec332467b31a91b9bf74e5347072e4cd889"
+  integrity sha512-IWnObHt413ucAYKsD9J1QShUKkbKLQQHdxRyw73sw4FN26iWr3DY/H34xGPe4nmL1DwXyWmSWmMrA9TfQbE/XQ==
+  dependencies:
+    loose-envify "^1.1.0"
+    object-assign "^4.1.1"
 
 scheduler@^0.15.0:
   version "0.15.0"
@@ -5337,11 +5358,6 @@ supports-color@^6.1.0:
   integrity sha512-qe1jfm1Mg7Nq/NSh6XE24gPXROEVsWHxC1LIx//XNlD9iw7YZQGjZNjYN7xGaEG6iKdA8EtNFW6R0gjnVXp+wQ==
   dependencies:
     has-flag "^3.0.0"
-
-symbol-observable@^1.2.0:
-  version "1.2.0"
-  resolved "https://registry.yarnpkg.com/symbol-observable/-/symbol-observable-1.2.0.tgz#c22688aed4eab3cdc2dfeacbb561660560a00804"
-  integrity sha512-e900nM8RRtGhlV36KGEU9k65K3mPb1WV70OdjfxlG2EAuM1noi/E/BaW/uMhL7bPEssK8QV57vN3esixjUvcXQ==
 
 tapable@^1.0.0, tapable@^1.1.3:
   version "1.1.3"
