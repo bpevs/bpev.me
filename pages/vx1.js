@@ -44,12 +44,14 @@ const VX1Page = () => {
 
   useEffect(() => {
     const audioContext = new AudioContext()
-    const analyser = audioContext.createAnalyser()
-    const audioSrc = audioContext.createMediaElementSource(audioEl.current)
+    const nextAnalyser = audioContext.createAnalyser()
+    const track = audioContext.createMediaElementSource(audioEl.current)
 
-    setAnalyser(analyser)
-    setFrequencyData(new Uint8Array(analyser.frequencyBinCount))
-    audioSrc.connect(analyser).connect(audioContext.destination)
+    track.connect(nextAnalyser)
+    track.connect(audioContext.destination)
+
+    setAnalyser(nextAnalyser)
+    setFrequencyData(new Uint8Array(nextAnalyser.frequencyBinCount))
 
     return () => {
       setRunning(false)
@@ -123,9 +125,9 @@ const VX1Page = () => {
         top: "90%",
         transform: "translateX(-50%)",
       }}
-    >
-      <source src="https://static.bpev.me/music/vx1/The+Problem.mp3" />
-    </audio>
+      src="/static/audio.mp3"
+      type="audio/mp3"
+    />
     <img src="/static/bp.svg" style={{
       height: size,
       left: "50%",
