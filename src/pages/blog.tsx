@@ -3,9 +3,7 @@
  */
 import type { Posts } from "../services/getPosts.ts";
 
-// @deno-types="https://raw.githubusercontent.com/Soremwar/deno_types/4a50660/react/v16.13.1/react.d.ts"
-import React from "https://dev.jspm.io/react@16.13.1";
-
+import { React } from '../deps.ts';
 import AboutMe from "../components/AboutMe.tsx";
 import DateTime from '../components/DateTime.tsx';
 import Only from '../components/Only.tsx';
@@ -72,6 +70,7 @@ export function Post({ post }: any) {
   return (
     <li key={post.permalink} className="post-li">
       <a className="p0 m0 link-post text-decoration-none" href={post.permalink}>
+        <span className="h3 link-post-title align-middle">{post.title} </span>
         <Only if={post.created}>
           <DateTime
             className="h4 align-middle o5 p1 link-post-title"
@@ -84,7 +83,6 @@ export function Post({ post }: any) {
             }}
           />
         </Only>
-        <span className="h3 link-post-title align-middle">{post.title} </span>
       </a>
     </li>
   )

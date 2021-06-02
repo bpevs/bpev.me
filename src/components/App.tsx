@@ -1,11 +1,8 @@
 import type { Posts } from "../services/getPosts.ts";
 
-// @deno-types="https://raw.githubusercontent.com/Soremwar/deno_types/4a50660/react/v16.13.1/react.d.ts"
-import React from "https://dev.jspm.io/react@16.13.1";
-
+import { React } from '../deps.ts'
 import Blog from "../pages/blog.tsx";
 import BlogArticle from "../pages/blogArticle.tsx";
-
 import Layout from "./Layout.tsx";
 
 const App = ({
