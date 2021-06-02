@@ -2,30 +2,30 @@
 import React from "https://dev.jspm.io/react@16.13.1";
 import ReactDOMServer from "https://dev.jspm.io/react-dom@16.13.1/server";
 import { renderFileToString } from "https://deno.land/x/dejs@0.9.3/mod.ts";
-import { ensureFileSync } from 'https://deno.land/std@0.97.0/fs/mod.ts';
+import { ensureFileSync, copy } from "https://deno.land/std@0.97.0/fs/mod.ts";
 
-import App from './components/App.tsx';
-import getLocalPosts from './services/getLocalPosts.ts';
+import App from "./components/App.tsx";
+import getPosts from "./services/getPosts.ts";
 
 // Grab CLI Args
-const [ rootPath, buildPath = Deno.args[1] || './build' ] = Deno.args;
+const [rootPath, buildPath = Deno.args[1] || "./build"] = Deno.args;
 
 if (!rootPath) {
-  console.log('[ deno-md-site ] Please specify root path');
+  console.log("[ deno-md-site ] Please specify root path");
   Deno.exit(1);
 }
 
 // Write Blog Posts
-const posts = await getLocalPosts(rootPath);
+const posts = await getPosts(rootPath);
 
 // Write Root
-writePage(`${buildPath}/index.html`, <App path={'/'} posts={posts} />);
+writePage(`${buildPath}/index.html`, <App path={"/"} posts={posts} />);
 
 (Object.keys(posts))
-  .forEach(permalink => {
+  .forEach((permalink) => {
     writePage(
       `${buildPath}${permalink}.html`,
-      <App path={permalink} posts={posts} />
+      <App path={permalink} posts={posts} />,
     );
   });
 
@@ -39,3 +39,5 @@ function writePage(filePath: string, app: any): void {
   // Write to file
   Deno.writeTextFileSync(filePath, content);
 }
+
+copy('./src/static', `${buildPath}/static`, { overwrite: true });
