@@ -1,15 +1,5 @@
-# Ignore Build Files
-/coverage
-/blog-content
-/node_modules
-/static/blog
-/.cache
-/.next
-
 # Ignore system-created files
-npm-debug.log
 .DS_Store
 .Spotlight-V100
 .Trashes
-.vscode
 ._*
