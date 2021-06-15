@@ -67,9 +67,10 @@ export function shouldShowPost(search: string = "", post: any = {}): boolean {
 }
 
 export function Post({ post }: any) {
+  const permalink = `/posts${post.permalink}`;
   return (
-    <li key={post.permalink} className="post-li">
-      <a className="p0 m0 link-post text-decoration-none" href={post.permalink}>
+    <li key={permalink} className="post-li">
+      <a className="p0 m0 link-post text-decoration-none" href={permalink}>
         <span className="h3 link-post-title align-middle">{post.title} </span>
         <Only if={post.created}>
           <DateTime

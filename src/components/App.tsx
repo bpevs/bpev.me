@@ -18,6 +18,11 @@ const App = ({
     route = <BlogArticle post={posts[path] || {}} />;
   }
 
+  if (path !== "/") {
+    route = <BlogArticle post={posts[path] || {}} />;
+  }
+  console.log(path);
+
   return (
     <html>
       <head>
