@@ -37,7 +37,7 @@ export default async function getPosts(
     const markdownText = hasFrontmatter ? splitText[2] : fileText;
     const frontmatter: any = hasFrontmatter ? parse(splitText[1]) : {};
 
-    const permalink = `/posts/${frontmatter?.permalink || name}`;
+    const permalink = `/${frontmatter?.permalink || name}`;
 
     posts[permalink] = {
       ...(typeof frontmatter === "object" ? frontmatter : {}),

@@ -30,6 +30,10 @@ writePage(`${buildPath}/index.html`, <App path={"/"} posts={posts} />);
       `${buildPath}${permalink}.html`,
       <App path={permalink} posts={posts} />,
     );
+    writePage(
+      `${buildPath}/posts/${permalink}.html`,
+      <App path={permalink} posts={posts} />,
+    );
   });
 
 function writePage(filePath: string, app: any): void {
