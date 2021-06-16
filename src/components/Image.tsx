@@ -16,7 +16,7 @@ export function Image({ context, showText = false, ...props }: ImageProps) {
       <img
         {...props}
         className={classNames("col-12", "image", props.className)}
-        src={props.src}
+        src={`${props.src}?width=750&height=750&fit=outside`}
       />
       <Only if={props.alt && showText}>
         <span className="block center col-12 h6">
