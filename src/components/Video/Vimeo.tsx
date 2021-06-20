@@ -1,12 +1,12 @@
-import { React } from '../../deps.ts'
+import { React } from "../../deps.ts";
 
 export type VideoProps = React.VideoHTMLAttributes<any> & {
-  context: any,
-}
+  context: any;
+};
 
 export function Vimeo(props: VideoProps) {
-  const url = props.src && props.src.split("/") || []
-  const id = url.pop()
+  const url = props.src && props.src.split("/") || [];
+  const id = url.pop();
 
   return <iframe
     className="center col-12"
@@ -14,5 +14,6 @@ export function Vimeo(props: VideoProps) {
     width="640"
     height="427"
     frameBorder="0"
-    allowFullScreen />
+    allowFullScreen
+  />;
 }

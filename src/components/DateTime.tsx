@@ -1,17 +1,17 @@
-import { React } from '../deps.ts'
+import { React } from "../deps.ts";
 
 export type TimeProps = React.HTMLProps<any> & {
-  locale?: string,
-  options?: any, //Intl.DateTimeFormatOptions,
-  timestamp: number | string | Date,
-}
+  locale?: string;
+  options?: any; //Intl.DateTimeFormatOptions,
+  timestamp: number | string | Date;
+};
 
 const DEFAULT_OPTIONS = {
   day: "numeric",
   month: "long",
   weekday: "long",
   year: "numeric",
-}
+};
 
 const DateTime: React.FC<TimeProps> = ({
   locale,
@@ -19,11 +19,11 @@ const DateTime: React.FC<TimeProps> = ({
   timestamp = Date.now(),
   ...props
 }) => {
-  const date = new Date(timestamp)
-  const text = date.toLocaleString(locale, { ...DEFAULT_OPTIONS, ...options })
-  const dateTime = date.toISOString()
+  const date = new Date(timestamp);
+  const text = date.toLocaleString(locale, { ...DEFAULT_OPTIONS, ...options });
+  const dateTime = date.toISOString();
 
-  return <time {...props} children={text} dateTime={dateTime} />
-}
+  return <time {...props} children={text} dateTime={dateTime} />;
+};
 
-export default DateTime
+export default DateTime;

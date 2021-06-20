@@ -1,27 +1,23 @@
-import type { Posts } from "../services/getPosts.ts";
+import type { Posts } from "../utilities/parsePost.ts";
 
-import { React } from '../deps.ts'
+import { React } from "../deps.ts";
 import Blog from "../pages/blog.tsx";
 import BlogArticle from "../pages/blogArticle.tsx";
 import Layout from "./Layout.tsx";
 
 const App = ({
   path = "/",
-  posts = {},
+  posts,
 }: {
-  path?: string;
-  posts?: Posts;
+  path: string;
+  posts: Posts;
 }) => {
   let route = <Blog posts={posts} />;
 
-  if (path.includes("posts")) {
-    route = <BlogArticle post={posts[path] || {}} />;
+  const isPost = path !== "/" || path.includes("posts");
+  if (posts[path] && isPost) {
+    route = <BlogArticle post={posts[path]} />;
   }
-
-  if (path !== "/") {
-    route = <BlogArticle post={posts[path] || {}} />;
-  }
-  console.log(path);
 
   return (
     <html>
@@ -34,9 +30,20 @@ const App = ({
           content="width=device-width, height=device-height, initial-scale=1.0, minimum-scale=1.0"
         />
         <link rel="shortcut icon" href="/static/favicon.ico" />
-        <link href="https://unpkg.com/basscss@8.0.2/css/basscss.min.css" rel="stylesheet" />
-        <link rel="stylesheet" type="text/css" href="/static/highlight-styles.css" />
+        <link rel="stylesheet" type="text/css" href="/static/basscss.css" />
         <link rel="stylesheet" type="text/css" href="/static/index.css" />
+
+        {
+          /*
+          Highlight.js styles. Odd props are for deferring load:
+          https://www.filamentgroup.com/lab/load-css-simpler/
+        */
+        }
+        <link
+          href="/static/highlight-styles.css"
+          rel="stylesheet"
+          media="print"
+        />
         <title>Ben Pevsner</title>
         <noscript>
           <style>{".jsonly { display: none }"}</style>
@@ -50,34 +57,5 @@ const App = ({
     </html>
   );
 };
-
-// const STYLESHEET_PATH = "styles.css";
-
-// const getStylesheetHref = (path: string) => {
-//   return path === '/' ? STYLESHEET_PATH : `../${STYLESHEET_PATH}`;
-// };
-
-// const getHtmlByPage = ({ path, name, html }: Page) =>
-//   `
-//   <!DOCTYPE html>
-//   <html>
-//   <head>
-//     <title>${name} | ${title}</title>
-//     <link rel="stylesheet" href="${getStylesheetHref(path)}">
-//     <link rel="icon" href="/favicon.svg">
-//   </head>
-//     <body>
-//       <div id="title">
-//         ${title}
-//       </div>
-//       ${getNavigation(path)}
-//       <div id="main">
-//         ${html}
-//       </div>
-//       ${footer}
-//     </body>
-//   </html>
-// `;
-
 
 export default App;

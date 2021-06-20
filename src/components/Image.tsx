@@ -1,14 +1,13 @@
-import { React } from '../deps.ts'
+import { React } from "../deps.ts";
 
 import Only from "./Only.tsx";
-import classNames from '../utilities/classNames.ts';
-import decodeHTMLEntities from '../utilities/decodeHTMLEntities.ts';
-
+import classNames from "../utilities/classNames.ts";
+import decodeHTMLEntities from "../utilities/decodeHTMLEntities.ts";
 
 export type ImageProps = React.ImgHTMLAttributes<any> & {
-  context: any,
-  showText?: boolean,
-}
+  context: any;
+  showText?: boolean;
+};
 
 export function Image({ context, showText = false, ...props }: ImageProps) {
   return <React.Fragment>
@@ -24,5 +23,5 @@ export function Image({ context, showText = false, ...props }: ImageProps) {
         </span>
       </Only>
     </a>
-  </React.Fragment>
+  </React.Fragment>;
 }
