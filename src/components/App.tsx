@@ -20,7 +20,7 @@ const App = ({
   }
 
   return (
-    <html>
+    <html lang="en">
       <head>
         <meta name="author" content="Ben Pevsner" />
         <meta name="title" content="Ben Pevsner" />

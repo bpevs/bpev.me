@@ -19,16 +19,22 @@ const [
   buildPath = Deno.args[1] || "./build",
 ] = Deno.args;
 
+console.log(`[ bpev ] Attempting to build from ${type}...`);
+
 if (
   (type == "fs" && !FS_PATH) ||
   (type == "b2" && (!B2_APPLICATION_KEY || !B2_KEY_ID || !B2_API_VERSION))
 ) {
-  console.log("[ bpev ] Missing Environment Variables");
+  console.log("[ bpev ] Missing Environment Variables:");
+  if (!B2_APPLICATION_KEY) console.log('- B2_APPLICATION_KEY')
+  if (!B2_KEY_ID) console.log('- B2_KEY_ID');
+  if (!B2_API_VERSION) console.log('- B2_API_VERSION');
+  if (!FS_PATH) console.log('- FS_PATH');
   Deno.exit(1);
 }
 
 // Write Blog Posts
-console.log(`[ bpev ] Fetching posts from ${type}...`);
+console.log("[ bpev ] Fetching posts...");
 const posts = (type === "fs" && FS_PATH)
   ? await getPostsFromFs(FS_PATH)
   : await getPostsFromB2();
@@ -64,7 +70,10 @@ function writePage(filePath: string, app: any): void {
   const content = (ReactDOMServer as any).renderToString(app);
 
   // Write to file
-  Deno.writeTextFileSync(filePath, content);
+  Deno.writeTextFileSync(
+    filePath,
+    `<!DOCTYPE html />\n${content}`
+  );
 }
 
 console.log("[ bpev ] Copying Static Files...");
