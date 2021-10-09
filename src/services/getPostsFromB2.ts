@@ -1,7 +1,7 @@
 import type { Post, Posts } from "../utilities/parsePost.ts";
 import { parsePost } from "../utilities/parsePost.ts";
 
-const B2_KEY_ID = Deno.env.get("B2_KEY_ID")
+const B2_KEY_ID = Deno.env.get("B2_KEY_ID");
 const B2_APPLICATION_KEY = Deno.env.get("B2_APPLICATION_KEY");
 const B2_API_VERSION = Deno.env.get("B2_API_VERSION");
 

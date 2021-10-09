@@ -8,7 +8,7 @@ import { getPostsFromB2 } from "./services/getPostsFromB2.ts";
 import { shouldShowPost } from "./pages/blog.tsx";
 
 // Env Variables
-const B2_KEY_ID = Deno.env.get("B2_KEY_ID")
+const B2_KEY_ID = Deno.env.get("B2_KEY_ID");
 const B2_APPLICATION_KEY = Deno.env.get("B2_APPLICATION_KEY");
 const B2_API_VERSION = Deno.env.get("B2_API_VERSION");
 const FS_PATH = Deno.env.get("FS_PATH");
@@ -26,10 +26,10 @@ if (
   (type == "b2" && (!B2_APPLICATION_KEY || !B2_KEY_ID || !B2_API_VERSION))
 ) {
   console.log("[ bpev ] Missing Environment Variables:");
-  if (!B2_APPLICATION_KEY) console.log('- B2_APPLICATION_KEY')
-  if (!B2_KEY_ID) console.log('- B2_KEY_ID');
-  if (!B2_API_VERSION) console.log('- B2_API_VERSION');
-  if (!FS_PATH) console.log('- FS_PATH');
+  if (!B2_APPLICATION_KEY) console.log("- B2_APPLICATION_KEY");
+  if (!B2_KEY_ID) console.log("- B2_KEY_ID");
+  if (!B2_API_VERSION) console.log("- B2_API_VERSION");
+  if (!FS_PATH) console.log("- FS_PATH");
   Deno.exit(1);
 }
 
@@ -39,10 +39,11 @@ const posts = (type === "fs" && FS_PATH)
   ? await getPostsFromFs(FS_PATH)
   : await getPostsFromB2();
 
-// Write Root
+// Write Static Pages
 if (posts) {
-  console.log("[ bpev ] Writing root...");
+  console.log("[ bpev ] Writing static pages...");
   writePage(`${buildPath}/index.html`, <App path={"/"} posts={posts} />);
+  writePage(`${buildPath}/vx1.html`, <App path={"/vx1"} posts={posts} />);
 }
 
 const postIds: string[] = (posts ? Object.keys(posts) : []);
@@ -72,7 +73,7 @@ function writePage(filePath: string, app: any): void {
   // Write to file
   Deno.writeTextFileSync(
     filePath,
-    `<!DOCTYPE html />\n${content}`
+    `<!DOCTYPE html />\n${content}`,
   );
 }
 

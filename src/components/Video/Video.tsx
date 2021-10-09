@@ -20,17 +20,19 @@ export function Video({ src = "", ...props }: VideoProps) {
       return <Youtube {...props} src={src} />;
     case "FILE":
     default:
-      return <video
-        className="center col-12"
-        controls
-        src={src}
-        width="640"
-        height="427"
-        {...props}
-      >
-        <source src={src} />
-        Your browser does not support this video.
-      </video>;
+      return (
+        <video
+          className="center col-12"
+          controls
+          src={src}
+          width="640"
+          height="427"
+          {...props}
+        >
+          <source src={src} />
+          Your browser does not support this video.
+        </video>
+      );
   }
 }
 

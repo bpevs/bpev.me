@@ -8,7 +8,7 @@ export interface Post {
 
 export interface Posts {
   [permalink: string]: Post;
-}/**
+} /**
  *  Parse a Blog Post frontmatter + pass markdown text.
  *  Eventually, let's formalize frontmatter to rss or atom spec, to simplify.
  *    rss: https://www.rssboard.org/rss-specification
