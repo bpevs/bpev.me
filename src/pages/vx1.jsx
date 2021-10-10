@@ -15,12 +15,13 @@ export default function() {
           position: "fixed",
           top: "50%",
           transform: "translate(-50%,-50%)",
+          pointerEvents: "none"
         }}
       />
       <div
         style={{
           position: "fixed",
-          bottom: 20,
+          bottom: "2%",
           width: "100%",
           height: 60,
           display: 'flex',
