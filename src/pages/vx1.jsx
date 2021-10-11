@@ -3,63 +3,79 @@ import debounce from "../utilities/debounce.ts";
 
 const { Particles } = ReactParticles
 
+const foregroundStyles = {
+  left: "50%",
+  position: "fixed",
+  top: "50%",
+  transform: "translate(-50%,-50%)",
+  height: "50%",
+  zIndex: 10,
+  display: 'flex',
+  minHeight: 500,
+  justifyContent: 'center',
+  alignContent: 'center',
+  flexDirection: 'column',
+};
+
+const logoStyles = {
+  pointerEvents: "none",
+  height: "80%",
+  display: 'flex',
+}
+
+const iconContainerStyles = {
+  width: "100%",
+  height: "10%",
+  display: 'flex',
+  justifyContent: 'center',
+  alignContent: 'start'
+};
+
+const iconStyles = {
+  height: 40,
+  margin: 10,
+};
+
+const iconRoot = '/static/vx1/icons';
+
+function Icon({ pic, href }) {
+  return (
+    <a href={href}>
+      <img src={`/static/vx1/icons/${pic}`} style={iconStyles} />
+    </a>
+  )
+}
+
 export default function() {
   return (
     <div className="vx1">
       <div id="particles-js"></div>
-      <img
-        className="vx1-logo"
-        src="/static/vx1/foreground.svg"
-        style={{
-          left: "50%",
-          position: "fixed",
-          top: "50%",
-          transform: "translate(-50%,-50%)",
-          pointerEvents: "none"
-        }}
-      />
-      <div
-        style={{
-          position: "fixed",
-          bottom: "2%",
-          width: "100%",
-          height: 60,
-          display: 'flex',
-          justifyContent: 'center',
-          alignContent: 'center'
-        }}
-      >
-        <a href="spotify.com">
-          <img
-            src="/static/vx1/icons/spotify_green.png"
-            style={{
-              width: 60,
-              height: 60,
-              margin: 20,
-            }}
+      <div className="foreground" style={foregroundStyles}>
+        <img
+          className="vx1-logo"
+          src="/static/vx1/foreground.svg"
+          style={logoStyles}
+        />
+        <div style={iconContainerStyles}>
+          <Icon
+            href="https://open.spotify.com/album/1JJC0Q5UIoChlJIMxLEeRs?si=iEtjZB3KQj61xvyesAy5eA&dl_branch=1"
+            pic="spotify_green.png"
           />
-        </a>
-        <a href="youtube.com">
-          <img
-            src="/static/vx1/icons/youtube.png"
-            style={{
-              height: 50,
-              margin: 20,
-              paddingTop: 5,
-            }}
+          <Icon
+            href="https://music.apple.com/us/album/vx1/1588620712"
+            pic="apple.svg"
           />
-        </a>
-        <a href="https://music.apple.com/us/album/vx1/1588620712">
-          <img
-            src="/static/vx1/icons/apple.svg"
-            style={{
-              height: 60,
-              width: 60,
-              margin: 20,
-            }}
+          <Icon
+            href="https://music.youtube.com/playlist?list=OLAK5uy_mm18Al7x1C2WzoF_4LWp60hJ5tvWapIJ8"
+            pic="youtube.png"
           />
-        </a>
+          <Icon
+            href="https://soundcloud.com/benpevsner/sets/vx1"
+            pic="soundcloud.png"
+          />
+        </div>
       </div>
+
       <script async defer src="/static/vx1/particles.js"></script>
     </div>
   )
