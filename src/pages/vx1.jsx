@@ -56,6 +56,12 @@ export default function() {
           src="/static/vx1/foreground.svg"
           style={logoStyles}
         />
+        <iframe
+          style={{ border: 0, width: '100%', margin: 10 }}
+          src="https://bandcamp.com/EmbeddedPlayer/album=159817452/size=large/bgcol=333333/linkcol=0f91ff/tracklist=false/artwork=none/transparent=true/"
+          seamless>
+          <a href="https://ivebencrazy.bandcamp.com/album/vx1">VX1 by Ben Pevsner</a>
+        </iframe>
         <div style={iconContainerStyles}>
           <Icon
             href="https://open.spotify.com/album/1JJC0Q5UIoChlJIMxLEeRs?si=iEtjZB3KQj61xvyesAy5eA&dl_branch=1"
