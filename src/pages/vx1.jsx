@@ -4,14 +4,8 @@ import debounce from "../utilities/debounce.ts";
 const { Particles } = ReactParticles
 
 const foregroundStyles = {
-  left: "50%",
-  position: "fixed",
-  top: "50%",
-  transform: "translate(-50%,-50%)",
-  height: "50%",
   zIndex: 10,
   display: 'flex',
-  minHeight: 500,
   justifyContent: 'center',
   alignContent: 'center',
   flexDirection: 'column',
@@ -19,7 +13,9 @@ const foregroundStyles = {
 
 const logoStyles = {
   pointerEvents: "none",
-  height: "80%",
+  height: "50%",
+  maxHeight: 500,
+  minHeight: 200,
   display: 'flex',
 }
 
@@ -34,6 +30,7 @@ const iconContainerStyles = {
 const iconStyles = {
   height: 40,
   margin: 10,
+  pointerEvents: 'all'
 };
 
 const iconRoot = '/static/vx1/icons';
@@ -49,7 +46,7 @@ function Icon({ pic, href }) {
 export default function() {
   return (
     <div className="vx1">
-      <div id="particles-js"></div>
+      <div id="particles-js" className="particles"></div>
       <div className="foreground" style={foregroundStyles}>
         <img
           className="vx1-logo"
@@ -57,7 +54,7 @@ export default function() {
           style={logoStyles}
         />
         <iframe
-          style={{ border: 0, width: '100%', margin: 10 }}
+          style={{ border: 0, width: '100%', pointerEvents: 'all' }}
           src="https://bandcamp.com/EmbeddedPlayer/album=159817452/size=large/bgcol=333333/linkcol=0f91ff/tracklist=false/artwork=none/transparent=true/"
           seamless>
           <a href="https://ivebencrazy.bandcamp.com/album/vx1">VX1 by Ben Pevsner</a>
