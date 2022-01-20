@@ -5,7 +5,10 @@
  */
 import type { Post } from "../utilities/parsePost.ts";
 
-import { hljs, marksy, React } from "../deps.ts";
+import React from "react";
+import hljs from "highlight";
+import marksy from "marksy";
+
 import List from "../components/List.tsx";
 import Media from "../components/Media.tsx";
 import Only from "../components/Only.tsx";

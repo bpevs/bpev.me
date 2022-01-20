@@ -1,5 +1,5 @@
-import { walk } from "https://deno.land/std@0.97.0/fs/mod.ts";
-import { relative } from "https://deno.land/std@0.97.0/path/mod.ts";
+import { walk } from "fs";
+import { relative } from "path";
 import { parsePost, Posts } from "../utilities/parsePost.ts";
 
 export async function getPostsFromFs(

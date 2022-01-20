@@ -3,7 +3,8 @@
  */
 import type { Posts } from "../utilities/parsePost.ts";
 
-import { React } from "../deps.ts";
+import React from "react";
+
 import AboutMe from "../components/AboutMe.tsx";
 import DateTime from "../components/DateTime.tsx";
 import Only from "../components/Only.tsx";

@@ -1,6 +1,8 @@
-import { React, ReactDOMServer } from "./deps.ts";
-import { renderFileToString } from "https://deno.land/x/dejs@0.9.3/mod.ts";
-import { copy, ensureFileSync } from "https://deno.land/std@0.97.0/fs/mod.ts";
+import React from "react";
+import ReactDOMServer from "react-dom";
+import { copySync } from "copy-unstable";
+import { ensureFileSync } from "fs";
+import { renderFileToString } from "dejs";
 
 import App from "./components/App.tsx";
 import { getPostsFromFs } from "./services/getPostsFromFs.ts";
@@ -78,6 +80,6 @@ function writePage(filePath: string, app: any): void {
 }
 
 console.log("[ bpev ] Copying Static Files...");
-copy("./src/static", `${buildPath}/static`, { overwrite: true });
+copySync("./src/static", `${buildPath}/static`, { overwrite: true });
 
 console.log("[ bpev ] Complete!");

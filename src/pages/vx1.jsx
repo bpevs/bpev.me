@@ -1,14 +1,15 @@
-import { ReactParticles, React } from "../deps.ts";
+import React from "react";
+import ReactParticles from "react-particles";
 import debounce from "../utilities/debounce.ts";
 
-const { Particles } = ReactParticles
+const { Particles } = ReactParticles;
 
 const foregroundStyles = {
   zIndex: 10,
-  display: 'flex',
-  justifyContent: 'center',
-  alignContent: 'center',
-  flexDirection: 'column',
+  display: "flex",
+  justifyContent: "center",
+  alignContent: "center",
+  flexDirection: "column",
 };
 
 const logoStyles = {
@@ -16,34 +17,34 @@ const logoStyles = {
   height: "50%",
   maxHeight: 500,
   minHeight: 200,
-  display: 'flex',
-}
+  display: "flex",
+};
 
 const iconContainerStyles = {
   width: "100%",
   height: "10%",
-  display: 'flex',
-  justifyContent: 'center',
-  alignContent: 'start'
+  display: "flex",
+  justifyContent: "center",
+  alignContent: "start",
 };
 
 const iconStyles = {
   height: 40,
   margin: 10,
-  pointerEvents: 'all'
+  pointerEvents: "all",
 };
 
-const iconRoot = '/static/vx1/icons';
+const iconRoot = "/static/vx1/icons";
 
 function Icon({ pic, href }) {
   return (
     <a href={href}>
       <img src={`/static/vx1/icons/${pic}`} style={iconStyles} />
     </a>
-  )
+  );
 }
 
-export default function() {
+export default function () {
   return (
     <div className="vx1">
       <div id="particles-js" className="particles"></div>
@@ -54,10 +55,13 @@ export default function() {
           style={logoStyles}
         />
         <iframe
-          style={{ border: 0, width: '100%', pointerEvents: 'all' }}
+          style={{ border: 0, width: "100%", pointerEvents: "all" }}
           src="https://bandcamp.com/EmbeddedPlayer/album=159817452/size=large/bgcol=333333/linkcol=0f91ff/tracklist=false/artwork=none/transparent=true/"
-          seamless>
-          <a href="https://ivebencrazy.bandcamp.com/album/vx1">VX1 by Ben Pevsner</a>
+          seamless
+        >
+          <a href="https://ivebencrazy.bandcamp.com/album/vx1">
+            VX1 by Ben Pevsner
+          </a>
         </iframe>
         <div style={iconContainerStyles}>
           <Icon
@@ -81,5 +85,5 @@ export default function() {
 
       <script async defer src="/static/vx1/particles.js"></script>
     </div>
-  )
+  );
 }

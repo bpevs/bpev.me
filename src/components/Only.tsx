@@ -1,4 +1,4 @@
-import { React } from "../deps.ts";
+import React from "react";
 
 export type OnlyProps = React.HTMLProps<HTMLDivElement> & {
   if: any;

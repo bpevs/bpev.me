@@ -1,4 +1,4 @@
-import { React } from "../deps.ts";
+import React from "react";
 
 import Only from "./Only.tsx";
 import classNames from "../utilities/classNames.ts";

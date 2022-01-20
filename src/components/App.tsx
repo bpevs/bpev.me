@@ -1,6 +1,7 @@
 import type { Posts } from "../utilities/parsePost.ts";
 
-import { React } from "../deps.ts";
+import React from "react";
+
 import Blog from "../pages/blog.tsx";
 import BlogArticle from "../pages/blogArticle.tsx";
 import Vx1 from "../pages/vx1.jsx";
@@ -19,7 +20,6 @@ const App = ({
   if (posts[path] && isPost) {
     route = <BlogArticle post={posts[path]} />;
   }
-
 
   return (
     <html lang="en">
@@ -52,15 +52,13 @@ const App = ({
         </noscript>
       </head>
       <body>
-        {
-          path.includes("vx1")
-            ? <Vx1 />
-            : (
-              <Layout className="fit-800 pl3 pr3 justify-center">
-                {route}
-              </Layout>
-              )
-        }
+        {path.includes("vx1")
+          ? <Vx1 />
+          : (
+            <Layout className="fit-800 pl3 pr3 justify-center">
+              {route}
+            </Layout>
+          )}
       </body>
     </html>
   );

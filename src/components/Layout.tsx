@@ -1,4 +1,4 @@
-import { React } from "../deps.ts";
+import React from "react";
 import classNames from "../utilities/classNames.ts";
 
 const pageStyles = "content sans-serif container m2 block mx-auto";

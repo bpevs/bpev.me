@@ -1,4 +1,4 @@
-import { parse } from "https://deno.land/std@0.97.0/encoding/yaml.ts";
+import { parse } from "yaml";
 
 export interface Post {
   permalink: string;

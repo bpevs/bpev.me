@@ -1,4 +1,4 @@
-import { React } from "../deps.ts";
+import React from "react";
 
 import classNames from "../utilities/classNames.ts";
 import Media from "./Media.tsx";

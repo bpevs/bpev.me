@@ -1,4 +1,5 @@
-import { React } from "../../deps.ts";
+import React from "react";
+
 import { Vimeo } from "./Vimeo.tsx";
 import { Youtube } from "./Youtube.tsx";
 

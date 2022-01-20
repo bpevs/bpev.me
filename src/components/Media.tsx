@@ -1,4 +1,4 @@
-import { React } from "../deps.ts";
+import React from "react";
 
 import { Image } from "./Image.tsx";
 import { isVideo, Video } from "./Video/Video.tsx";
