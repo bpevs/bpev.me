@@ -11,6 +11,9 @@
     "yaml": "https://deno.land/std@0.122.0/encoding/yaml.ts",
     "path": "https://deno.land/std@0.122.0/path/mod.ts",
 
-    "copy-unstable": "https://deno.land/std@0.122.0/fs/copy.ts"
+    "copy-unstable": "https://deno.land/std@0.122.0/fs/copy.ts",
+
+    "hljs-javascript": "https://unpkg.com/@highlightjs/cdn-assets@11.4.0/es/languages/typescript.min.js",
+    "hljs-yaml": "https://unpkg.com/@highlightjs/cdn-assets@11.4.0/es/languages/yaml.min.js"
   }
 }

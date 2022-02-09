@@ -16,8 +16,10 @@ const App = ({
 }) => {
   let route = <Blog posts={posts} />;
 
-  const isPost = path !== "/" || path.includes("posts");
-  if (posts[path] && isPost) {
+  const isPostRoute = path !== "/" || path.includes("posts");
+  const isVx1HomeRoute = Boolean(path.match(/vx1$/));
+
+  if (posts[path] && isPostRoute) {
     route = <BlogArticle post={posts[path]} />;
   }
 
@@ -44,7 +46,6 @@ const App = ({
         <link
           href="/static/highlight-styles.css"
           rel="stylesheet"
-          media="print"
         />
         <title>Ben Pevsner</title>
         <noscript>
@@ -52,7 +53,7 @@ const App = ({
         </noscript>
       </head>
       <body>
-        {path.includes("vx1")
+        {isVx1HomeRoute
           ? <Vx1 />
           : (
             <Layout className="fit-800 pl3 pr3 justify-center">

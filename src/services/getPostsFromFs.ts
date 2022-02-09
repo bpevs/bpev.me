@@ -1,5 +1,4 @@
 import { walk } from "fs";
-import { relative } from "path";
 import { parsePost, Posts } from "../utilities/parsePost.ts";
 
 export async function getPostsFromFs(
@@ -13,10 +12,8 @@ export async function getPostsFromFs(
   const posts: Posts = {};
 
   for await (const entry of walk(rootPath, walkOptions)) {
-    const { path, isFile, isDirectory } = entry;
+    const { path, isFile } = entry;
     if (!isFile) break;
-
-    const relativePath = rootPath ? relative(rootPath, path) : path;
 
     const fileText: string = await Deno.readTextFile(path);
     const post = parsePost(path, fileText);
