@@ -1,6 +1,7 @@
 # install deno
+# Pin version to avoid https://github.com/denoland/deno/issues/13516
 echo "[ bpev ] Downloading Deno..."
-curl -fsSL https://deno.land/x/install/install.sh | sh
+curl -fsSL https://deno.land/x/install/install.sh | sh -s v1.18.0
 
 # download blog files
 echo "[ bpev ] Deploying Site..."
