@@ -52,10 +52,15 @@ async function listFileNames({
 }
 
 async function fetchPosts(names: string[]): Promise<Posts> {
-  const postsArray = await Promise.all(names.map(async (path) => {
-    const resp = await fetch(`https://static.bpev.me/${path}`);
-    return parsePost(path, await resp.text());
-  }));
+  const postsArray = await Promise.all(
+    names
+      .filter((path) => /.md$/.test(path))
+      .map(async (path) => {
+        console.log(path);
+        const resp = await fetch(`https://static.bpev.me/${path}`);
+        return parsePost(path, await resp.text());
+      }),
+  );
 
   const posts: Posts = {};
   postsArray.forEach((post: Post) => {
