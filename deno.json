@@ -1,0 +1,13 @@
+{
+  "lint": {
+    "files": {
+      "exclude": ["vendor/**"]
+    }
+  },
+  "fmt": {
+    "files": {
+      "include": ["apps/"],
+      "exclude": ["vendor/**/*"]
+    }
+  }
+}
