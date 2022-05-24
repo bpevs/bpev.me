@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss
+  xmlns:atom="http://www.w3.org/2005/Atom"
+  xmlns:content="http://purl.org/rss/1.0/modules/content/"
+  xmlns:googleplay="http://www.google.com/schemas/play-podcasts/1.0"
+  xmlns:itunes="http://www.itunes.com/dtds/podcast-1.0.dtd"
+  xmlns:media="http://www.rssboard.org/media-rss"
+  version="2.0"
+>
+  <channel>
+    <title>Ben Pevsner</title>
+    <link>http://localhost:4242/channel/UCpznF0d3ky603SFPzJwtT0g</link>
+    <language>en-us</language>
+    <atom:link href="http://localhost:4242/channel/UCpznF0d3ky603SFPzJwtT0g" rel="self" type="application/rss+xml" />
+    <copyright>Ben Pevsner</copyright>
+    <itunes:author>Ben Pevsner</itunes:author>
+    <itunes:summary>I do music and stuff.</itunes:summary>
+    <itunes:category text="Invidious" />
+    <description><![CDATA[I do music and stuff.]]></description>
+    <itunes:owner>
+      <itunes:name>Ben Pevsner</itunes:name>
+    </itunes:owner>
+    <itunes:type>episodic</itunes:type>
+    <itunes:image href="https://yt3.ggpht.com/ytc/AKedOLSf-TWzwP3mmMldcNw8yhgXHpBWbdCL1lmr1WqT0w=s512-c-k-c0x00ffffff-no-rj" />
+    <itunes:explicit>false</itunes:explicit>
+    <item>
+  <title>Pay Attention (acoustic)</title>
+  <description><![CDATA[A barebones acoustic rendition of Pay Attention from my latest album, VX1
+
+Album Version: https://www.youtube.com/watch?v=-kYUlXvdIJA&t=1380s
+VX1:  https://bpev.me/vx1
+
+Video: Sony rx100
+Audio: iPhone SE (the one sitting on the piano)]]></description>
+  <pubDate>Sat Nov 13 2021 16:00:00 GMT-0800 (Pacific Standard Time)</pubDate>
+  <guid isPermaLink="false">_uv7Zx8jBGM</guid>
+  <enclosure url="https://invidious-us.kavin.rocks/latest_version?id=_uv7Zx8jBGM&amp;itag=139" length="620" type="audio/mpeg" />
+</item>
+<item>
+  <title>VX1 – Full Album</title>
+  <description><![CDATA[Available wherever you listen to music.
+
+https://bpev.me/vx1
+
+Songs:
+00:00 Charlatan Days
+03:50 Sweet Honey
+07:50 S.U.S.
+10:54 Highwire
+14:36 The Problem
+18:30 Everything
+19:12 Fired Up (feat. Surrija)
+23:00 Pay Attention
+26:41 Getaway]]></description>
+  <pubDate>Sun Oct 10 2021 17:00:00 GMT-0700 (Pacific Daylight Time)</pubDate>
+  <guid isPermaLink="false">-kYUlXvdIJA</guid>
+  <enclosure url="https://invidious-us.kavin.rocks/latest_version?id=-kYUlXvdIJA&amp;itag=139" length="1842" type="audio/mpeg" />
+</item>
+<item>
+  <title>Summertime</title>
+  <description><![CDATA[Cover of Summertime, composed by George Gershwin for the opera Porgy and Bess]]></description>
+  <pubDate>Mon Nov 06 2017 16:00:00 GMT-0800 (Pacific Standard Time)</pubDate>
+  <guid isPermaLink="false">cWYyAOIQmi4</guid>
+  <enclosure url="https://invidious-us.kavin.rocks/latest_version?id=cWYyAOIQmi4&amp;itag=139" length="226" type="audio/mpeg" />
+</item>
+<item>
+  <title>Little Judgements</title>
+  <description><![CDATA[Original Song.
+Free download on Bandcamp (You can buy for $0):
+https://ivebencrazy.bandcamp.com/track/little-judgements]]></description>
+  <pubDate>Mon Oct 30 2017 17:00:00 GMT-0700 (Pacific Daylight Time)</pubDate>
+  <guid isPermaLink="false">nO2U9LvkXwk</guid>
+  <enclosure url="https://invidious-us.kavin.rocks/latest_version?id=nO2U9LvkXwk&amp;itag=139" length="101" type="audio/mpeg" />
+</item>
+<item>
+  <title>Like Clockwork</title>
+  <description><![CDATA[Original Song I wrote a few years back. Figured I should put it on my Youtube.
+Free download on Bandcamp (You can buy for $0):
+https://ivebencrazy.bandcamp.com/track/like-clockwork]]></description>
+  <pubDate>Mon Oct 23 2017 17:00:00 GMT-0700 (Pacific Daylight Time)</pubDate>
+  <guid isPermaLink="false">6MGpYvNj-D4</guid>
+  <enclosure url="https://invidious-us.kavin.rocks/latest_version?id=6MGpYvNj-D4&amp;itag=139" length="242" type="audio/mpeg" />
+</item>
+<item>
+  <title>The Giant and the Teddy Bear</title>
+  <description><![CDATA[Free download on Bandcamp (just select to pay $0):
+https://ivebencrazy.bandcamp.com/track/the-giant-and-the-teddy-bear]]></description>
+  <pubDate>Mon Oct 16 2017 17:00:00 GMT-0700 (Pacific Daylight Time)</pubDate>
+  <guid isPermaLink="false">trbybOATNR8</guid>
+  <enclosure url="https://invidious-us.kavin.rocks/latest_version?id=trbybOATNR8&amp;itag=139" length="117" type="audio/mpeg" />
+</item>
+<item>
+  <title>I Took a Pill in Ibiza - Acappella Cover of Mike Posner</title>
+  <description><![CDATA[I originally arranged this for the UCSD Tritones. Check 'em out!
+https://www.youtube.com/user/ucsdtritones]]></description>
+  <pubDate>Mon Oct 09 2017 17:00:00 GMT-0700 (Pacific Daylight Time)</pubDate>
+  <guid isPermaLink="false">IuRuwyT1qXU</guid>
+  <enclosure url="https://invidious-us.kavin.rocks/latest_version?id=IuRuwyT1qXU&amp;itag=139" length="159" type="audio/mpeg" />
+</item>
+<item>
+  <title>Something Suite No  1</title>
+  <description><![CDATA[A song that's just kind of my head going in a bunch of different directions.
+
+Free Download: https://ivebencrazy.bandcamp.com/track/something-suite-no-1
+Art By: Lera Romanof (https://www.fiverr.com/valery_romanof)]]></description>
+  <pubDate>Mon Oct 02 2017 17:00:00 GMT-0700 (Pacific Daylight Time)</pubDate>
+  <guid isPermaLink="false">B9pgkHF-h3o</guid>
+  <enclosure url="https://invidious-us.kavin.rocks/latest_version?id=B9pgkHF-h3o&amp;itag=139" length="344" type="audio/mpeg" />
+</item>
+<item>
+  <title>Hit the Road Jack - Cover of Percy Mayfield, Ray Charles</title>
+  <description><![CDATA[A cover of "Hit the Road Jack", written by Percy Mayfield, and made famous by Ray Charles. Uhhhh... yeah that pretty much describes everything hahaha.]]></description>
+  <pubDate>Mon Sep 25 2017 17:00:00 GMT-0700 (Pacific Daylight Time)</pubDate>
+  <guid isPermaLink="false">0DdO_KjRIvc</guid>
+  <enclosure url="https://invidious-us.kavin.rocks/latest_version?id=0DdO_KjRIvc&amp;itag=139" length="122" type="audio/mpeg" />
+</item>
+<item>
+  <title>Legends Never Die - Acappella Cover</title>
+  <description><![CDATA[An acappella multitrack cover of the song "Legends Never Die", written by Riot Games for the 2017 League of Legends World Championships, and featured Against the Current.]]></description>
+  <pubDate>Mon Sep 18 2017 17:00:00 GMT-0700 (Pacific Daylight Time)</pubDate>
+  <guid isPermaLink="false">cL7IPfmteQo</guid>
+  <enclosure url="https://invidious-us.kavin.rocks/latest_version?id=cL7IPfmteQo&amp;itag=139" length="177" type="audio/mpeg" />
+</item>
+
+  </channel>
+</rss>
