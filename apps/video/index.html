@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<body>
+  <div class="media-container" align="center">
+    <video
+      id="video-player"
+      controls
+      style="height: 100%; max-width: 100%;"
+    >
+    </video>
+	</div>
+</body>
+
+<script>
+  const path = window.location.pathname;
+  const source = document.createElement('source');
+  const video = document.getElementById('video-player');
+  const sourceUrl = `https://static.bpev.me${path}`;
+
+  source.setAttribute('src', sourceUrl);
+  video.appendChild(source);
+  video.load();
+</script>
+
+<style>
+  body {
+    width:  100%;
+    height: 100%;
+    margin: 0;
+  }
+
+  .media-container {
+    max-width: 160.0vh;
+    width: 100vw;
+    max-height: 100vh;
+    margin: auto;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    overflow: hidden;
+    line-height: 0;
+  }
+</style>
+</html>

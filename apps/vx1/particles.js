@@ -1,3 +1,5 @@
+// deno-lint-ignore-file
+
 /* -----------------------------------------------
 /* Author : Vincent Garreau  - vincentgarreau.com
 /* MIT license: http://opensource.org/licenses/MIT
@@ -1505,11 +1507,3 @@ window.particlesJS.load = function (tag_id, path_config_json, callback) {
   };
   xhr.send();
 };
-
-window.particlesJS.load(
-  "particles-js",
-  "/static/vx1/particles.json",
-  function () {
-    console.log("callback - particles.js config loaded");
-  },
-);

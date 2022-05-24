@@ -3,7 +3,3 @@
 .Spotlight-V100
 .Trashes
 ._*
-
-# Ignore build files
-.env
-dist
