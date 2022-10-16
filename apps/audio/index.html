@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<body>
+  <div id="media-container" align="center">
+    <img src="icon/skip-back.svg" id="back" />
+    <img src="icon/skip-forward.svg" id="forward" />
+    <p id="current"></p>
+    <audio id="player" controls>
+      <source id="source" />
+    </audio>
+    <ol id="media-list"></ol>
+  </svg>
+  </div>
+</body>
+
+<script>
+// Parser adapted from https://github.com/nickdesaulniers/javascript-playlist-parser/blob/master/src/pls.coffee
+const parse = playlist => {
+  const matcher = /(file|title|length)(\d+)=(.+)\r?/i;
+  const tracks = [];
+
+  playlist.trim().split('\n').forEach(line => {
+    const match = line.match(matcher);
+    if (match?.length !== 4) return;
+    const [_, key, index, value] = match;
+    if (!tracks[index]) tracks[index] = {};
+    tracks[index][key.toLowerCase()] = value;
+  });
+
+  return tracks.filter(track => Object.keys(track));
+}
+
+const fetchPlaylist = async () => {
+  const response = await fetch("https://static.bpev.me/blog/vx1-session-sweet-honey/timeline.pls");
+  return parse(await response.text());
+}
+
+const mediaContainer = document.getElementById('media-container');
+const mediaList = document.getElementById('media-list');
+
+const audio = document.getElementById('player');
+const source = document.getElementById('source');
+const back = document.getElementById('back');
+const forward = document.getElementById('forward');
+const current = document.getElementById('current');
+
+fetchPlaylist().then(playlist => {
+  let curr = 0;
+  source.setAttribute('src', playlist[0].file);
+  current.innerHTML = playlist[0].title;
+  audio.load();
+
+  playlist.forEach((track, index) => {
+    // Create switcher elements
+    const title = document.createElement('li');
+    title.innerHTML = track.title;
+    title.onclick = () => {
+      curr = index;
+      source.setAttribute('src', track.file);
+      current.innerHTML = track.title;
+      audio.load();
+    }
+    mediaList.appendChild(title);
+  });
+
+  forward.onclick = () => {
+    curr = Math.min(curr + 1, playlist.length);
+    source.setAttribute('src', playlist[curr].file);
+    current.innerHTML = playlist[curr].title;
+    audio.load();
+  }
+  back.onclick = () => {
+    curr = Math.max(curr - 1, 0);
+    source.setAttribute('src', playlist[curr].file);
+    current.innerHTML = playlist[curr].title;
+    audio.load();
+  }
+});
+</script>
+
+<style>
+  body {
+    width:  100%;
+    height: 100%;
+    margin: 0;
+  }
+  li {
+    display: block;
+    border: 1px solid black;
+    margin:  5px;
+    cursor: pointer;
+    max-width: 200px;
+  }
+  img {
+    cursor: pointer;
+  }
+</style>
+</html>
