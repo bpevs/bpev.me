@@ -4,9 +4,8 @@ import { serve } from "https://deno.land/std@0.140.0/http/server.ts";
 import {
   dirname,
   fromFileUrl,
-  join
+  join,
 } from "https://deno.land/std@0.140.0/path/mod.ts";
-
 
 async function handleRequest(request) {
   const { pathname } = new URL(request.url);
@@ -18,7 +17,9 @@ async function handleRequest(request) {
   }
 
   const index = join(dirname(fromFileUrl(import.meta.url)), "index.html");
-  const indexHTML = new Response((await Deno.open(index, { read: true })).readable);
+  const indexHTML = new Response(
+    (await Deno.open(index, { read: true })).readable,
+  );
 
   return indexHTML;
 }

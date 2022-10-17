@@ -1,24 +1,75 @@
 <!DOCTYPE html>
 <body>
-  <div id="media-container" align="center">
-    <img src="icon/skip-back.svg" id="back" />
-    <img src="icon/skip-forward.svg" id="forward" />
-    <p id="current"></p>
-    <audio id="player" controls>
-      <source id="source" />
-    </audio>
-    <ol id="media-list"></ol>
+  <div id="media-container">
+    <img src="https://vx1.bpev.me/vx1.svg" id="art" />
+
+    <div id="media">
+      <h1 id="current"></h1>
+
+      <div id="controls">
+        <audio id="player" controls>
+          <source id="source" />
+        </audio>
+        <!-- <img src="icon/skip-back.svg" id="back" /> -->
+        <!-- <img src="icon/skip-forward.svg" id="forward" /> -->
+      </div>
+    </div>
+
+    <div id="media-list-container">
+      <ol id="media-list"></ol>
+    </div>
   </svg>
   </div>
 </body>
 
 <script>
-// Parser adapted from https://github.com/nickdesaulniers/javascript-playlist-parser/blob/master/src/pls.coffee
-const parse = playlist => {
-  const matcher = /(file|title|length)(\d+)=(.+)\r?/i;
-  const tracks = [];
+const path = window.location.pathname;
+const sourceUrl = `https://static.bpev.me${path}`;
+const mediaListEl = document.getElementById('media-list');
+const audioEl = document.getElementById('player');
+const sourceEl = document.getElementById('source');
+const currentSongTitleEl = document.getElementById('current');
 
-  playlist.trim().split('\n').forEach(line => {
+let curr = 0;
+
+fetchPlaylist().then(playlistArr => {
+  sourceEl.setAttribute('src', playlistArr[0].file);
+  currentSongTitleEl.innerHTML = playlistArr[0].title;
+  audioEl.load();
+
+  playlistArr.forEach((track, index) => {
+    const title = document.createElement('li');
+    title.innerHTML = `
+      <span class="num">${((index + 1) < 10 ? '0' : '') + (index + 1)}</span>
+      <span class="title">${track.title}</span>`;
+    title.onclick = () => switchTrack(index);
+    mediaListEl.appendChild(title);
+  });
+
+  document.getElementById('forward').onclick = () => switchTrack(Math.min(curr + 1, playlistArr.length))
+  document.getElementById('back').onclick = () => switchTrack(Math.max(curr - 1, 0));
+
+  function switchTrack(index) {
+    curr = index;
+    const track = playlistArr[index];
+    if (!track) return false;
+
+    sourceEl.setAttribute('src', track.file);
+    currentSongTitleEl.innerHTML = track.title;
+    audioEl.load();
+    audioEl.play();
+    return true;
+  }
+});
+
+// Parser adapted from https://github.com/nickdesaulniers/javascript-playlist-parser/blob/master/src/pls.coffee
+async function fetchPlaylist() {
+  const tracks = [];
+  const matcher = /(file|title|length)(\d+)=(.+)\r?/i;
+  const response = await fetch(sourceUrl);
+  const playlistText = await response.text();
+
+  playlistText.trim().split('\n').forEach(line => {
     const match = line.match(matcher);
     if (match?.length !== 4) return;
     const [_, key, index, value] = match;
@@ -28,53 +79,6 @@ const parse = playlist => {
 
   return tracks.filter(track => Object.keys(track));
 }
-
-const fetchPlaylist = async () => {
-  const response = await fetch("https://static.bpev.me/blog/vx1-session-sweet-honey/timeline.pls");
-  return parse(await response.text());
-}
-
-const mediaContainer = document.getElementById('media-container');
-const mediaList = document.getElementById('media-list');
-
-const audio = document.getElementById('player');
-const source = document.getElementById('source');
-const back = document.getElementById('back');
-const forward = document.getElementById('forward');
-const current = document.getElementById('current');
-
-fetchPlaylist().then(playlist => {
-  let curr = 0;
-  source.setAttribute('src', playlist[0].file);
-  current.innerHTML = playlist[0].title;
-  audio.load();
-
-  playlist.forEach((track, index) => {
-    // Create switcher elements
-    const title = document.createElement('li');
-    title.innerHTML = track.title;
-    title.onclick = () => {
-      curr = index;
-      source.setAttribute('src', track.file);
-      current.innerHTML = track.title;
-      audio.load();
-    }
-    mediaList.appendChild(title);
-  });
-
-  forward.onclick = () => {
-    curr = Math.min(curr + 1, playlist.length);
-    source.setAttribute('src', playlist[curr].file);
-    current.innerHTML = playlist[curr].title;
-    audio.load();
-  }
-  back.onclick = () => {
-    curr = Math.max(curr - 1, 0);
-    source.setAttribute('src', playlist[curr].file);
-    current.innerHTML = playlist[curr].title;
-    audio.load();
-  }
-});
 </script>
 
 <style>
@@ -82,16 +86,77 @@ fetchPlaylist().then(playlist => {
     width:  100%;
     height: 100%;
     margin: 0;
+    font-family: sans-serif;
   }
-  li {
+
+  #media-container {
+    background: linear-gradient(30deg, #2f42a6, #000723, #ac9cdd);
+    background-size: 600% 600%;
+    border-radius: 8px;
+    color: white;
+    display: flex;
+    height: 200px;
+    max-width: 720px;
+  }
+  #art {
+    width: 120px;
+    height: 120px;
+    align-self: center;
+  }
+  #media {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    flex-grow: 1;
+  }
+  #current {
+    width: 100%;
+  }
+  #controls {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+  }
+  #controls img {
+    color: white;
+    cursor: pointer;
+    height: 30px;
+    width: 30px;
+  }
+  #media-list-container {
+    overflow: scroll;
+  }
+  #media-list {
+    margin: 10px;
+    padding: 0;
+    background-color: white;
+    border-radius: 8px;
+    overflow: hidden;
+    min-width: 200px;
+  }
+  #media-list li {
     display: block;
-    border: 1px solid black;
-    margin:  5px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.5);
+    padding: 5px;
     cursor: pointer;
-    max-width: 200px;
   }
-  img {
-    cursor: pointer;
+  #media-list li:hover {
+    background-color: #ac9cdd;
+  }
+  #media-list li span {
+    margin: 0;
+    color: black;
+  }
+  #media-list li .title {
+    color: black;
+    padding: 10px;
+  }
+  #media-list li .num {
+    padding-left: 10px;
+    color: rgba(0, 0, 0, 0.5);
+  }
+  #media-list li:last-child {
+    border: none;
   }
 </style>
 </html>
