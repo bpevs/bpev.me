@@ -4,7 +4,7 @@
     <img src="https://vx1.bpev.me/vx1.svg" id="art" />
 
     <div id="media">
-      <h1 id="current"></h1>
+      <h2 id="current"></h2>
 
       <div id="controls">
         <audio id="player" controls>
@@ -17,7 +17,7 @@
       </div>
     </div>
 
-    <div id="media-list-container">
+    <div id="media-list-container" class="masked-overflow">
       <ol id="media-list">
       </ol>
     </div>
@@ -28,60 +28,79 @@
 <script>
 const path = window.location.pathname;
 const sourceUrl = `https://static.bpev.me${path}`;
+const mediaContainerEl = document.getElementById('media-container');
 const mediaListEl = document.getElementById('media-list');
 const audioEl = document.getElementById('player');
 const sourceEl = document.getElementById('source');
 const currentSongTitleEl = document.getElementById('current');
 
-let curr = 0;
-let currEl;
 
 fetchPlaylist().then(playlistArr => {
-  sourceEl.setAttribute('src', playlistArr[0].file);
-  currentSongTitleEl.innerHTML = playlistArr[0].title;
-  audioEl.load();
+  let currIndex = 0;
+  let currEl;
 
   playlistArr.forEach((track, index) => {
-    const title = document.createElement('li');
-    title.innerHTML = `
+    const trackEl = document.createElement('li');
+    trackEl.innerHTML = `
       <span class="num">${((index + 1) < 10 ? '0' : '') + (index + 1)}</span>
       <span class="title">${track.title}</span>`;
-    title.onclick = () => switchTrack(index);
-    mediaListEl.appendChild(title);
+    trackEl.onclick = () => {
+      switchTrack(index);
+      audioEl.play();
+    }
+    mediaListEl.appendChild(trackEl);
+    playlistArr[index].el = trackEl;
+    if (index === 0) switchTrack(0);
   });
 
-  document.getElementById('forward').onclick = () => switchTrack(Math.min(curr + 1, playlistArr.length))
-  document.getElementById('back').onclick = () => switchTrack(Math.max(curr - 1, 0));
+  document.getElementById('forward').onclick = () => {
+    switchTrack(Math.min(currIndex + 1, playlistArr.length));
+    audioEl.play();
+  }
+
+  document.getElementById('back').onclick = () => {
+    switchTrack(Math.max(currIndex - 1, 0));
+    audioEl.play();
+  }
 
   function switchTrack(index) {
-    curr = index;
+    currIndex = index;
     const track = playlistArr[index];
     if (!track) return false;
+
+    if (track.el) {
+      if (currEl) currEl.removeAttribute('class');
+      track.el.className = 'selected';
+      currEl = track.el;
+    }
 
     sourceEl.setAttribute('src', track.file);
     currentSongTitleEl.innerHTML = track.title;
     audioEl.load();
-    audioEl.play();
     return true;
   }
 });
 
 // Parser adapted from https://github.com/nickdesaulniers/javascript-playlist-parser/blob/master/src/pls.coffee
 async function fetchPlaylist() {
-  const tracks = [];
-  const matcher = /(file|title|length)(\d+)=(.+)\r?/i;
-  const response = await fetch(sourceUrl);
-  const playlistText = await response.text();
+  try {
+    const tracks = [];
+    const matcher = /(file|title|length)(\d+)=(.+)\r?/i;
+    const response = await fetch(sourceUrl);
+    const playlistText = await response.text();
 
-  playlistText.trim().split('\n').forEach(line => {
-    const match = line.match(matcher);
-    if (match?.length !== 4) return;
-    const [_, key, index, value] = match;
-    if (!tracks[index]) tracks[index] = {};
-    tracks[index][key.toLowerCase()] = value;
-  });
+    playlistText.trim().split('\n').forEach(line => {
+      const match = line.match(matcher);
+      if (match?.length !== 4) return;
+      const [_, key, index, value] = match;
+      if (!tracks[index]) tracks[index] = {};
+      tracks[index][key.toLowerCase()] = value;
+    });
 
-  return tracks.filter(track => Object.keys(track));
+    return tracks.filter(track => Object.keys(track));
+  } catch (e) {
+    mediaContainerEl.innerHTML = "<h1 id='not-found'>404 Not Found</h1>";
+  }
 }
 </script>
 
@@ -101,11 +120,12 @@ async function fetchPlaylist() {
     display: flex;
     height: 200px;
     max-width: 720px;
+    position: relative;
+    box-shadow: 0 10px 16px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19) !important;
   }
   #art {
     width: 120px;
-    height: 120px;
-    align-self: center;
+    align-self: space-around;
   }
   #media {
     display: flex;
@@ -123,23 +143,32 @@ async function fetchPlaylist() {
   }
   #media-list-container {
     overflow: scroll;
+    margin: 0 10px 0 10px;
   }
+
   #media-list {
-    margin: 10px;
+    margin: 10px 0 10px 0;
     padding: 0;
     background-color: white;
     border-radius: 8px;
     overflow: hidden;
     min-width: 200px;
+    position: relative;
   }
+
   #media-list li {
+    position: relative;
     display: block;
     border-bottom: 1px solid rgba(0, 0, 0, 0.5);
     padding: 5px;
     cursor: pointer;
   }
+  #media-list li.selected {
+    background-color: rgba(47, 66, 166, 0.5);
+    font-weight: bold;
+  }
   #media-list li:hover {
-    background-color: #ac9cdd;
+    background-color: rgba(47, 66, 166, 0.5);
   }
   #media-list li span {
     margin: 0;
@@ -157,6 +186,7 @@ async function fetchPlaylist() {
   #media-list li:last-child {
     border: none;
   }
+
   #skip {
     vertical-align: middle;
     padding-top: 10px;
@@ -192,6 +222,36 @@ async function fetchPlaylist() {
       flex-direction: column;
       align-content: flex-start;
     }
+  }
+
+  #not-found {
+    position: absolute;
+    top: 30%;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  /* https://pqina.nl/blog/fade-out-overflow-using-css-mask-image */
+  .masked-overflow {
+    --scrollbar-width: 8px;
+    --mask-height: 10px;
+    overflow-y: scroll;
+    padding-bottom: var(--mask-height);
+    padding-right: 20px;
+    --mask-image-content: linear-gradient(
+        to bottom,
+        transparent,
+        black var(--mask-height),
+        black calc(100% - var(--mask-height)),
+        transparent
+    );
+    --mask-size-content: calc(100% - var(--scrollbar-width)) 100%;
+    --mask-image-scrollbar: linear-gradient(black, black);
+    --mask-size-scrollbar: var(--scrollbar-width) 100%;
+    mask-image: var(--mask-image-content), var(--mask-image-scrollbar);
+    mask-size: var(--mask-size-content), var(--mask-size-scrollbar);
+    mask-position: 0 0, 100% 0;
+    mask-repeat: no-repeat, no-repeat;
   }
 </style>
 </html>
