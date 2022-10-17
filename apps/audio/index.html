@@ -10,10 +10,10 @@
         <audio id="player" controls>
           <source id="source" />
         </audio>
-      </div>
-      <div id="skip">
-        <img src="/icon/skip-back.svg" id="back" />
-        <img src="/icon/skip-forward.svg" id="forward" />
+        <div id="skip">
+          <img src="/icon/skip-back.svg" id="back" />
+          <img src="/icon/skip-forward.svg" id="forward" />
+        </div>
       </div>
     </div>
 
@@ -118,7 +118,7 @@ async function fetchPlaylist() {
   }
   #controls {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     width: 100%;
   }
   #media-list-container {
@@ -183,6 +183,14 @@ async function fetchPlaylist() {
     }
     #media {
       padding: 10px;
+    }
+    #controls {
+      flex-direction: row;
+    }
+    div#media-container {
+      height: 300px;
+      flex-direction: column;
+      align-content: flex-start;
     }
   }
 </style>
