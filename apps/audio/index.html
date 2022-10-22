@@ -1,4 +1,9 @@
-<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="description" content="Audio Player">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2.0, user-scalable=1">
+</head>
 <body>
   <div id="media-container">
     <img src="https://vx1.bpev.me/vx1.svg" id="art" />
@@ -11,8 +16,8 @@
           <source id="source" />
         </audio>
         <div id="skip">
-          <img src="/icon/skip-back.svg" id="back" />
-          <img src="/icon/skip-forward.svg" id="forward" />
+          <span id="back">⏮</span>
+          <span id="forward">⏭</span>
         </div>
       </div>
     </div>
@@ -189,20 +194,10 @@ async function fetchPlaylist() {
     vertical-align: middle;
     padding-top: 10px;
   }
+
   #forward,
   #back {
-    padding: 5px;
-    border-radius: 8px;
-    background-color: rgba(256,256,256,0.9);
     cursor: pointer;
-    height: 15px;
-    width: 15px;
-    vertical-align: middle;
-  }
-
-  #forward:hover,
-  #back:hover {
-    background-color: #ac9cdd;
   }
 
   @media (max-width: 620px) {
