@@ -40,10 +40,10 @@ async function fetchChannel(channelId: string): Promise<Channel> {
   if (channelCache[url]) return channelCache[url];
 
   console.log(`Fetching channel: ${channelId}`);
+  console.log(url);
 
   const channel = await fetch(url).then((resp) => resp.json());
-  const latestVideos = channel.latestVideos.slice(0, NUM_LATEST_VIDEOS);
-
+  const latestVideos = (channel.latestVideos || []).slice(0, NUM_LATEST_VIDEOS);
   channel.latestVideos = await Promise.all(
     latestVideos.map(async ({ videoId }: Video): Promise<Video> => {
       const FIELDS = "title,description,lengthSeconds,videoId,published";
@@ -76,7 +76,7 @@ function parseInvidious(
     podcastUrl: authorUrl,
     podcastAuthor: author,
     podcastDescription: description,
-    podcastImage: authorThumbnails[authorThumbnails.length - 1].url,
+    podcastImage: (authorThumbnails || []).reverse()[0]?.url || "",
     episodes: latestVideos.map((video: Video): Episode => ({
       episodeTitle: video.title,
       episodeDescription: video.description,
@@ -86,7 +86,9 @@ function parseInvidious(
       },
       publishDate: video.published,
       videoId: video.videoId,
-    })),
+    })).filter((video:Episode) => {
+      return video.mp3.duration > 120;
+    }),
   };
 }
 
