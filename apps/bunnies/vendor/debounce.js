@@ -420,7 +420,11 @@
         clearTimeout(timerId);
       }
       lastInvokeTime = 0;
-      lastArgs = lastCallTime = lastThis = timerId = undefined;
+      lastArgs =
+        lastCallTime =
+        lastThis =
+        timerId =
+          undefined;
     }
 
     function flush() {

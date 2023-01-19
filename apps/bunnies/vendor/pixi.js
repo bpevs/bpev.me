@@ -16726,8 +16726,11 @@
 
           // color and alpha
           var tint = sprite.tint;
-          colors[index + 4] = colors[index + 9] = colors[index + 14] =
-            colors[index + 19] = (tint >> 16) + (tint & 0xff00) +
+          colors[index + 4] =
+            colors[index + 9] =
+            colors[index + 14] =
+            colors[index + 19] =
+              (tint >> 16) + (tint & 0xff00) +
               ((tint & 0xff) << 16) + (sprite.worldAlpha * 255 << 24);
 
           // increment the batchsize
@@ -24365,8 +24368,10 @@
               return this.tiltShiftXFilter.gradientBlur;
             },
             set: function (value) {
-              this.tiltShiftXFilter.gradientBlur = this.tiltShiftYFilter
-                .gradientBlur = value;
+              this.tiltShiftXFilter.gradientBlur =
+                this.tiltShiftYFilter
+                  .gradientBlur =
+                  value;
             },
           },
 

@@ -86,7 +86,7 @@ function parseInvidious(
       },
       publishDate: video.published,
       videoId: video.videoId,
-    })).filter((video:Episode) => {
+    })).filter((video: Episode) => {
       return video.mp3.duration > 120;
     }),
   };
