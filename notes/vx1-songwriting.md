@@ -2,6 +2,7 @@
 title: "The Making of VX1: Songwriting"
 published: Apr 6, 2022
 ---
+
 # The Making of VX1: Songwriting
 
 > This is part 1 of the process in [The Making of VX1](https://bpev.me/blog/vx1/)

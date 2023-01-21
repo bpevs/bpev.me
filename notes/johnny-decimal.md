@@ -2,6 +2,7 @@
 title: Johnny Decimal
 published: Feb 14, 2019
 ---
+
 # Johnny Decimal
 
 Recently, I've gotten into using the [Johnny Decimal](https://johnnydecimal.com/) system for organizing my digital files.

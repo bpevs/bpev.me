@@ -2,6 +2,7 @@
 title: "VX1 Session: Fired Up"
 published: Nov 25, 2022
 ---
+
 # VX1 Session: Fired Up
 
 <figure>

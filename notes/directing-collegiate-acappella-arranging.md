@@ -2,6 +2,7 @@
 title: "Directing Collegiate Acappella: Arranging"
 published: 2017-04-26
 ---
+
 # Directing Collegiate Acappella: Arranging
 
 This is the first in a series, putting together the knowledge I gained while directing the UC San Diego Tritones acappella group. This article describes what I believe is a director's role when it comes to arrangements.

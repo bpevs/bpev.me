@@ -2,6 +2,7 @@
 title: "VX1 Session: Pay Attention"
 published: Dec 2, 2022
 ---
+
 # VX1 Session: Pay Attention
 
 > This is a session walkthrough, from [The Making of VX1](https://bpev.me/blog/vx1/)

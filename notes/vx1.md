@@ -2,6 +2,7 @@
 title: The Making of VX1
 published: Apr 4, 2022
 ---
+
 # The Making of VX1
 
 # What is VX1?

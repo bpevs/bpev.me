@@ -2,6 +2,7 @@
 title: 📷 Singapore
 published: Jan 12, 2018
 ---
+
 # 📷 Singapore
 
 ![There are lights everywhere](https://static.bpev.me/blog/travel-singapore/singapore-29.jpg)

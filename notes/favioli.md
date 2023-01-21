@@ -2,6 +2,7 @@
 title: Favioli
 published: Jul 6, 2018
 ---
+
 # Favioli 👊
 
 Favioli is a productivity extension that makes it easier to recognize tabs within your browser. Like this:

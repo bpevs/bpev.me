@@ -2,6 +2,7 @@
 title: "The Making of VX1: Art and Distribution"
 published: Apr 10, 2022
 ---
+
 # The Making of VX1: Art and Distribution
 
 > This is the final part of the process in [The Making of VX1](https://bpev.me/blog/vx1/). Thanks for reading, and be sure to check out the Song Retrospectives!

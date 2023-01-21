@@ -2,6 +2,7 @@
 title: "Directing Collegiate Acappella: Auditions"
 published: Apr 27, 2017
 ---
+
 # Directing Collegiate Acappella: Auditions
 
 This is the second in a collection of articles, putting together the knowledge I gained while directing the UC San Diego Tritones acappella group. This article describes what I believe is a director's role when it comes to auditions.

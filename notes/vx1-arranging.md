@@ -2,6 +2,7 @@
 title: "The Making of VX1: Arranging"
 published: Apr 7, 2022
 ---
+
 # The Making of VX1: Arranging
 
 > This is part 2 of the process in [The Making of VX1](https://bpev.me/blog/vx1/)

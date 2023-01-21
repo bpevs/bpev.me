@@ -2,6 +2,7 @@
 title: "VX1 Session: Charlatan Days"
 published: Sep 24, 2022
 ---
+
 # VX1 Session: Charlatan Days
 
 > This is a session walkthrough, from [The Making of VX1](https://bpev.me/blog/vx1/)

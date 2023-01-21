@@ -2,6 +2,7 @@
 title: 📷 Bishop 2019
 published: Apr 25, 2019
 ---
+
 # 📷 Bishop 2019
 
 # Trip 1

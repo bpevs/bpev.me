@@ -2,6 +2,7 @@
 title: Arranging Acappella Music
 published: 2016-05-10
 ---
+
 # Arranging Acappella Music
 
 Probably at some point, someone in the acappella community will tell you that the performance matters more than the arrangement. I’m here to tell you **THAT’S BULLSHIT**. Great performance can hide a subpar arrangement, and the inverse of that holds much truth as well. However, great arrangements can make your group perform better and with more confidence, as well as sound cool in their own right. Arranging is an incredibly important and essential part of singing acappella.

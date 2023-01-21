@@ -2,6 +2,7 @@
 title: Searching for Sanity
 published: 2018-09-16
 ---
+
 # Searching for Sanity
 
 I took a short work trip recently, and it was just so ridiculous that I just had to share the story.

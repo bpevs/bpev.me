@@ -2,6 +2,7 @@
 title: "Directing Collegiate Acappella: Performance"
 published: Apr 29, 2017
 ---
+
 # Directing Collegiate Acappella: Performance
 
 This is the fourth in a collection of articles, putting together the knowledge I gained while directing the UC San Diego Tritones acappella group. This article describes what I believe is a director's role when it comes to performances.

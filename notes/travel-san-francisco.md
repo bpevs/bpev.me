@@ -2,6 +2,7 @@
 title: 📷 San Francisco 2020
 published: Jun 7, 2020
 ---
+
 # 📷 San Francisco 2020
 
 Things are a bit different these days... ![Dolores Park with Social Distancing Circles](https://static.bpev.me/blog/travel-san-francisco-2020/san-francisco-2020-01.jpeg) ![Dolores Park with Social Distancing Circles 2](https://static.bpev.me/blog/travel-san-francisco-2020/san-francisco-2020-02.jpeg)

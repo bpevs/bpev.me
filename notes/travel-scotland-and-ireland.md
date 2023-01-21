@@ -2,6 +2,7 @@
 title: 📸 Scotland and Ireland
 published: Dec 20, 2022
 ---
+
 # 📸 Scotland and Ireland
 
 <img src="https://static.bpev.me/blog/travel-scotland-ireland/medium/DSC00004%203.jpg" />

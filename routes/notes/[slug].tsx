@@ -1,5 +1,5 @@
 import { CSS, render } from "$gfm";
-import { Head, asset } from "$fresh/runtime.ts";
+import { asset, Head } from "$fresh/runtime.ts";
 import { Handlers, PageProps } from "$fresh/server.ts";
 import Markup from "../../components/markup/index.ts";
 import { getNote, Note } from "../../utilities/notes.ts";
@@ -27,7 +27,11 @@ export default function NotePage(props: PageProps<Note>) {
         <style dangerouslySetInnerHTML={{ __html: CSS }} />
         <link rel="stylesheet" href={asset("/index.css")} />
       </Head>
-      <body data-color-mode="auto" data-light-theme="light" data-dark-theme="dark">
+      <body
+        data-color-mode="auto"
+        data-light-theme="light"
+        data-dark-theme="dark"
+      >
         <Markup
           class="markdown-body"
           markup={render(props.data.content, { allowIframes: true })}

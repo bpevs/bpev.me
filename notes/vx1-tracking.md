@@ -2,6 +2,7 @@
 title: "The Making of VX1: Tracking"
 published: Apr 8, 2022
 ---
+
 # The Making of VX1: Tracking
 
 > This is part 3 of the process in [The Making of VX1](https://bpev.me/blog/vx1/)

@@ -2,6 +2,7 @@
 title: "VX1 Session: Sweet Honey"
 published: Sep 28, 2022
 ---
+
 # VX1 Session: Sweet Honey
 
 > This is a session walkthrough, from [The Making of VX1](https://bpev.me/blog/vx1/)
