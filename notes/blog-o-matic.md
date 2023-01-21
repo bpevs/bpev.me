@@ -1,19 +1,12 @@
 ---
-title: This is my first blog post!
-published_at: 2022-11-04T15:00:00.000Z
-snippet: This is an excerpt of my first blog post.
+title: Blog-o-Matic
+published: 2019-01-12
 ---
-
 # Blog-o-Matic
 
-> Published on Jan 12, 2019
+**NOTE: BLOG-O-MATIC IS NO LONGER USED OR MAINTAINED. I AM JUST KEEPING THIS HERE FOR INFORMATIONAL PURPOSES.**
 
-**NOTE: BLOG-O-MATIC IS NO LONGER USED OR MAINTAINED. I AM JUST KEEPING THIS
-HERE FOR INFORMATIONAL PURPOSES.**
-
-[Blog-o-Matic](https://github.com/ivebencrazy/blog-o-matic) connects your
-markdown-editing software to your chosen method of blog distribution with as
-little friction as possible. I made this so that I can have this process:
+[Blog-o-Matic](https://github.com/ivebencrazy/blog-o-matic) connects your markdown-editing software to your chosen method of blog distribution with as little friction as possible. I made this so that I can have this process:
 
 1. Write a plain-text blog post on my computer or on my phone
 2. Sync edits between my devices via [iCloud](https://www.icloud.com)
@@ -21,20 +14,13 @@ little friction as possible. I made this so that I can have this process:
 
 ![My Workflow](https://static.bpev.me/blog/blog-o-matic/blog-o-matic-workflow.png)
 
-Blog-o-Matic fills the 3rd step of that process, and organizes the 2nd. It takes
-my blog posts as source, optimizes images into multiple sizes for speed and
-progressive loading, parses markdown into various formats, minifies and
-compresses where useful, and uploads the results to S3. I currently use
-Blog-o-Matic to power my blog, running on [bpev.me](https://bpev.me).
+Blog-o-Matic fills the 3rd step of that process, and organizes the 2nd. It takes my blog posts as source, optimizes images into multiple sizes for speed and progressive loading, parses markdown into various formats, minifies and compresses where useful, and uploads the results to S3. I currently use Blog-o-Matic to power my blog, running on [bpev.me](https://bpev.me).
 
 ![After Building](https://static.bpev.me/blog/blog-o-matic/blog-o-matic-built.png)
 
 # Using Blog-o-Matic
 
-To describe how I built Blog-o-Matic, it's helpful to know how I'm using it!
-This section is a short explanation of how things work. I'm going to skip a lot
-of stuff, though, so if you're looking for an actual user guide, there are more
-detailed documents in the Github repo.
+To describe how I built Blog-o-Matic, it's helpful to know how I'm using it! This section is a short explanation of how things work. I'm going to skip a lot of stuff, though, so if you're looking for an actual user guide, there are more detailed documents in the Github repo.
 
 At it's core, Blog-o-Matic usage depends on 4 commands:
 

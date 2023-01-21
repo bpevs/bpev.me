@@ -1,12 +1,8 @@
 ---
-title: This is my first blog post!
-published_at: 2022-11-04T15:00:00.000Z
-snippet: This is an excerpt of my first blog post.
+title: 📷 Singapore
+published: Jan 12, 2018
 ---
-
 # 📷 Singapore
-
-> Published on Jan 12, 2018
 
 ![There are lights everywhere](https://static.bpev.me/blog/travel-singapore/singapore-29.jpg)
 

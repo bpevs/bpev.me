@@ -1,12 +1,8 @@
 ---
-title: This is my first blog post!
-published_at: 2022-11-04T15:00:00.000Z
-snippet: This is an excerpt of my first blog post.
+title: 📸 Scotland and Ireland
+published: Dec 20, 2022
 ---
-
 # 📸 Scotland and Ireland
-
-> Published on Dec 20, 2022
 
 <img src="https://static.bpev.me/blog/travel-scotland-ireland/medium/DSC00004%203.jpg" />
 

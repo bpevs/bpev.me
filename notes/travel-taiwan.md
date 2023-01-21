@@ -1,12 +1,8 @@
 ---
-title: This is my first blog post!
-published_at: 2022-11-04T15:00:00.000Z
-snippet: This is an excerpt of my first blog post.
+title: 📸 Taiwan
+published: Jan 1, 2023
 ---
-
 # 📸 Taiwan
-
-> Published on Jan 1, 2023
 
 <a href="https://static.bpev.me/blog/travel-taiwan/medium/DSC00039.jpg">
   <img src="https://static.bpev.me/blog/travel-taiwan/medium/DSC00039.jpg" />

@@ -1,12 +1,8 @@
 ---
-title: This is my first blog post!
-published_at: 2022-11-04T15:00:00.000Z
-snippet: This is an excerpt of my first blog post.
+title: 📸 London
+published: Dec 18, 2022
 ---
-
 # 📸 London
-
-> Published on Dec 18, 2022
 
 <img src="https://static.bpev.me/blog/travel-london/medium/IMG_20221122_130337.jpg" />
 

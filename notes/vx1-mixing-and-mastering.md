@@ -1,32 +1,16 @@
 ---
-title: This is my first blog post!
-published_at: 2022-11-04T15:00:00.000Z
-snippet: This is an excerpt of my first blog post.
+title: "The Making of VX1: Mixing and Mastering"
+published: Apr 9, 2022
 ---
-
 # The Making of VX1: Mixing and Mastering
 
-> Published on Apr 9, 2022
-
-> This is part 6 of the process in
-> [The Making of VX1](https://bpev.me/blog/vx1/)
+> This is part 6 of the process in [The Making of VX1](https://bpev.me/blog/vx1/)
 
 ## My Role in the Mixing/Mastering Process
 
-[Bill Hare](https://billhareacappella.com) did the mixing and the mastering for
-this project. I asked Bill to mix and master this project because, in my
-experience, mixing acappella is just really tough. Much of this is due to the
-same reasons we split percussion into multiple tracks; the frequency range of
-the human voice is quite wide for a single instrument (especially when we
-include beatboxing), but it is still pretty narrow in the context of creating a
-full track. Combine this with the fact that we record all these vocals as a mono
-channel, and it's just difficult to put it all together to create a strong sense
-of space. Generally, acappella has a strong amount of eq, compression, and other
-effects to achieve this kind of feel, and I don't really have the expertise to
-do this in any kind of timely manner.
+[Bill Hare](https://billhareacappella.com) did the mixing and the mastering for this project. I asked Bill to mix and master this project because, in my experience, mixing acappella is just really tough. Much of this is due to the same reasons we split percussion into multiple tracks; the frequency range of the human voice is quite wide for a single instrument (especially when we include beatboxing), but it is still pretty narrow in the context of creating a full track. Combine this with the fact that we record all these vocals as a mono channel, and it's just difficult to put it all together to create a strong sense of space. Generally, acappella has a strong amount of eq, compression, and other effects to achieve this kind of feel, and I don't really have the expertise to do this in any kind of timely manner.
 
-I think maybe a good way to explain this is comparing some of a rough mix to a
-mix from Bill.
+I think maybe a good way to explain this is comparing some of a rough mix to a mix from Bill.
 
 <figure>
   <p align="center">
@@ -42,25 +26,15 @@ mix from Bill.
   <figcaption><strong>Mix 3</strong> – The Problem (Bill's Mix)</figcaption>
 </figure>
 
-But long story short, my role during mixing and mastering is as the producer;
-making final decisions around direction, and soliciting/processing feedback.
+But long story short, my role during mixing and mastering is as the producer; making final decisions around direction, and soliciting/processing feedback.
 
 ## Getting Feedback
 
-Getting feedback is vital throughout the **ENTIRE** production process. I
-started gathering feedback from many friends starting towards the end of the
-arranging phase of my album. However, during the mixing and mastering part of
-the process, it becomes my only responsibility and my primary focus.
+Getting feedback is vital throughout the **ENTIRE** production process. I started gathering feedback from many friends starting towards the end of the arranging phase of my album. However, during the mixing and mastering part of the process, it becomes my only responsibility and my primary focus.
 
-And, basically, the more people who give feedback, the better the song will be!
-Ask as many people as you can! **Bill recommended that I have 20-30 people
-listen to a each song at MINIMUM**. This is because when we are looking at what
-to focus on, we are really looking for trends in comments, rather than specific
-feedback.
+And, basically, the more people who give feedback, the better the song will be! Ask as many people as you can! **Bill recommended that I have 20-30 people listen to a each song at MINIMUM**. This is because when we are looking at what to focus on, we are really looking for trends in comments, rather than specific feedback.
 
-When I ask for feedback from friends, I generally send them a `FEEDBACK.txt`
-text file to use as a template, and have them fill it out and send it back to
-me. My `FEEDBACK.txt` looks like this:
+When I ask for feedback from friends, I generally send them a `FEEDBACK.txt` text file to use as a template, and have them fill it out and send it back to me. My `FEEDBACK.txt` looks like this:
 
 ```
 General Notes
@@ -79,39 +53,21 @@ Line Notes
 1:53 - I can't hear the lead vocal here.
 ```
 
-I will then save all these feedback texts. I name them with the person's name
-and the version of the song they listened to. Ala:
-`Pay Attention 2.02 - Ben Feedback.txt`.
+I will then save all these feedback texts. I name them with the person's name and the version of the song they listened to. Ala: `Pay Attention 2.02 - Ben Feedback.txt`.
 
-Once I have all the feedback I asked for on a particular version, I consolidate
-it into notes to give to Bill.
+Once I have all the feedback I asked for on a particular version, I consolidate it into notes to give to Bill.
 
 ## Applying Feedback
 
-Basically, at this point, we want to sort through all of our feedback, and
-decide what actions to actually take.
+Basically, at this point, we want to sort through all of our feedback, and decide what actions to actually take.
 
-As I mentioned before, **we are mostly looking for trends on where to focus,
-rather than focusing on specific advice**. When specifically asked for advice,
-most people will be pressured to "say something", so they will likely write a
-bit more than what they think is truly important. So a lot of this consolidation
-process is about filtering opinions, hence, why we are looking for trends.
+As I mentioned before, **we are mostly looking for trends on where to focus, rather than focusing on specific advice**. When specifically asked for advice, most people will be pressured to "say something", so they will likely write a bit more than what they think is truly important. So a lot of this consolidation process is about filtering opinions, hence, why we are looking for trends.
 
-One other thing to note is that everyone's opinions should have equal weight.
-Bill told me that "expert" opinions by themselves can hurt a track, if they
-aren't diluted by more lay opinions. After all, we're not trying to write music
-that only musicians can appreciate. Even the large professional Hollywood films
-have focus groups to get the opinions of the normal people.
+One other thing to note is that everyone's opinions should have equal weight. Bill told me that "expert" opinions by themselves can hurt a track, if they aren't diluted by more lay opinions. After all, we're not trying to write music that only musicians can appreciate. Even the large professional Hollywood films have focus groups to get the opinions of the normal people.
 
-**The other feedback I consolidate into this is what I hear from my own
-listening**. Usually, this is feedback that I give when my vision of the song
-isn't quite in sync with what Bill is thinking. Generally, this is something
-along the lines of "I didn't mean for this instrument to be so loud", or "I
-really want to feature this instrument during this section".
+**The other feedback I consolidate into this is what I hear from my own listening**. Usually, this is feedback that I give when my vision of the song isn't quite in sync with what Bill is thinking. Generally, this is something along the lines of "I didn't mean for this instrument to be so loud", or "I really want to feature this instrument during this section".
 
-So usually, my mix feedback is a consolidation of those trends + some of those
-more specific vision details that I didn't necessarily get feedback about. I
-send it back in an e-mail and/or text file.
+So usually, my mix feedback is a consolidation of those trends + some of those more specific vision details that I didn't necessarily get feedback about. I send it back in an e-mail and/or text file.
 
 ### Example: Pay Attention
 

@@ -1,33 +1,16 @@
 ---
-title: This is my first blog post!
-published_at: 2022-11-04T15:00:00.000Z
-snippet: This is an excerpt of my first blog post.
+title: "The Making of VX1: Exporting"
+published: Apr 8, 2022
 ---
-
 # The Making of VX1: Exporting
 
-> Published on Apr 8, 2022
+> This is part 5 in the process of [The Making of VX1](https://bpev.me/blog/vx1/)
 
-> This is part 5 in the process of
-> [The Making of VX1](https://bpev.me/blog/vx1/)
-
-Once editing is completed, I format and export the session into a structure that
-I can send off for mixing. It is important to be exacting during this process.
-It's all very easy stuff, but we can waste a lot of time and money if we force
-our mixing engineer to fix weird format issues instead of focusing on the music.
-Sorting, re-ordering, and re-naming 100+ tracks is NOT what a mixing engineer
-wants to be working on.
+Once editing is completed, I format and export the session into a structure that I can send off for mixing. It is important to be exacting during this process. It's all very easy stuff, but we can waste a lot of time and money if we force our mixing engineer to fix weird format issues instead of focusing on the music. Sorting, re-ordering, and re-naming 100+ tracks is NOT what a mixing engineer wants to be working on.
 
 # The Anatomy of a VX1 Session Export
 
-The format of an exported session will vary depending on the expectations of
-whoever is mixing the album. For example, Bill has his own set of expectations,
-which he describes on his
-[website FAQ](https://billhareacappella.com/acappella-faq.html). Since every
-session has unique ideas, an album will often not line up 100% with any
-expectations. So usually it takes a little time for the musician and engineer to
-get on the same page. My first song with Bill took a bit longer, as we
-discovered a methodology that works best for us.
+The format of an exported session will vary depending on the expectations of whoever is mixing the album. For example, Bill has his own set of expectations, which he describes on his [website FAQ](https://billhareacappella.com/acappella-faq.html). Since every session has unique ideas, an album will often not line up 100% with any expectations. So usually it takes a little time for the musician and engineer to get on the same page. My first song with Bill took a bit longer, as we discovered a methodology that works best for us.
 
 Generally, the way I have files setup in a session looks something like this:
 
@@ -49,11 +32,7 @@ A quick summary:
 
 ## REFERENCE.wav
 
-This is basically just a quick mix that I created, using basic effects. This is
-ALWAYS in-line time-wise with the tracks I'm sending. I expect it to be put in
-the same session alongside the tracks, so the mix engineer can listen to it if
-they want an idea of what I was hearing. I also reference this track in
-`README.txt` when I am writing notes.
+This is basically just a quick mix that I created, using basic effects. This is ALWAYS in-line time-wise with the tracks I'm sending. I expect it to be put in the same session alongside the tracks, so the mix engineer can listen to it if they want an idea of what I was hearing. I also reference this track in `README.txt` when I am writing notes.
 
 Here is the reference mix for Charlatan Days:
 
@@ -66,19 +45,16 @@ Here is the reference mix for Charlatan Days:
 
 # README.txt
 
-Gives contextual information about the song, and notes about what I'm looking
-for. Basically, it's a map for the session. It includes:
+Gives contextual information about the song, and notes about what I'm looking for. Basically, it's a map for the session. It includes:
 
 - Tempo + description of tempo changes
 - General description of song
 - Description each track/part group
-  - Including descriptions of effects I already applied, and where to find the
-    RAW versions of those takes.
+  - Including descriptions of effects I already applied, and where to find the RAW versions of those takes.
 - Line Notes explaining important points
   - These include a timestamp AND measure number that refer to `REFERENCE.wav`.
 
-I usually also copypasta this into my e-mail thread with Bill, and format the
-text, so he could refer to it that way.
+I usually also copypasta this into my e-mail thread with Bill, and format the text, so he could refer to it that way.
 
 Here is the README.txt for Charlatan Days:
 
@@ -118,9 +94,7 @@ LINE NOTES:
 
 # LYRICS.txt
 
-I provide this file for reference, since it can sometimes give an idea of what
-the song is about. I usually label verses/choruses, just to make sure we have a
-common "map" of the song. Here is an excerpt from my Charlatan Days LYRICS.txt:
+I provide this file for reference, since it can sometimes give an idea of what the song is about. I usually label verses/choruses, just to make sure we have a common "map" of the song. Here is an excerpt from my Charlatan Days LYRICS.txt:
 
 ```
 [key C]
@@ -144,19 +118,11 @@ I ain't gonna fight it
 
 # TRACKS
 
-This is the first thing I put together in the session export. It is the most
-work, and it gets me in the mindspace of the track for writing notes.
+This is the first thing I put together in the session export. It is the most work, and it gets me in the mindspace of the track for writing notes.
 
 ## Choosing a Proper Channel Format
 
-In acappella, ALL of our tracks are recorded in mono. However, we have been
-recording all of our background vocals twice! This makes our sound much more
-full, but when we are dealing with upwards of 240 vocal tracks, it becomes much
-more ergonomical to export these hard-panned mono tracks as
-[dual-mono audio files](https://www.williamssoundstudio.com/mixing/dual-mono-and-stereo-explained.php)
-(stereo `.wav` files). It is ergonomically better to use stereo stems where
-possible. Basically it feels better to be mixing 120 Charlatan Days stereo
-tracks than it does to be mixing 240 hard-panned mono tracks.
+In acappella, ALL of our tracks are recorded in mono. However, we have been recording all of our background vocals twice! This makes our sound much more full, but when we are dealing with upwards of 240 vocal tracks, it becomes much more ergonomical to export these hard-panned mono tracks as [dual-mono audio files](https://www.williamssoundstudio.com/mixing/dual-mono-and-stereo-explained.php) (stereo `.wav` files). It is ergonomically better to use stereo stems where possible. Basically it feels better to be mixing 120 Charlatan Days stereo tracks than it does to be mixing 240 hard-panned mono tracks.
 
 ![Ways channels can be handled](https://static.bpev.me/blog/vx1-exporting/channel-format.png)
 
@@ -176,42 +142,24 @@ I create these in Ableton Live after editing a pair of mono tracks individually:
 1. Create a new track
 2. Set the input to "resampled"
 3. Make sure I don't have the edited tracks don't have any buses running
-4. Then resample it into a stereo track (I also use this moment to double-check
-   the tracks for editing mistakes)
+4. Then resample it into a stereo track (I also use this moment to double-check the tracks for editing mistakes)
 
 ## Bouncing Tracks
 
-Ableton Live has a decent walk-through on
-[exporting stems or parts](https://help.ableton.com/hc/en-us/articles/360000843404-Importing-and-exporting-stems).
-Mostly just follow that. I just have a few additional things to pay attention
-to.
+Ableton Live has a decent walk-through on [exporting stems or parts](https://help.ableton.com/hc/en-us/articles/360000843404-Importing-and-exporting-stems). Mostly just follow that. I just have a few additional things to pay attention to.
 
-Once I export all the tracks, I usually double-check by just dragging them into
-another DAW (usually REAPER), and double-checking that it imports the way I
-expect.
+Once I export all the tracks, I usually double-check by just dragging them into another DAW (usually REAPER), and double-checking that it imports the way I expect.
 
 ### A Note on Bouncing Effects
 
-In the past, I've always had an argument with myself about how much ambiguity I
-want to leave for the mixing engineer. In my head, I had the idea that the
-mixing engineer is better than I am at mixing, so for instance, if there was a
-specific effect I wanted, I'd send them the raw track and tell them what I
-wanted. Looking back, that just creates more opportunities for miscommunication.
-I now use what is basically a 2-step guideline for deciding whether to apply an
-effect:
+In the past, I've always had an argument with myself about how much ambiguity I want to leave for the mixing engineer. In my head, I had the idea that the mixing engineer is better than I am at mixing, so for instance, if there was a specific effect I wanted, I'd send them the raw track and tell them what I wanted. Looking back, that just creates more opportunities for miscommunication. I now use what is basically a 2-step guideline for deciding whether to apply an effect:
 
-1. **How much do I care about this effect?** Basically, if I have strong
-   conviction that this is an effect I need on this song.
+1. **How much do I care about this effect?** Basically, if I have strong conviction that this is an effect I need on this song.
 2. **How much of a pain is it to apply?** Am I using a specific plugin?
 
-**This also applies to very specific cuts and tails.** If I want a long tail on
-a phrase, I leave it in. If I want to electronically cut-off a phrase, I apply
-that cut in the exported track as well. Basically, if I **KNOW** what I want, I
-should have that applied to the track to avoid unnecessary work.
+**This also applies to very specific cuts and tails.** If I want a long tail on a phrase, I leave it in. If I want to electronically cut-off a phrase, I apply that cut in the exported track as well. Basically, if I **KNOW** what I want, I should have that applied to the track to avoid unnecessary work.
 
-A good example of this is the intro of Charlatan Days. All the pitch edits and
-stuttering cuts I applied on those tracks directly. This is a segment from the
-actual background vocal track I sent to Bill.
+A good example of this is the intro of Charlatan Days. All the pitch edits and stuttering cuts I applied on those tracks directly. This is a segment from the actual background vocal track I sent to Bill.
 
 <figure>
 <p align="center">
@@ -220,17 +168,11 @@ actual background vocal track I sent to Bill.
 <figcaption>Charlatan Days Intro Harmony</figcaption>
 </figure>
 
-When I DO apply an effect during editing, I usually also like to include the raw
-take in EXTRA_TRACKS. I usually do NOT do this for minor edits, such as cutting
-off the tail of a phrase electronically on-purpose. I do like to leave a note in
-my README though, to explain that it is on purpose, though.
+When I DO apply an effect during editing, I usually also like to include the raw take in EXTRA_TRACKS. I usually do NOT do this for minor edits, such as cutting off the tail of a phrase electronically on-purpose. I do like to leave a note in my README though, to explain that it is on purpose, though.
 
 ## Naming and Ordering
 
-When bouncing stems, we want to name each stem with the track order first. This
-ensures that when we import the tracks into Bill's DAW, that all the tracks are
-in a defined order. We don't want to waste our engineer's time moving tracks
-around!
+When bouncing stems, we want to name each stem with the track order first. This ensures that when we import the tracks into Bill's DAW, that all the tracks are in a defined order. We don't want to waste our engineer's time moving tracks around!
 
 A basic **TRACKS** folder might look like this:
 
@@ -254,10 +196,7 @@ TRACKS
 	16 Woo B.wav # Another auxillary vocal part
 ```
 
-Since I didn't through-arrange these songs on paper, I don't really have
-traditional singing parts (Soprano, Alto, Tenor, Bass, etc). Instead, I split up
-my session into "instruments". Since I end with more tracks due to all of these
-instruments, I tend to name and order tracks a little differently.
+Since I didn't through-arrange these songs on paper, I don't really have traditional singing parts (Soprano, Alto, Tenor, Bass, etc). Instead, I split up my session into "instruments". Since I end with more tracks due to all of these instruments, I tend to name and order tracks a little differently.
 
 A more typical VX1 **TRACKS** ordering looks like this:
 
@@ -290,14 +229,7 @@ EXTRA_TRACKS
 
 Try to make the names of the tracks as clear as possible!
 
-I think the best way to describe this is my experience with the S.U.S.
-"castanets". I had a kind of white-noise sound I was using rhythmically in
-S.U.S. They kind of filled the role of castanets in the drumset just by the kind
-of rhythm. So I named them "castanets". When Bill sent me back the first mix for
-that song, suddenly the sound actually sounded like a castanet! Bill had
-interpreted my naming to mean that I was looking for a castanet sound, and added
-a small effect to emphasize that sound a bit more! So you want to be a bit wary
-of what a first time listener will interpret your naming to mean.
+I think the best way to describe this is my experience with the S.U.S. "castanets". I had a kind of white-noise sound I was using rhythmically in S.U.S. They kind of filled the role of castanets in the drumset just by the kind of rhythm. So I named them "castanets". When Bill sent me back the first mix for that song, suddenly the sound actually sounded like a castanet! Bill had interpreted my naming to mean that I was looking for a castanet sound, and added a small effect to emphasize that sound a bit more! So you want to be a bit wary of what a first time listener will interpret your naming to mean.
 
 # My Export Checklist
 
@@ -335,20 +267,10 @@ I double-check this list for each session before pressing send:
 
 ### Uploading Files
 
-Usually, I package all these files into a .zip file, and upload it to my
-personal server to send it (the file is much too big for an email). I haven't
-explored the alternative all too much, but probably your mixing engineer has an
-opinion about how to get the files to them. Bill usually uses
-[wetransfer](https://wetransfer.com/), and mentions
-[Dropbox](https://www.dropbox.com/) and some other alternatives on his
-[FAQ](https://billhareacappella.com/acappella-faq.html) (ftp, fedex, carrier
-pigeon, etc).
+Usually, I package all these files into a .zip file, and upload it to my personal server to send it (the file is much too big for an email). I haven't explored the alternative all too much, but probably your mixing engineer has an opinion about how to get the files to them. Bill usually uses [wetransfer](https://wetransfer.com/), and mentions [Dropbox](https://www.dropbox.com/) and some other alternatives on his [FAQ](https://billhareacappella.com/acappella-faq.html) (ftp, fedex, carrier pigeon, etc).
 
 ### The e-mail
 
-Then I pop a link to the uploaded files into an email. I also usually copypasta
-my README.txt into the email, just for ease-of-access, if you want to keep all
-the mixes and feedback in an e-mail thread.
+Then I pop a link to the uploaded files into an email. I also usually copypasta my README.txt into the email, just for ease-of-access, if you want to keep all the mixes and feedback in an e-mail thread.
 
-> Once it's all sent, we're off to
-> [Mixing and Mastering](https://bpev.mataroa.blog/blog/vx1-mixing-and-mastering/)!
+> Once it's all sent, we're off to [Mixing and Mastering](https://bpev.mataroa.blog/blog/vx1-mixing-and-mastering/)!

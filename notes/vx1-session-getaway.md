@@ -1,15 +1,10 @@
 ---
-title: This is my first blog post!
-published_at: 2022-11-04T15:00:00.000Z
-snippet: This is an excerpt of my first blog post.
+title: "VX1 Session: Getaway"
+published: Dec 9, 2022
 ---
-
 # VX1 Session: Getaway
 
-> Published on Dec 9, 2022
-
-> This is a session walkthrough, from
-> [The Making of VX1](https://bpev.me/blog/vx1/)
+> This is a session walkthrough, from [The Making of VX1](https://bpev.me/blog/vx1/)
 
 <figure>
   <p align="center">
@@ -22,10 +17,7 @@ snippet: This is an excerpt of my first blog post.
 
 <iframe src="https://audio.bpev.me/blog/vx1-session-getaway/versions.pls" width="100%" height="300" frameborder="0"></iframe>
 
-This song first and foremost developed from the vocal lead. I came up with the
-ENTIRE vocal lead from the very beginning, before I even got all the chords
-right. It ended up being a very flexible melody that lasted over VERY different
-arranging behind it.
+This song first and foremost developed from the vocal lead. I came up with the ENTIRE vocal lead from the very beginning, before I even got all the chords right. It ended up being a very flexible melody that lasted over VERY different arranging behind it.
 
 <figure>
   <p align="center">
@@ -44,8 +36,7 @@ From this version, that I thought "sounded like Coldplay"...
   <figcaption>The song went through many versions (v1.08b)</figcaption>
 </figure>
 
-... To a kinda closer-to-the-real-thing version that finally developed when I
-swiped the chord progression from another song I was writing.
+... To a kinda closer-to-the-real-thing version that finally developed when I swiped the chord progression from another song I was writing.
 
 <figure>
   <img src="https://static.bpev.me/blog/vx1-session-getaway/clip/loopp_1.png" />
@@ -57,10 +48,7 @@ swiped the chord progression from another song I was writing.
 
 ### Lyrics
 
-The last thing I finished was Lead 2 (the rap-ish thing). I am not the strongest
-at lyrics, so when writing poetry like this, I usually start with the flow that
-I want, and then write lyrics to match. For example, this is what I originally
-put together for this song:
+The last thing I finished was Lead 2 (the rap-ish thing). I am not the strongest at lyrics, so when writing poetry like this, I usually start with the flow that I want, and then write lyrics to match. For example, this is what I originally put together for this song:
 
 <figure>
   <p align="center">
@@ -69,9 +57,7 @@ put together for this song:
   <figcaption>Wordless Rap</figcaption>
 </figure>
 
-In the different versions of the song, you can hear this line evolve. I settled
-on something, but then during mixing it just kept bothering me, so I actually
-ended up sending Bill a patch to fix the phrase I didn't like:
+In the different versions of the song, you can hear this line evolve. I settled on something, but then during mixing it just kept bothering me, so I actually ended up sending Bill a patch to fix the phrase I didn't like:
 
 <figure>
   <p align="center">
@@ -84,12 +70,7 @@ ended up sending Bill a patch to fix the phrase I didn't like:
 
 ## Intro
 
-The intro harmony was kind of interesting in that I didn't sing it in this key.
-I had switched the key of the song, and I pitch-shifted these harmonies just to
-see how that key sounded. But I ended up liking the texture and artifacting of
-the pitch-shift, so I didn't bother to re-record it. It's easy to hear the
-artifacting when listening to the vibrato of a single track. Alvin and the
-Chipmunks lite!
+The intro harmony was kind of interesting in that I didn't sing it in this key. I had switched the key of the song, and I pitch-shifted these harmonies just to see how that key sounded. But I ended up liking the texture and artifacting of the pitch-shift, so I didn't bother to re-record it. It's easy to hear the artifacting when listening to the vibrato of a single track. Alvin and the Chipmunks lite!
 
 <figure>
   <p align="center">
@@ -106,9 +87,7 @@ Chipmunks lite!
 
 ## Main Pad
 
-After the intro, we bring in the main pad and the bass. Like Pay Attention, this
-song has a main pad that goes through the entire song. Also like Pay Attention,
-this main pad is heavily affected.
+After the intro, we bring in the main pad and the bass. Like Pay Attention, this song has a main pad that goes through the entire song. Also like Pay Attention, this main pad is heavily affected.
 
 <figure>
   <img src="https://static.bpev.me/blog/vx1-session-getaway/clip/main-pad.png" />
@@ -124,10 +103,7 @@ this main pad is heavily affected.
 
 ## Bass
 
-I wanted to sing this bassline through, in order to feel more natural, like
-playing a bass guitar. The timing of this was really hard to balance with the
-percussion, and I had to re-edit the whole thing a few times to get it properly
-in-time. It was actualy a pain-in-the-ass bassline.
+I wanted to sing this bassline through, in order to feel more natural, like playing a bass guitar. The timing of this was really hard to balance with the percussion, and I had to re-edit the whole thing a few times to get it properly in-time. It was actualy a pain-in-the-ass bassline.
 
 <figure>
   <img src="https://static.bpev.me/blog/vx1-session-getaway/clip/bass.png" />
@@ -138,8 +114,7 @@ in-time. It was actualy a pain-in-the-ass bassline.
   <figcaption>This bassline was a pain to record</figcaption>
 </figure>
 
-The other issue I had with this is that it was kind of out of my range. So I
-kinda abused pitch correction on the super low notes...
+The other issue I had with this is that it was kind of out of my range. So I kinda abused pitch correction on the super low notes...
 
 <figure>
   <img src="https://static.bpev.me/blog/vx1-session-getaway/clip/bass-punch.png" />
@@ -149,8 +124,7 @@ kinda abused pitch correction on the super low notes...
   <figcaption>An example of punching-in a pitch-shifted low note</figcaption>
 </figure>
 
-For the second verse, I added a stereo track of 8va bassline doubles, which
-helps fill it out even more.
+For the second verse, I added a stereo track of 8va bassline doubles, which helps fill it out even more.
 
 <figure>
   <p align="center">
@@ -160,9 +134,7 @@ helps fill it out even more.
 
 ## Percussion
 
-The percussion for this song is also very "live". I think this is the only song
-where I didn't use a drum machine at all. I just wanted it to feel a bit
-subdued, and the drum machine "perfection" was just too heavy.
+The percussion for this song is also very "live". I think this is the only song where I didn't use a drum machine at all. I just wanted it to feel a bit subdued, and the drum machine "perfection" was just too heavy.
 
 <figure>
   <img src="https://static.bpev.me/blog/vx1-session-getaway/clip/perc-spit.png" />
@@ -172,9 +144,7 @@ subdued, and the drum machine "perfection" was just too heavy.
   <figcaption>The Percussion Spit Take with Bass</figcaption>
 </figure>
 
-There was still heavy editing to fix timing issues between the percussion and
-the bass. Once everything was split-up and edited, it looked something more like
-this:
+There was still heavy editing to fix timing issues between the percussion and the bass. Once everything was split-up and edited, it looked something more like this:
 
 <figure>
   <img src="https://static.bpev.me/blog/vx1-session-getaway/clip/perc.png" />
@@ -183,8 +153,7 @@ this:
 
 ## Vocal Lead
 
-The lead is pretty basic in this song. For the first verse, the lead is actually
-just mono with mostly no doubles (just for very key phrases)
+The lead is pretty basic in this song. For the first verse, the lead is actually just mono with mostly no doubles (just for very key phrases)
 
 <figure>
   <p align="center">
@@ -193,8 +162,7 @@ just mono with mostly no doubles (just for very key phrases)
   <figcaption>First Verse Lead</figcaption>
 </figure>
 
-The 2nd vocal verse (3rd verse?), we add doubles (and more harmonies), in order
-to make it feel a bit more engulfing.
+The 2nd vocal verse (3rd verse?), we add doubles (and more harmonies), in order to make it feel a bit more engulfing.
 
 <figure>
   <p align="center">
@@ -205,8 +173,7 @@ to make it feel a bit more engulfing.
 
 ## Candy
 
-Besides the "main pad", pretty much all the other pads and ear candy in this
-song is one-offs. So once you stop hearing them, they basically never come back.
+Besides the "main pad", pretty much all the other pads and ear candy in this song is one-offs. So once you stop hearing them, they basically never come back.
 
 | Description                    | Audio                                                                                                               |
 | ------------------------------ | ------------------------------------------------------------------------------------------------------------------- |
@@ -215,9 +182,6 @@ song is one-offs. So once you stop hearing them, they basically never come back.
 | Sine                           | <audio controls preload="metadata" src="https://static.bpev.me/blog/vx1-session-getaway/clip/sine.mp3"></audio>     |
 | The Bass/Marimba/Whistle Round | <audio controls preload="metadata" src="https://static.bpev.me/blog/vx1-session-getaway/clip/round.mp3"></audio>    |
 
-And that's the last song! It's been fun writing these song walkthroughs, but I'm
-glad I'm done, because it was a lot of work! I hope you learned something, and I
-hope you are looking forward to the next music I release!
+And that's the last song! It's been fun writing these song walkthroughs, but I'm glad I'm done, because it was a lot of work! I hope you learned something, and I hope you are looking forward to the next music I release!
 
-Read the rest of the walkthroughs on the
-["The Making of VX1"](https://bpev.mataroa.blog/blog/vx1) blog post.
+Read the rest of the walkthroughs on the ["The Making of VX1"](https://bpev.mataroa.blog/blog/vx1) blog post.
