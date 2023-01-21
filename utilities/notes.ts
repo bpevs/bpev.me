@@ -1,5 +1,6 @@
 import { extract } from "$std/encoding/front_matter.ts";
 import { join } from "$std/path/mod.ts";
+import { walk } from "$std/fs/mod.ts";
 
 interface Note {
   slug: string;
@@ -11,12 +12,15 @@ interface Note {
 }
 
 export async function getNotes(): Promise<Note[]> {
-  const files = Deno.readDir("./notes");
-  const promises = [];
-  for await (const file of files) {
-    const slug = file.name.replace(".md", "");
-    promises.push(getNote(slug));
+  let promises = [];
+
+  for await (const entry of walk("./notes")) {
+    if (entry.isFile && /.*\.md$/.test(entry.path)) {
+      const slug = entry.path.replace("notes/", "").replace(".md", "");
+      promises.push(getNote(slug));
+    }
   }
+
   const notes = await Promise.all(promises) as Note[];
   notes.sort((a, b) => b.published.getTime() - a.published.getTime());
   return notes;

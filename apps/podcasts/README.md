@@ -2,13 +2,11 @@
 
 A server that returns a podcast rss feed for an invidious channel id.
 
-Please do not use this script to publish public feeds for channels you do not
-own.
+Please do not use this script to publish public feeds for channels you do not own.
 
 ## Usage
 
-invidious_podcasts expects Deno to be installed, and will make webrequests to
-specified Invidious instance(s).
+invidious_podcasts expects Deno to be installed, and will make webrequests to specified Invidious instance(s).
 
 **Clone Repo**
 
@@ -24,8 +22,6 @@ deno run --allow-net --allow-env --allow-read ./apps/podcasts/main.ts
 curl http://localhost:8000/channel/UCpznF0d3ky603SFPzJwtT0g
 ```
 
-You can then add your url to any podcast app that accepts urls. Keep in mind
-that most services don't make direct podcast fetches from your machine, so you
-will likely need to host this somewhere (or host on a public port).
+You can then add your url to any podcast app that accepts urls. Keep in mind that most services don't make direct podcast fetches from your machine, so you will likely need to host this somewhere (or host on a public port).
 
 ![web request](./docs/example-response.png)

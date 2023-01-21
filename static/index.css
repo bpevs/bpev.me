@@ -1,0 +1,36 @@
+body {
+  margin: 0;
+  background-color: var(--color-canvas-default);
+  color: var(--color-fg-default);
+  font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Helvetica,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji;
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+a {
+  color: var(--color-fg-default);
+}
+
+.markdown-body {
+  max-width: 34rem;
+  margin: auto;
+}
+
+.notes-list {
+  list-style: none;
+}
+
+.notes-list li,
+.notes-list li a {
+  text-decoration: none;
+  text-align: match-parent;
+  display: list-item;
+  margin-bottom: 24px;
+}
+
+.notes-list li::marker {
+  unicode-bidi: isolate;
+  font-variant-numeric: tabular-nums;
+  white-space: pre;
+  text-transform: none;
+}
