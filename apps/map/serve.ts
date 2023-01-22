@@ -25,7 +25,7 @@ await new Application()
   .use(async (ctx, next) => {
     try {
       await ctx.send({
-        root: Deno.cwd(),
+        root: `${Deno.cwd()}/static`,
         index: 'index.html',
       })
     } catch {
