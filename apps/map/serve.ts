@@ -23,14 +23,11 @@ console.log("listening on http://localhost:8080");
 await new Application()
   .use(api.routes())
   .use(async (ctx, next) => {
-    const path = ctx.request.url.pathname;
-    console.log(path);
-    if (path === "/" || path === "https://maps.bpev.me/") {
-      await ctx.send({ root: `${Deno.cwd()}/index.html` });
-    }
-
     try {
-      await ctx.send({ root: `${Deno.cwd()}/` });
+      await ctx.send({
+        root: Deno.cwd(),
+        index: 'index.html',
+      })
     } catch {
       await next();
     }
