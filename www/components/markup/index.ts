@@ -1,3 +1,5 @@
+// Adapted from: https://github.com/developit/preact-markup
+
 import {
   Component,
   ComponentConstructor,
@@ -7,6 +9,7 @@ import {
   VNode,
 } from "preact";
 import markupToVdom from "./markup_to_vdom.ts";
+import { render } from "./gfm.ts";
 
 type Components = Record<
   string,
@@ -69,6 +72,8 @@ export default class Markup extends Component<Props, {}> {
     }: props,
     {},
   ): VNode {
+    const markupHTML = render(markup, { allowIframes: true })
+
     const options = { allowScripts, allowEvents, trim };
     const customH = reviver || this.reviver ||
       this.constructor.prototype.reviver ||
@@ -78,7 +83,7 @@ export default class Markup extends Component<Props, {}> {
     this.setComponents(components);
 
     try {
-      vdom = markupToVdom(markup, type, customH, this.map, options);
+      vdom = markupToVdom(markupHTML, type, customH, this.map, options);
     } catch (error) {
       if (onError) onError({ error });
       else if (console?.error) console.error(`preact-markup: ${error}`);
@@ -87,11 +92,11 @@ export default class Markup extends Component<Props, {}> {
     if (!wrap) return vdom || null;
 
     const c = props.hasOwnProperty("className") ? "className" : "class";
-    const cl = props[c];
-    if (!cl) props[c] = "markup";
-    else if (cl.splice) cl.splice(0, 0, "markup");
-    else if (typeof cl === "string") props[c] += " markup";
-    else if (typeof cl === "object") cl.markup = true;
+    let className = props[c];
+    if (!className) props[c] = "markup";
+    else if (className.splice) className.splice(0, 0, "markup");
+    else if (typeof className === "string") props[c] += " markup";
+    else if (typeof className === "object") className.markup = true;
 
     return customH("div", props, vdom || null);
   }

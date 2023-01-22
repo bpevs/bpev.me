@@ -64,7 +64,7 @@ The reasoning for using a non-cryptographic hash to determine emojis is based on
 
 Our decision process is run in 3 cases, which are in the background.js:
 
-```javascript
+```tsx
 // After we fetch our settings, start listening for url updates
 init().then(function () {
   // If a tab updates, check to see whether we should set a favicon
@@ -100,7 +100,7 @@ I should probably mention that there's definitely some over-engineering in Favio
 
 Let's jump into a condensed version of [the code we use](https://github.com/ivebencrazy/favioli/blob/master/source/utilities/faviconHelpers.js#L60) to create our favicons:
 
-```javascript
+```tsx
 // Initialize canvas and context to render emojis
 
 const PIXEL_GRID = 16; // Standard favIcon size 16x16
@@ -156,7 +156,7 @@ Sometimes a site changes path and expects the favicon to persist through the sit
 
 When there is no specified favicon, there are two things it could mean. It could mean that a website is either using the default `favicon.ico`, or it doesn't have a favicon. It could be confusing if we try to determine which of these is happening, though. So instead, Favioli simply appends a `favicon.ico` link after it appends our emoji favicon in cases where we shouldn't override the default emoji. This way, our emoji favicon gets overridden by the default one.
 
-```javascript
+```tsx
 const href = memoizedEmojiUrl(name);
 
 if (existingFavicon) {

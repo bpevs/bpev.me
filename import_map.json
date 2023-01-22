@@ -1,5 +1,6 @@
 {
   "imports": {
+    "@/": "./",
     "$fresh/": "https://deno.land/x/fresh@1.1.2/",
     "$std/": "https://deno.land/std@0.173.0/",
     "preact": "https://esm.sh/preact@10.11.0",
@@ -8,6 +9,11 @@
     "@preact/signals": "https://esm.sh/*@preact/signals@1.0.3",
     "@preact/signals-core": "https://esm.sh/*@preact/signals-core@1.0.1",
     "@preact/markup": "https://esm.sh/preact-markup@2.1.1",
-    "$gfm": "https://deno.land/x/gfm@0.1.26/mod.ts"
+
+    "emoji": "https://deno.land/x/emoji@0.2.1/mod.ts",
+    "marked": "https://esm.sh/marked@4.2.12",
+    "prism": "https://esm.sh/prismjs@1.29.0",
+    "sanitize": "https://esm.sh/sanitize-html@2.8.1",
+    "he": "https://esm.sh/he@1.2.0"
   }
 }

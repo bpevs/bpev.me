@@ -10,6 +10,7 @@ This is a repository for:
 Usage:
 
 ```sh
+cd www
 deno task start
 ```
 
