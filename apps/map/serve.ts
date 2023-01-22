@@ -23,7 +23,15 @@ console.log("listening on http://localhost:8080");
 await new Application()
   .use(api.routes())
   .use(async (ctx, next) => {
-    await send(ctx, 'index.html' ,{ root: "./static" })
+  try {
+    await ctx.send({
+        root: `${Deno.cwd()}/apps/map/static`,
+        index: "index.html",
+      });
+    } catch {
+      ctx.response.status = 404;
+      ctx.response.body = "404 File not found";
+    }
   })
   .use(api.allowedMethods())
   .listen({ port: 8080 });

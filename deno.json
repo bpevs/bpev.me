@@ -3,5 +3,8 @@
     "options": {
       "proseWrap": "never"
     }
+  },
+  "tasks": {
+    "serve:maps": "deno run --allow-read --allow-env --allow-net --watch apps/map/serve.ts"
   }
 }
