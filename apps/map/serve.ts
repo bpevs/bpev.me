@@ -24,7 +24,10 @@ await new Application()
   .use(api.routes())
   .use(async (ctx, next) => {
     const path = ctx.request.url.pathname;
-    if (path === "/") await ctx.send({ root: `${Deno.cwd()}/index.html` });
+    console.log(path);
+    if (path === "/" || path === "https://maps.bpev.me/") {
+      await ctx.send({ root: `${Deno.cwd()}/index.html` });
+    }
 
     try {
       await ctx.send({ root: `${Deno.cwd()}/` });
