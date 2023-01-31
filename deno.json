@@ -1,10 +1,19 @@
 {
+  "importMap": "./import_map.json",
+  "tasks": {
+    "dev": "deno run -A --watch=static/,routes/ dev.ts",
+    "start": "deno run -A main.ts",
+    "start:maps": "deno run --allow-read --allow-env --allow-net --watch apps/map/serve.ts"
+  },
+
   "fmt": {
     "options": {
       "proseWrap": "never"
     }
   },
-  "tasks": {
-    "serve:maps": "deno run --allow-read --allow-env --allow-net --watch apps/map/serve.ts"
+
+  "compilerOptions": {
+    "jsx": "react-jsx",
+    "jsxImportSource": "preact"
   }
 }

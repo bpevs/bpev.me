@@ -2764,14 +2764,12 @@
             return result;
           }
 
-          var isSourceAbs =
-              (result.pathname && result.pathname.charAt(0) === "/"),
-            isRelAbs = (
-              relative.host ||
-              relative.pathname && relative.pathname.charAt(0) === "/"
-            ),
-            mustEndAbs = (isRelAbs || isSourceAbs ||
-              (result.host && relative.pathname)),
+          var isSourceAbs = result.pathname &&
+              result.pathname.charAt(0) === "/",
+            isRelAbs = relative.host ||
+              relative.pathname && relative.pathname.charAt(0) === "/",
+            mustEndAbs = isRelAbs || isSourceAbs ||
+              (result.host && relative.pathname),
             removeAllDots = mustEndAbs,
             srcPath = result.pathname && result.pathname.split("/") || [],
             relPath = relative.pathname && relative.pathname.split("/") || [],
@@ -2868,10 +2866,9 @@
           // however, if it ends in anything else non-slashy,
           // then it must NOT get a trailing slash.
           var last = srcPath.slice(-1)[0];
-          var hasTrailingSlash = (
+          var hasTrailingSlash =
             (result.host || relative.host) && (last === "." || last === "..") ||
-            last === ""
-          );
+            last === "";
 
           // strip single dots, resolve double dots to parent dir
           // if the path tries to go above the root, `up` ends up > 0
@@ -6094,10 +6091,10 @@
         };
 
         /*
-   * Updates the transform on all children of this container for rendering
-   *
-   * @private
-   */
+         * Updates the transform on all children of this container for rendering
+         *
+         * @private
+         */
         Container.prototype.updateTransform = function () {
           if (!this.visible) {
             return;
@@ -6583,10 +6580,10 @@
         });
 
         /*
-   * Updates the object transform for rendering
-   *
-   * TODO - Optimization pass!
-   */
+         * Updates the object transform for rendering
+         *
+         * TODO - Optimization pass!
+         */
         DisplayObject.prototype.updateTransform = function () {
           // create some matrix refs for easy access
           var pt = this.parent.worldTransform;
@@ -7285,7 +7282,7 @@
           for (var i = 0; i <= segMinus; i++) {
             var real = i + remainder * i;
 
-            var angle = ((theta) + startAngle + (theta2 * real));
+            var angle = (theta) + startAngle + (theta2 * real);
 
             var c = Math.cos(angle);
             var s = -Math.sin(angle);
@@ -7947,51 +7944,51 @@
           shape,
         ) {
           /*
-       * @member {number} the width of the line to draw
-       */
+           * @member {number} the width of the line to draw
+           */
           this.lineWidth = lineWidth;
 
           /*
-       * @member {number} the color of the line to draw
-       */
+           * @member {number} the color of the line to draw
+           */
           this.lineColor = lineColor;
           /*
-       * @member {number} the alpha of the line to draw
-       */
+           * @member {number} the alpha of the line to draw
+           */
           this.lineAlpha = lineAlpha;
           /*
-       * @member {number} cached tint of the line to draw
-       */
+           * @member {number} cached tint of the line to draw
+           */
           this._lineTint = lineColor;
 
           /*
-       * @member {number} the color of the fill
-       */
+           * @member {number} the color of the fill
+           */
           this.fillColor = fillColor;
 
           /*
-       * @member {number} the alpha of the fill
-       */
+           * @member {number} the alpha of the fill
+           */
           this.fillAlpha = fillAlpha;
 
           /*
-       * @member {number} cached tint of the fill
-       */
+           * @member {number} cached tint of the fill
+           */
           this._fillTint = fillColor;
 
           /*
-       * @member {boolean} whether or not the shape is filled with a colour
-       */
+           * @member {boolean} whether or not the shape is filled with a colour
+           */
           this.fill = fill;
 
           /*
-       * @member {Circle|Rectangle|Ellipse|Line|Polygon} The shape object to draw.
-       */
+           * @member {Circle|Rectangle|Ellipse|Line|Polygon} The shape object to draw.
+           */
           this.shape = shape;
 
           /*
-       * @member {number} The type of the shape, see the Const.Shapes file for all the existing types,
-       */
+           * @member {number} The type of the shape, see the Const.Shapes file for all the existing types,
+           */
           this.type = shape.type;
         }
 
@@ -9734,8 +9731,8 @@
             return false;
           }
 
-          var dx = (this.x - x),
-            dy = (this.y - y),
+          var dx = this.x - x,
+            dy = this.y - y,
             r2 = this.radius * this.radius;
 
           dx *= dx;
@@ -9830,8 +9827,8 @@
           }
 
           //normalize the coords to an ellipse with center 0,0
-          var normx = ((x - this.x) / this.width),
-            normy = ((y - this.y) / this.height);
+          var normx = (x - this.x) / this.width,
+            normy = (y - this.y) / this.height;
 
           normx *= normx;
           normy *= normy;
@@ -10889,7 +10886,7 @@
           // now lets upload and render the buffers..
           var j = 0;
           for (var i = 0; i < totalChildren; i += this.size) {
-            var amount = (totalChildren - i);
+            var amount = totalChildren - i;
             if (amount > this.size) {
               amount = this.size;
             }
@@ -11866,11 +11863,11 @@
         module.exports = CanvasGraphics;
 
         /*
-   * Renders a Graphics object to a canvas.
-   *
-   * @param graphics {Graphics} the actual graphics object to render
-   * @param context {CanvasRenderingContext2D} the 2d drawing method of the canvas
-   */
+         * Renders a Graphics object to a canvas.
+         *
+         * @param graphics {Graphics} the actual graphics object to render
+         * @param context {CanvasRenderingContext2D} the 2d drawing method of the canvas
+         */
         CanvasGraphics.renderGraphics = function (graphics, context) {
           var worldAlpha = graphics.worldAlpha;
 
@@ -12042,12 +12039,12 @@
         };
 
         /*
-   * Renders a graphics mask
-   *
-   * @private
-   * @param graphics {Graphics} the graphics which will be used as a mask
-   * @param context {CanvasRenderingContext2D} the context 2d method of the canvas
-   */
+         * Renders a graphics mask
+         *
+         * @private
+         * @param graphics {Graphics} the graphics which will be used as a mask
+         * @param context {CanvasRenderingContext2D} the context 2d method of the canvas
+         */
         CanvasGraphics.renderGraphicsMask = function (graphics, context) {
           var len = graphics.graphicsData.length;
 
@@ -12142,12 +12139,11 @@
         };
 
         /*
-   * Updates the tint of a graphics object
-   *
-   * @private
-   * @param graphics {Graphics} the graphics that will have its tint updated
-   *
-   */
+         * Updates the tint of a graphics object
+         *
+         * @private
+         * @param graphics {Graphics} the graphics that will have its tint updated
+         */
         CanvasGraphics.updateGraphicsTint = function (graphics) {
           if (graphics.tint === 0xFFFFFF) {
             return;
@@ -13169,10 +13165,9 @@
         module.exports = AbstractFilter;
 
         /*
-   * Grabs a shader from the current renderer
-   * @param renderer {WebGLRenderer} The renderer to retrieve the shader from
-   *
-   */
+         * Grabs a shader from the current renderer
+         * @param renderer {WebGLRenderer} The renderer to retrieve the shader from
+         */
         AbstractFilter.prototype.getShader = function (renderer) {
           var gl = renderer.gl;
 
@@ -13194,12 +13189,12 @@
         };
 
         /*
-   * Applies the filter
-   * @param renderer {WebGLRenderer} The renderer to retrieve the filter from
-   * @param input {RenderTarget}
-   * @param output {RenderTarget}
-   * @param clear {boolean} Whether or not we want to clear the outputTarget
-   */
+         * Applies the filter
+         * @param renderer {WebGLRenderer} The renderer to retrieve the filter from
+         * @param input {RenderTarget}
+         * @param output {RenderTarget}
+         * @param clear {boolean} Whether or not we want to clear the outputTarget
+         */
         AbstractFilter.prototype.applyFilter = function (
           renderer,
           input,
@@ -13673,20 +13668,20 @@
         };
 
         /*
-   * Returns a RenderTarget to the internal pool
-   * @param renderTarget {RenderTarget} The RenderTarget we want to return to the pool
-   */
+         * Returns a RenderTarget to the internal pool
+         * @param renderTarget {RenderTarget} The RenderTarget we want to return to the pool
+         */
         FilterManager.prototype.returnRenderTarget = function (renderTarget) {
           this.texturePool.push(renderTarget);
         };
 
         /*
-   * Applies the filter
-   * @param shader {Shader} The shader to upload
-   * @param inputTarget {RenderTarget}
-   * @param outputTarget {RenderTarget}
-   * @param clear {boolean} Whether or not we want to clear the outputTarget
-   */
+         * Applies the filter
+         * @param shader {Shader} The shader to upload
+         * @param inputTarget {RenderTarget}
+         * @param outputTarget {RenderTarget}
+         * @param clear {boolean} Whether or not we want to clear the outputTarget
+         */
         FilterManager.prototype.applyFilter = function (
           shader,
           inputTarget,
@@ -13723,11 +13718,11 @@
         };
 
         /*
-   * Calculates the mapped matrix
-   * @param filterArea {Rectangle} The filter area
-   * @param sprite {Sprite} the target sprite
-   * @param outputMatrix {Matrix} @alvin
-   */
+         * Calculates the mapped matrix
+         * @param filterArea {Rectangle} The filter area
+         * @param sprite {Sprite} the target sprite
+         * @param outputMatrix {Matrix} @alvin
+         */
         // TODO playing around here.. this is temporary - (will end up in the shader)
         FilterManager.prototype.calculateMappedMatrix = function (
           filterArea,
@@ -13751,8 +13746,8 @@
 
           mappedMatrix.scale(1, ratio);
 
-          var translateScaleX = (this.textureSize.width / texture.width);
-          var translateScaleY = (this.textureSize.height / texture.height);
+          var translateScaleX = this.textureSize.width / texture.width;
+          var translateScaleY = this.textureSize.height / texture.height;
 
           worldTransform.tx /= texture.width * translateScaleX;
           worldTransform.ty /= texture.width * translateScaleX;
@@ -13802,9 +13797,9 @@
         };
 
         /*
-   * Constrains the filter area to the texture size
-   * @param filterArea {Rectangle} The filter area we want to cap
-   */
+         * Constrains the filter area to the texture size
+         * @param filterArea {Rectangle} The filter area we want to cap
+         */
         FilterManager.prototype.capFilterArea = function (filterArea) {
           if (filterArea.x < 0) {
             filterArea.width += filterArea.x;
@@ -13826,10 +13821,10 @@
         };
 
         /*
-   * Resizes all the render targets in the pool
-   * @param width {number} the new width
-   * @param height {number} the new height
-   */
+         * Resizes all the render targets in the pool
+         * @param width {number} the new width
+         * @param height {number} the new height
+         */
         FilterManager.prototype.resize = function (width, height) {
           this.textureSize.width = width;
           this.textureSize.height = height;
@@ -14735,9 +14730,8 @@
         module.exports = Shader;
 
         /*
-   * Creates the shader and uses it
-   *
-   */
+         * Creates the shader and uses it
+         */
         Shader.prototype.init = function () {
           this.compile();
 
@@ -14748,9 +14742,9 @@
         };
 
         /*
-   * Caches the locations of the uniform for reuse
-   * @param keys {string} the uniforms to cache
-   */
+         * Caches the locations of the uniform for reuse
+         * @param keys {string} the uniforms to cache
+         */
         Shader.prototype.cacheUniformLocations = function (keys) {
           for (var i = 0; i < keys.length; ++i) {
             this.uniforms[keys[i]]._location = this.gl.getUniformLocation(
@@ -14761,9 +14755,9 @@
         };
 
         /*
-   * Caches the locations of the attribute for reuse
-   * @param keys {string} the attributes to cache
-   */
+         * Caches the locations of the attribute for reuse
+         * @param keys {string} the attributes to cache
+         */
         Shader.prototype.cacheAttributeLocations = function (keys) {
           for (var i = 0; i < keys.length; ++i) {
             this.attributes[keys[i]] = this.gl.getAttribLocation(
@@ -14788,9 +14782,9 @@
         };
 
         /*
-   * Attaches the shaders and creates the program
-   * @return {WebGLProgram}
-   */
+         * Attaches the shaders and creates the program
+         * @return {WebGLProgram}
+         */
         Shader.prototype.compile = function () {
           var gl = this.gl;
 
@@ -15132,8 +15126,8 @@
         };
 
         /*
-   * Updates the shader uniform values.
-   */
+         * Updates the shader uniform values.
+         */
         Shader.prototype.syncUniforms = function () {
           this.textureCount = 1;
 
@@ -15400,10 +15394,10 @@
          */
         function Quad(gl) {
           /*
-       * the current WebGL drawing context
-       *
-       * @member {WebGLRenderingContext}
-       */
+           * the current WebGL drawing context
+           *
+           * @member {WebGLRenderingContext}
+           */
           this.gl = gl;
 
           //    this.textures = new TextureUvs();
@@ -15467,8 +15461,8 @@
           ]);
 
           /*
-       * @member {Uint16Array} An array containing the indices of the vertices
-       */
+           * @member {Uint16Array} An array containing the indices of the vertices
+           */
           this.indices = new Uint16Array([
             0,
             1,
@@ -15479,13 +15473,13 @@
           ]);
 
           /*
-       * @member {WebGLBuffer} The vertex buffer
-       */
+           * @member {WebGLBuffer} The vertex buffer
+           */
           this.vertexBuffer = gl.createBuffer();
 
           /*
-       * @member {WebGLBuffer} The index buffer
-       */
+           * @member {WebGLBuffer} The index buffer
+           */
           this.indexBuffer = gl.createBuffer();
 
           gl.bindBuffer(gl.ARRAY_BUFFER, this.vertexBuffer);
@@ -20698,9 +20692,9 @@
         };
 
         /*
-   * Updates the object transform for rendering
-   * @private
-   */
+         * Updates the object transform for rendering
+         * @private
+         */
         MovieClip.prototype.update = function (deltaTime) {
           this._currentTime += this.animationSpeed * deltaTime;
 
@@ -20731,9 +20725,8 @@
         };
 
         /*
-   * Stops the MovieClip and destroys it
-   *
-   */
+         * Stops the MovieClip and destroys it
+         */
         MovieClip.prototype.destroy = function () {
           this.stop();
           core.Sprite.prototype.destroy.call(this);
@@ -22525,7 +22518,7 @@
          */
         ColorMatrixFilter.prototype.saturate = function (amount, multiply) {
           var x = (amount || 0) * 2 / 3 + 1;
-          var y = ((x - 1) * -0.5);
+          var y = (x - 1) * -0.5;
 
           var matrix = [
             x,
@@ -22790,10 +22783,10 @@
         };
 
         /*
-   * Vintage filter (thanks Dominic Szablewski)
-   *
-   * @param multiply {boolean} refer to ._loadMatrix() method
-   */
+         * Vintage filter (thanks Dominic Szablewski)
+         *
+         * @param multiply {boolean} refer to ._loadMatrix() method
+         */
         ColorMatrixFilter.prototype.vintage = function (multiply) {
           var matrix = [
             0.6279345635605994,
@@ -22822,15 +22815,15 @@
         };
 
         /*
-   * We don't know exactly what it does, kind of gradient map, but funny to play with!
-   *
-   * @param desaturation {number}
-   * @param toned {number}
-   * @param lightColor {string} (example : "0xFFE580")
-   * @param darkColor {string}  (example : "0xFFE580")
-   *
-   * @param multiply {boolean} refer to ._loadMatrix() method
-   */
+         * We don't know exactly what it does, kind of gradient map, but funny to play with!
+         *
+         * @param desaturation {number}
+         * @param toned {number}
+         * @param lightColor {string} (example : "0xFFE580")
+         * @param darkColor {string}  (example : "0xFFE580")
+         *
+         * @param multiply {boolean} refer to ._loadMatrix() method
+         */
         ColorMatrixFilter.prototype.colorTone = function (
           desaturation,
           toned,
@@ -22878,11 +22871,11 @@
         };
 
         /*
-   * Night effect
-   *
-   * @param intensity {number}
-   * @param multiply {boolean} refer to ._loadMatrix() method
-   */
+         * Night effect
+         *
+         * @param intensity {number}
+         * @param multiply {boolean} refer to ._loadMatrix() method
+         */
         ColorMatrixFilter.prototype.night = function (intensity, multiply) {
           intensity = intensity || 0.1;
           var matrix = [
@@ -22912,13 +22905,13 @@
         };
 
         /*
-   * Predator effect
-   *
-   * Erase the current matrix by setting a new indepent one
-   *
-   * @param amount {number} how much the predator feels his future victim
-   * @param multiply {boolean} refer to ._loadMatrix() method
-   */
+         * Predator effect
+         *
+         * Erase the current matrix by setting a new indepent one
+         *
+         * @param amount {number} how much the predator feels his future victim
+         * @param multiply {boolean} refer to ._loadMatrix() method
+         */
         ColorMatrixFilter.prototype.predator = function (amount, multiply) {
           var matrix = [
             11.224130630493164 * amount,
@@ -22947,13 +22940,13 @@
         };
 
         /*
-   * LSD effect
-   *
-   * Multiply the current matrix
-   *
-   * @param amount {number} How crazy is your effect
-   * @param multiply {boolean} refer to ._loadMatrix() method
-   */
+         * LSD effect
+         *
+         * Multiply the current matrix
+         *
+         * @param amount {number} How crazy is your effect
+         * @param multiply {boolean} refer to ._loadMatrix() method
+         */
         ColorMatrixFilter.prototype.lsd = function (multiply) {
           var matrix = [
             2,
@@ -22982,11 +22975,10 @@
         };
 
         /*
-   * Reset function
-   *
-   * Erase the current matrix by setting the default one
-   *
-   */
+         * Reset function
+         *
+         * Erase the current matrix by setting the default one
+         */
         ColorMatrixFilter.prototype.reset = function () {
           var matrix = [
             1,
@@ -26066,8 +26058,8 @@
             new Float32Array([0, 0, 100, 0, 100, 100, 0, 100]);
 
           /*
-       * @member {Uint16Array} An array containing the indices of the vertices
-       */
+           * @member {Uint16Array} An array containing the indices of the vertices
+           */
           //  TODO auto generate this based on draw mode!
           this.indices = indices || new Uint16Array([0, 1, 2, 3]);
 
@@ -26557,28 +26549,28 @@
           Mesh.call(this, texture);
 
           /*
-       * @member {Array} An array of points that determine the rope
-       */
+           * @member {Array} An array of points that determine the rope
+           */
           this.points = points;
 
           /*
-       * @member {Float32Array} An array of vertices used to construct this rope.
-       */
+           * @member {Float32Array} An array of vertices used to construct this rope.
+           */
           this.vertices = new Float32Array(points.length * 4);
 
           /*
-       * @member {Float32Array} The WebGL Uvs of the rope.
-       */
+           * @member {Float32Array} The WebGL Uvs of the rope.
+           */
           this.uvs = new Float32Array(points.length * 4);
 
           /*
-       * @member {Float32Array} An array containing the color components
-       */
+           * @member {Float32Array} An array containing the color components
+           */
           this.colors = new Float32Array(points.length * 2);
 
           /*
-       * @member {Uint16Array} An array containing the indices of the vertices
-       */
+           * @member {Uint16Array} An array containing the indices of the vertices
+           */
           this.indices = new Uint16Array(points.length * 2);
 
           /**

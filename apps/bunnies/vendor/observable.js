@@ -151,7 +151,7 @@
      * An error thrown when one or more errors have occurred during the
      * `unsubscribe` of a {@link Subscription}.
      */
-    var UnsubscriptionError = /** @class */ (function (_super) {
+    var UnsubscriptionError = /** @class */ function (_super) {
       __extends(UnsubscriptionError, _super);
       function UnsubscriptionError(errors) {
         var _this = _super.call(
@@ -169,7 +169,7 @@
         return _this;
       }
       return UnsubscriptionError;
-    }(Error));
+    }(Error);
     exports.UnsubscriptionError = UnsubscriptionError;
   });
 
@@ -191,7 +191,7 @@
      *
      * @class Subscription
      */
-    var Subscription = /** @class */ (function () {
+    var Subscription = /** @class */ function () {
       /**
        * @param {function(): void} [unsubscribe] A function describing how to
        * perform the disposal of resources when the `unsubscribe` method is called.
@@ -370,7 +370,7 @@
         return empty;
       }(new Subscription());
       return Subscription;
-    }());
+    }();
     exports.Subscription = Subscription;
     function flattenUnsubscriptionErrors(errors) {
       return errors.reduce(function (errs, err) {
@@ -436,7 +436,7 @@
      *
      * @class Subscriber<T>
      */
-    var Subscriber = /** @class */ (function (_super) {
+    var Subscriber = /** @class */ function (_super) {
       __extends(Subscriber, _super);
       /**
        * @param {Observer|function(value: T): void} [destinationOrNext] A partially
@@ -562,14 +562,14 @@
         return this;
       };
       return Subscriber;
-    }(Subscription_1.Subscription));
+    }(Subscription_1.Subscription);
     exports.Subscriber = Subscriber;
     /**
      * We need this JSDoc comment for affecting ESDoc.
      * @ignore
      * @extends {Ignored}
      */
-    var SafeSubscriber = /** @class */ (function (_super) {
+    var SafeSubscriber = /** @class */ function (_super) {
       __extends(SafeSubscriber, _super);
       function SafeSubscriber(observerOrNext, error, complete) {
         var _this = _super.call(this) || this;
@@ -640,7 +640,7 @@
         });
       };
       return SafeSubscriber;
-    }(Subscriber));
+    }(Subscriber);
   });
 
   unwrapExports(Subscriber_1);
@@ -752,7 +752,7 @@
      *
      * @class Observable<T>
      */
-    var Observable = /** @class */ (function () {
+    var Observable = /** @class */ function () {
       /**
        * @constructor
        * @param {Function} subscribe the function that is called when the Observable is
@@ -1033,7 +1033,7 @@
         return new Observable(subscribe);
       };
       return Observable;
-    }());
+    }();
     exports.Observable = Observable;
   });
 
@@ -1071,7 +1071,7 @@
        *
        * @class ObjectUnsubscribedError
        */
-      var ObjectUnsubscribedError = /** @class */ (function (_super) {
+      var ObjectUnsubscribedError = /** @class */ function (_super) {
         __extends(ObjectUnsubscribedError, _super);
         function ObjectUnsubscribedError() {
           var _this = _super.call(this, "object unsubscribed") || this;
@@ -1080,7 +1080,7 @@
           return _this;
         }
         return ObjectUnsubscribedError;
-      }(Error));
+      }(Error);
       exports.ObjectUnsubscribedError = ObjectUnsubscribedError;
     },
   );
@@ -1116,7 +1116,7 @@
      * @ignore
      * @extends {Ignored}
      */
-    var SubjectSubscription = /** @class */ (function (_super) {
+    var SubjectSubscription = /** @class */ function (_super) {
       __extends(SubjectSubscription, _super);
       function SubjectSubscription(subject, subscriber) {
         var _this = _super.call(this) || this;
@@ -1145,7 +1145,7 @@
         }
       };
       return SubjectSubscription;
-    }(Subscription_1.Subscription));
+    }(Subscription_1.Subscription);
     exports.SubjectSubscription = SubjectSubscription;
   });
 
@@ -1177,7 +1177,7 @@
     /**
      * @class SubjectSubscriber<T>
      */
-    var SubjectSubscriber = /** @class */ (function (_super) {
+    var SubjectSubscriber = /** @class */ function (_super) {
       __extends(SubjectSubscriber, _super);
       function SubjectSubscriber(destination) {
         var _this = _super.call(this, destination) || this;
@@ -1185,12 +1185,12 @@
         return _this;
       }
       return SubjectSubscriber;
-    }(Subscriber_1.Subscriber));
+    }(Subscriber_1.Subscriber);
     exports.SubjectSubscriber = SubjectSubscriber;
     /**
      * @class Subject<T>
      */
-    var Subject = /** @class */ (function (_super) {
+    var Subject = /** @class */ function (_super) {
       __extends(Subject, _super);
       function Subject() {
         var _this = _super.call(this) || this;
@@ -1288,12 +1288,12 @@
         return new AnonymousSubject(destination, source);
       };
       return Subject;
-    }(Observable_1.Observable));
+    }(Observable_1.Observable);
     exports.Subject = Subject;
     /**
      * @class AnonymousSubject<T>
      */
-    var AnonymousSubject = /** @class */ (function (_super) {
+    var AnonymousSubject = /** @class */ function (_super) {
       __extends(AnonymousSubject, _super);
       function AnonymousSubject(destination, source) {
         var _this = _super.call(this) || this;
@@ -1328,7 +1328,7 @@
         }
       };
       return AnonymousSubject;
-    }(Subject));
+    }(Subject);
     exports.AnonymousSubject = AnonymousSubject;
   });
 
@@ -1362,7 +1362,7 @@
     /**
      * @class AsyncSubject<T>
      */
-    var AsyncSubject = /** @class */ (function (_super) {
+    var AsyncSubject = /** @class */ function (_super) {
       __extends(AsyncSubject, _super);
       function AsyncSubject() {
         var _this = _super !== null && _super.apply(this, arguments) || this;
@@ -1401,7 +1401,7 @@
         _super.prototype.complete.call(this);
       };
       return AsyncSubject;
-    }(Subject_1.Subject));
+    }(Subject_1.Subject);
     exports.AsyncSubject = AsyncSubject;
   });
 
@@ -1436,7 +1436,7 @@
        * @extends {Ignored}
        * @hide true
        */
-      var BoundCallbackObservable = /** @class */ (function (_super) {
+      var BoundCallbackObservable = /** @class */ function (_super) {
         __extends(BoundCallbackObservable, _super);
         function BoundCallbackObservable(
           callbackFunc,
@@ -1712,7 +1712,7 @@
           self.add(subject.subscribe(subscriber));
         };
         return BoundCallbackObservable;
-      }(Observable_1.Observable));
+      }(Observable_1.Observable);
       exports.BoundCallbackObservable = BoundCallbackObservable;
       function dispatchNext(arg) {
         var value = arg.value, subject = arg.subject;
@@ -1776,7 +1776,7 @@
        * @extends {Ignored}
        * @hide true
        */
-      var BoundNodeCallbackObservable = /** @class */ (function (_super) {
+      var BoundNodeCallbackObservable = /** @class */ function (_super) {
         __extends(BoundNodeCallbackObservable, _super);
         function BoundNodeCallbackObservable(
           callbackFunc,
@@ -1992,7 +1992,7 @@
           }
         };
         return BoundNodeCallbackObservable;
-      }(Observable_1.Observable));
+      }(Observable_1.Observable);
       exports.BoundNodeCallbackObservable = BoundNodeCallbackObservable;
       function dispatch(state) {
         var self = this;
@@ -2142,7 +2142,7 @@
      * @ignore
      * @extends {Ignored}
      */
-    var OuterSubscriber = /** @class */ (function (_super) {
+    var OuterSubscriber = /** @class */ function (_super) {
       __extends(OuterSubscriber, _super);
       function OuterSubscriber() {
         return _super !== null && _super.apply(this, arguments) || this;
@@ -2163,7 +2163,7 @@
         this.destination.complete();
       };
       return OuterSubscriber;
-    }(Subscriber_1.Subscriber));
+    }(Subscriber_1.Subscriber);
     exports.OuterSubscriber = OuterSubscriber;
   });
 
@@ -2198,7 +2198,7 @@
      * @ignore
      * @extends {Ignored}
      */
-    var InnerSubscriber = /** @class */ (function (_super) {
+    var InnerSubscriber = /** @class */ function (_super) {
       __extends(InnerSubscriber, _super);
       function InnerSubscriber(parent, outerValue, outerIndex) {
         var _this = _super.call(this) || this;
@@ -2226,7 +2226,7 @@
         this.unsubscribe();
       };
       return InnerSubscriber;
-    }(Subscriber_1.Subscriber));
+    }(Subscriber_1.Subscriber);
     exports.InnerSubscriber = InnerSubscriber;
   });
 
@@ -2658,7 +2658,7 @@
       );
     }
     exports.combineLatest = combineLatest;
-    var CombineLatestOperator = /** @class */ (function () {
+    var CombineLatestOperator = /** @class */ function () {
       function CombineLatestOperator(project) {
         this.project = project;
       }
@@ -2668,14 +2668,14 @@
         );
       };
       return CombineLatestOperator;
-    }());
+    }();
     exports.CombineLatestOperator = CombineLatestOperator;
     /**
      * We need this JSDoc comment for affecting ESDoc.
      * @ignore
      * @extends {Ignored}
      */
-    var CombineLatestSubscriber = /** @class */ (function (_super) {
+    var CombineLatestSubscriber = /** @class */ function (_super) {
       __extends(CombineLatestSubscriber, _super);
       function CombineLatestSubscriber(destination, project) {
         var _this = _super.call(this, destination) || this;
@@ -2749,7 +2749,7 @@
         this.destination.next(result);
       };
       return CombineLatestSubscriber;
-    }(OuterSubscriber_1.OuterSubscriber));
+    }(OuterSubscriber_1.OuterSubscriber);
     exports.CombineLatestSubscriber = CombineLatestSubscriber;
   });
 
@@ -3160,7 +3160,7 @@
       };
     }
     exports.mergeMap = mergeMap;
-    var MergeMapOperator = /** @class */ (function () {
+    var MergeMapOperator = /** @class */ function () {
       function MergeMapOperator(project, resultSelector, concurrent) {
         if (concurrent === void 0) concurrent = Number.POSITIVE_INFINITY;
         this.project = project;
@@ -3178,14 +3178,14 @@
         );
       };
       return MergeMapOperator;
-    }());
+    }();
     exports.MergeMapOperator = MergeMapOperator;
     /**
      * We need this JSDoc comment for affecting ESDoc.
      * @ignore
      * @extends {Ignored}
      */
-    var MergeMapSubscriber = /** @class */ (function (_super) {
+    var MergeMapSubscriber = /** @class */ function (_super) {
       __extends(MergeMapSubscriber, _super);
       function MergeMapSubscriber(
         destination,
@@ -3283,7 +3283,7 @@
         }
       };
       return MergeMapSubscriber;
-    }(OuterSubscriber_1.OuterSubscriber));
+    }(OuterSubscriber_1.OuterSubscriber);
     exports.MergeMapSubscriber = MergeMapSubscriber;
   });
 
@@ -3784,7 +3784,7 @@
      * @ignore
      * @extends {Ignored}
      */
-    var ForkJoinSubscriber = /** @class */ (function (_super) {
+    var ForkJoinSubscriber = /** @class */ function (_super) {
       __extends(ForkJoinSubscriber, _super);
       function ForkJoinSubscriber(destination, sources, resultSelector) {
         var _this = _super.call(this, destination) || this;
@@ -3851,7 +3851,7 @@
         destination.complete();
       };
       return ForkJoinSubscriber;
-    }(OuterSubscriber_1.OuterSubscriber));
+    }(OuterSubscriber_1.OuterSubscriber);
   });
 
   unwrapExports(forkJoin_1);
@@ -3920,7 +3920,7 @@
      * @extends {Ignored}
      * @hide true
      */
-    var FromEventObservable = /** @class */ (function (_super) {
+    var FromEventObservable = /** @class */ function (_super) {
       __extends(FromEventObservable, _super);
       function FromEventObservable(sourceObj, eventName, selector, options) {
         var _this = _super.call(this) || this;
@@ -4128,7 +4128,7 @@
         );
       };
       return FromEventObservable;
-    }(Observable_1.Observable));
+    }(Observable_1.Observable);
     exports.FromEventObservable = FromEventObservable;
   });
 
@@ -4180,7 +4180,7 @@
        * @extends {Ignored}
        * @hide true
        */
-      var FromEventPatternObservable = /** @class */ (function (_super) {
+      var FromEventPatternObservable = /** @class */ function (_super) {
         __extends(FromEventPatternObservable, _super);
         function FromEventPatternObservable(
           addHandler,
@@ -4301,7 +4301,7 @@
           }
         };
         return FromEventPatternObservable;
-      }(Observable_1.Observable));
+      }(Observable_1.Observable);
       exports.FromEventPatternObservable = FromEventPatternObservable;
     },
   );
@@ -4367,7 +4367,7 @@
      * @extends {Ignored}
      * @hide true
      */
-    var GenerateObservable = /** @class */ (function (_super) {
+    var GenerateObservable = /** @class */ function (_super) {
       __extends(GenerateObservable, _super);
       function GenerateObservable(
         initialState,
@@ -4516,7 +4516,7 @@
         return this.schedule(state);
       };
       return GenerateObservable;
-    }(Observable_1.Observable));
+    }(Observable_1.Observable);
     exports.GenerateObservable = GenerateObservable;
   });
 
@@ -4567,7 +4567,7 @@
      * @extends {Ignored}
      * @hide true
      */
-    var IfObservable = /** @class */ (function (_super) {
+    var IfObservable = /** @class */ function (_super) {
       __extends(IfObservable, _super);
       function IfObservable(condition, thenSource, elseSource) {
         var _this = _super.call(this) || this;
@@ -4666,9 +4666,9 @@
         return new IfSubscriber(subscriber, condition, thenSource, elseSource);
       };
       return IfObservable;
-    }(Observable_1.Observable));
+    }(Observable_1.Observable);
     exports.IfObservable = IfObservable;
-    var IfSubscriber = /** @class */ (function (_super) {
+    var IfSubscriber = /** @class */ function (_super) {
       __extends(IfSubscriber, _super);
       function IfSubscriber(destination, condition, thenSource, elseSource) {
         var _this = _super.call(this, destination) || this;
@@ -4697,7 +4697,7 @@
         }
       };
       return IfSubscriber;
-    }(OuterSubscriber_1.OuterSubscriber));
+    }(OuterSubscriber_1.OuterSubscriber);
   });
 
   unwrapExports(IfObservable_1);
@@ -4756,7 +4756,7 @@
      *
      * @class Action<T>
      */
-    var Action = /** @class */ (function (_super) {
+    var Action = /** @class */ function (_super) {
       __extends(Action, _super);
       function Action(scheduler, work) {
         return _super.call(this) || this;
@@ -4776,7 +4776,7 @@
         return this;
       };
       return Action;
-    }(Subscription_1.Subscription));
+    }(Subscription_1.Subscription);
     exports.Action = Action;
   });
 
@@ -4810,7 +4810,7 @@
      * @ignore
      * @extends {Ignored}
      */
-    var AsyncAction = /** @class */ (function (_super) {
+    var AsyncAction = /** @class */ function (_super) {
       __extends(AsyncAction, _super);
       function AsyncAction(scheduler, work) {
         var _this = _super.call(this, scheduler, work) || this;
@@ -4938,7 +4938,7 @@
         this.delay = null;
       };
       return AsyncAction;
-    }(Action_1.Action));
+    }(Action_1.Action);
     exports.AsyncAction = AsyncAction;
   });
 
@@ -4963,7 +4963,7 @@
      *
      * @class Scheduler
      */
-    var Scheduler = /** @class */ (function () {
+    var Scheduler = /** @class */ function () {
       function Scheduler(SchedulerAction, now) {
         if (now === void 0) now = Scheduler.now;
         this.SchedulerAction = SchedulerAction;
@@ -4994,7 +4994,7 @@
         return +new Date();
       };
       return Scheduler;
-    }());
+    }();
     exports.Scheduler = Scheduler;
   });
 
@@ -5023,7 +5023,7 @@
       })();
     Object.defineProperty(exports, "__esModule", { value: true });
 
-    var AsyncScheduler = /** @class */ (function (_super) {
+    var AsyncScheduler = /** @class */ function (_super) {
       __extends(AsyncScheduler, _super);
       function AsyncScheduler() {
         var _this = _super !== null && _super.apply(this, arguments) || this;
@@ -5065,7 +5065,7 @@
         }
       };
       return AsyncScheduler;
-    }(Scheduler_1.Scheduler));
+    }(Scheduler_1.Scheduler);
     exports.AsyncScheduler = AsyncScheduler;
   });
 
@@ -5368,21 +5368,21 @@
       );
     }
     exports.race = race;
-    var RaceOperator = /** @class */ (function () {
+    var RaceOperator = /** @class */ function () {
       function RaceOperator() {
       }
       RaceOperator.prototype.call = function (subscriber, source) {
         return source.subscribe(new RaceSubscriber(subscriber));
       };
       return RaceOperator;
-    }());
+    }();
     exports.RaceOperator = RaceOperator;
     /**
      * We need this JSDoc comment for affecting ESDoc.
      * @ignore
      * @extends {Ignored}
      */
-    var RaceSubscriber = /** @class */ (function (_super) {
+    var RaceSubscriber = /** @class */ function (_super) {
       __extends(RaceSubscriber, _super);
       function RaceSubscriber(destination) {
         var _this = _super.call(this, destination) || this;
@@ -5437,7 +5437,7 @@
         this.destination.next(innerValue);
       };
       return RaceSubscriber;
-    }(OuterSubscriber_1.OuterSubscriber));
+    }(OuterSubscriber_1.OuterSubscriber);
     exports.RaceSubscriber = RaceSubscriber;
   });
 
@@ -5843,7 +5843,7 @@
      * @extends {Ignored}
      * @hide true
      */
-    var UsingObservable = /** @class */ (function (_super) {
+    var UsingObservable = /** @class */ function (_super) {
       __extends(UsingObservable, _super);
       function UsingObservable(resourceFactory, observableFactory) {
         var _this = _super.call(this) || this;
@@ -5898,9 +5898,9 @@
         }
       };
       return UsingObservable;
-    }(Observable_1.Observable));
+    }(Observable_1.Observable);
     exports.UsingObservable = UsingObservable;
-    var UsingSubscriber = /** @class */ (function (_super) {
+    var UsingSubscriber = /** @class */ function (_super) {
       __extends(UsingSubscriber, _super);
       function UsingSubscriber(destination, resource, observableFactory) {
         var _this = _super.call(this, destination) || this;
@@ -5921,7 +5921,7 @@
         }
       };
       return UsingSubscriber;
-    }(OuterSubscriber_1.OuterSubscriber));
+    }(OuterSubscriber_1.OuterSubscriber);
   });
 
   unwrapExports(UsingObservable_1);
@@ -6186,7 +6186,7 @@
       );
     }
     exports.zip = zip;
-    var ZipOperator = /** @class */ (function () {
+    var ZipOperator = /** @class */ function () {
       function ZipOperator(project) {
         this.project = project;
       }
@@ -6194,14 +6194,14 @@
         return source.subscribe(new ZipSubscriber(subscriber, this.project));
       };
       return ZipOperator;
-    }());
+    }();
     exports.ZipOperator = ZipOperator;
     /**
      * We need this JSDoc comment for affecting ESDoc.
      * @ignore
      * @extends {Ignored}
      */
-    var ZipSubscriber = /** @class */ (function (_super) {
+    var ZipSubscriber = /** @class */ function (_super) {
       __extends(ZipSubscriber, _super);
       function ZipSubscriber(destination, project, values) {
         if (values === void 0) values = Object.create(null);
@@ -6295,9 +6295,9 @@
         this.destination.next(result);
       };
       return ZipSubscriber;
-    }(Subscriber_1.Subscriber));
+    }(Subscriber_1.Subscriber);
     exports.ZipSubscriber = ZipSubscriber;
-    var StaticIterator = /** @class */ (function () {
+    var StaticIterator = /** @class */ function () {
       function StaticIterator(iterator$$1) {
         this.iterator = iterator$$1;
         this.nextResult = iterator$$1.next();
@@ -6315,8 +6315,8 @@
         return nextResult && nextResult.done;
       };
       return StaticIterator;
-    }());
-    var StaticArrayIterator = /** @class */ (function () {
+    }();
+    var StaticArrayIterator = /** @class */ function () {
       function StaticArrayIterator(array) {
         this.array = array;
         this.index = 0;
@@ -6340,13 +6340,13 @@
         return this.array.length === this.index;
       };
       return StaticArrayIterator;
-    }());
+    }();
     /**
      * We need this JSDoc comment for affecting ESDoc.
      * @ignore
      * @extends {Ignored}
      */
-    var ZipBufferIterator = /** @class */ (function (_super) {
+    var ZipBufferIterator = /** @class */ function (_super) {
       __extends(ZipBufferIterator, _super);
       function ZipBufferIterator(destination, parent, observable) {
         var _this = _super.call(this, destination) || this;
@@ -6403,7 +6403,7 @@
         );
       };
       return ZipBufferIterator;
-    }(OuterSubscriber_1.OuterSubscriber));
+    }(OuterSubscriber_1.OuterSubscriber);
   });
 
   unwrapExports(zip_1);
@@ -6485,7 +6485,7 @@
       };
     }
     exports.map = map;
-    var MapOperator = /** @class */ (function () {
+    var MapOperator = /** @class */ function () {
       function MapOperator(project, thisArg) {
         this.project = project;
         this.thisArg = thisArg;
@@ -6496,14 +6496,14 @@
         );
       };
       return MapOperator;
-    }());
+    }();
     exports.MapOperator = MapOperator;
     /**
      * We need this JSDoc comment for affecting ESDoc.
      * @ignore
      * @extends {Ignored}
      */
-    var MapSubscriber = /** @class */ (function (_super) {
+    var MapSubscriber = /** @class */ function (_super) {
       __extends(MapSubscriber, _super);
       function MapSubscriber(destination, project, thisArg) {
         var _this = _super.call(this, destination) || this;
@@ -6525,7 +6525,7 @@
         this.destination.next(result);
       };
       return MapSubscriber;
-    }(Subscriber_1.Subscriber));
+    }(Subscriber_1.Subscriber);
   });
 
   unwrapExports(map_1);
@@ -6649,7 +6649,7 @@
      * @extends {Ignored}
      * @hide true
      */
-    var AjaxObservable = /** @class */ (function (_super) {
+    var AjaxObservable = /** @class */ function (_super) {
       __extends(AjaxObservable, _super);
       function AjaxObservable(urlOrRequest) {
         var _this = _super.call(this) || this;
@@ -6721,14 +6721,14 @@
         return create;
       })();
       return AjaxObservable;
-    }(Observable_1.Observable));
+    }(Observable_1.Observable);
     exports.AjaxObservable = AjaxObservable;
     /**
      * We need this JSDoc comment for affecting ESDoc.
      * @ignore
      * @extends {Ignored}
      */
-    var AjaxSubscriber = /** @class */ (function (_super) {
+    var AjaxSubscriber = /** @class */ function (_super) {
       __extends(AjaxSubscriber, _super);
       function AjaxSubscriber(destination, request) {
         var _this = _super.call(this, destination) || this;
@@ -6915,9 +6915,9 @@
           if (this.readyState === 4) {
             // normalize IE9 bug (http://bugs.jquery.com/ticket/1450)
             var status_1 = this.status === 1223 ? 204 : this.status;
-            var response = (this.responseType === "text"
+            var response = this.responseType === "text"
               ? (this.response || this.responseText)
-              : this.response);
+              : this.response;
             // fix status code when it is 0 (0 status is undocumented).
             // Occurs when accessing file resources or on Android 4.1 stock browser
             // while retrieving files from application cache.
@@ -6956,7 +6956,7 @@
         _super.prototype.unsubscribe.call(this);
       };
       return AjaxSubscriber;
-    }(Subscriber_1.Subscriber));
+    }(Subscriber_1.Subscriber);
     exports.AjaxSubscriber = AjaxSubscriber;
     /**
      * A normalized AJAX response.
@@ -6965,7 +6965,7 @@
      *
      * @class AjaxResponse
      */
-    var AjaxResponse = /** @class */ (function () {
+    var AjaxResponse = /** @class */ function () {
       function AjaxResponse(originalEvent, xhr, request) {
         this.originalEvent = originalEvent;
         this.xhr = xhr;
@@ -6975,7 +6975,7 @@
         this.response = parseXhrResponse(this.responseType, xhr);
       }
       return AjaxResponse;
-    }());
+    }();
     exports.AjaxResponse = AjaxResponse;
     /**
      * A normalized AJAX error.
@@ -6984,7 +6984,7 @@
      *
      * @class AjaxError
      */
-    var AjaxError = /** @class */ (function (_super) {
+    var AjaxError = /** @class */ function (_super) {
       __extends(AjaxError, _super);
       function AjaxError(message, xhr, request) {
         var _this = _super.call(this, message) || this;
@@ -6999,7 +6999,7 @@
         return _this;
       }
       return AjaxError;
-    }(Error));
+    }(Error);
     exports.AjaxError = AjaxError;
     function parseXhrResponse(responseType, xhr) {
       switch (responseType) {
@@ -7028,7 +7028,7 @@
      *
      * @class AjaxTimeoutError
      */
-    var AjaxTimeoutError = /** @class */ (function (_super) {
+    var AjaxTimeoutError = /** @class */ function (_super) {
       __extends(AjaxTimeoutError, _super);
       function AjaxTimeoutError(xhr, request) {
         var _this = _super.call(this, "ajax timeout", xhr, request) || this;
@@ -7036,7 +7036,7 @@
         return _this;
       }
       return AjaxTimeoutError;
-    }(AjaxError));
+    }(AjaxError);
     exports.AjaxTimeoutError = AjaxTimeoutError;
   });
 
@@ -7097,7 +7097,7 @@
      * @ignore
      * @extends {Ignored}
      */
-    var QueueAction = /** @class */ (function (_super) {
+    var QueueAction = /** @class */ function (_super) {
       __extends(QueueAction, _super);
       function QueueAction(scheduler, work) {
         var _this = _super.call(this, scheduler, work) || this;
@@ -7139,7 +7139,7 @@
         return scheduler.flush(this);
       };
       return QueueAction;
-    }(AsyncAction_1.AsyncAction));
+    }(AsyncAction_1.AsyncAction);
     exports.QueueAction = QueueAction;
   });
 
@@ -7168,13 +7168,13 @@
       })();
     Object.defineProperty(exports, "__esModule", { value: true });
 
-    var QueueScheduler = /** @class */ (function (_super) {
+    var QueueScheduler = /** @class */ function (_super) {
       __extends(QueueScheduler, _super);
       function QueueScheduler() {
         return _super !== null && _super.apply(this, arguments) || this;
       }
       return QueueScheduler;
-    }(AsyncScheduler_1.AsyncScheduler));
+    }(AsyncScheduler_1.AsyncScheduler);
     exports.QueueScheduler = QueueScheduler;
   });
 
@@ -7267,7 +7267,7 @@
      *
      * @class Notification<T>
      */
-    var Notification = /** @class */ (function () {
+    var Notification = /** @class */ function () {
       function Notification(kind, value, error) {
         this.kind = kind;
         this.value = value;
@@ -7381,7 +7381,7 @@
         undefined,
       );
       return Notification;
-    }());
+    }();
     exports.Notification = Notification;
   });
 
@@ -7462,7 +7462,7 @@
       };
     }
     exports.observeOn = observeOn;
-    var ObserveOnOperator = /** @class */ (function () {
+    var ObserveOnOperator = /** @class */ function () {
       function ObserveOnOperator(scheduler, delay) {
         if (delay === void 0) delay = 0;
         this.scheduler = scheduler;
@@ -7474,14 +7474,14 @@
         );
       };
       return ObserveOnOperator;
-    }());
+    }();
     exports.ObserveOnOperator = ObserveOnOperator;
     /**
      * We need this JSDoc comment for affecting ESDoc.
      * @ignore
      * @extends {Ignored}
      */
-    var ObserveOnSubscriber = /** @class */ (function (_super) {
+    var ObserveOnSubscriber = /** @class */ function (_super) {
       __extends(ObserveOnSubscriber, _super);
       function ObserveOnSubscriber(destination, scheduler, delay) {
         if (delay === void 0) delay = 0;
@@ -7514,15 +7514,15 @@
         this.scheduleMessage(Notification_1.Notification.createComplete());
       };
       return ObserveOnSubscriber;
-    }(Subscriber_1.Subscriber));
+    }(Subscriber_1.Subscriber);
     exports.ObserveOnSubscriber = ObserveOnSubscriber;
-    var ObserveOnMessage = /** @class */ (function () {
+    var ObserveOnMessage = /** @class */ function () {
       function ObserveOnMessage(notification, destination) {
         this.notification = notification;
         this.destination = destination;
       }
       return ObserveOnMessage;
-    }());
+    }();
     exports.ObserveOnMessage = ObserveOnMessage;
   });
 
@@ -7557,7 +7557,7 @@
     /**
      * @class ReplaySubject<T>
      */
-    var ReplaySubject = /** @class */ (function (_super) {
+    var ReplaySubject = /** @class */ function (_super) {
       __extends(ReplaySubject, _super);
       function ReplaySubject(bufferSize, windowTime, scheduler) {
         if (bufferSize === void 0) bufferSize = Number.POSITIVE_INFINITY;
@@ -7639,15 +7639,15 @@
         return _events;
       };
       return ReplaySubject;
-    }(Subject_1.Subject));
+    }(Subject_1.Subject);
     exports.ReplaySubject = ReplaySubject;
-    var ReplayEvent = /** @class */ (function () {
+    var ReplayEvent = /** @class */ function () {
       function ReplayEvent(time, value) {
         this.time = time;
         this.value = value;
       }
       return ReplayEvent;
-    }());
+    }();
   });
 
   unwrapExports(ReplaySubject_1);
@@ -7712,7 +7712,7 @@
      * @extends {Ignored}
      * @hide true
      */
-    var WebSocketSubject = /** @class */ (function (_super) {
+    var WebSocketSubject = /** @class */ function (_super) {
       __extends(WebSocketSubject, _super);
       function WebSocketSubject(urlConfigOrSource, destination) {
         var _this = this;
@@ -7946,7 +7946,7 @@
         }
       };
       return WebSocketSubject;
-    }(Subject_1.AnonymousSubject));
+    }(Subject_1.AnonymousSubject);
     exports.WebSocketSubject = WebSocketSubject;
   });
 
@@ -8030,7 +8030,7 @@
       };
     }
     exports.buffer = buffer;
-    var BufferOperator = /** @class */ (function () {
+    var BufferOperator = /** @class */ function () {
       function BufferOperator(closingNotifier) {
         this.closingNotifier = closingNotifier;
       }
@@ -8040,13 +8040,13 @@
         );
       };
       return BufferOperator;
-    }());
+    }();
     /**
      * We need this JSDoc comment for affecting ESDoc.
      * @ignore
      * @extends {Ignored}
      */
-    var BufferSubscriber = /** @class */ (function (_super) {
+    var BufferSubscriber = /** @class */ function (_super) {
       __extends(BufferSubscriber, _super);
       function BufferSubscriber(destination, closingNotifier) {
         var _this = _super.call(this, destination) || this;
@@ -8071,7 +8071,7 @@
         this.destination.next(buffer);
       };
       return BufferSubscriber;
-    }(OuterSubscriber_1.OuterSubscriber));
+    }(OuterSubscriber_1.OuterSubscriber);
   });
 
   unwrapExports(buffer_1);
@@ -8201,7 +8201,7 @@
       };
     }
     exports.bufferCount = bufferCount;
-    var BufferCountOperator = /** @class */ (function () {
+    var BufferCountOperator = /** @class */ function () {
       function BufferCountOperator(bufferSize, startBufferEvery) {
         this.bufferSize = bufferSize;
         this.startBufferEvery = startBufferEvery;
@@ -8221,13 +8221,13 @@
         );
       };
       return BufferCountOperator;
-    }());
+    }();
     /**
      * We need this JSDoc comment for affecting ESDoc.
      * @ignore
      * @extends {Ignored}
      */
-    var BufferCountSubscriber = /** @class */ (function (_super) {
+    var BufferCountSubscriber = /** @class */ function (_super) {
       __extends(BufferCountSubscriber, _super);
       function BufferCountSubscriber(destination, bufferSize) {
         var _this = _super.call(this, destination) || this;
@@ -8251,13 +8251,13 @@
         _super.prototype._complete.call(this);
       };
       return BufferCountSubscriber;
-    }(Subscriber_1.Subscriber));
+    }(Subscriber_1.Subscriber);
     /**
      * We need this JSDoc comment for affecting ESDoc.
      * @ignore
      * @extends {Ignored}
      */
-    var BufferSkipCountSubscriber = /** @class */ (function (_super) {
+    var BufferSkipCountSubscriber = /** @class */ function (_super) {
       __extends(BufferSkipCountSubscriber, _super);
       function BufferSkipCountSubscriber(
         destination,
@@ -8301,7 +8301,7 @@
         _super.prototype._complete.call(this);
       };
       return BufferSkipCountSubscriber;
-    }(Subscriber_1.Subscriber));
+    }(Subscriber_1.Subscriber);
   });
 
   unwrapExports(bufferCount_1);
@@ -8462,7 +8462,7 @@
       };
     }
     exports.bufferTime = bufferTime;
-    var BufferTimeOperator = /** @class */ (function () {
+    var BufferTimeOperator = /** @class */ function () {
       function BufferTimeOperator(
         bufferTimeSpan,
         bufferCreationInterval,
@@ -8486,19 +8486,19 @@
         );
       };
       return BufferTimeOperator;
-    }());
-    var Context = /** @class */ (function () {
+    }();
+    var Context = /** @class */ function () {
       function Context() {
         this.buffer = [];
       }
       return Context;
-    }());
+    }();
     /**
      * We need this JSDoc comment for affecting ESDoc.
      * @ignore
      * @extends {Ignored}
      */
-    var BufferTimeSubscriber = /** @class */ (function (_super) {
+    var BufferTimeSubscriber = /** @class */ function (_super) {
       __extends(BufferTimeSubscriber, _super);
       function BufferTimeSubscriber(
         destination,
@@ -8621,7 +8621,7 @@
         }
       };
       return BufferTimeSubscriber;
-    }(Subscriber_1.Subscriber));
+    }(Subscriber_1.Subscriber);
     function dispatchBufferTimeSpanOnly(state) {
       var subscriber = state.subscriber;
       var prevContext = state.context;
@@ -8809,7 +8809,7 @@
       };
     }
     exports.bufferToggle = bufferToggle;
-    var BufferToggleOperator = /** @class */ (function () {
+    var BufferToggleOperator = /** @class */ function () {
       function BufferToggleOperator(openings, closingSelector) {
         this.openings = openings;
         this.closingSelector = closingSelector;
@@ -8824,13 +8824,13 @@
         );
       };
       return BufferToggleOperator;
-    }());
+    }();
     /**
      * We need this JSDoc comment for affecting ESDoc.
      * @ignore
      * @extends {Ignored}
      */
-    var BufferToggleSubscriber = /** @class */ (function (_super) {
+    var BufferToggleSubscriber = /** @class */ function (_super) {
       __extends(BufferToggleSubscriber, _super);
       function BufferToggleSubscriber(destination, openings, closingSelector) {
         var _this = _super.call(this, destination) || this;
@@ -8925,7 +8925,7 @@
         }
       };
       return BufferToggleSubscriber;
-    }(OuterSubscriber_1.OuterSubscriber));
+    }(OuterSubscriber_1.OuterSubscriber);
   });
 
   unwrapExports(bufferToggle_1);
@@ -9051,7 +9051,7 @@
       };
     }
     exports.bufferWhen = bufferWhen;
-    var BufferWhenOperator = /** @class */ (function () {
+    var BufferWhenOperator = /** @class */ function () {
       function BufferWhenOperator(closingSelector) {
         this.closingSelector = closingSelector;
       }
@@ -9061,13 +9061,13 @@
         );
       };
       return BufferWhenOperator;
-    }());
+    }();
     /**
      * We need this JSDoc comment for affecting ESDoc.
      * @ignore
      * @extends {Ignored}
      */
-    var BufferWhenSubscriber = /** @class */ (function (_super) {
+    var BufferWhenSubscriber = /** @class */ function (_super) {
       __extends(BufferWhenSubscriber, _super);
       function BufferWhenSubscriber(destination, closingSelector) {
         var _this = _super.call(this, destination) || this;
@@ -9132,7 +9132,7 @@
         }
       };
       return BufferWhenSubscriber;
-    }(OuterSubscriber_1.OuterSubscriber));
+    }(OuterSubscriber_1.OuterSubscriber);
   });
 
   unwrapExports(bufferWhen_1);
@@ -9278,7 +9278,7 @@
       };
     }
     exports.catchError = catchError;
-    var CatchOperator = /** @class */ (function () {
+    var CatchOperator = /** @class */ function () {
       function CatchOperator(selector) {
         this.selector = selector;
       }
@@ -9288,13 +9288,13 @@
         );
       };
       return CatchOperator;
-    }());
+    }();
     /**
      * We need this JSDoc comment for affecting ESDoc.
      * @ignore
      * @extends {Ignored}
      */
-    var CatchSubscriber = /** @class */ (function (_super) {
+    var CatchSubscriber = /** @class */ function (_super) {
       __extends(CatchSubscriber, _super);
       function CatchSubscriber(destination, selector, caught) {
         var _this = _super.call(this, destination) || this;
@@ -9321,7 +9321,7 @@
         }
       };
       return CatchSubscriber;
-    }(OuterSubscriber_1.OuterSubscriber));
+    }(OuterSubscriber_1.OuterSubscriber);
   });
 
   unwrapExports(catchError_1);
@@ -10083,7 +10083,7 @@
       };
     }
     exports.count = count;
-    var CountOperator = /** @class */ (function () {
+    var CountOperator = /** @class */ function () {
       function CountOperator(predicate, source) {
         this.predicate = predicate;
         this.source = source;
@@ -10094,13 +10094,13 @@
         );
       };
       return CountOperator;
-    }());
+    }();
     /**
      * We need this JSDoc comment for affecting ESDoc.
      * @ignore
      * @extends {Ignored}
      */
-    var CountSubscriber = /** @class */ (function (_super) {
+    var CountSubscriber = /** @class */ function (_super) {
       __extends(CountSubscriber, _super);
       function CountSubscriber(destination, predicate, source) {
         var _this = _super.call(this, destination) || this;
@@ -10134,7 +10134,7 @@
         this.destination.complete();
       };
       return CountSubscriber;
-    }(Subscriber_1.Subscriber));
+    }(Subscriber_1.Subscriber);
   });
 
   unwrapExports(count_1);
@@ -10276,20 +10276,20 @@
       };
     }
     exports.dematerialize = dematerialize;
-    var DeMaterializeOperator = /** @class */ (function () {
+    var DeMaterializeOperator = /** @class */ function () {
       function DeMaterializeOperator() {
       }
       DeMaterializeOperator.prototype.call = function (subscriber, source) {
         return source.subscribe(new DeMaterializeSubscriber(subscriber));
       };
       return DeMaterializeOperator;
-    }());
+    }();
     /**
      * We need this JSDoc comment for affecting ESDoc.
      * @ignore
      * @extends {Ignored}
      */
-    var DeMaterializeSubscriber = /** @class */ (function (_super) {
+    var DeMaterializeSubscriber = /** @class */ function (_super) {
       __extends(DeMaterializeSubscriber, _super);
       function DeMaterializeSubscriber(destination) {
         return _super.call(this, destination) || this;
@@ -10298,7 +10298,7 @@
         value.observe(this.destination);
       };
       return DeMaterializeSubscriber;
-    }(Subscriber_1.Subscriber));
+    }(Subscriber_1.Subscriber);
   });
 
   unwrapExports(dematerialize_1);
@@ -10435,7 +10435,7 @@
       };
     }
     exports.debounce = debounce;
-    var DebounceOperator = /** @class */ (function () {
+    var DebounceOperator = /** @class */ function () {
       function DebounceOperator(durationSelector) {
         this.durationSelector = durationSelector;
       }
@@ -10445,13 +10445,13 @@
         );
       };
       return DebounceOperator;
-    }());
+    }();
     /**
      * We need this JSDoc comment for affecting ESDoc.
      * @ignore
      * @extends {Ignored}
      */
-    var DebounceSubscriber = /** @class */ (function (_super) {
+    var DebounceSubscriber = /** @class */ function (_super) {
       __extends(DebounceSubscriber, _super);
       function DebounceSubscriber(destination, durationSelector) {
         var _this = _super.call(this, destination) || this;
@@ -10519,7 +10519,7 @@
         }
       };
       return DebounceSubscriber;
-    }(OuterSubscriber_1.OuterSubscriber));
+    }(OuterSubscriber_1.OuterSubscriber);
   });
 
   unwrapExports(debounce_1);
@@ -10662,7 +10662,7 @@
       };
     }
     exports.debounceTime = debounceTime;
-    var DebounceTimeOperator = /** @class */ (function () {
+    var DebounceTimeOperator = /** @class */ function () {
       function DebounceTimeOperator(dueTime, scheduler) {
         this.dueTime = dueTime;
         this.scheduler = scheduler;
@@ -10673,13 +10673,13 @@
         );
       };
       return DebounceTimeOperator;
-    }());
+    }();
     /**
      * We need this JSDoc comment for affecting ESDoc.
      * @ignore
      * @extends {Ignored}
      */
-    var DebounceTimeSubscriber = /** @class */ (function (_super) {
+    var DebounceTimeSubscriber = /** @class */ function (_super) {
       __extends(DebounceTimeSubscriber, _super);
       function DebounceTimeSubscriber(destination, dueTime, scheduler) {
         var _this = _super.call(this, destination) || this;
@@ -10729,7 +10729,7 @@
         }
       };
       return DebounceTimeSubscriber;
-    }(Subscriber_1.Subscriber));
+    }(Subscriber_1.Subscriber);
     function dispatchNext(subscriber) {
       subscriber.debouncedNext();
     }
@@ -10866,7 +10866,7 @@
       };
     }
     exports.defaultIfEmpty = defaultIfEmpty;
-    var DefaultIfEmptyOperator = /** @class */ (function () {
+    var DefaultIfEmptyOperator = /** @class */ function () {
       function DefaultIfEmptyOperator(defaultValue) {
         this.defaultValue = defaultValue;
       }
@@ -10876,13 +10876,13 @@
         );
       };
       return DefaultIfEmptyOperator;
-    }());
+    }();
     /**
      * We need this JSDoc comment for affecting ESDoc.
      * @ignore
      * @extends {Ignored}
      */
-    var DefaultIfEmptySubscriber = /** @class */ (function (_super) {
+    var DefaultIfEmptySubscriber = /** @class */ function (_super) {
       __extends(DefaultIfEmptySubscriber, _super);
       function DefaultIfEmptySubscriber(destination, defaultValue) {
         var _this = _super.call(this, destination) || this;
@@ -10901,7 +10901,7 @@
         this.destination.complete();
       };
       return DefaultIfEmptySubscriber;
-    }(Subscriber_1.Subscriber));
+    }(Subscriber_1.Subscriber);
   });
 
   unwrapExports(defaultIfEmpty_1);
@@ -11043,7 +11043,7 @@
       };
     }
     exports.delay = delay;
-    var DelayOperator = /** @class */ (function () {
+    var DelayOperator = /** @class */ function () {
       function DelayOperator(delay, scheduler) {
         this.delay = delay;
         this.scheduler = scheduler;
@@ -11054,13 +11054,13 @@
         );
       };
       return DelayOperator;
-    }());
+    }();
     /**
      * We need this JSDoc comment for affecting ESDoc.
      * @ignore
      * @extends {Ignored}
      */
-    var DelaySubscriber = /** @class */ (function (_super) {
+    var DelaySubscriber = /** @class */ function (_super) {
       __extends(DelaySubscriber, _super);
       function DelaySubscriber(destination, delay, scheduler) {
         var _this = _super.call(this, destination) || this;
@@ -11122,14 +11122,14 @@
         this.scheduleNotification(Notification_1.Notification.createComplete());
       };
       return DelaySubscriber;
-    }(Subscriber_1.Subscriber));
-    var DelayMessage = /** @class */ (function () {
+    }(Subscriber_1.Subscriber);
+    var DelayMessage = /** @class */ function () {
       function DelayMessage(time, notification) {
         this.time = time;
         this.notification = notification;
       }
       return DelayMessage;
-    }());
+    }();
   });
 
   unwrapExports(delay_1);
@@ -11274,7 +11274,7 @@
       };
     }
     exports.delayWhen = delayWhen;
-    var DelayWhenOperator = /** @class */ (function () {
+    var DelayWhenOperator = /** @class */ function () {
       function DelayWhenOperator(delayDurationSelector) {
         this.delayDurationSelector = delayDurationSelector;
       }
@@ -11284,13 +11284,13 @@
         );
       };
       return DelayWhenOperator;
-    }());
+    }();
     /**
      * We need this JSDoc comment for affecting ESDoc.
      * @ignore
      * @extends {Ignored}
      */
-    var DelayWhenSubscriber = /** @class */ (function (_super) {
+    var DelayWhenSubscriber = /** @class */ function (_super) {
       __extends(DelayWhenSubscriber, _super);
       function DelayWhenSubscriber(destination, delayDurationSelector) {
         var _this = _super.call(this, destination) || this;
@@ -11368,13 +11368,13 @@
         }
       };
       return DelayWhenSubscriber;
-    }(OuterSubscriber_1.OuterSubscriber));
+    }(OuterSubscriber_1.OuterSubscriber);
     /**
      * We need this JSDoc comment for affecting ESDoc.
      * @ignore
      * @extends {Ignored}
      */
-    var SubscriptionDelayObservable = /** @class */ (function (_super) {
+    var SubscriptionDelayObservable = /** @class */ function (_super) {
       __extends(SubscriptionDelayObservable, _super);
       function SubscriptionDelayObservable(source, subscriptionDelay) {
         var _this = _super.call(this) || this;
@@ -11388,13 +11388,13 @@
         );
       };
       return SubscriptionDelayObservable;
-    }(Observable_1.Observable));
+    }(Observable_1.Observable);
     /**
      * We need this JSDoc comment for affecting ESDoc.
      * @ignore
      * @extends {Ignored}
      */
-    var SubscriptionDelaySubscriber = /** @class */ (function (_super) {
+    var SubscriptionDelaySubscriber = /** @class */ function (_super) {
       __extends(SubscriptionDelaySubscriber, _super);
       function SubscriptionDelaySubscriber(parent, source) {
         var _this = _super.call(this) || this;
@@ -11421,7 +11421,7 @@
         }
       };
       return SubscriptionDelaySubscriber;
-    }(Subscriber_1.Subscriber));
+    }(Subscriber_1.Subscriber);
   });
 
   unwrapExports(delayWhen_1);
@@ -11570,7 +11570,7 @@
       };
     }
     exports.distinct = distinct;
-    var DistinctOperator = /** @class */ (function () {
+    var DistinctOperator = /** @class */ function () {
       function DistinctOperator(keySelector, flushes) {
         this.keySelector = keySelector;
         this.flushes = flushes;
@@ -11581,13 +11581,13 @@
         );
       };
       return DistinctOperator;
-    }());
+    }();
     /**
      * We need this JSDoc comment for affecting ESDoc.
      * @ignore
      * @extends {Ignored}
      */
-    var DistinctSubscriber = /** @class */ (function (_super) {
+    var DistinctSubscriber = /** @class */ function (_super) {
       __extends(DistinctSubscriber, _super);
       function DistinctSubscriber(destination, keySelector, flushes) {
         var _this = _super.call(this, destination) || this;
@@ -11636,7 +11636,7 @@
         }
       };
       return DistinctSubscriber;
-    }(OuterSubscriber_1.OuterSubscriber));
+    }(OuterSubscriber_1.OuterSubscriber);
     exports.DistinctSubscriber = DistinctSubscriber;
   });
 
@@ -11779,7 +11779,7 @@
       };
     }
     exports.distinctUntilChanged = distinctUntilChanged;
-    var DistinctUntilChangedOperator = /** @class */ (function () {
+    var DistinctUntilChangedOperator = /** @class */ function () {
       function DistinctUntilChangedOperator(compare, keySelector) {
         this.compare = compare;
         this.keySelector = keySelector;
@@ -11797,13 +11797,13 @@
         );
       };
       return DistinctUntilChangedOperator;
-    }());
+    }();
     /**
      * We need this JSDoc comment for affecting ESDoc.
      * @ignore
      * @extends {Ignored}
      */
-    var DistinctUntilChangedSubscriber = /** @class */ (function (_super) {
+    var DistinctUntilChangedSubscriber = /** @class */ function (_super) {
       __extends(DistinctUntilChangedSubscriber, _super);
       function DistinctUntilChangedSubscriber(
         destination,
@@ -11845,7 +11845,7 @@
         }
       };
       return DistinctUntilChangedSubscriber;
-    }(Subscriber_1.Subscriber));
+    }(Subscriber_1.Subscriber);
   });
 
   unwrapExports(distinctUntilChanged_1);
@@ -12148,7 +12148,7 @@
       };
     }
     exports.tap = tap;
-    var DoOperator = /** @class */ (function () {
+    var DoOperator = /** @class */ function () {
       function DoOperator(nextOrObserver, error, complete) {
         this.nextOrObserver = nextOrObserver;
         this.error = error;
@@ -12165,13 +12165,13 @@
         );
       };
       return DoOperator;
-    }());
+    }();
     /**
      * We need this JSDoc comment for affecting ESDoc.
      * @ignore
      * @extends {Ignored}
      */
-    var TapSubscriber = /** @class */ (function (_super) {
+    var TapSubscriber = /** @class */ function (_super) {
       __extends(TapSubscriber, _super);
       function TapSubscriber(destination, observerOrNext, error, complete) {
         var _this = _super.call(this, destination) || this;
@@ -12219,7 +12219,7 @@
         return this.destination.complete();
       };
       return TapSubscriber;
-    }(Subscriber_1.Subscriber));
+    }(Subscriber_1.Subscriber);
   });
 
   unwrapExports(tap_1);
@@ -12353,20 +12353,20 @@
       };
     }
     exports.exhaust = exhaust;
-    var SwitchFirstOperator = /** @class */ (function () {
+    var SwitchFirstOperator = /** @class */ function () {
       function SwitchFirstOperator() {
       }
       SwitchFirstOperator.prototype.call = function (subscriber, source) {
         return source.subscribe(new SwitchFirstSubscriber(subscriber));
       };
       return SwitchFirstOperator;
-    }());
+    }();
     /**
      * We need this JSDoc comment for affecting ESDoc.
      * @ignore
      * @extends {Ignored}
      */
-    var SwitchFirstSubscriber = /** @class */ (function (_super) {
+    var SwitchFirstSubscriber = /** @class */ function (_super) {
       __extends(SwitchFirstSubscriber, _super);
       function SwitchFirstSubscriber(destination) {
         var _this = _super.call(this, destination) || this;
@@ -12394,7 +12394,7 @@
         }
       };
       return SwitchFirstSubscriber;
-    }(OuterSubscriber_1.OuterSubscriber));
+    }(OuterSubscriber_1.OuterSubscriber);
   });
 
   unwrapExports(exhaust_1);
@@ -12529,7 +12529,7 @@
       };
     }
     exports.exhaustMap = exhaustMap;
-    var SwitchFirstMapOperator = /** @class */ (function () {
+    var SwitchFirstMapOperator = /** @class */ function () {
       function SwitchFirstMapOperator(project, resultSelector) {
         this.project = project;
         this.resultSelector = resultSelector;
@@ -12544,13 +12544,13 @@
         );
       };
       return SwitchFirstMapOperator;
-    }());
+    }();
     /**
      * We need this JSDoc comment for affecting ESDoc.
      * @ignore
      * @extends {Ignored}
      */
-    var SwitchFirstMapSubscriber = /** @class */ (function (_super) {
+    var SwitchFirstMapSubscriber = /** @class */ function (_super) {
       __extends(SwitchFirstMapSubscriber, _super);
       function SwitchFirstMapSubscriber(destination, project, resultSelector) {
         var _this = _super.call(this, destination) || this;
@@ -12633,7 +12633,7 @@
         }
       };
       return SwitchFirstMapSubscriber;
-    }(OuterSubscriber_1.OuterSubscriber));
+    }(OuterSubscriber_1.OuterSubscriber);
   });
 
   unwrapExports(exhaustMap_1);
@@ -12784,7 +12784,7 @@
       };
     }
     exports.expand = expand;
-    var ExpandOperator = /** @class */ (function () {
+    var ExpandOperator = /** @class */ function () {
       function ExpandOperator(project, concurrent, scheduler) {
         this.project = project;
         this.concurrent = concurrent;
@@ -12801,14 +12801,14 @@
         );
       };
       return ExpandOperator;
-    }());
+    }();
     exports.ExpandOperator = ExpandOperator;
     /**
      * We need this JSDoc comment for affecting ESDoc.
      * @ignore
      * @extends {Ignored}
      */
-    var ExpandSubscriber = /** @class */ (function (_super) {
+    var ExpandSubscriber = /** @class */ function (_super) {
       __extends(ExpandSubscriber, _super);
       function ExpandSubscriber(destination, project, concurrent, scheduler) {
         var _this = _super.call(this, destination) || this;
@@ -12896,7 +12896,7 @@
         }
       };
       return ExpandSubscriber;
-    }(OuterSubscriber_1.OuterSubscriber));
+    }(OuterSubscriber_1.OuterSubscriber);
     exports.ExpandSubscriber = ExpandSubscriber;
   });
 
@@ -13008,7 +13008,7 @@
        *
        * @class ArgumentOutOfRangeError
        */
-      var ArgumentOutOfRangeError = /** @class */ (function (_super) {
+      var ArgumentOutOfRangeError = /** @class */ function (_super) {
         __extends(ArgumentOutOfRangeError, _super);
         function ArgumentOutOfRangeError() {
           var _this = _super.call(this, "argument out of range") || this;
@@ -13017,7 +13017,7 @@
           return _this;
         }
         return ArgumentOutOfRangeError;
-      }(Error));
+      }(Error);
       exports.ArgumentOutOfRangeError = ArgumentOutOfRangeError;
     },
   );
@@ -13096,7 +13096,7 @@
       };
     }
     exports.elementAt = elementAt;
-    var ElementAtOperator = /** @class */ (function () {
+    var ElementAtOperator = /** @class */ function () {
       function ElementAtOperator(index, defaultValue) {
         this.index = index;
         this.defaultValue = defaultValue;
@@ -13110,13 +13110,13 @@
         );
       };
       return ElementAtOperator;
-    }());
+    }();
     /**
      * We need this JSDoc comment for affecting ESDoc.
      * @ignore
      * @extends {Ignored}
      */
-    var ElementAtSubscriber = /** @class */ (function (_super) {
+    var ElementAtSubscriber = /** @class */ function (_super) {
       __extends(ElementAtSubscriber, _super);
       function ElementAtSubscriber(destination, index, defaultValue) {
         var _this = _super.call(this, destination) || this;
@@ -13144,7 +13144,7 @@
         destination.complete();
       };
       return ElementAtSubscriber;
-    }(Subscriber_1.Subscriber));
+    }(Subscriber_1.Subscriber);
   });
 
   unwrapExports(elementAt_1);
@@ -13280,7 +13280,7 @@
       };
     }
     exports.filter = filter;
-    var FilterOperator = /** @class */ (function () {
+    var FilterOperator = /** @class */ function () {
       function FilterOperator(predicate, thisArg) {
         this.predicate = predicate;
         this.thisArg = thisArg;
@@ -13291,13 +13291,13 @@
         );
       };
       return FilterOperator;
-    }());
+    }();
     /**
      * We need this JSDoc comment for affecting ESDoc.
      * @ignore
      * @extends {Ignored}
      */
-    var FilterSubscriber = /** @class */ (function (_super) {
+    var FilterSubscriber = /** @class */ function (_super) {
       __extends(FilterSubscriber, _super);
       function FilterSubscriber(destination, predicate, thisArg) {
         var _this = _super.call(this, destination) || this;
@@ -13321,7 +13321,7 @@
         }
       };
       return FilterSubscriber;
-    }(Subscriber_1.Subscriber));
+    }(Subscriber_1.Subscriber);
   });
 
   unwrapExports(filter_1);
@@ -13423,7 +13423,7 @@
       };
     }
     exports.finalize = finalize;
-    var FinallyOperator = /** @class */ (function () {
+    var FinallyOperator = /** @class */ function () {
       function FinallyOperator(callback) {
         this.callback = callback;
       }
@@ -13433,13 +13433,13 @@
         );
       };
       return FinallyOperator;
-    }());
+    }();
     /**
      * We need this JSDoc comment for affecting ESDoc.
      * @ignore
      * @extends {Ignored}
      */
-    var FinallySubscriber = /** @class */ (function (_super) {
+    var FinallySubscriber = /** @class */ function (_super) {
       __extends(FinallySubscriber, _super);
       function FinallySubscriber(destination, callback) {
         var _this = _super.call(this, destination) || this;
@@ -13447,7 +13447,7 @@
         return _this;
       }
       return FinallySubscriber;
-    }(Subscriber_1.Subscriber));
+    }(Subscriber_1.Subscriber);
   });
 
   unwrapExports(finalize_1);
@@ -13607,7 +13607,7 @@
       };
     }
     exports.find = find;
-    var FindValueOperator = /** @class */ (function () {
+    var FindValueOperator = /** @class */ function () {
       function FindValueOperator(predicate, source, yieldIndex, thisArg) {
         this.predicate = predicate;
         this.source = source;
@@ -13626,14 +13626,14 @@
         );
       };
       return FindValueOperator;
-    }());
+    }();
     exports.FindValueOperator = FindValueOperator;
     /**
      * We need this JSDoc comment for affecting ESDoc.
      * @ignore
      * @extends {Ignored}
      */
-    var FindValueSubscriber = /** @class */ (function (_super) {
+    var FindValueSubscriber = /** @class */ function (_super) {
       __extends(FindValueSubscriber, _super);
       function FindValueSubscriber(
         destination,
@@ -13676,7 +13676,7 @@
         this.notifyComplete(this.yieldIndex ? -1 : undefined);
       };
       return FindValueSubscriber;
-    }(Subscriber_1.Subscriber));
+    }(Subscriber_1.Subscriber);
     exports.FindValueSubscriber = FindValueSubscriber;
   });
 
@@ -13874,7 +13874,7 @@
      *
      * @class EmptyError
      */
-    var EmptyError = /** @class */ (function (_super) {
+    var EmptyError = /** @class */ function (_super) {
       __extends(EmptyError, _super);
       function EmptyError() {
         var _this = _super.call(this, "no elements in sequence") || this;
@@ -13883,7 +13883,7 @@
         return _this;
       }
       return EmptyError;
-    }(Error));
+    }(Error);
     exports.EmptyError = EmptyError;
   });
 
@@ -13969,7 +13969,7 @@
       };
     }
     exports.first = first;
-    var FirstOperator = /** @class */ (function () {
+    var FirstOperator = /** @class */ function () {
       function FirstOperator(predicate, resultSelector, defaultValue, source) {
         this.predicate = predicate;
         this.resultSelector = resultSelector;
@@ -13988,13 +13988,13 @@
         );
       };
       return FirstOperator;
-    }());
+    }();
     /**
      * We need this JSDoc comment for affecting ESDoc.
      * @ignore
      * @extends {Ignored}
      */
-    var FirstSubscriber = /** @class */ (function (_super) {
+    var FirstSubscriber = /** @class */ function (_super) {
       __extends(FirstSubscriber, _super);
       function FirstSubscriber(
         destination,
@@ -14069,7 +14069,7 @@
         }
       };
       return FirstSubscriber;
-    }(Subscriber_1.Subscriber));
+    }(Subscriber_1.Subscriber);
   });
 
   unwrapExports(first_1);
@@ -14256,7 +14256,7 @@
       };
     }
     exports.groupBy = groupBy;
-    var GroupByOperator = /** @class */ (function () {
+    var GroupByOperator = /** @class */ function () {
       function GroupByOperator(
         keySelector,
         elementSelector,
@@ -14280,13 +14280,13 @@
         );
       };
       return GroupByOperator;
-    }());
+    }();
     /**
      * We need this JSDoc comment for affecting ESDoc.
      * @ignore
      * @extends {Ignored}
      */
-    var GroupBySubscriber = /** @class */ (function (_super) {
+    var GroupBySubscriber = /** @class */ function (_super) {
       __extends(GroupBySubscriber, _super);
       function GroupBySubscriber(
         destination,
@@ -14389,13 +14389,13 @@
         }
       };
       return GroupBySubscriber;
-    }(Subscriber_1.Subscriber));
+    }(Subscriber_1.Subscriber);
     /**
      * We need this JSDoc comment for affecting ESDoc.
      * @ignore
      * @extends {Ignored}
      */
-    var GroupDurationSubscriber = /** @class */ (function (_super) {
+    var GroupDurationSubscriber = /** @class */ function (_super) {
       __extends(GroupDurationSubscriber, _super);
       function GroupDurationSubscriber(key, group, parent) {
         var _this = _super.call(this, group) || this;
@@ -14415,7 +14415,7 @@
         }
       };
       return GroupDurationSubscriber;
-    }(Subscriber_1.Subscriber));
+    }(Subscriber_1.Subscriber);
     /**
      * An Observable representing values belonging to the same group represented by
      * a common key. The values emitted by a GroupedObservable come from the source
@@ -14424,7 +14424,7 @@
      *
      * @class GroupedObservable<K, T>
      */
-    var GroupedObservable = /** @class */ (function (_super) {
+    var GroupedObservable = /** @class */ function (_super) {
       __extends(GroupedObservable, _super);
       function GroupedObservable(key, groupSubject, refCountSubscription) {
         var _this = _super.call(this) || this;
@@ -14445,14 +14445,14 @@
         return subscription;
       };
       return GroupedObservable;
-    }(Observable_1.Observable));
+    }(Observable_1.Observable);
     exports.GroupedObservable = GroupedObservable;
     /**
      * We need this JSDoc comment for affecting ESDoc.
      * @ignore
      * @extends {Ignored}
      */
-    var InnerRefCountSubscription = /** @class */ (function (_super) {
+    var InnerRefCountSubscription = /** @class */ function (_super) {
       __extends(InnerRefCountSubscription, _super);
       function InnerRefCountSubscription(parent) {
         var _this = _super.call(this) || this;
@@ -14471,7 +14471,7 @@
         }
       };
       return InnerRefCountSubscription;
-    }(Subscription_1.Subscription));
+    }(Subscription_1.Subscription);
   });
 
   unwrapExports(groupBy_1);
@@ -14616,20 +14616,20 @@
       };
     }
     exports.ignoreElements = ignoreElements;
-    var IgnoreElementsOperator = /** @class */ (function () {
+    var IgnoreElementsOperator = /** @class */ function () {
       function IgnoreElementsOperator() {
       }
       IgnoreElementsOperator.prototype.call = function (subscriber, source) {
         return source.subscribe(new IgnoreElementsSubscriber(subscriber));
       };
       return IgnoreElementsOperator;
-    }());
+    }();
     /**
      * We need this JSDoc comment for affecting ESDoc.
      * @ignore
      * @extends {Ignored}
      */
-    var IgnoreElementsSubscriber = /** @class */ (function (_super) {
+    var IgnoreElementsSubscriber = /** @class */ function (_super) {
       __extends(IgnoreElementsSubscriber, _super);
       function IgnoreElementsSubscriber() {
         return _super !== null && _super.apply(this, arguments) || this;
@@ -14638,7 +14638,7 @@
         // Do nothing
       };
       return IgnoreElementsSubscriber;
-    }(Subscriber_1.Subscriber));
+    }(Subscriber_1.Subscriber);
   });
 
   unwrapExports(ignoreElements_1);
@@ -14703,20 +14703,20 @@
       };
     }
     exports.isEmpty = isEmpty;
-    var IsEmptyOperator = /** @class */ (function () {
+    var IsEmptyOperator = /** @class */ function () {
       function IsEmptyOperator() {
       }
       IsEmptyOperator.prototype.call = function (observer, source) {
         return source.subscribe(new IsEmptySubscriber(observer));
       };
       return IsEmptyOperator;
-    }());
+    }();
     /**
      * We need this JSDoc comment for affecting ESDoc.
      * @ignore
      * @extends {Ignored}
      */
-    var IsEmptySubscriber = /** @class */ (function (_super) {
+    var IsEmptySubscriber = /** @class */ function (_super) {
       __extends(IsEmptySubscriber, _super);
       function IsEmptySubscriber(destination) {
         return _super.call(this, destination) || this;
@@ -14733,7 +14733,7 @@
         this.notifyComplete(true);
       };
       return IsEmptySubscriber;
-    }(Subscriber_1.Subscriber));
+    }(Subscriber_1.Subscriber);
   });
 
   unwrapExports(isEmpty_1);
@@ -14836,7 +14836,7 @@
       };
     }
     exports.audit = audit;
-    var AuditOperator = /** @class */ (function () {
+    var AuditOperator = /** @class */ function () {
       function AuditOperator(durationSelector) {
         this.durationSelector = durationSelector;
       }
@@ -14846,13 +14846,13 @@
         );
       };
       return AuditOperator;
-    }());
+    }();
     /**
      * We need this JSDoc comment for affecting ESDoc.
      * @ignore
      * @extends {Ignored}
      */
-    var AuditSubscriber = /** @class */ (function (_super) {
+    var AuditSubscriber = /** @class */ function (_super) {
       __extends(AuditSubscriber, _super);
       function AuditSubscriber(destination, durationSelector) {
         var _this = _super.call(this, destination) || this;
@@ -14908,7 +14908,7 @@
         this.clearThrottle();
       };
       return AuditSubscriber;
-    }(OuterSubscriber_1.OuterSubscriber));
+    }(OuterSubscriber_1.OuterSubscriber);
   });
 
   unwrapExports(audit_1);
@@ -15142,7 +15142,7 @@
       };
     }
     exports.last = last;
-    var LastOperator = /** @class */ (function () {
+    var LastOperator = /** @class */ function () {
       function LastOperator(predicate, resultSelector, defaultValue, source) {
         this.predicate = predicate;
         this.resultSelector = resultSelector;
@@ -15161,13 +15161,13 @@
         );
       };
       return LastOperator;
-    }());
+    }();
     /**
      * We need this JSDoc comment for affecting ESDoc.
      * @ignore
      * @extends {Ignored}
      */
-    var LastSubscriber = /** @class */ (function (_super) {
+    var LastSubscriber = /** @class */ function (_super) {
       __extends(LastSubscriber, _super);
       function LastSubscriber(
         destination,
@@ -15240,7 +15240,7 @@
         }
       };
       return LastSubscriber;
-    }(Subscriber_1.Subscriber));
+    }(Subscriber_1.Subscriber);
   });
 
   unwrapExports(last_1);
@@ -15352,7 +15352,7 @@
       };
     }
     exports.every = every;
-    var EveryOperator = /** @class */ (function () {
+    var EveryOperator = /** @class */ function () {
       function EveryOperator(predicate, thisArg, source) {
         this.predicate = predicate;
         this.thisArg = thisArg;
@@ -15369,13 +15369,13 @@
         );
       };
       return EveryOperator;
-    }());
+    }();
     /**
      * We need this JSDoc comment for affecting ESDoc.
      * @ignore
      * @extends {Ignored}
      */
-    var EverySubscriber = /** @class */ (function (_super) {
+    var EverySubscriber = /** @class */ function (_super) {
       __extends(EverySubscriber, _super);
       function EverySubscriber(destination, predicate, thisArg, source) {
         var _this = _super.call(this, destination) || this;
@@ -15411,7 +15411,7 @@
         this.notifyComplete(true);
       };
       return EverySubscriber;
-    }(Subscriber_1.Subscriber));
+    }(Subscriber_1.Subscriber);
   });
 
   unwrapExports(every_1);
@@ -15558,7 +15558,7 @@
       };
     }
     exports.mapTo = mapTo;
-    var MapToOperator = /** @class */ (function () {
+    var MapToOperator = /** @class */ function () {
       function MapToOperator(value) {
         this.value = value;
       }
@@ -15566,13 +15566,13 @@
         return source.subscribe(new MapToSubscriber(subscriber, this.value));
       };
       return MapToOperator;
-    }());
+    }();
     /**
      * We need this JSDoc comment for affecting ESDoc.
      * @ignore
      * @extends {Ignored}
      */
-    var MapToSubscriber = /** @class */ (function (_super) {
+    var MapToSubscriber = /** @class */ function (_super) {
       __extends(MapToSubscriber, _super);
       function MapToSubscriber(destination, value) {
         var _this = _super.call(this, destination) || this;
@@ -15583,7 +15583,7 @@
         this.destination.next(this.value);
       };
       return MapToSubscriber;
-    }(Subscriber_1.Subscriber));
+    }(Subscriber_1.Subscriber);
   });
 
   unwrapExports(mapTo_1);
@@ -15707,20 +15707,20 @@
       };
     }
     exports.materialize = materialize;
-    var MaterializeOperator = /** @class */ (function () {
+    var MaterializeOperator = /** @class */ function () {
       function MaterializeOperator() {
       }
       MaterializeOperator.prototype.call = function (subscriber, source) {
         return source.subscribe(new MaterializeSubscriber(subscriber));
       };
       return MaterializeOperator;
-    }());
+    }();
     /**
      * We need this JSDoc comment for affecting ESDoc.
      * @ignore
      * @extends {Ignored}
      */
-    var MaterializeSubscriber = /** @class */ (function (_super) {
+    var MaterializeSubscriber = /** @class */ function (_super) {
       __extends(MaterializeSubscriber, _super);
       function MaterializeSubscriber(destination) {
         return _super.call(this, destination) || this;
@@ -15739,7 +15739,7 @@
         destination.complete();
       };
       return MaterializeSubscriber;
-    }(Subscriber_1.Subscriber));
+    }(Subscriber_1.Subscriber);
   });
 
   unwrapExports(materialize_1);
@@ -15884,7 +15884,7 @@
       };
     }
     exports.scan = scan;
-    var ScanOperator = /** @class */ (function () {
+    var ScanOperator = /** @class */ function () {
       function ScanOperator(accumulator, seed, hasSeed) {
         if (hasSeed === void 0) hasSeed = false;
         this.accumulator = accumulator;
@@ -15902,13 +15902,13 @@
         );
       };
       return ScanOperator;
-    }());
+    }();
     /**
      * We need this JSDoc comment for affecting ESDoc.
      * @ignore
      * @extends {Ignored}
      */
-    var ScanSubscriber = /** @class */ (function (_super) {
+    var ScanSubscriber = /** @class */ function (_super) {
       __extends(ScanSubscriber, _super);
       function ScanSubscriber(destination, accumulator, _seed, hasSeed) {
         var _this = _super.call(this, destination) || this;
@@ -15949,7 +15949,7 @@
         this.destination.next(result);
       };
       return ScanSubscriber;
-    }(Subscriber_1.Subscriber));
+    }(Subscriber_1.Subscriber);
   });
 
   unwrapExports(scan_1);
@@ -16023,7 +16023,7 @@
       };
     }
     exports.takeLast = takeLast;
-    var TakeLastOperator = /** @class */ (function () {
+    var TakeLastOperator = /** @class */ function () {
       function TakeLastOperator(total) {
         this.total = total;
         if (this.total < 0) {
@@ -16034,13 +16034,13 @@
         return source.subscribe(new TakeLastSubscriber(subscriber, this.total));
       };
       return TakeLastOperator;
-    }());
+    }();
     /**
      * We need this JSDoc comment for affecting ESDoc.
      * @ignore
      * @extends {Ignored}
      */
-    var TakeLastSubscriber = /** @class */ (function (_super) {
+    var TakeLastSubscriber = /** @class */ function (_super) {
       __extends(TakeLastSubscriber, _super);
       function TakeLastSubscriber(destination, total) {
         var _this = _super.call(this, destination) || this;
@@ -16074,7 +16074,7 @@
         destination.complete();
       };
       return TakeLastSubscriber;
-    }(Subscriber_1.Subscriber));
+    }(Subscriber_1.Subscriber);
   });
 
   unwrapExports(takeLast_1);
@@ -16559,7 +16559,7 @@
     exports.mergeMapTo = mergeMapTo;
     // TODO: Figure out correct signature here: an Operator<Observable<T>, R>
     //       needs to implement call(observer: Subscriber<R>): Subscriber<Observable<T>>
-    var MergeMapToOperator = /** @class */ (function () {
+    var MergeMapToOperator = /** @class */ function () {
       function MergeMapToOperator(ish, resultSelector, concurrent) {
         if (concurrent === void 0) concurrent = Number.POSITIVE_INFINITY;
         this.ish = ish;
@@ -16577,14 +16577,14 @@
         );
       };
       return MergeMapToOperator;
-    }());
+    }();
     exports.MergeMapToOperator = MergeMapToOperator;
     /**
      * We need this JSDoc comment for affecting ESDoc.
      * @ignore
      * @extends {Ignored}
      */
-    var MergeMapToSubscriber = /** @class */ (function (_super) {
+    var MergeMapToSubscriber = /** @class */ function (_super) {
       __extends(MergeMapToSubscriber, _super);
       function MergeMapToSubscriber(
         destination,
@@ -16685,7 +16685,7 @@
         }
       };
       return MergeMapToSubscriber;
-    }(OuterSubscriber_1.OuterSubscriber));
+    }(OuterSubscriber_1.OuterSubscriber);
     exports.MergeMapToSubscriber = MergeMapToSubscriber;
   });
 
@@ -16826,7 +16826,7 @@
       };
     }
     exports.mergeScan = mergeScan;
-    var MergeScanOperator = /** @class */ (function () {
+    var MergeScanOperator = /** @class */ function () {
       function MergeScanOperator(accumulator, seed, concurrent) {
         this.accumulator = accumulator;
         this.seed = seed;
@@ -16843,14 +16843,14 @@
         );
       };
       return MergeScanOperator;
-    }());
+    }();
     exports.MergeScanOperator = MergeScanOperator;
     /**
      * We need this JSDoc comment for affecting ESDoc.
      * @ignore
      * @extends {Ignored}
      */
-    var MergeScanSubscriber = /** @class */ (function (_super) {
+    var MergeScanSubscriber = /** @class */ function (_super) {
       __extends(MergeScanSubscriber, _super);
       function MergeScanSubscriber(destination, accumulator, acc, concurrent) {
         var _this = _super.call(this, destination) || this;
@@ -16919,7 +16919,7 @@
         }
       };
       return MergeScanSubscriber;
-    }(OuterSubscriber_1.OuterSubscriber));
+    }(OuterSubscriber_1.OuterSubscriber);
     exports.MergeScanSubscriber = MergeScanSubscriber;
   });
 
@@ -17109,7 +17109,7 @@
       };
     }
     exports.refCount = refCount;
-    var RefCountOperator = /** @class */ (function () {
+    var RefCountOperator = /** @class */ function () {
       function RefCountOperator(connectable) {
         this.connectable = connectable;
       }
@@ -17124,8 +17124,8 @@
         return subscription;
       };
       return RefCountOperator;
-    }());
-    var RefCountSubscriber = /** @class */ (function (_super) {
+    }();
+    var RefCountSubscriber = /** @class */ function (_super) {
       __extends(RefCountSubscriber, _super);
       function RefCountSubscriber(destination, connectable) {
         var _this = _super.call(this, destination) || this;
@@ -17182,7 +17182,7 @@
         }
       };
       return RefCountSubscriber;
-    }(Subscriber_1.Subscriber));
+    }(Subscriber_1.Subscriber);
   });
 
   unwrapExports(refCount_1);
@@ -17214,7 +17214,7 @@
       /**
        * @class ConnectableObservable<T>
        */
-      var ConnectableObservable = /** @class */ (function (_super) {
+      var ConnectableObservable = /** @class */ function (_super) {
         __extends(ConnectableObservable, _super);
         function ConnectableObservable(source, subjectFactory) {
           var _this = _super.call(this) || this;
@@ -17254,7 +17254,7 @@
           return refCount_1.refCount()(this);
         };
         return ConnectableObservable;
-      }(Observable_1.Observable));
+      }(Observable_1.Observable);
       exports.ConnectableObservable = ConnectableObservable;
       var connectableProto = ConnectableObservable.prototype;
       exports.connectableObservableDescriptor = {
@@ -17268,7 +17268,7 @@
         connect: { value: connectableProto.connect },
         refCount: { value: connectableProto.refCount },
       };
-      var ConnectableSubscriber = /** @class */ (function (_super) {
+      var ConnectableSubscriber = /** @class */ function (_super) {
         __extends(ConnectableSubscriber, _super);
         function ConnectableSubscriber(destination, connectable) {
           var _this = _super.call(this, destination) || this;
@@ -17298,8 +17298,8 @@
           }
         };
         return ConnectableSubscriber;
-      }(Subject_1.SubjectSubscriber));
-      var RefCountSubscriber = /** @class */ (function (_super) {
+      }(Subject_1.SubjectSubscriber);
+      var RefCountSubscriber = /** @class */ function (_super) {
         __extends(RefCountSubscriber, _super);
         function RefCountSubscriber(destination, connectable) {
           var _this = _super.call(this, destination) || this;
@@ -17356,7 +17356,7 @@
           }
         };
         return RefCountSubscriber;
-      }(Subscriber_1.Subscriber));
+      }(Subscriber_1.Subscriber);
     },
   );
 
@@ -17411,7 +17411,7 @@
       };
     }
     exports.multicast = multicast;
-    var MulticastOperator = /** @class */ (function () {
+    var MulticastOperator = /** @class */ function () {
       function MulticastOperator(subjectFactory, selector) {
         this.subjectFactory = subjectFactory;
         this.selector = selector;
@@ -17424,7 +17424,7 @@
         return subscription;
       };
       return MulticastOperator;
-    }());
+    }();
     exports.MulticastOperator = MulticastOperator;
   });
 
@@ -17726,7 +17726,7 @@
       );
     }
     exports.onErrorResumeNextStatic = onErrorResumeNextStatic;
-    var OnErrorResumeNextOperator = /** @class */ (function () {
+    var OnErrorResumeNextOperator = /** @class */ function () {
       function OnErrorResumeNextOperator(nextSources) {
         this.nextSources = nextSources;
       }
@@ -17736,8 +17736,8 @@
         );
       };
       return OnErrorResumeNextOperator;
-    }());
-    var OnErrorResumeNextSubscriber = /** @class */ (function (_super) {
+    }();
+    var OnErrorResumeNextSubscriber = /** @class */ function (_super) {
       __extends(OnErrorResumeNextSubscriber, _super);
       function OnErrorResumeNextSubscriber(destination, nextSources) {
         var _this = _super.call(this, destination) || this;
@@ -17772,7 +17772,7 @@
           }
         };
       return OnErrorResumeNextSubscriber;
-    }(OuterSubscriber_1.OuterSubscriber));
+    }(OuterSubscriber_1.OuterSubscriber);
   });
 
   unwrapExports(onErrorResumeNext_1$1);
@@ -17931,20 +17931,20 @@
       };
     }
     exports.pairwise = pairwise;
-    var PairwiseOperator = /** @class */ (function () {
+    var PairwiseOperator = /** @class */ function () {
       function PairwiseOperator() {
       }
       PairwiseOperator.prototype.call = function (subscriber, source) {
         return source.subscribe(new PairwiseSubscriber(subscriber));
       };
       return PairwiseOperator;
-    }());
+    }();
     /**
      * We need this JSDoc comment for affecting ESDoc.
      * @ignore
      * @extends {Ignored}
      */
-    var PairwiseSubscriber = /** @class */ (function (_super) {
+    var PairwiseSubscriber = /** @class */ function (_super) {
       __extends(PairwiseSubscriber, _super);
       function PairwiseSubscriber(destination) {
         var _this = _super.call(this, destination) || this;
@@ -17960,7 +17960,7 @@
         this.prev = value;
       };
       return PairwiseSubscriber;
-    }(Subscriber_1.Subscriber));
+    }(Subscriber_1.Subscriber);
   });
 
   unwrapExports(pairwise_1);
@@ -18358,7 +18358,7 @@
     /**
      * @class BehaviorSubject<T>
      */
-    var BehaviorSubject = /** @class */ (function (_super) {
+    var BehaviorSubject = /** @class */ function (_super) {
       __extends(BehaviorSubject, _super);
       function BehaviorSubject(_value) {
         var _this = _super.call(this) || this;
@@ -18392,7 +18392,7 @@
         _super.prototype.next.call(this, this._value = value);
       };
       return BehaviorSubject;
-    }(Subject_1.Subject));
+    }(Subject_1.Subject);
     exports.BehaviorSubject = BehaviorSubject;
   });
 
@@ -18753,7 +18753,7 @@
       };
     }
     exports.repeat = repeat;
-    var RepeatOperator = /** @class */ (function () {
+    var RepeatOperator = /** @class */ function () {
       function RepeatOperator(count, source) {
         this.count = count;
         this.source = source;
@@ -18764,13 +18764,13 @@
         );
       };
       return RepeatOperator;
-    }());
+    }();
     /**
      * We need this JSDoc comment for affecting ESDoc.
      * @ignore
      * @extends {Ignored}
      */
-    var RepeatSubscriber = /** @class */ (function (_super) {
+    var RepeatSubscriber = /** @class */ function (_super) {
       __extends(RepeatSubscriber, _super);
       function RepeatSubscriber(destination, count, source) {
         var _this = _super.call(this, destination) || this;
@@ -18790,7 +18790,7 @@
         }
       };
       return RepeatSubscriber;
-    }(Subscriber_1.Subscriber));
+    }(Subscriber_1.Subscriber);
   });
 
   unwrapExports(repeat_1);
@@ -18871,7 +18871,7 @@
       };
     }
     exports.repeatWhen = repeatWhen;
-    var RepeatWhenOperator = /** @class */ (function () {
+    var RepeatWhenOperator = /** @class */ function () {
       function RepeatWhenOperator(notifier) {
         this.notifier = notifier;
       }
@@ -18881,13 +18881,13 @@
         );
       };
       return RepeatWhenOperator;
-    }());
+    }();
     /**
      * We need this JSDoc comment for affecting ESDoc.
      * @ignore
      * @extends {Ignored}
      */
-    var RepeatWhenSubscriber = /** @class */ (function (_super) {
+    var RepeatWhenSubscriber = /** @class */ function (_super) {
       __extends(RepeatWhenSubscriber, _super);
       function RepeatWhenSubscriber(destination, notifier, source) {
         var _this = _super.call(this, destination) || this;
@@ -18964,7 +18964,7 @@
         );
       };
       return RepeatWhenSubscriber;
-    }(OuterSubscriber_1.OuterSubscriber));
+    }(OuterSubscriber_1.OuterSubscriber);
   });
 
   unwrapExports(repeatWhen_1);
@@ -19049,7 +19049,7 @@
       };
     }
     exports.retry = retry;
-    var RetryOperator = /** @class */ (function () {
+    var RetryOperator = /** @class */ function () {
       function RetryOperator(count, source) {
         this.count = count;
         this.source = source;
@@ -19060,13 +19060,13 @@
         );
       };
       return RetryOperator;
-    }());
+    }();
     /**
      * We need this JSDoc comment for affecting ESDoc.
      * @ignore
      * @extends {Ignored}
      */
-    var RetrySubscriber = /** @class */ (function (_super) {
+    var RetrySubscriber = /** @class */ function (_super) {
       __extends(RetrySubscriber, _super);
       function RetrySubscriber(destination, count, source) {
         var _this = _super.call(this, destination) || this;
@@ -19086,7 +19086,7 @@
         }
       };
       return RetrySubscriber;
-    }(Subscriber_1.Subscriber));
+    }(Subscriber_1.Subscriber);
   });
 
   unwrapExports(retry_1);
@@ -19171,7 +19171,7 @@
       };
     }
     exports.retryWhen = retryWhen;
-    var RetryWhenOperator = /** @class */ (function () {
+    var RetryWhenOperator = /** @class */ function () {
       function RetryWhenOperator(notifier, source) {
         this.notifier = notifier;
         this.source = source;
@@ -19182,13 +19182,13 @@
         );
       };
       return RetryWhenOperator;
-    }());
+    }();
     /**
      * We need this JSDoc comment for affecting ESDoc.
      * @ignore
      * @extends {Ignored}
      */
-    var RetryWhenSubscriber = /** @class */ (function (_super) {
+    var RetryWhenSubscriber = /** @class */ function (_super) {
       __extends(RetryWhenSubscriber, _super);
       function RetryWhenSubscriber(destination, notifier, source) {
         var _this = _super.call(this, destination) || this;
@@ -19260,7 +19260,7 @@
         this.source.subscribe(this);
       };
       return RetryWhenSubscriber;
-    }(OuterSubscriber_1.OuterSubscriber));
+    }(OuterSubscriber_1.OuterSubscriber);
   });
 
   unwrapExports(retryWhen_1);
@@ -19362,7 +19362,7 @@
       };
     }
     exports.sample = sample;
-    var SampleOperator = /** @class */ (function () {
+    var SampleOperator = /** @class */ function () {
       function SampleOperator(notifier) {
         this.notifier = notifier;
       }
@@ -19378,13 +19378,13 @@
         return subscription;
       };
       return SampleOperator;
-    }());
+    }();
     /**
      * We need this JSDoc comment for affecting ESDoc.
      * @ignore
      * @extends {Ignored}
      */
-    var SampleSubscriber = /** @class */ (function (_super) {
+    var SampleSubscriber = /** @class */ function (_super) {
       __extends(SampleSubscriber, _super);
       function SampleSubscriber() {
         var _this = _super !== null && _super.apply(this, arguments) || this;
@@ -19414,7 +19414,7 @@
         }
       };
       return SampleSubscriber;
-    }(OuterSubscriber_1.OuterSubscriber));
+    }(OuterSubscriber_1.OuterSubscriber);
   });
 
   unwrapExports(sample_1);
@@ -19539,7 +19539,7 @@
       };
     }
     exports.sampleTime = sampleTime;
-    var SampleTimeOperator = /** @class */ (function () {
+    var SampleTimeOperator = /** @class */ function () {
       function SampleTimeOperator(period, scheduler) {
         this.period = period;
         this.scheduler = scheduler;
@@ -19550,13 +19550,13 @@
         );
       };
       return SampleTimeOperator;
-    }());
+    }();
     /**
      * We need this JSDoc comment for affecting ESDoc.
      * @ignore
      * @extends {Ignored}
      */
-    var SampleTimeSubscriber = /** @class */ (function (_super) {
+    var SampleTimeSubscriber = /** @class */ function (_super) {
       __extends(SampleTimeSubscriber, _super);
       function SampleTimeSubscriber(destination, period, scheduler) {
         var _this = _super.call(this, destination) || this;
@@ -19582,7 +19582,7 @@
         }
       };
       return SampleTimeSubscriber;
-    }(Subscriber_1.Subscriber));
+    }(Subscriber_1.Subscriber);
     function dispatchNotification(state) {
       var subscriber = state.subscriber, period = state.period;
       subscriber.notifyNext();
@@ -19791,7 +19791,7 @@
       };
     }
     exports.sequenceEqual = sequenceEqual;
-    var SequenceEqualOperator = /** @class */ (function () {
+    var SequenceEqualOperator = /** @class */ function () {
       function SequenceEqualOperator(compareTo, comparor) {
         this.compareTo = compareTo;
         this.comparor = comparor;
@@ -19806,14 +19806,14 @@
         );
       };
       return SequenceEqualOperator;
-    }());
+    }();
     exports.SequenceEqualOperator = SequenceEqualOperator;
     /**
      * We need this JSDoc comment for affecting ESDoc.
      * @ignore
      * @extends {Ignored}
      */
-    var SequenceEqualSubscriber = /** @class */ (function (_super) {
+    var SequenceEqualSubscriber = /** @class */ function (_super) {
       __extends(SequenceEqualSubscriber, _super);
       function SequenceEqualSubscriber(destination, compareTo, comparor) {
         var _this = _super.call(this, destination) || this;
@@ -19877,9 +19877,9 @@
         }
       };
       return SequenceEqualSubscriber;
-    }(Subscriber_1.Subscriber));
+    }(Subscriber_1.Subscriber);
     exports.SequenceEqualSubscriber = SequenceEqualSubscriber;
-    var SequenceEqualCompareToSubscriber = /** @class */ (function (_super) {
+    var SequenceEqualCompareToSubscriber = /** @class */ function (_super) {
       __extends(SequenceEqualCompareToSubscriber, _super);
       function SequenceEqualCompareToSubscriber(destination, parent) {
         var _this = _super.call(this, destination) || this;
@@ -19896,7 +19896,7 @@
         this.parent._complete();
       };
       return SequenceEqualCompareToSubscriber;
-    }(Subscriber_1.Subscriber));
+    }(Subscriber_1.Subscriber);
   });
 
   unwrapExports(sequenceEqual_1);
@@ -20171,7 +20171,7 @@
       };
     }
     exports.single = single;
-    var SingleOperator = /** @class */ (function () {
+    var SingleOperator = /** @class */ function () {
       function SingleOperator(predicate, source) {
         this.predicate = predicate;
         this.source = source;
@@ -20182,13 +20182,13 @@
         );
       };
       return SingleOperator;
-    }());
+    }();
     /**
      * We need this JSDoc comment for affecting ESDoc.
      * @ignore
      * @extends {Ignored}
      */
-    var SingleSubscriber = /** @class */ (function (_super) {
+    var SingleSubscriber = /** @class */ function (_super) {
       __extends(SingleSubscriber, _super);
       function SingleSubscriber(destination, predicate, source) {
         var _this = _super.call(this, destination) || this;
@@ -20233,7 +20233,7 @@
         }
       };
       return SingleSubscriber;
-    }(Subscriber_1.Subscriber));
+    }(Subscriber_1.Subscriber);
   });
 
   unwrapExports(single_1);
@@ -20314,7 +20314,7 @@
       };
     }
     exports.skip = skip;
-    var SkipOperator = /** @class */ (function () {
+    var SkipOperator = /** @class */ function () {
       function SkipOperator(total) {
         this.total = total;
       }
@@ -20322,13 +20322,13 @@
         return source.subscribe(new SkipSubscriber(subscriber, this.total));
       };
       return SkipOperator;
-    }());
+    }();
     /**
      * We need this JSDoc comment for affecting ESDoc.
      * @ignore
      * @extends {Ignored}
      */
-    var SkipSubscriber = /** @class */ (function (_super) {
+    var SkipSubscriber = /** @class */ function (_super) {
       __extends(SkipSubscriber, _super);
       function SkipSubscriber(destination, total) {
         var _this = _super.call(this, destination) || this;
@@ -20342,7 +20342,7 @@
         }
       };
       return SkipSubscriber;
-    }(Subscriber_1.Subscriber));
+    }(Subscriber_1.Subscriber);
   });
 
   unwrapExports(skip_1);
@@ -20439,7 +20439,7 @@
       };
     }
     exports.skipLast = skipLast;
-    var SkipLastOperator = /** @class */ (function () {
+    var SkipLastOperator = /** @class */ function () {
       function SkipLastOperator(_skipCount) {
         this._skipCount = _skipCount;
         if (this._skipCount < 0) {
@@ -20458,13 +20458,13 @@
         }
       };
       return SkipLastOperator;
-    }());
+    }();
     /**
      * We need this JSDoc comment for affecting ESDoc.
      * @ignore
      * @extends {Ignored}
      */
-    var SkipLastSubscriber = /** @class */ (function (_super) {
+    var SkipLastSubscriber = /** @class */ function (_super) {
       __extends(SkipLastSubscriber, _super);
       function SkipLastSubscriber(destination, _skipCount) {
         var _this = _super.call(this, destination) || this;
@@ -20487,7 +20487,7 @@
         }
       };
       return SkipLastSubscriber;
-    }(Subscriber_1.Subscriber));
+    }(Subscriber_1.Subscriber);
   });
 
   unwrapExports(skipLast_1);
@@ -20585,7 +20585,7 @@
       };
     }
     exports.skipUntil = skipUntil;
-    var SkipUntilOperator = /** @class */ (function () {
+    var SkipUntilOperator = /** @class */ function () {
       function SkipUntilOperator(notifier) {
         this.notifier = notifier;
       }
@@ -20595,13 +20595,13 @@
         );
       };
       return SkipUntilOperator;
-    }());
+    }();
     /**
      * We need this JSDoc comment for affecting ESDoc.
      * @ignore
      * @extends {Ignored}
      */
-    var SkipUntilSubscriber = /** @class */ (function (_super) {
+    var SkipUntilSubscriber = /** @class */ function (_super) {
       __extends(SkipUntilSubscriber, _super);
       function SkipUntilSubscriber(destination, notifier) {
         var _this = _super.call(this, destination) || this;
@@ -20638,7 +20638,7 @@
         }
       };
       return SkipUntilSubscriber;
-    }(OuterSubscriber_1.OuterSubscriber));
+    }(OuterSubscriber_1.OuterSubscriber);
   });
 
   unwrapExports(skipUntil_1);
@@ -20716,7 +20716,7 @@
       };
     }
     exports.skipWhile = skipWhile;
-    var SkipWhileOperator = /** @class */ (function () {
+    var SkipWhileOperator = /** @class */ function () {
       function SkipWhileOperator(predicate) {
         this.predicate = predicate;
       }
@@ -20726,13 +20726,13 @@
         );
       };
       return SkipWhileOperator;
-    }());
+    }();
     /**
      * We need this JSDoc comment for affecting ESDoc.
      * @ignore
      * @extends {Ignored}
      */
-    var SkipWhileSubscriber = /** @class */ (function (_super) {
+    var SkipWhileSubscriber = /** @class */ function (_super) {
       __extends(SkipWhileSubscriber, _super);
       function SkipWhileSubscriber(destination, predicate) {
         var _this = _super.call(this, destination) || this;
@@ -20759,7 +20759,7 @@
         }
       };
       return SkipWhileSubscriber;
-    }(Subscriber_1.Subscriber));
+    }(Subscriber_1.Subscriber);
   });
 
   unwrapExports(skipWhile_1);
@@ -20940,7 +20940,7 @@
      * @ignore
      * @extends {Ignored}
      */
-    var AsapAction = /** @class */ (function (_super) {
+    var AsapAction = /** @class */ function (_super) {
       __extends(AsapAction, _super);
       function AsapAction(scheduler, work) {
         var _this = _super.call(this, scheduler, work) || this;
@@ -20995,7 +20995,7 @@
         return undefined;
       };
       return AsapAction;
-    }(AsyncAction_1.AsyncAction));
+    }(AsyncAction_1.AsyncAction);
     exports.AsapAction = AsapAction;
   });
 
@@ -21024,7 +21024,7 @@
       })();
     Object.defineProperty(exports, "__esModule", { value: true });
 
-    var AsapScheduler = /** @class */ (function (_super) {
+    var AsapScheduler = /** @class */ function (_super) {
       __extends(AsapScheduler, _super);
       function AsapScheduler() {
         return _super !== null && _super.apply(this, arguments) || this;
@@ -21051,7 +21051,7 @@
         }
       };
       return AsapScheduler;
-    }(AsyncScheduler_1.AsyncScheduler));
+    }(AsyncScheduler_1.AsyncScheduler);
     exports.AsapScheduler = AsapScheduler;
   });
 
@@ -21128,7 +21128,7 @@
        * @extends {Ignored}
        * @hide true
        */
-      var SubscribeOnObservable = /** @class */ (function (_super) {
+      var SubscribeOnObservable = /** @class */ function (_super) {
         __extends(SubscribeOnObservable, _super);
         function SubscribeOnObservable(source, delayTime, scheduler) {
           if (delayTime === void 0) delayTime = 0;
@@ -21164,7 +21164,7 @@
           });
         };
         return SubscribeOnObservable;
-      }(Observable_1.Observable));
+      }(Observable_1.Observable);
       exports.SubscribeOnObservable = SubscribeOnObservable;
     },
   );
@@ -21193,7 +21193,7 @@
       };
     }
     exports.subscribeOn = subscribeOn;
-    var SubscribeOnOperator = /** @class */ (function () {
+    var SubscribeOnOperator = /** @class */ function () {
       function SubscribeOnOperator(scheduler, delay) {
         this.scheduler = scheduler;
         this.delay = delay;
@@ -21206,7 +21206,7 @@
         ).subscribe(subscriber);
       };
       return SubscribeOnOperator;
-    }());
+    }();
   });
 
   unwrapExports(subscribeOn_1);
@@ -21320,7 +21320,7 @@
       };
     }
     exports.switchMap = switchMap;
-    var SwitchMapOperator = /** @class */ (function () {
+    var SwitchMapOperator = /** @class */ function () {
       function SwitchMapOperator(project, resultSelector) {
         this.project = project;
         this.resultSelector = resultSelector;
@@ -21335,13 +21335,13 @@
         );
       };
       return SwitchMapOperator;
-    }());
+    }();
     /**
      * We need this JSDoc comment for affecting ESDoc.
      * @ignore
      * @extends {Ignored}
      */
-    var SwitchMapSubscriber = /** @class */ (function (_super) {
+    var SwitchMapSubscriber = /** @class */ function (_super) {
       __extends(SwitchMapSubscriber, _super);
       function SwitchMapSubscriber(destination, project, resultSelector) {
         var _this = _super.call(this, destination) || this;
@@ -21429,7 +21429,7 @@
         this.destination.next(result);
       };
       return SwitchMapSubscriber;
-    }(OuterSubscriber_1.OuterSubscriber));
+    }(OuterSubscriber_1.OuterSubscriber);
   });
 
   unwrapExports(switchMap_1);
@@ -21651,7 +21651,7 @@
       };
     }
     exports.switchMapTo = switchMapTo;
-    var SwitchMapToOperator = /** @class */ (function () {
+    var SwitchMapToOperator = /** @class */ function () {
       function SwitchMapToOperator(observable, resultSelector) {
         this.observable = observable;
         this.resultSelector = resultSelector;
@@ -21666,13 +21666,13 @@
         );
       };
       return SwitchMapToOperator;
-    }());
+    }();
     /**
      * We need this JSDoc comment for affecting ESDoc.
      * @ignore
      * @extends {Ignored}
      */
-    var SwitchMapToSubscriber = /** @class */ (function (_super) {
+    var SwitchMapToSubscriber = /** @class */ function (_super) {
       __extends(SwitchMapToSubscriber, _super);
       function SwitchMapToSubscriber(destination, inner, resultSelector) {
         var _this = _super.call(this, destination) || this;
@@ -21756,7 +21756,7 @@
         destination.next(result);
       };
       return SwitchMapToSubscriber;
-    }(OuterSubscriber_1.OuterSubscriber));
+    }(OuterSubscriber_1.OuterSubscriber);
   });
 
   unwrapExports(switchMapTo_1);
@@ -21890,7 +21890,7 @@
       };
     }
     exports.take = take;
-    var TakeOperator = /** @class */ (function () {
+    var TakeOperator = /** @class */ function () {
       function TakeOperator(total) {
         this.total = total;
         if (this.total < 0) {
@@ -21901,13 +21901,13 @@
         return source.subscribe(new TakeSubscriber(subscriber, this.total));
       };
       return TakeOperator;
-    }());
+    }();
     /**
      * We need this JSDoc comment for affecting ESDoc.
      * @ignore
      * @extends {Ignored}
      */
-    var TakeSubscriber = /** @class */ (function (_super) {
+    var TakeSubscriber = /** @class */ function (_super) {
       __extends(TakeSubscriber, _super);
       function TakeSubscriber(destination, total) {
         var _this = _super.call(this, destination) || this;
@@ -21927,7 +21927,7 @@
         }
       };
       return TakeSubscriber;
-    }(Subscriber_1.Subscriber));
+    }(Subscriber_1.Subscriber);
   });
 
   unwrapExports(take_1);
@@ -22104,7 +22104,7 @@
       };
     }
     exports.takeUntil = takeUntil;
-    var TakeUntilOperator = /** @class */ (function () {
+    var TakeUntilOperator = /** @class */ function () {
       function TakeUntilOperator(notifier) {
         this.notifier = notifier;
       }
@@ -22114,13 +22114,13 @@
         );
       };
       return TakeUntilOperator;
-    }());
+    }();
     /**
      * We need this JSDoc comment for affecting ESDoc.
      * @ignore
      * @extends {Ignored}
      */
-    var TakeUntilSubscriber = /** @class */ (function (_super) {
+    var TakeUntilSubscriber = /** @class */ function (_super) {
       __extends(TakeUntilSubscriber, _super);
       function TakeUntilSubscriber(destination, notifier) {
         var _this = _super.call(this, destination) || this;
@@ -22141,7 +22141,7 @@
         // noop
       };
       return TakeUntilSubscriber;
-    }(OuterSubscriber_1.OuterSubscriber));
+    }(OuterSubscriber_1.OuterSubscriber);
   });
 
   unwrapExports(takeUntil_1);
@@ -22265,7 +22265,7 @@
       };
     }
     exports.takeWhile = takeWhile;
-    var TakeWhileOperator = /** @class */ (function () {
+    var TakeWhileOperator = /** @class */ function () {
       function TakeWhileOperator(predicate) {
         this.predicate = predicate;
       }
@@ -22275,13 +22275,13 @@
         );
       };
       return TakeWhileOperator;
-    }());
+    }();
     /**
      * We need this JSDoc comment for affecting ESDoc.
      * @ignore
      * @extends {Ignored}
      */
-    var TakeWhileSubscriber = /** @class */ (function (_super) {
+    var TakeWhileSubscriber = /** @class */ function (_super) {
       __extends(TakeWhileSubscriber, _super);
       function TakeWhileSubscriber(destination, predicate) {
         var _this = _super.call(this, destination) || this;
@@ -22312,7 +22312,7 @@
         }
       };
       return TakeWhileSubscriber;
-    }(Subscriber_1.Subscriber));
+    }(Subscriber_1.Subscriber);
   });
 
   unwrapExports(takeWhile_1);
@@ -22453,7 +22453,7 @@
       };
     }
     exports.throttle = throttle;
-    var ThrottleOperator = /** @class */ (function () {
+    var ThrottleOperator = /** @class */ function () {
       function ThrottleOperator(durationSelector, leading, trailing) {
         this.durationSelector = durationSelector;
         this.leading = leading;
@@ -22470,13 +22470,13 @@
         );
       };
       return ThrottleOperator;
-    }());
+    }();
     /**
      * We need this JSDoc comment for affecting ESDoc
      * @ignore
      * @extends {Ignored}
      */
-    var ThrottleSubscriber = /** @class */ (function (_super) {
+    var ThrottleSubscriber = /** @class */ function (_super) {
       __extends(ThrottleSubscriber, _super);
       function ThrottleSubscriber(
         destination,
@@ -22567,7 +22567,7 @@
         this._unsubscribe();
       };
       return ThrottleSubscriber;
-    }(OuterSubscriber_1.OuterSubscriber));
+    }(OuterSubscriber_1.OuterSubscriber);
   });
 
   unwrapExports(throttle_1);
@@ -22711,7 +22711,7 @@
       };
     }
     exports.throttleTime = throttleTime;
-    var ThrottleTimeOperator = /** @class */ (function () {
+    var ThrottleTimeOperator = /** @class */ function () {
       function ThrottleTimeOperator(duration, scheduler, leading, trailing) {
         this.duration = duration;
         this.scheduler = scheduler;
@@ -22730,13 +22730,13 @@
         );
       };
       return ThrottleTimeOperator;
-    }());
+    }();
     /**
      * We need this JSDoc comment for affecting ESDoc.
      * @ignore
      * @extends {Ignored}
      */
-    var ThrottleTimeSubscriber = /** @class */ (function (_super) {
+    var ThrottleTimeSubscriber = /** @class */ function (_super) {
       __extends(ThrottleTimeSubscriber, _super);
       function ThrottleTimeSubscriber(
         destination,
@@ -22787,7 +22787,7 @@
         }
       };
       return ThrottleTimeSubscriber;
-    }(Subscriber_1.Subscriber));
+    }(Subscriber_1.Subscriber);
     function dispatchNext(arg) {
       var subscriber = arg.subscriber;
       subscriber.clearThrottle();
@@ -22888,15 +22888,15 @@
       };
     }
     exports.timeInterval = timeInterval;
-    var TimeInterval = /** @class */ (function () {
+    var TimeInterval = /** @class */ function () {
       function TimeInterval(value, interval) {
         this.value = value;
         this.interval = interval;
       }
       return TimeInterval;
-    }());
+    }();
     exports.TimeInterval = TimeInterval;
-    var TimeIntervalOperator = /** @class */ (function () {
+    var TimeIntervalOperator = /** @class */ function () {
       function TimeIntervalOperator(scheduler) {
         this.scheduler = scheduler;
       }
@@ -22906,13 +22906,13 @@
         );
       };
       return TimeIntervalOperator;
-    }());
+    }();
     /**
      * We need this JSDoc comment for affecting ESDoc.
      * @ignore
      * @extends {Ignored}
      */
-    var TimeIntervalSubscriber = /** @class */ (function (_super) {
+    var TimeIntervalSubscriber = /** @class */ function (_super) {
       __extends(TimeIntervalSubscriber, _super);
       function TimeIntervalSubscriber(destination, scheduler) {
         var _this = _super.call(this, destination) || this;
@@ -22928,7 +22928,7 @@
         this.destination.next(new TimeInterval(value, span));
       };
       return TimeIntervalSubscriber;
-    }(Subscriber_1.Subscriber));
+    }(Subscriber_1.Subscriber);
   });
 
   unwrapExports(timeInterval_1);
@@ -22993,7 +22993,7 @@
      *
      * @class TimeoutError
      */
-    var TimeoutError = /** @class */ (function (_super) {
+    var TimeoutError = /** @class */ function (_super) {
       __extends(TimeoutError, _super);
       function TimeoutError() {
         var _this = _super.call(this, "Timeout has occurred") || this;
@@ -23001,7 +23001,7 @@
         return _this;
       }
       return TimeoutError;
-    }(Error));
+    }(Error);
     exports.TimeoutError = TimeoutError;
   });
 
@@ -23110,7 +23110,7 @@
       };
     }
     exports.timeout = timeout;
-    var TimeoutOperator = /** @class */ (function () {
+    var TimeoutOperator = /** @class */ function () {
       function TimeoutOperator(
         waitFor,
         absoluteTimeout,
@@ -23134,13 +23134,13 @@
         );
       };
       return TimeoutOperator;
-    }());
+    }();
     /**
      * We need this JSDoc comment for affecting ESDoc.
      * @ignore
      * @extends {Ignored}
      */
-    var TimeoutSubscriber = /** @class */ (function (_super) {
+    var TimeoutSubscriber = /** @class */ function (_super) {
       __extends(TimeoutSubscriber, _super);
       function TimeoutSubscriber(
         destination,
@@ -23192,7 +23192,7 @@
         this.errorInstance = null;
       };
       return TimeoutSubscriber;
-    }(Subscriber_1.Subscriber));
+    }(Subscriber_1.Subscriber);
   });
 
   unwrapExports(timeout_1);
@@ -23370,7 +23370,7 @@
       };
     }
     exports.timeoutWith = timeoutWith;
-    var TimeoutWithOperator = /** @class */ (function () {
+    var TimeoutWithOperator = /** @class */ function () {
       function TimeoutWithOperator(
         waitFor,
         absoluteTimeout,
@@ -23394,13 +23394,13 @@
         );
       };
       return TimeoutWithOperator;
-    }());
+    }();
     /**
      * We need this JSDoc comment for affecting ESDoc.
      * @ignore
      * @extends {Ignored}
      */
-    var TimeoutWithSubscriber = /** @class */ (function (_super) {
+    var TimeoutWithSubscriber = /** @class */ function (_super) {
       __extends(TimeoutWithSubscriber, _super);
       function TimeoutWithSubscriber(
         destination,
@@ -23456,7 +23456,7 @@
         this.withObservable = null;
       };
       return TimeoutWithSubscriber;
-    }(OuterSubscriber_1.OuterSubscriber));
+    }(OuterSubscriber_1.OuterSubscriber);
   });
 
   unwrapExports(timeoutWith_1);
@@ -23547,13 +23547,13 @@
       // return (source: Observable<T>) => source.lift(new TimestampOperator(scheduler));
     }
     exports.timestamp = timestamp;
-    var Timestamp = /** @class */ (function () {
+    var Timestamp = /** @class */ function () {
       function Timestamp(value, timestamp) {
         this.value = value;
         this.timestamp = timestamp;
       }
       return Timestamp;
-    }());
+    }();
     exports.Timestamp = Timestamp;
   });
 
@@ -23717,7 +23717,7 @@
       };
     }
     exports.window = window;
-    var WindowOperator = /** @class */ (function () {
+    var WindowOperator = /** @class */ function () {
       function WindowOperator(windowBoundaries) {
         this.windowBoundaries = windowBoundaries;
       }
@@ -23735,13 +23735,13 @@
         return sourceSubscription;
       };
       return WindowOperator;
-    }());
+    }();
     /**
      * We need this JSDoc comment for affecting ESDoc.
      * @ignore
      * @extends {Ignored}
      */
-    var WindowSubscriber = /** @class */ (function (_super) {
+    var WindowSubscriber = /** @class */ function (_super) {
       __extends(WindowSubscriber, _super);
       function WindowSubscriber(destination) {
         var _this = _super.call(this, destination) || this;
@@ -23788,7 +23788,7 @@
         destination.next(newWindow);
       };
       return WindowSubscriber;
-    }(OuterSubscriber_1.OuterSubscriber));
+    }(OuterSubscriber_1.OuterSubscriber);
   });
 
   unwrapExports(window_1);
@@ -23929,7 +23929,7 @@
       };
     }
     exports.windowCount = windowCount;
-    var WindowCountOperator = /** @class */ (function () {
+    var WindowCountOperator = /** @class */ function () {
       function WindowCountOperator(windowSize, startWindowEvery) {
         this.windowSize = windowSize;
         this.startWindowEvery = startWindowEvery;
@@ -23944,13 +23944,13 @@
         );
       };
       return WindowCountOperator;
-    }());
+    }();
     /**
      * We need this JSDoc comment for affecting ESDoc.
      * @ignore
      * @extends {Ignored}
      */
-    var WindowCountSubscriber = /** @class */ (function (_super) {
+    var WindowCountSubscriber = /** @class */ function (_super) {
       __extends(WindowCountSubscriber, _super);
       function WindowCountSubscriber(
         destination,
@@ -24010,7 +24010,7 @@
         this.windows = null;
       };
       return WindowCountSubscriber;
-    }(Subscriber_1.Subscriber));
+    }(Subscriber_1.Subscriber);
   });
 
   unwrapExports(windowCount_1);
@@ -24136,7 +24136,7 @@
       };
     }
     exports.windowTime = windowTime;
-    var WindowTimeOperator = /** @class */ (function () {
+    var WindowTimeOperator = /** @class */ function () {
       function WindowTimeOperator(
         windowTimeSpan,
         windowCreationInterval,
@@ -24160,8 +24160,8 @@
         );
       };
       return WindowTimeOperator;
-    }());
-    var CountedSubject = /** @class */ (function (_super) {
+    }();
+    var CountedSubject = /** @class */ function (_super) {
       __extends(CountedSubject, _super);
       function CountedSubject() {
         var _this = _super !== null && _super.apply(this, arguments) || this;
@@ -24180,13 +24180,13 @@
         configurable: true,
       });
       return CountedSubject;
-    }(Subject_1.Subject));
+    }(Subject_1.Subject);
     /**
      * We need this JSDoc comment for affecting ESDoc.
      * @ignore
      * @extends {Ignored}
      */
-    var WindowTimeSubscriber = /** @class */ (function (_super) {
+    var WindowTimeSubscriber = /** @class */ function (_super) {
       __extends(WindowTimeSubscriber, _super);
       function WindowTimeSubscriber(
         destination,
@@ -24280,7 +24280,7 @@
         windows.splice(windows.indexOf(window), 1);
       };
       return WindowTimeSubscriber;
-    }(Subscriber_1.Subscriber));
+    }(Subscriber_1.Subscriber);
     function dispatchWindowTimeSpanOnly(state) {
       var subscriber = state.subscriber,
         windowTimeSpan = state.windowTimeSpan,
@@ -24436,7 +24436,7 @@
       };
     }
     exports.windowToggle = windowToggle;
-    var WindowToggleOperator = /** @class */ (function () {
+    var WindowToggleOperator = /** @class */ function () {
       function WindowToggleOperator(openings, closingSelector) {
         this.openings = openings;
         this.closingSelector = closingSelector;
@@ -24451,13 +24451,13 @@
         );
       };
       return WindowToggleOperator;
-    }());
+    }();
     /**
      * We need this JSDoc comment for affecting ESDoc.
      * @ignore
      * @extends {Ignored}
      */
-    var WindowToggleSubscriber = /** @class */ (function (_super) {
+    var WindowToggleSubscriber = /** @class */ function (_super) {
       __extends(WindowToggleSubscriber, _super);
       function WindowToggleSubscriber(destination, openings, closingSelector) {
         var _this = _super.call(this, destination) || this;
@@ -24579,7 +24579,7 @@
         subscription.unsubscribe();
       };
       return WindowToggleSubscriber;
-    }(OuterSubscriber_1.OuterSubscriber));
+    }(OuterSubscriber_1.OuterSubscriber);
   });
 
   unwrapExports(windowToggle_1);
@@ -24713,7 +24713,7 @@
       };
     }
     exports.windowWhen = windowWhen;
-    var WindowOperator = /** @class */ (function () {
+    var WindowOperator = /** @class */ function () {
       function WindowOperator(closingSelector) {
         this.closingSelector = closingSelector;
       }
@@ -24723,13 +24723,13 @@
         );
       };
       return WindowOperator;
-    }());
+    }();
     /**
      * We need this JSDoc comment for affecting ESDoc.
      * @ignore
      * @extends {Ignored}
      */
-    var WindowSubscriber = /** @class */ (function (_super) {
+    var WindowSubscriber = /** @class */ function (_super) {
       __extends(WindowSubscriber, _super);
       function WindowSubscriber(destination, closingSelector) {
         var _this = _super.call(this, destination) || this;
@@ -24798,7 +24798,7 @@
         }
       };
       return WindowSubscriber;
-    }(OuterSubscriber_1.OuterSubscriber));
+    }(OuterSubscriber_1.OuterSubscriber);
   });
 
   unwrapExports(windowWhen_1);
@@ -24938,7 +24938,7 @@
       };
     }
     exports.withLatestFrom = withLatestFrom;
-    var WithLatestFromOperator = /** @class */ (function () {
+    var WithLatestFromOperator = /** @class */ function () {
       function WithLatestFromOperator(observables, project) {
         this.observables = observables;
         this.project = project;
@@ -24953,13 +24953,13 @@
         );
       };
       return WithLatestFromOperator;
-    }());
+    }();
     /**
      * We need this JSDoc comment for affecting ESDoc.
      * @ignore
      * @extends {Ignored}
      */
-    var WithLatestFromSubscriber = /** @class */ (function (_super) {
+    var WithLatestFromSubscriber = /** @class */ function (_super) {
       __extends(WithLatestFromSubscriber, _super);
       function WithLatestFromSubscriber(destination, observables, project) {
         var _this = _super.call(this, destination) || this;
@@ -25024,7 +25024,7 @@
         this.destination.next(result);
       };
       return WithLatestFromSubscriber;
-    }(OuterSubscriber_1.OuterSubscriber));
+    }(OuterSubscriber_1.OuterSubscriber);
   });
 
   unwrapExports(withLatestFrom_1);
@@ -25169,7 +25169,7 @@
 
   var SubscriptionLog_1 = createCommonjsModule(function (module, exports) {
     Object.defineProperty(exports, "__esModule", { value: true });
-    var SubscriptionLog = /** @class */ (function () {
+    var SubscriptionLog = /** @class */ function () {
       function SubscriptionLog(subscribedFrame, unsubscribedFrame) {
         if (unsubscribedFrame === void 0) {
           unsubscribedFrame = Number.POSITIVE_INFINITY;
@@ -25178,7 +25178,7 @@
         this.unsubscribedFrame = unsubscribedFrame;
       }
       return SubscriptionLog;
-    }());
+    }();
     exports.SubscriptionLog = SubscriptionLog;
   });
 
@@ -25188,7 +25188,7 @@
   var SubscriptionLoggable_1 = createCommonjsModule(function (module, exports) {
     Object.defineProperty(exports, "__esModule", { value: true });
 
-    var SubscriptionLoggable = /** @class */ (function () {
+    var SubscriptionLoggable = /** @class */ function () {
       function SubscriptionLoggable() {
         this.subscriptions = [];
       }
@@ -25207,7 +25207,7 @@
         );
       };
       return SubscriptionLoggable;
-    }());
+    }();
     exports.SubscriptionLoggable = SubscriptionLoggable;
   });
 
@@ -25259,7 +25259,7 @@
      * @ignore
      * @extends {Ignored}
      */
-    var ColdObservable = /** @class */ (function (_super) {
+    var ColdObservable = /** @class */ function (_super) {
       __extends(ColdObservable, _super);
       function ColdObservable(messages, scheduler) {
         var _this = _super.call(this, function (subscriber) {
@@ -25293,7 +25293,7 @@
         }
       };
       return ColdObservable;
-    }(Observable_1.Observable));
+    }(Observable_1.Observable);
     exports.ColdObservable = ColdObservable;
     applyMixins_1.applyMixins(ColdObservable, [
       SubscriptionLoggable_1.SubscriptionLoggable,
@@ -25330,7 +25330,7 @@
      * @ignore
      * @extends {Ignored}
      */
-    var HotObservable = /** @class */ (function (_super) {
+    var HotObservable = /** @class */ function (_super) {
       __extends(HotObservable, _super);
       function HotObservable(messages, scheduler) {
         var _this = _super.call(this) || this;
@@ -25364,7 +25364,7 @@
         }
       };
       return HotObservable;
-    }(Subject_1.Subject));
+    }(Subject_1.Subject);
     exports.HotObservable = HotObservable;
     applyMixins_1.applyMixins(HotObservable, [
       SubscriptionLoggable_1.SubscriptionLoggable,
@@ -25396,7 +25396,7 @@
       })();
     Object.defineProperty(exports, "__esModule", { value: true });
 
-    var VirtualTimeScheduler = /** @class */ (function (_super) {
+    var VirtualTimeScheduler = /** @class */ function (_super) {
       __extends(VirtualTimeScheduler, _super);
       function VirtualTimeScheduler(SchedulerAction, maxFrames) {
         if (SchedulerAction === void 0) SchedulerAction = VirtualAction;
@@ -25433,14 +25433,14 @@
       };
       VirtualTimeScheduler.frameTimeFactor = 10;
       return VirtualTimeScheduler;
-    }(AsyncScheduler_1.AsyncScheduler));
+    }(AsyncScheduler_1.AsyncScheduler);
     exports.VirtualTimeScheduler = VirtualTimeScheduler;
     /**
      * We need this JSDoc comment for affecting ESDoc.
      * @ignore
      * @extends {Ignored}
      */
-    var VirtualAction = /** @class */ (function (_super) {
+    var VirtualAction = /** @class */ function (_super) {
       __extends(VirtualAction, _super);
       function VirtualAction(scheduler, work, index) {
         if (index === void 0) index = scheduler.index += 1;
@@ -25499,7 +25499,7 @@
         }
       };
       return VirtualAction;
-    }(AsyncAction_1.AsyncAction));
+    }(AsyncAction_1.AsyncAction);
     exports.VirtualAction = VirtualAction;
   });
 
@@ -25530,7 +25530,7 @@
     Object.defineProperty(exports, "__esModule", { value: true });
 
     var defaultMaxFrame = 750;
-    var TestScheduler = /** @class */ (function (_super) {
+    var TestScheduler = /** @class */ function (_super) {
       __extends(TestScheduler, _super);
       function TestScheduler(assertDeepEqual) {
         var _this = _super.call(
@@ -25828,7 +25828,7 @@
         return testMessages;
       };
       return TestScheduler;
-    }(VirtualTimeScheduler_1.VirtualTimeScheduler));
+    }(VirtualTimeScheduler_1.VirtualTimeScheduler);
     exports.TestScheduler = TestScheduler;
   });
 
@@ -25838,7 +25838,7 @@
   var AnimationFrame = createCommonjsModule(function (module, exports) {
     Object.defineProperty(exports, "__esModule", { value: true });
 
-    var RequestAnimationFrameDefinition = /** @class */ (function () {
+    var RequestAnimationFrameDefinition = /** @class */ function () {
       function RequestAnimationFrameDefinition(root$$1) {
         if (root$$1.requestAnimationFrame) {
           this.cancelAnimationFrame = root$$1.cancelAnimationFrame.bind(
@@ -25883,7 +25883,7 @@
         }
       }
       return RequestAnimationFrameDefinition;
-    }());
+    }();
     exports.RequestAnimationFrameDefinition = RequestAnimationFrameDefinition;
     exports.AnimationFrame = new RequestAnimationFrameDefinition(root.root);
   });
@@ -25919,7 +25919,7 @@
      * @ignore
      * @extends {Ignored}
      */
-    var AnimationFrameAction = /** @class */ (function (_super) {
+    var AnimationFrameAction = /** @class */ function (_super) {
       __extends(AnimationFrameAction, _super);
       function AnimationFrameAction(scheduler, work) {
         var _this = _super.call(this, scheduler, work) || this;
@@ -25983,7 +25983,7 @@
         return undefined;
       };
       return AnimationFrameAction;
-    }(AsyncAction_1.AsyncAction));
+    }(AsyncAction_1.AsyncAction);
     exports.AnimationFrameAction = AnimationFrameAction;
   });
 
@@ -26013,7 +26013,7 @@
         })();
       Object.defineProperty(exports, "__esModule", { value: true });
 
-      var AnimationFrameScheduler = /** @class */ (function (_super) {
+      var AnimationFrameScheduler = /** @class */ function (_super) {
         __extends(AnimationFrameScheduler, _super);
         function AnimationFrameScheduler() {
           return _super !== null && _super.apply(this, arguments) || this;
@@ -26040,7 +26040,7 @@
           }
         };
         return AnimationFrameScheduler;
-      }(AsyncScheduler_1.AsyncScheduler));
+      }(AsyncScheduler_1.AsyncScheduler);
       exports.AnimationFrameScheduler = AnimationFrameScheduler;
     },
   );
