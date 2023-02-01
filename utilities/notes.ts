@@ -2,7 +2,7 @@ import { extract } from "$std/encoding/front_matter.ts";
 import { join } from "$std/path/mod.ts";
 
 import * as b2 from "@/utilities/b2.ts";
-import { BLOG_ROOT } from "@/constants.ts";
+import { BLOG_ROOT, FEATURE } from "@/constants.ts";
 const notes = {};
 
 interface Note {
@@ -15,11 +15,15 @@ interface Note {
 }
 
 export async function getNotes(): Promise<Note[]> {
-  const notePromises = (await b2.getNotes())
-    .map(({ fileName }) => getNote(fileName));
-  const notes = await Promise.all(notePromises) as Note[];
-  notes.sort((a, b) => b.published.getTime() - a.published.getTime());
-  return notes;
+  if (FEATURE.B2) {
+    const notePromises = (await b2.getNotes())
+      .map(({ fileName }) => getNote(fileName));
+    const notes = await Promise.all(notePromises) as Note[];
+    notes.sort((a, b) => b.published.getTime() - a.published.getTime());
+    return notes;
+  } else {
+    return await Promise.all(["vx1.md", "weblinks.md"].map(getNote));
+  }
 }
 
 export async function getNote(slug: string): Promise<Note | null> {

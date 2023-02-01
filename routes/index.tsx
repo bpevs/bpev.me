@@ -1,5 +1,4 @@
 import { Handlers, PageProps } from "$fresh/server.ts";
-
 import { getNotes, Note } from "@/utilities/notes.ts";
 
 export const handler: Handlers<Note[]> = {

@@ -11,7 +11,7 @@ Usage:
 
 ```sh
 cd www
-deno task start
+deno task start --dev
 ```
 
 # \*.bpev.me apps

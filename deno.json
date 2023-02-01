@@ -1,8 +1,8 @@
 {
   "importMap": "./import_map.json",
   "tasks": {
-    "dev": "deno run -A --watch=static/,routes/ dev.ts",
-    "start": "deno run -A main.ts",
+    "dev": "deno run -A --watch=static/,routes/ dev.ts --env=DEVELOPMENT",
+    "start": "deno run -A main.ts --dev=PRODUCTION",
     "start:maps": "deno run --allow-read --allow-env --allow-net --watch apps/map/serve.ts"
   },
 
