@@ -5,7 +5,7 @@ import Only from "@/components/only.tsx";
 import Login from "@/components/login.tsx";
 import Editor from "@/islands/editor.tsx";
 
-export const handler: Handlers<Note> = {
+export const handler: Handlers<{ note: Note }> = {
   async GET(_req, ctx) {
     const note = await getNote(ctx.params.slug);
     if (!note) return ctx.renderNotFound();

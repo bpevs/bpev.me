@@ -1,8 +1,9 @@
-import { MiddlewareHandlerContext, Request } from "$fresh/server.ts";
+import { MiddlewareHandlerContext } from "$fresh/server.ts";
 import { getCookies } from "$std/http/cookie.ts";
 
 export const handler = [
   logging,
+  auth,
 ];
 
 async function logging(
@@ -16,16 +17,16 @@ async function logging(
   return res;
 }
 
-async function auth(
+function auth(
   req: Request,
   ctx: MiddlewareHandlerContext,
 ): Promise<Response> {
-  if (new Regexp("(\/edit|/\/dashboard)").test(req.url)) {
+  if (new RegExp("(\/edit|\/new)").test(req.url)) {
     const isAllowed = getCookies(req.headers).auth === "bar";
     if (!isAllowed) {
       const url = new URL(req.url);
-      url.pathname = "/dashboard";
-      return Response.redirect(url, 307);
+      url.pathname = "/";
+      return Promise.resolve(Response.redirect(url, 307));
     }
   }
   return ctx.next();

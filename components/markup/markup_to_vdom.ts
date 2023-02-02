@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { VNode } from "preact";
 
 import parseMarkup from "./parse_markup.ts";

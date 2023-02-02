@@ -1,3 +1,4 @@
+// @ts-nocheck
 // Adapted from: https://github.com/developit/preact-markup
 
 import {
@@ -25,7 +26,7 @@ type Props = {
   components?: Components;
   onError?: (error: { error: Error }) => void;
   "allow-scripts"?: boolean;
-  "allow-events"?: booleanan;
+  "allow-events"?: boolean;
   [key: string]: any;
 };
 

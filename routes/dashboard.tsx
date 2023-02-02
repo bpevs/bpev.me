@@ -1,40 +1,26 @@
 import type { Handlers, PageProps } from "$fresh/server.ts";
 import { getCookies } from "$std/http/cookie.ts";
 import Login from "@/components/login.tsx";
-import Only from "@/components/Only.tsx";
+import Only from "@/components/only.tsx";
+import Page from "@/components/page.tsx";
 
 export const handler: Handlers<Data> = {
   GET(req, ctx) {
-    const isAllowed = getCookies(req.headers).auth === "bar";
-    return ctx.render!({ isAllowed });
+    const isAuthorized = getCookies(req.headers).auth === "bar";
+    return ctx.render!({ isAuthorized });
   },
 };
 
 interface Data {
-  isAllowed: boolean;
+  isAuthorized: boolean;
 }
 
 export default function Home({ data }: PageProps<Data>) {
-  if (!data.isAllowed) return <Login />;
   return (
-    <body
-      data-color-mode="auto"
-      data-light-theme="light"
-      data-dark-theme="dark"
-    >
-      <nav>
-        <ul>
-          <li>
-            <a href="/">Home</a>
-          </li>
-          <li>
-            <a href="/note/new">New Note</a>
-          </li>
-          <li>
-            <a href="/api/logout">Logout</a>
-          </li>
-        </ul>
-      </nav>
-    </body>
+    <Page isAuthorized={data.isAuthorized}>
+      <Only if={!data.isAuthorized}>
+        <Login />
+      </Only>
+    </Page>
   );
 }

@@ -5,18 +5,28 @@ import {
   B2_APPLICATION_KEY,
   B2_BLOG_BUCKET_ID as bucketId,
   B2_KEY_ID,
-  FEATURE,
 } from "../constants.ts";
+import type { Note } from "./notes.ts";
 
 const POST = "POST";
-let upload, apiUrl, authorizationToken;
+let upload: {
+  uploadUrl: string;
+  authorizationToken: string;
+};
+let apiUrl: string;
+let authorizationToken: string;
 
 export async function getNotes() {
-  return (await basicReq<>("/b2api/v2/b2_list_file_names")).files;
+  return (await basicReq<any>("/b2api/v2/b2_list_file_names")).files;
 }
 
-export async function postNote(note: Note) {
-  if (!upload) upload = await basicReq("/b2api/v2/b2_get_upload_url");
+export async function postNote(note: any) {
+  if (!upload) {
+    upload = await basicReq<{
+      uploadUrl: string;
+      authorizationToken: string;
+    }>("/b2api/v2/b2_get_upload_url");
+  }
   const { uploadUrl, authorizationToken: Authorization } = upload;
 
   const body = new TextEncoder().encode(note.body);
@@ -25,10 +35,10 @@ export async function postNote(note: Note) {
     Authorization,
     "X-Bz-File-Name": encodeURI(note.path),
     "Content-Type": "text/markdown",
-    "Content-Length": body.length + hash.length,
+    "Content-Length": String(body.length + hash.length),
     "X-Bz-Content-Sha1": hash,
   });
-  return (await fetch(url, { headers, body, method: POST })).json();
+  return (await fetch(uploadUrl, { headers, body, method: POST })).json();
 }
 
 const EXPIRED_AUTH = 401;
@@ -59,14 +69,15 @@ async function basicReq<T>(path: string): Promise<T> {
   }
 }
 
-let AUTH_TTL = 24 * 60 * 60;
-async function authorize(): Promise<any> {
+async function authorize(): Promise<{
+  apiUrl: string;
+  authorizationToken: string;
+}> {
   const AUTH_URL = "https://api.backblazeb2.com/b2api/v2/b2_authorize_account";
   const Authorization = `Basic ${encode(B2_KEY_ID + ":" + B2_APPLICATION_KEY)}`;
   const response = await (await fetch(AUTH_URL, {
     method: "GET",
     headers: new Headers({ Authorization }),
-    withCredentials: true,
     credentials: "include",
   })).json();
   apiUrl = response.apiUrl;

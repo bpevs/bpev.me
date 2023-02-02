@@ -2,32 +2,43 @@ import { Handlers, PageProps } from "$fresh/server.ts";
 import { getCookies } from "$std/http/cookie.ts";
 import Markup from "@/components/markup/index.ts";
 import Only from "@/components/only.tsx";
+import Page from "@/components/page.tsx";
 import { getNote, Note } from "@/utilities/notes.ts";
 
-export const handler: Handlers<Note> = {
+interface Props {
+  note: Note;
+  isAuthorized: boolean;
+}
+
+export const handler: Handlers<Props> = {
   async GET(req, ctx) {
     const note = await getNote(ctx.params.slug);
-    const isAllowed = getCookies(req.headers).auth === "bar";
     if (!note) return ctx.renderNotFound();
-    return ctx.render!({ isAllowed, note });
+    const isAuthorized = getCookies(req.headers).auth === "bar";
+    return ctx.render!({ note, isAuthorized });
   },
 };
 
-export default function NotePage(props: PageProps<Note>) {
+export default function NotePage(props: PageProps<Props>) {
+  const { isAuthorized, note } = props.data;
   return (
-    <body
-      data-color-mode="auto"
-      data-light-theme="light"
-      data-dark-theme="dark"
+    <Page
+      isAuthorized={isAuthorized}
+      navItems={
+        <Only if={isAuthorized}>
+          <li>
+            <a href={`${note.slug}/edit`}>Edit Note</a>
+          </li>
+        </Only>
+      }
     >
-      <Only if={props.data.isAllowed}>
-        <a href={`${props.data.note.slug}/edit`}>Edit</a>
-      </Only>
-      <Markup
-        class="markdown-body"
-        markup={props.data.note.content}
-        type="html"
-      />
-    </body>
+      <main style={{ paddingTop: "20px", paddingBottom: "20px" }}>
+        <Markup
+          class="markdown-body"
+          markup={note.content}
+          type="html"
+        />
+      </main>
+    </Page>
   );
 }

@@ -1,18 +1,15 @@
 import { useCallback, useEffect, useRef } from "preact/hooks";
 import { useSignal } from "@preact/signals";
 import { IS_BROWSER } from "$fresh/runtime.ts";
-
-const EASY_MDE = "https://cdn.jsdelivr.net/npm/easymde/dist";
+import { Note } from "@/utilities/notes.ts";
 
 export default function Editor({ note }: { note?: Note }) {
-  const content = note?.content;
-  const title = note?.title;
-  const published = note?.published;
+  const textRef = useRef<HTMLTextAreaElement>(null);
+  const { content, title, published } = note || {};
 
-  const textRef = useRef();
   useEffect(() => {
     async function loadEasyMDE() {
-      if (IS_BROWSER && textRef.current) {
+      if (IS_BROWSER && textRef?.current) {
         const EasyMDE = (await import(
           "https://cdn.jsdelivr.net/npm/easymde/dist/easymde.min.js"
         )).default;
@@ -26,7 +23,7 @@ export default function Editor({ note }: { note?: Note }) {
     loadEasyMDE();
   }, [textRef]);
 
-  if (!IS_BROWSER) return <div>hello</div>;
+  if (!IS_BROWSER) return <div />;
 
   return (
     <div className="editor">
@@ -44,15 +41,13 @@ export default function Editor({ note }: { note?: Note }) {
         <label for="title">title</label>
         <input type="title" name="title" value={title} />
         <label for="published">published</label>
-        <input type="published" name="published" value={published} />
-        <label for="content">content</label>
-        <textarea
-          ref={textRef}
-          type="content"
-          name="content"
-          rows="20"
-          cols="60"
+        <input
+          type="published"
+          name="published"
+          value={(published || "").toString()}
         />
+        <label for="content">content</label>
+        <textarea ref={textRef} name="content" rows={20} cols={60} />
         <button type="submit" style={{ width: "5em" }}>Submit</button>
       </form>
       <link

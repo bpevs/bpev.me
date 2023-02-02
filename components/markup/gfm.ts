@@ -1,3 +1,4 @@
+// @ts-nocheck
 // Adapted from: https://github.com/denoland/deno-gfm
 
 import { emojify } from "emoji";

@@ -17,18 +17,19 @@ export const BLOG_ROOT = isProd
   : "file://Users/ben/desktop/notes";
 
 const FEATURE: {
-  B2: boolean;
-  DASHBOARD: boolean;
+  [key: string]: boolean;
 } = {
   B2: true,
   DASHBOARD: true,
 };
 
-Object.keys(FEATURE).forEach((key) => {
+Object.keys(FEATURE).forEach((key: string) => {
   const value = Deno.env.get(`FEATURE_${key}`);
   if (typeof value === "boolean") FEATURE[key] = value;
-  else if (value.toLowerCase() === "true") FEATURE[key] = true;
-  else if (value.toLowerCase() === "false") FEATURE[key] = false;
+  if (typeof value === "string") {
+    if (value.toLowerCase() === "true") FEATURE[key] = true;
+    if (value.toLowerCase() === "false") FEATURE[key] = false;
+  }
 });
 
 Object.freeze(FEATURE);

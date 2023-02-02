@@ -3,9 +3,9 @@ import { join } from "$std/path/mod.ts";
 
 import * as b2 from "@/utilities/b2.ts";
 import { BLOG_ROOT, FEATURE } from "@/constants.ts";
-const notes = {};
+const notesCache: { [slug: string]: Note } = {};
 
-interface Note {
+export interface Note {
   slug: string;
   title: string;
   published: Date;
@@ -17,35 +17,40 @@ interface Note {
 export async function getNotes(): Promise<Note[]> {
   if (FEATURE.B2) {
     const notePromises = (await b2.getNotes())
-      .map(({ fileName }) => getNote(fileName.replace(/\.md$/, "")));
-    const notes = await Promise.all(notePromises) as Note[];
+      .map(({ fileName }: { fileName: string }) =>
+        getNote(fileName.replace(/\.md$/, ""))
+      );
+    const notes = (await Promise.all(notePromises)).filter(Boolean) as Note[];
     notes.sort((a, b) => b.published.getTime() - a.published.getTime());
     return notes;
   } else {
-    return await Promise.all(["vx1", "weblinks"].map(getNote));
+    return (await Promise.all(["vx1", "weblinks"].map(getNote))).filter(
+      Boolean,
+    ) as Note[];
   }
 }
 
 export async function getNote(slug: string): Promise<Note | null> {
-  if (!notes[slug]) {
+  if (!notesCache[slug]) {
+    if (!BLOG_ROOT) throw new Error("no BLOG_ROOT");
     const noteURI = join(BLOG_ROOT, slug + ".md");
     const text = await (await fetch(noteURI)).text();
     if (!text) return null;
     const { attrs, body } = extract(text);
-    notes[slug] = {
+    notesCache[slug] = {
       slug,
-      title: attrs.title,
-      published: new Date(attrs.published),
-      updated: new Date(attrs.updated),
+      title: String(attrs.title),
+      published: new Date(attrs.published as any),
+      updated: new Date(attrs.updated as any),
       content: body,
-      snippet: attrs.snippet,
+      snippet: String(attrs.snippet) || "",
     };
   }
 
-  return notes[slug];
+  return notesCache[slug];
 }
 
-export async function postNote(note: Note): Promise<void> {
+export function postNote(note: Note): Promise<void> {
   const path = `${note.slug}.md`;
   const body = "---\n" +
     `published: ${note.published}\n` +
@@ -53,5 +58,5 @@ export async function postNote(note: Note): Promise<void> {
     "---\n" +
     note.content;
 
-  return uploadNote({ path, body });
+  return b2.postNote({ path, body });
 }

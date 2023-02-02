@@ -1,3 +1,4 @@
+// @ts-nocheck
 const EMPTY_OBJ = {};
 
 // deeply convert an XML DOM to VDOM

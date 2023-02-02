@@ -1,5 +1,3 @@
-import { onCallback } from "preact/hooks";
-
 export default function Login() {
   return (
     <form id="login" method="post" name="login" action="/api/login">

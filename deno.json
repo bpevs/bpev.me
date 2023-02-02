@@ -12,6 +12,12 @@
     }
   },
 
+  "lint": {
+    "files": {
+      "exclude": ["apps/", "components/markup"]
+    }
+  },
+
   "compilerOptions": {
     "jsx": "react-jsx",
     "jsxImportSource": "preact"

@@ -11,6 +11,18 @@ a {
   color: var(--color-fg-default);
 }
 
+nav ul {
+  display: flex;
+  flex-direction: row;
+  align-content: flex-start;
+  list-style: none;
+}
+
+nav ul li {
+  text-decoration: underline;
+  padding: 0 40px 0 0;
+}
+
 .markdown-body {
   max-width: 34rem;
   margin: auto;
