@@ -17,18 +17,18 @@ interface Note {
 export async function getNotes(): Promise<Note[]> {
   if (FEATURE.B2) {
     const notePromises = (await b2.getNotes())
-      .map(({ fileName }) => getNote(fileName));
+      .map(({ fileName }) => getNote(fileName.replace(/\.md$/, "")));
     const notes = await Promise.all(notePromises) as Note[];
     notes.sort((a, b) => b.published.getTime() - a.published.getTime());
     return notes;
   } else {
-    return await Promise.all(["vx1.md", "weblinks.md"].map(getNote));
+    return await Promise.all(["vx1", "weblinks"].map(getNote));
   }
 }
 
 export async function getNote(slug: string): Promise<Note | null> {
   if (!notes[slug]) {
-    const noteURI = join(BLOG_ROOT, slug);
+    const noteURI = join(BLOG_ROOT, slug + ".md");
     const text = await (await fetch(noteURI)).text();
     if (!text) return null;
     const { attrs, body } = extract(text);

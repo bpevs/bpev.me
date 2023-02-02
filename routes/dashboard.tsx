@@ -17,17 +17,24 @@ interface Data {
 export default function Home({ data }: PageProps<Data>) {
   if (!data.isAllowed) return <Login />;
   return (
-    <div>
+    <body
+      data-color-mode="auto"
+      data-light-theme="light"
+      data-dark-theme="dark"
+    >
       <nav>
         <ul>
           <li>
-            <a href="/edit/note">New Note</a>
+            <a href="/">Home</a>
+          </li>
+          <li>
+            <a href="/note/new">New Note</a>
           </li>
           <li>
             <a href="/api/logout">Logout</a>
           </li>
         </ul>
       </nav>
-    </div>
+    </body>
   );
 }

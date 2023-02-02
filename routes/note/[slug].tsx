@@ -21,7 +21,7 @@ export default function NotePage(props: PageProps<Note>) {
       data-dark-theme="dark"
     >
       <Only if={props.data.isAllowed}>
-        <a href={`/edit/note/${props.data.note.slug}`}>Edit</a>
+        <a href={`${props.data.note.slug}/edit`}>Edit</a>
       </Only>
       <Markup
         class="markdown-body"

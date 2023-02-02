@@ -9,10 +9,7 @@ import {
 } from "../constants.ts";
 
 const POST = "POST";
-const { apiUrl, authorizationToken } = FEATURE.B2 ? await authorize() : {};
-
-const headers = new Headers({ Authorization: authorizationToken });
-let upload;
+let upload, apiUrl, authorizationToken;
 
 export async function getNotes() {
   return (await basicReq<>("/b2api/v2/b2_list_file_names")).files;
@@ -36,13 +33,25 @@ export async function postNote(note: Note) {
 
 const EXPIRED_AUTH = 401;
 async function basicReq<T>(path: string): Promise<T> {
-  const options = { method: POST, headers, body: JSON.stringify({ bucketId }) };
   try {
     if (!apiUrl) await authorize();
-    return (await fetch(apiUrl + path, options)).json();
+    const headers = new Headers({ Authorization: authorizationToken });
+    const options = {
+      method: POST,
+      headers,
+      body: JSON.stringify({ bucketId }),
+    };
+    const response = await (await fetch(apiUrl + path, options)).json();
+    return response;
   } catch (e) {
     if (e.status === EXPIRED_AUTH) {
       await authorize();
+      const headers = new Headers({ Authorization: authorizationToken });
+      const options = {
+        method: POST,
+        headers,
+        body: JSON.stringify({ bucketId }),
+      };
       return (await fetch(apiUrl + path, options)).json();
     } else {
       throw new Error(e);
@@ -54,12 +63,13 @@ let AUTH_TTL = 24 * 60 * 60;
 async function authorize(): Promise<any> {
   const AUTH_URL = "https://api.backblazeb2.com/b2api/v2/b2_authorize_account";
   const Authorization = `Basic ${encode(B2_KEY_ID + ":" + B2_APPLICATION_KEY)}`;
-
   const response = await (await fetch(AUTH_URL, {
     method: "GET",
     headers: new Headers({ Authorization }),
     withCredentials: true,
     credentials: "include",
   })).json();
+  apiUrl = response.apiUrl;
+  authorizationToken = response.authorizationToken;
   return response;
 }
