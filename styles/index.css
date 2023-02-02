@@ -34,3 +34,7 @@ a {
   white-space: pre;
   text-transform: none;
 }
+
+.editor-toolbar {
+  background-color: white;
+}

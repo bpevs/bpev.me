@@ -2,12 +2,13 @@
 
 import { Handlers } from "$fresh/server.ts";
 import { setCookie } from "$std/http/cookie.ts";
+import { AUTH_KEY, isProd } from "@/constants.ts";
 
 export const handler: Handlers = {
   async POST(req) {
     const url = new URL(req.url);
     const form = await req.formData();
-    if (form.get("username") === "deno" && form.get("password") === "land") {
+    if (form.get("password") === AUTH_KEY) {
       const headers = new Headers();
       setCookie(headers, {
         name: "auth",
@@ -15,11 +16,12 @@ export const handler: Handlers = {
         maxAge: 120,
         sameSite: "Lax", // this is important to prevent CSRF attacks
         domain: url.hostname,
-        path: "/dashboard",
-        secure: true,
+        path: "/",
+        secure: isProd,
       });
 
       headers.set("location", "/dashboard");
+
       return new Response(null, {
         status: 303, // "See Other"
         headers,

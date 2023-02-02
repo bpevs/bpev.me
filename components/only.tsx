@@ -5,7 +5,7 @@ export interface OnlyProps {
   children: preact.VNode | string | (preact.VNode | string)[];
 }
 
-export function Only({ if: predicate, children }: OnlyProps) {
+export default function Only({ if: predicate, children }: OnlyProps) {
   return (
     <Fragment>
       {predicate ? children : null}

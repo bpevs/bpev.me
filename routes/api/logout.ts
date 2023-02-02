@@ -6,7 +6,6 @@ export const handler: Handlers = {
     const url = new URL(req.url);
     const headers = new Headers(req.headers);
     deleteCookie(headers, "auth", { path: "/dashboard", domain: url.hostname });
-
     headers.set("location", "/dashboard");
     return new Response(null, {
       status: 302,

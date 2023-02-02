@@ -29,7 +29,7 @@ export default function NotesIndexPage(props: PageProps<Note[]>) {
 function NoteCard({ note }: { note: Note }) {
   return (
     <li>
-      <a href={`/notes/${note.slug}`}>
+      <a href={`/note/${note.slug}`}>
         <span>{note.title} –</span>
         <time>
           {new Date(note.published).toLocaleDateString("en-us", {

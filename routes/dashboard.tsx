@@ -1,11 +1,12 @@
 import type { Handlers, PageProps } from "$fresh/server.ts";
 import { getCookies } from "$std/http/cookie.ts";
 import Login from "@/components/login.tsx";
+import Only from "@/components/Only.tsx";
 
 export const handler: Handlers<Data> = {
   GET(req, ctx) {
-    const cookies = getCookies(req.headers);
-    return ctx.render!({ isAllowed: cookies.auth === "bar" });
+    const isAllowed = getCookies(req.headers).auth === "bar";
+    return ctx.render!({ isAllowed });
   },
 };
 
@@ -14,10 +15,19 @@ interface Data {
 }
 
 export default function Home({ data }: PageProps<Data>) {
+  if (!data.isAllowed) return <Login />;
   return (
     <div>
-      {!data.isAllowed ? <Login /> : <a href="/api/logout">Logout</a>}
-      {data.isAllowed ? "Here is some secret" : "You are not allowed here"}
+      <nav>
+        <ul>
+          <li>
+            <a href="/edit/note">New Note</a>
+          </li>
+          <li>
+            <a href="/api/logout">Logout</a>
+          </li>
+        </ul>
+      </nav>
     </div>
   );
 }

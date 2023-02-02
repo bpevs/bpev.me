@@ -8,7 +8,6 @@ import { InnerRenderFunction, RenderContext, start } from "$fresh/server.ts";
 import { CSS } from "./components/markup/style.js";
 import manifest from "./fresh.gen.ts";
 import * as log from "$std/log/mod.ts";
-import { isDev } from "./constants.ts";
 
 await log.setup({
   handlers: {

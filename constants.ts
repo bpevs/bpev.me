@@ -4,6 +4,7 @@ import { parse } from "$std/flags/mod.ts";
 export const isDev = parse(Deno.args).env === "DEVELOPMENT";
 export const isProd = parse(Deno.args).env === "PRODUCTION";
 
+export const AUTH_KEY = Deno.env.get("AUTH_KEY");
 export const B2_KEY_ID = Deno.env.get("B2_KEY_ID");
 export const B2_KEY_NAME = Deno.env.get("B2_KEY_NAME");
 export const B2_APPLICATION_KEY = Deno.env.get("B2_APPLICATION_KEY");
