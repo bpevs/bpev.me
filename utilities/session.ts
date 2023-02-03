@@ -8,7 +8,7 @@ export default store;
 export function createSessionId() {
   const id = v1.generate();
   store.add(id);
-  return id;
+  return id.toString();
 }
 export function hasSessionId(id: string) {
   return store.has(id);

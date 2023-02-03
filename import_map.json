@@ -11,7 +11,7 @@
     "@preact/signals-core": "https://esm.sh/*@preact/signals-core@1.0.1",
     "@preact/markup": "https://esm.sh/preact-markup@2.1.1",
     "tiny-markdown-editor": "https://esm.sh/tiny-markdown-editor",
-    "static/": "./static/",
+    "bcrypt": "https://deno.land/x/bcrypt/mod.ts",
 
     "emoji": "https://deno.land/x/emoji@0.2.1/mod.ts",
     "marked": "https://esm.sh/marked@4.2.12",

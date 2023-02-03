@@ -21,7 +21,11 @@ export async function getNotes(): Promise<Note[]> {
         getNote(fileName.replace(/\.md$/, ""))
       );
     const notes = (await Promise.all(notePromises)).filter(Boolean) as Note[];
-    notes.sort((a, b) => b.published.getTime() - a.published.getTime());
+    notes.sort((a, b) => {
+      if (a?.published == null) return -1;
+      else if (b?.published == null) return 1;
+      else return b.published.getTime() - a.published.getTime();
+    });
     return notes;
   } else {
     return (await Promise.all(["vx1", "weblinks"].map(getNote))).filter(
@@ -57,7 +61,7 @@ export async function postNote(note: Note): Promise<void> {
     `title: ${note.title}\n` +
     "---\n" +
     note.content;
-  const result = b2.postNote({ path, body });
+  const result = await b2.postNote({ path, body });
   delete notesCache[note.slug];
   return result;
 }

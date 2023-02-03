@@ -28,7 +28,7 @@ export default function Editor(props: { note?: Note }) {
     loadEasyMDE();
   }, [textRef]);
 
-  const onSubmit = useCallback(async (e) => {
+  const onSubmit = useCallback(async (e: Event) => {
     e.preventDefault();
     const content = tinyMDE?.current?.getContent!() || "";
     const nextNote = { ...note.value, content, updated: new Date() };
@@ -39,7 +39,7 @@ export default function Editor(props: { note?: Note }) {
     location.replace(location.href.replace("/edit", "/"));
   }, [note, tinyMDE]);
 
-  const onChangeMeta = useCallback((e) => {
+  const onChangeMeta = useCallback((e: Event) => {
     const { name, value } = e.target as HTMLInputElement;
     if (name === "published") note.value[name] = value ? new Date(value) : null;
     else note.value[name] = value;

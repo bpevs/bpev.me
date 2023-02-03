@@ -5,19 +5,16 @@
     "start": "deno run -A main.ts --dev=PRODUCTION",
     "start:maps": "deno run --allow-read --allow-env --allow-net --watch apps/map/serve.ts"
   },
-
   "fmt": {
     "options": {
       "proseWrap": "never"
     }
   },
-
   "lint": {
     "files": {
       "exclude": ["apps/", "components/markup"]
     }
   },
-
   "compilerOptions": {
     "jsx": "react-jsx",
     "jsxImportSource": "preact"
