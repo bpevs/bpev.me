@@ -15,7 +15,6 @@ export interface Note {
 }
 
 export async function getNotes(): Promise<Note[]> {
-  console.log(FEATURE);
   if (FEATURE.B2) {
     const notePromises = (await b2.getNotes())
       .map(({ fileName }: { fileName: string }) =>

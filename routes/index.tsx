@@ -1,5 +1,5 @@
 import { Handlers, PageProps } from "$fresh/server.ts";
-import { getCookies } from "$std/http/cookie.ts";
+import { isAuthorized } from "@/utilities/session.ts";
 import { getNotes, Note } from "@/utilities/notes.ts";
 import Page from "@/components/page.tsx";
 
@@ -11,8 +11,7 @@ interface Props {
 export const handler: Handlers<Props> = {
   async GET(req, ctx) {
     const notes = await getNotes();
-    const isAuthorized = getCookies(req.headers).auth === "bar";
-    return ctx.render!({ isAuthorized, notes });
+    return ctx.render!({ isAuthorized: isAuthorized(req), notes });
   },
 };
 

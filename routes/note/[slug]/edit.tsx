@@ -1,5 +1,4 @@
 import { Handlers, PageProps } from "$fresh/server.ts";
-import { getCookies } from "$std/http/cookie.ts";
 import { getNote, Note } from "@/utilities/notes.ts";
 import Only from "@/components/only.tsx";
 import Login from "@/components/login.tsx";

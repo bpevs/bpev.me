@@ -2,6 +2,7 @@
 import { Handlers } from "$fresh/server.ts";
 import { setCookie } from "$std/http/cookie.ts";
 import { AUTH_KEY, isProd } from "@/constants.ts";
+import { createSessionId } from "@/utilities/session.ts";
 
 export const handler: Handlers = {
   async POST(req) {
@@ -11,9 +12,9 @@ export const handler: Handlers = {
       const headers = new Headers();
       setCookie(headers, {
         name: "auth",
-        value: "bar", // this should be a unique value for each session
+        value: createSessionId(),
         maxAge: 120000,
-        sameSite: "Lax", // this is important to prevent CSRF attacks
+        sameSite: "Strict", // this is important to prevent CSRF attacks
         domain: url.hostname,
         path: "/",
         secure: isProd,

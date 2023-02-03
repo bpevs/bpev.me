@@ -1,5 +1,5 @@
 import { MiddlewareHandlerContext } from "$fresh/server.ts";
-import { getCookies } from "$std/http/cookie.ts";
+import { isAuthorized } from "@/utilities/session.ts";
 
 export const handler = [
   logging,
@@ -22,8 +22,7 @@ function auth(
   ctx: MiddlewareHandlerContext,
 ): Promise<Response> {
   if (new RegExp("(/edit|/new|/api/note)").test(req.url)) {
-    const isAllowed = getCookies(req.headers).auth === "bar";
-    if (!isAllowed) {
+    if (!isAuthorized(req)) {
       const url = new URL(req.url);
       url.pathname = "/";
       return Promise.resolve(Response.redirect(url, 307));

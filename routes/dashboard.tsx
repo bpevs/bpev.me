@@ -1,13 +1,12 @@
 import type { Handlers, PageProps } from "$fresh/server.ts";
-import { getCookies } from "$std/http/cookie.ts";
 import Login from "@/components/login.tsx";
 import Only from "@/components/only.tsx";
 import Page from "@/components/page.tsx";
+import { isAuthorized } from "@/utilities/session.ts";
 
 export const handler: Handlers<Data> = {
   GET(req, ctx) {
-    const isAuthorized = getCookies(req.headers).auth === "bar";
-    return ctx.render!({ isAuthorized });
+    return ctx.render!({ isAuthorized: isAuthorized(req) });
   },
 };
 
