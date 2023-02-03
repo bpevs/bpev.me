@@ -1,5 +1,4 @@
 // https://deno.com/blog/setup-auth-with-fresh
-
 import { Handlers } from "$fresh/server.ts";
 import { setCookie } from "$std/http/cookie.ts";
 import { AUTH_KEY, isProd } from "@/constants.ts";

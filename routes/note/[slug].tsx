@@ -33,11 +33,7 @@ export default function NotePage(props: PageProps<Props>) {
       }
     >
       <main style={{ paddingTop: "20px", paddingBottom: "20px" }}>
-        <Markup
-          class="markdown-body"
-          markup={note.content}
-          type="html"
-        />
+        <Markup class="markdown-body" markup={note.content} type="html" />
       </main>
     </Page>
   );

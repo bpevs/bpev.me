@@ -5,7 +5,6 @@
 /// <reference lib="deno.ns" />
 
 import { InnerRenderFunction, RenderContext, start } from "$fresh/server.ts";
-import { CSS } from "./components/markup/style.js";
 import manifest from "./fresh.gen.ts";
 import * as log from "$std/log/mod.ts";
 
@@ -23,10 +22,11 @@ await log.setup({
 });
 
 const stylesheet = await Deno.readTextFile("./styles/index.css");
+const theme = await Deno.readTextFile("./styles/theme.css");
 
 function render(ctx: RenderContext, innerRender: InnerRenderFunction) {
   innerRender();
-  ctx.styles.splice(0, ctx.styles.length, CSS, stylesheet);
+  ctx.styles.splice(0, ctx.styles.length, theme, stylesheet);
 }
 
 await start(manifest, { render });

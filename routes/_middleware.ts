@@ -21,7 +21,7 @@ function auth(
   req: Request,
   ctx: MiddlewareHandlerContext,
 ): Promise<Response> {
-  if (new RegExp("(\/edit|\/new)").test(req.url)) {
+  if (new RegExp("(/edit|/new|/api/note)").test(req.url)) {
     const isAllowed = getCookies(req.headers).auth === "bar";
     if (!isAllowed) {
       const url = new URL(req.url);

@@ -12,7 +12,7 @@ export default function markupToVdom(
   type: string, // [type=xml]  A type to use when parsing `markup`. Either `xml` or `html`.
   reviver: (...args: any[]) => any, // The JSX/hyperscript reviver (`h` function) to use. For example, Preact's `h` or `ReactDOM.createElement`.
   map?: { [name: string]: VNode }, // Optional map of custom element names to Components or variant element names.
-  options?: { trim: boolean; allowEvents: boolean; allowScripts },
+  options?: { allowEvents: boolean; allowScripts },
 ) {
   const dom = parseMarkup(markup, type);
   if (dom?.error) throw new Error(dom.error);

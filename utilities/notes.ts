@@ -6,15 +6,16 @@ import { BLOG_ROOT, FEATURE } from "@/constants.ts";
 const notesCache: { [slug: string]: Note } = {};
 
 export interface Note {
-  slug: string;
   title: string;
-  published: Date;
-  updated: Date;
   content: string;
-  snippet: string;
+  slug: string;
+  published?: Date | null;
+  snippet?: string | null;
+  updated?: Date;
 }
 
 export async function getNotes(): Promise<Note[]> {
+  console.log(FEATURE);
   if (FEATURE.B2) {
     const notePromises = (await b2.getNotes())
       .map(({ fileName }: { fileName: string }) =>
@@ -50,13 +51,14 @@ export async function getNote(slug: string): Promise<Note | null> {
   return notesCache[slug];
 }
 
-export function postNote(note: Note): Promise<void> {
+export async function postNote(note: Note): Promise<void> {
   const path = `${note.slug}.md`;
   const body = "---\n" +
     `published: ${note.published}\n` +
     `title: ${note.title}\n` +
     "---\n" +
     note.content;
-
-  return b2.postNote({ path, body });
+  const result = b2.postNote({ path, body });
+  delete notesCache[note.slug];
+  return result;
 }

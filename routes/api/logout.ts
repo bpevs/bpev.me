@@ -3,13 +3,10 @@ import { deleteCookie } from "$std/http/cookie.ts";
 
 export const handler: Handlers = {
   GET(req) {
-    const url = new URL(req.url);
+    const domain = (new URL(req.url)).hostname;
     const headers = new Headers(req.headers);
-    deleteCookie(headers, "auth", { path: "/", domain: url.hostname });
+    deleteCookie(headers, "auth", { path: "/", domain });
     headers.set("location", "/");
-    return new Response(null, {
-      status: 302,
-      headers,
-    });
+    return new Response(null, { status: 302, headers });
   },
 };

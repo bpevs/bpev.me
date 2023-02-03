@@ -68,14 +68,12 @@ export default class Markup extends Component<Props, {}> {
       onError,
       "allow-scripts": allowScripts,
       "allow-events": allowEvents,
-      trim,
       ...props
     }: props,
     {},
   ): VNode {
-    const markupHTML = render(markup, { allowIframes: true });
-
-    const options = { allowScripts, allowEvents, trim };
+    const markupHTML = render(markup);
+    const options = { allowScripts, allowEvents };
     const customH = reviver || this.reviver ||
       this.constructor.prototype.reviver ||
       customReviver || h;

@@ -2,10 +2,11 @@
 // Adapted from: https://github.com/denoland/deno-gfm
 
 import { emojify } from "emoji";
+import { escape as htmlEscape } from "he";
 import sanitizeHtml from "sanitize";
-import htmlEscape from "he";
 import * as Marked from "marked";
-import { default as Prism } from "prism";
+import Prism from "prism";
+import "prism/components/prism-typescript?no-check";
 
 class Renderer extends Marked.Renderer {
   heading(
@@ -51,7 +52,6 @@ class Renderer extends Marked.Renderer {
 export interface RenderOptions {
   baseUrl?: string;
   mediaBaseUrl?: string;
-  allowIframes?: boolean;
 }
 
 export function render(markdown: string, opts: RenderOptions = {}): string {
@@ -76,10 +76,8 @@ export function render(markdown: string, opts: RenderOptions = {}): string {
     "del",
     "details",
     "summary",
+    "iframe",
   ]);
-  if (opts.allowIframes) {
-    allowedTags.push("iframe");
-  }
 
   function transformMedia(tagName: string, attribs: sanitizeHtml.Attributes) {
     if (opts.mediaBaseUrl && attribs.src) {
@@ -100,7 +98,7 @@ export function render(markdown: string, opts: RenderOptions = {}): string {
     allowedTags,
     allowedAttributes: {
       ...sanitizeHtml.defaults.allowedAttributes,
-      audio: ["src", "controls"],
+      audio: ["src", "controls", "preload"],
       img: ["src", "alt", "height", "width", "align"],
       video: [
         "src",
@@ -122,7 +120,6 @@ export function render(markdown: string, opts: RenderOptions = {}): string {
       h4: ["id"],
       h5: ["id"],
       h6: ["id"],
-      // Only used when iframe tags are allowed in the first place.
       iframe: [
         "src",
         "width",
@@ -133,7 +130,7 @@ export function render(markdown: string, opts: RenderOptions = {}): string {
       ],
     },
     allowedClasses: {
-      div: ["highlight", "highlight-source-*", "notranslate"],
+      div: ["highlight", "highlight-source-*", "notranslate", "*"],
       span: [
         "token",
         "keyword",

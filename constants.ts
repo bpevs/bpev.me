@@ -12,9 +12,7 @@ export const B2_APPLICATION_KEY = Deno.env.get("B2_APPLICATION_KEY");
 export const B2_BLOG_BUCKET_ID = Deno.env.get("B2_BUCKET_ID_BLOG");
 export const B2_STATIC_BUCKET_ID = Deno.env.get("B2_BUCKET_ID_STATIC");
 
-export const BLOG_ROOT = isProd
-  ? Deno.env.get("URL.BLOG")
-  : "file://Users/ben/desktop/notes";
+export const BLOG_ROOT = Deno.env.get("URL_BLOG");
 
 const FEATURE: {
   [key: string]: boolean;

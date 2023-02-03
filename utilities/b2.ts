@@ -28,7 +28,6 @@ export async function postNote(note: any) {
     }>("/b2api/v2/b2_get_upload_url");
   }
   const { uploadUrl, authorizationToken: Authorization } = upload;
-
   const body = new TextEncoder().encode(note.body);
   const hash = toHashString(await crypto.subtle.digest("SHA-1", body));
   const headers = new Headers({
@@ -45,24 +44,20 @@ const EXPIRED_AUTH = 401;
 async function basicReq<T>(path: string): Promise<T> {
   try {
     if (!apiUrl) await authorize();
-    const headers = new Headers({ Authorization: authorizationToken });
-    const options = {
+    const response = await (await fetch(apiUrl + path, {
       method: POST,
-      headers,
+      headers: new Headers({ Authorization: authorizationToken }),
       body: JSON.stringify({ bucketId }),
-    };
-    const response = await (await fetch(apiUrl + path, options)).json();
+    })).json();
     return response;
   } catch (e) {
     if (e.status === EXPIRED_AUTH) {
       await authorize();
-      const headers = new Headers({ Authorization: authorizationToken });
-      const options = {
+      return (await fetch(apiUrl + path, {
         method: POST,
-        headers,
+        headers: new Headers({ Authorization: authorizationToken }),
         body: JSON.stringify({ bucketId }),
-      };
-      return (await fetch(apiUrl + path, options)).json();
+      })).json();
     } else {
       throw new Error(e);
     }

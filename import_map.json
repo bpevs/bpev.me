@@ -10,11 +10,13 @@
     "@preact/signals": "https://esm.sh/*@preact/signals@1.0.3",
     "@preact/signals-core": "https://esm.sh/*@preact/signals-core@1.0.1",
     "@preact/markup": "https://esm.sh/preact-markup@2.1.1",
+    "tiny-markdown-editor": "https://esm.sh/tiny-markdown-editor",
     "static/": "./static/",
 
     "emoji": "https://deno.land/x/emoji@0.2.1/mod.ts",
     "marked": "https://esm.sh/marked@4.2.12",
     "prism": "https://esm.sh/prismjs@1.29.0",
+    "prism/": "https://esm.sh/prismjs@1.29.0/",
     "sanitize": "https://esm.sh/sanitize-html@2.8.1",
     "he": "https://esm.sh/he@1.2.0"
   }
