@@ -1,8 +1,9 @@
+import { h } from "preact"
 // @ts-nocheck
 const EMPTY_OBJ = {}
 
 // deeply convert an XML DOM to VDOM
-export default function toVdom(node, visitor, h, options) {
+export default function toVdom(node, visitor, options) {
   walk.visitor = visitor
   walk.h = h
   walk.options = options || EMPTY_OBJ

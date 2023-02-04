@@ -9,7 +9,6 @@ import {
   h,
   VNode,
 } from 'preact'
-import { render } from '@/utilities/markdown/gfm.ts'
 import markupToVdom from '@/utilities/markdown/markup_to_vdom.ts'
 
 type Components = Record<
@@ -18,11 +17,10 @@ type Components = Record<
 >
 
 type Props = {
-  type?: string
   trim?: boolean
   wrap?: boolean
   reviver?: typeof createElement
-  markup: string
+  html: string
   components?: Components
   onError?: (error: { error: Error }) => void
   'allow-scripts'?: boolean
@@ -61,8 +59,7 @@ export default class Markup extends Component<Props, {}> {
   render(
     {
       wrap = true,
-      type,
-      markup,
+      html,
       components,
       reviver,
       onError,
@@ -72,7 +69,6 @@ export default class Markup extends Component<Props, {}> {
     }: props,
     {},
   ): VNode {
-    const markupHTML = render(markup)
     const options = { allowScripts, allowEvents }
     const customH = reviver || this.reviver ||
       this.constructor.prototype.reviver ||
@@ -82,7 +78,7 @@ export default class Markup extends Component<Props, {}> {
     this.setComponents(components)
 
     try {
-      vdom = markupToVdom(markupHTML, type, customH, this.map, options)
+      vdom = markupToVdom(html, customH, this.map, options)
     } catch (error) {
       if (onError) onError({ error })
       else if (console?.error) console.error(`preact-markup: ${error}`)

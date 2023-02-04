@@ -54,7 +54,7 @@ export interface RenderOptions {
   mediaBaseUrl?: string
 }
 
-export function render(markdown: string, opts: RenderOptions = {}): string {
+export async function render(markdown: string, opts: RenderOptions = {}): string {
   opts.mediaBaseUrl ??= opts.baseUrl
   markdown = emojify(markdown)
 
@@ -62,7 +62,7 @@ export function render(markdown: string, opts: RenderOptions = {}): string {
     baseUrl: opts.baseUrl,
     renderer: new Renderer(),
     pedantic: true,
+    async: true
   })
-
   return html
 }

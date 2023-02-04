@@ -22,7 +22,7 @@ export default function Editor(props: { note?: Note }) {
           'https://unpkg.com/tiny-markdown-editor@0.1.5/dist/tiny-mde.min.js'
         )).default
         tinyMDE.current = new TinyMDE.Editor({ element: textRef.current })
-        tinyMDE.current.setContent(props?.note?.content || '')
+        tinyMDE.current.setContent(props?.note?.content?.commonmark || '')
       }
     }
     loadEasyMDE()
@@ -30,7 +30,7 @@ export default function Editor(props: { note?: Note }) {
 
   const onSubmit = useCallback(async (e: Event) => {
     e.preventDefault()
-    const content = tinyMDE?.current?.getContent!() || ''
+    const content = { commonmark: tinyMDE?.current?.getContent!() || '' };
     const nextNote = { ...note.value, content, updated: new Date() }
     await fetch(`/api/note/${slug}`, {
       method: 'POST',

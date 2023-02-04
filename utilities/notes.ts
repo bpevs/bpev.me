@@ -1,17 +1,29 @@
 import { extract } from '$std/encoding/front_matter.ts'
 import { join } from '$std/path/mod.ts'
+import { markdownToHtml, markdownToPlaintext } from "parsedown";
+import {render} from './markdown/gfm.ts'
 
 import * as b2 from '@/utilities/b2.ts'
 import { BLOG_ROOT, FEATURE } from '@/constants.ts'
 const notesCache: { [slug: string]: Note } = {}
 
+if (!BLOG_ROOT) throw new Error('no BLOG_ROOT')
+
 export interface Note {
-  title: string
-  content: string
   slug: string
+  title: string
   published?: Date | null
-  snippet?: string | null
   updated?: Date
+  lastChecked?: Date
+  content: {
+    commonmark: string;
+    html?: string;
+    text?: string;
+  };
+  statistics?: {
+    reading_time?: number;
+    word_count?: number;
+  };
 }
 
 export async function getNotes(): Promise<Note[]> {
@@ -34,20 +46,26 @@ export async function getNotes(): Promise<Note[]> {
   }
 }
 
+const ONE_DAY = 8.64e+7;
 export async function getNote(slug: string): Promise<Note | null> {
-  if (!notesCache[slug]) {
-    if (!BLOG_ROOT) throw new Error('no BLOG_ROOT')
-    const noteURI = join(BLOG_ROOT, slug + '.md')
-    const text = await (await fetch(noteURI)).text()
-    if (!text) return null
-    const { attrs, body } = extract(text)
+  const note = notesCache[slug];
+  if (!note || ((Date.now() - note?.lastChecked) > ONE_DAY)) {
+    const composite = await (await fetch(join(BLOG_ROOT, slug + '.md'))).text()
+    if (!composite) return null
+    const { attrs, body: commonmark } = extract(composite)
+    const [text, { html, headings, statistics }, gfm] = await Promise.all([
+      markdownToPlaintext(commonmark),
+      markdownToHtml(commonmark),
+      render(commonmark)
+    ]);
     notesCache[slug] = {
       slug,
       title: String(attrs.title),
       published: new Date(attrs.published as any),
       updated: new Date(attrs.updated as any),
-      content: body,
-      snippet: String(attrs.snippet) || '',
+      content: { commonmark, html: gfm, text },
+      statistics,
+      lastChecked: Date.now()
     }
   }
 
@@ -60,7 +78,7 @@ export async function postNote(note: Note): Promise<void> {
     `published: ${note.published}\n` +
     `title: "${note.title}"\n` +
     '---\n' +
-    note.content
+    note.content.commonmark
   const result = await b2.postNote({ path, body })
   delete notesCache[note.slug]
   return result

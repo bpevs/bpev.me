@@ -12,7 +12,7 @@
     "@preact/markup": "https://esm.sh/preact-markup@2.1.1",
     "tiny-markdown-editor": "https://esm.sh/tiny-markdown-editor",
     "bcrypt": "https://deno.land/x/bcrypt/mod.ts",
-
+    "parsedown": "https://deno.land/x/parsedown@1.3.1/mod.ts",
     "emoji": "https://deno.land/x/emoji@0.2.1/mod.ts",
     "marked": "https://esm.sh/marked@4.2.12",
     "prism": "https://esm.sh/prismjs@1.29.0",

@@ -11,7 +11,7 @@ export default function Playlist({ src }: { src: string }) {
 
   console.log('tracks', tracks.value)
   return (
-    <div>
+    <div>loading...{count.value}<button onClick={()=> count.value++}>+</button>
     </div>
   )
 }
