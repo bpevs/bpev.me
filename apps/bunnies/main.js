@@ -17,8 +17,12 @@ let { port, host, wait } = await esbuild.serve(
   entryPoints: ['source/index.js'],
   outdir: 'dist',
   format: 'esm',
+  metafile: true,
   bundle: true,
   treeShaking: true,
+  splitting: true,
+  write: false,
+  target: ["chrome99", "firefox99", "safari15"],
   plugins: [denoPlugin({ importMapURL })]
 });
 
