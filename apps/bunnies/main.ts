@@ -19,7 +19,7 @@ const esbuild: typeof esbuildWasm = Deno.run === undefined
 
 const root = dirname(fromFileUrl(import.meta.url))
 const index = join(root, 'index.html')
-const absWorkingDir = Deno.cwd()
+const absWorkingDir = Deno.cwd().replace("src/", "/");
 const cache = new Map()
 const absDirUrlLength = toFileUrl(absWorkingDir).href.length
 
