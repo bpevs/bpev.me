@@ -7,14 +7,16 @@ import {
   resolve,
   toFileUrl,
 } from '$std/path/mod.ts'
-
-import { denoPlugin } from 'esbuild_deno_loader'
 // @deno-types="https://deno.land/x/esbuild@v0.14.51/mod.d.ts"
-import * as esbuildWasm from 'esbuild/wasm.js'
-import * as esbuildNative from 'esbuild/mod.js'
+import * as esbuildWasm from "https://deno.land/x/esbuild@v0.14.51/wasm.js";
+import * as esbuildNative from "https://deno.land/x/esbuild@v0.14.51/mod.js";
+// @ts-ignore trust me
+const esbuild: typeof esbuildWasm = Deno.run === undefined
+  ? esbuildWasm
+  : esbuildNative;
+import { denoPlugin } from "https://deno.land/x/esbuild_deno_loader@0.5.2/mod.ts";
 
 // @ts-ignore
-const esbuild = Deno.run === undefined ? esbuildWasm : esbuildNative
 const importMapURL = new URL('file://' + resolve('./import_map.json'))
 const absWorkingDir = Deno.cwd()
 const cache = new Map()
