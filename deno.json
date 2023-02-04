@@ -12,7 +12,7 @@
       "semiColons": false
     },
     "files": {
-      "exclude": ["apps/", "components/markup"]
+      "exclude": ["components/markup"]
     }
   },
   "lint": {

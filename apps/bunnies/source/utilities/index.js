@@ -1,4 +1,4 @@
-import { fromEvent } from "rxjs";
+import { fromEvent } from 'rxjs'
 
 /**
  * Attaches reactive events to dom elements.

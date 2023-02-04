@@ -1,4 +1,4 @@
-import {Sprite} from 'pixi'
+import { Sprite } from 'pixi'
 import { random } from '../utilities/index.js'
 
 /**

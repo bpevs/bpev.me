@@ -1,5 +1,5 @@
-import { debounce } from "$std/async/debounce.ts";
-import { concatMap, takeUntil } from "rxjs";
+import { debounce } from '$std/async/debounce.ts'
+import { concatMap, takeUntil } from 'rxjs'
 import { BaseScene } from './BaseScene.js'
 import { Bunny } from '../entities/Bunny.js'
 import { addListeners, distance, random } from '../utilities/index.js'
@@ -47,7 +47,7 @@ export const BunnyScene = Object.assign(BaseScene, {
     // For as long as the mouse is over the screen, listen for mousemove events.
     this.mouseovers
       .pipe(
-        concatMap(() => this.mousemoves.pipe(takeUntil(this.mouseouts)))
+        concatMap(() => this.mousemoves.pipe(takeUntil(this.mouseouts))),
       )
       // For each mousemove event...
       .subscribe((pos) => {
