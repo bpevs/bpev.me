@@ -39,6 +39,7 @@ const bundle = await esbuild.build({
   plugins: [denoPlugin()],
 })
 
+console.log(absWorkingDir);
 for (const file of bundle.outputFiles) {
   cache.set(
     toFileUrl(file.path).href.substring(absDirUrlLength),
