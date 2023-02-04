@@ -29,7 +29,7 @@ await ensureEsbuildInitialized()
 
 const bundle = await esbuild.build({
   entryPoints: [ new URL('./source/index.js', import.meta.url).href ],
-  outdir: 'dist',
+  outdir: '.',
   format: 'esm',
   bundle: true,
   treeShaking: true,
