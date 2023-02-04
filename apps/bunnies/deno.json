@@ -1,5 +1,4 @@
 {
-  "importMap": "./import_map.json",
   "fmt": {
     "options": {
       "proseWrap": "never",

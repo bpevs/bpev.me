@@ -1,5 +1,5 @@
-import { debounce } from '$std/async/debounce.ts'
-import { concatMap, takeUntil } from 'rxjs'
+import { debounce } from 'https://deno.land/std@0.173.0/async/debounce.ts'
+import { concatMap, takeUntil } from 'https://esm.sh/rxjs@7.8.0?target=es2020'
 import { BaseScene } from './BaseScene.js'
 import { Bunny } from '../entities/Bunny.js'
 import { addListeners, distance, random } from '../utilities/index.js'

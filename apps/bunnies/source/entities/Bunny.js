@@ -1,4 +1,4 @@
-import { Sprite } from 'pixi'
+import { Sprite } from 'https://esm.sh/pixi.js@7.1.2?target=es2020'
 import { random } from '../utilities/index.js'
 
 /**

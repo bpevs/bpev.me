@@ -1,23 +1,24 @@
 // deno run --allow-read --allow-net main.js
-import { serve } from '$std/http/server.ts'
+import { serve } from 'https://deno.land/std@0.173.0/http/server.ts'
 import {
   dirname,
   fromFileUrl,
   join,
   resolve,
   toFileUrl,
-} from '$std/path/mod.ts'
+} from 'https://deno.land/std@0.173.0/path/mod.ts'
 // @deno-types="https://deno.land/x/esbuild@v0.14.51/mod.d.ts"
-import * as esbuildWasm from "https://deno.land/x/esbuild@v0.14.51/wasm.js";
-import * as esbuildNative from "https://deno.land/x/esbuild@v0.14.51/mod.js";
+import * as esbuildWasm from 'https://deno.land/x/esbuild@v0.14.51/wasm.js'
+import * as esbuildNative from 'https://deno.land/x/esbuild@v0.14.51/mod.js'
+import { denoPlugin } from 'https://deno.land/x/esbuild_deno_loader@0.5.2/mod.ts'
+
 // @ts-ignore trust me
 const esbuild: typeof esbuildWasm = Deno.run === undefined
   ? esbuildWasm
-  : esbuildNative;
-import { denoPlugin } from "https://deno.land/x/esbuild_deno_loader@0.5.2/mod.ts";
+  : esbuildNative
 
-// @ts-ignore
-const importMapURL = new URL('file://' + resolve('./import_map.json'))
+const root = dirname(fromFileUrl(import.meta.url))
+const index = join(root, 'index.html')
 const absWorkingDir = Deno.cwd()
 const cache = new Map()
 const absDirUrlLength = toFileUrl(absWorkingDir).href.length
@@ -25,17 +26,17 @@ const absDirUrlLength = toFileUrl(absWorkingDir).href.length
 let esbuildInitialized: boolean | Promise<void> = false
 
 await ensureEsbuildInitialized()
-let bundle = await esbuild.build({
-  entryPoints: [new URL("./source/index.js", import.meta.url).href],
+
+const bundle = await esbuild.build({
+  entryPoints: [ new URL('./source/index.js', import.meta.url).href ],
   outdir: 'dist',
   format: 'esm',
-  metafile: true,
   bundle: true,
   treeShaking: true,
   splitting: true,
   write: false,
   target: ['chrome99', 'firefox99', 'safari15'],
-  plugins: [denoPlugin({ importMapURL })],
+  plugins: [denoPlugin()],
 })
 
 for (const file of bundle.outputFiles) {
@@ -45,8 +46,6 @@ for (const file of bundle.outputFiles) {
   )
 }
 
-const root = dirname(fromFileUrl(import.meta.url))
-const index = join(root, 'index.html')
 const jsHeader = { 'content-type': 'text/javascript; charset=utf-8' }
 serve(async (request) => {
   try {

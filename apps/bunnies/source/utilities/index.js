@@ -1,4 +1,4 @@
-import { fromEvent } from 'rxjs'
+import { fromEvent } from 'https://esm.sh/rxjs@7.8.0?target=es2020'
 
 /**
  * Attaches reactive events to dom elements.

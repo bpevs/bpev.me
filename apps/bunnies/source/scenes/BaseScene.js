@@ -1,4 +1,4 @@
-import * as PIXI from 'pixi'
+import * as PIXI from 'https://esm.sh/pixi.js@7.1.2?target=es2020'
 
 const identity = (item) => item
 
