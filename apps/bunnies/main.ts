@@ -45,12 +45,13 @@ for (const file of bundle.outputFiles) {
     new TextDecoder().decode(file.contents),
   )
 }
-
+console.log(cache)
 const jsHeader = { 'content-type': 'text/javascript; charset=utf-8' }
 serve(async (request) => {
   try {
     const pathname = decodeURIComponent(new URL(request.url).pathname)
     const js = cache.get(pathname);
+    console.log(pathname)
     if (js) return new Response(js, { headers: jsHeader })
 
     const filepath = (pathname === '/') ? index : join(root, '.' + pathname)
