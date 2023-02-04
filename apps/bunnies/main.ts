@@ -50,14 +50,13 @@ const jsHeader = { 'content-type': 'text/javascript; charset=utf-8' }
 serve(async (request) => {
   try {
     const pathname = decodeURIComponent(new URL(request.url).pathname)
+    const js = cache.get(pathname);
+    if (js) return new Response(js, { headers: jsHeader })
+
     const filepath = (pathname === '/') ? index : join(root, '.' + pathname)
-    console.log(pathname);
-    const js = cache.get(filepath.replace(root, ''))
-    if (!js) {
-      const file = (await Deno.open(filepath, { read: true })).readable
-      return new Response(file)
-    }
-    return new Response(js, { headers: jsHeader })
+    const file = (await Deno.open(filepath, { read: true })).readable
+    return new Response(file)
+
   } catch {
     return new Response('404 Not Found', { status: 404 })
   }
