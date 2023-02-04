@@ -3,7 +3,7 @@
   "tasks": {
     "dev": "deno run -A --watch=static/,routes/ dev.ts --env=DEVELOPMENT",
     "start": "deno run -A main.ts --dev=PRODUCTION",
-    "start:maps": "deno run --allow-read --allow-env --allow-net --watch apps/map/serve.ts"
+    "hash": "deno run -A utilities/gen_hash.ts"
   },
   "fmt": {
     "options": {

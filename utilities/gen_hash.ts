@@ -1,14 +1,10 @@
-import * as bcrypt from 'https://deno.land/x/bcrypt/mod.ts'
+import { assert } from '$std/testing/asserts.ts'
+import { compare, hash } from './crypto.ts'
 
-const password = 'password'
+const password = Deno.args[0]
+const key = await hash(password)
 
-const hash = await bcrypt.hash(password)
-console.log(hash)
+assert(await compare(key, password) === true)
+assert(await compare(key, 'wrong-test') === false)
 
-const comparison = await bcrypt.compare(password, hash)
-console.log(comparison)
-
-const wrongPassword = 'wrong-test'
-
-comparison = await bcrypt.compare(wrongPassword, hash)
-console.log(comparison)
+console.log(key)

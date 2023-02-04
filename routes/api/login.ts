@@ -1,7 +1,7 @@
 // https://deno.com/blog/setup-auth-with-fresh
 import { Handlers } from '$fresh/server.ts'
 import { setCookie } from '$std/http/cookie.ts'
-import { compare } from 'bcrypt'
+import { compare } from '@/utilities/crypto.ts'
 import { AUTH_KEY, isProd } from '@/constants.ts'
 import { createSessionId } from '@/utilities/session.ts'
 
@@ -11,7 +11,7 @@ export const handler: Handlers = {
     const password = (await req.formData()).get('password') || ''
     if (
       typeof password === 'string' &&
-      await compare(password, AUTH_KEY || '')
+      await compare(AUTH_KEY || '', password)
     ) {
       const headers = new Headers()
       setCookie(headers, {
