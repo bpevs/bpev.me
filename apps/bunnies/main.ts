@@ -20,7 +20,7 @@ const absWorkingDir = Deno.cwd()
 const cache = new Map()
 const absDirUrlLength = toFileUrl(absWorkingDir).href.length
 
-let esbuildInitialized: boolean | Promise<void> = false;
+let esbuildInitialized: boolean | Promise<void> = false
 
 await ensureEsbuildInitialized()
 
@@ -65,23 +65,19 @@ serve(async (request) => {
 async function ensureEsbuildInitialized() {
   if (esbuildInitialized === false) {
     if (Deno.run === undefined) {
-      const wasmURL = new URL("./esbuild_v0.14.51.wasm", import.meta.url).href;
+      const wasmURL = new URL('./esbuild_v0.14.51.wasm', import.meta.url).href
       esbuildInitialized = fetch(wasmURL).then(async (r) => {
-        const resp = new Response(r.body, {
-          headers: { "Content-Type": "application/wasm" },
-        });
-        const wasmModule = await WebAssembly.compileStreaming(resp);
-        await esbuild.initialize({
-          wasmModule,
-          worker: false,
-        });
-      });
+        const headers = { 'Content-Type': 'application/wasm' }
+        const resp = new Response(r.body, { headers })
+        const wasmModule = await WebAssembly.compileStreaming(resp)
+        await esbuild.initialize({ wasmModule, worker: false })
+      })
     } else {
-      esbuild.initialize({});
+      esbuild.initialize({})
     }
-    await esbuildInitialized;
-    esbuildInitialized = true;
+    await esbuildInitialized
+    esbuildInitialized = true
   } else if (esbuildInitialized instanceof Promise) {
-    await esbuildInitialized;
+    await esbuildInitialized
   }
 }
