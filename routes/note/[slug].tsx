@@ -1,10 +1,17 @@
 import { Handlers, PageProps } from '$fresh/server.ts'
 import { Only } from '$civility/components/mod.ts'
 
-import Markup from '@/components/markup/index.ts'
-import Page from '@/components/page.tsx'
+import Page from '@/components/Page.tsx'
+import Markup from '@/components/Markup.tsx'
+import Playlist from '@/islands/Playlist.tsx'
 import { getNote, Note } from '@/utilities/notes.ts'
 import { isAuthorized } from '@/utilities/session.ts'
+
+const components = {
+  playlist: ({ src }) => (
+    <Playlist src='https://static.bpev.me/blog/vx1-session-getaway/versions.pls' />
+  ),
+}
 
 interface Props {
   note: Note
@@ -21,6 +28,7 @@ export const handler: Handlers<Props> = {
 
 export default function NotePage(props: PageProps<Props>) {
   const { isAuthorized, note } = props.data
+
   return (
     <Page
       isAuthorized={isAuthorized}
@@ -33,7 +41,7 @@ export default function NotePage(props: PageProps<Props>) {
       }
     >
       <main style={{ paddingTop: '20px', paddingBottom: '20px' }}>
-        <Markup class='markdown-body' markup={note.content} type='html' />
+        <Markup markup={note.content} components={components} />
       </main>
     </Page>
   )

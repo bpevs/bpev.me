@@ -58,7 +58,7 @@ export async function postNote(note: Note): Promise<void> {
   const path = `${note.slug}.md`
   const body = '---\n' +
     `published: ${note.published}\n` +
-    `title: ${note.title}\n` +
+    `title: "${note.title}"\n` +
     '---\n' +
     note.content
   const result = await b2.postNote({ path, body })

@@ -1,5 +1,5 @@
-import Editor from '@/islands/editor.tsx'
-import Page from '@/components/page.tsx'
+import Editor from '@/islands/Editor.tsx'
+import Page from '@/components/Page.tsx'
 
 export default function NewNote() {
   return (

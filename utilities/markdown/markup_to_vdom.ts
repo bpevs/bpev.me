@@ -9,7 +9,7 @@ const EMPTY_OBJ = {}
 // Convert markup into a virtual DOM.
 export default function markupToVdom(
   markup: string, // HTML or XML markup (indicate via `type`)
-  type: string, // [type=xml]  A type to use when parsing `markup`. Either `xml` or `html`.
+  type: string = 'html', // [type=xml]  A type to use when parsing `markup`. Either `xml` or `html`.
   reviver: (...args: any[]) => any, // The JSX/hyperscript reviver (`h` function) to use. For example, Preact's `h` or `ReactDOM.createElement`.
   map?: { [name: string]: VNode }, // Optional map of custom element names to Components or variant element names.
   options?: { allowEvents: boolean; allowScripts },

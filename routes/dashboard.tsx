@@ -1,8 +1,8 @@
 import type { Handlers, PageProps } from '$fresh/server.ts'
 import { Only } from '$civility/components/mod.ts'
 
-import Login from '@/components/login.tsx'
-import Page from '@/components/page.tsx'
+import Login from '@/components/Login.tsx'
+import Page from '@/components/Page.tsx'
 import { isAuthorized } from '@/utilities/session.ts'
 
 export const handler: Handlers<Data> = {

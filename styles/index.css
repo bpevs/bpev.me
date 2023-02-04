@@ -23,7 +23,7 @@ nav ul li {
   padding: 0 40px 0 0;
 }
 
-.markdown-body {
+.markup {
   max-width: 34rem;
   margin: auto;
 }
@@ -49,4 +49,8 @@ nav ul li {
 
 .editor-toolbar {
   background-color: white;
+}
+
+iframe {
+  background-color: transparent;
 }

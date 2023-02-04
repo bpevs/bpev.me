@@ -1,8 +1,8 @@
 import { Handlers, PageProps } from '$fresh/server.ts'
 import { getNote, Note } from '@/utilities/notes.ts'
 
-import Login from '@/components/login.tsx'
-import Editor from '@/islands/editor.tsx'
+import Login from '@/components/Login.tsx'
+import Editor from '@/islands/Editor.tsx'
 
 export const handler: Handlers<{ note: Note }> = {
   async GET(_req, ctx) {

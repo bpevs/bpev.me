@@ -9,8 +9,8 @@ import {
   h,
   VNode,
 } from 'preact'
-import markupToVdom from './markup_to_vdom.ts'
-import { render } from './gfm.ts'
+import { render } from '@/utilities/markdown/gfm.ts'
+import markupToVdom from '@/utilities/markdown/markup_to_vdom.ts'
 
 type Components = Record<
   string,
