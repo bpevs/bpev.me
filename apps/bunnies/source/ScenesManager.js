@@ -1,4 +1,5 @@
-import { BaseScene } from "./scenes/index.js";
+import * as PIXI from 'pixi'
+import { BaseScene } from './scenes/index.js'
 
 /**
  * ScenesManager
@@ -19,7 +20,7 @@ export const ScenesManager = {
    * @return {String} The string portrait or landscape.
    */
   get windowMode() {
-    return this.height > this.width ? "portrait" : "landscape";
+    return this.height > this.width ? 'portrait' : 'landscape'
   },
 
   /**
@@ -31,19 +32,19 @@ export const ScenesManager = {
    */
   initialize(width, height) {
     // Create a single instance of a renderer and append it to the page.
-    if (this.renderer) return this;
-    this.renderer = PIXI.autoDetectRenderer(width, height);
-    document.body.appendChild(this.renderer.view);
+    if (this.renderer) return this
+    this.renderer = PIXI.autoDetectRenderer(width, height)
+    document.body.appendChild(this.renderer.view)
+    this.resize(window.innerWidth, window.innerHeight)
 
     // If the desired width/height are the size of the window, keep it that way.
     if (width === window.innerWidth && height === window.innerHeight) {
-      window.onresize = () =>
-        this.resize(window.innerWidth, window.innerHeight);
+      window.onresize = () => this.resize(window.innerWidth, window.innerHeight)
     }
 
     // Start our animation loop and return our new ScenesManager.
-    requestAnimationFrame(() => this.loop());
-    return this;
+    requestAnimationFrame(() => this.loop())
+    return this
   },
 
   /**
@@ -53,19 +54,19 @@ export const ScenesManager = {
    * @param  {Number} height The desired height to resize to.
    */
   resize(newWidth, newHeight) {
-    this.renderer.view.style.newWidth = `${newWidth} px`;
-    this.renderer.view.style.newHeight = `${newHeight} px`;
-    this.renderer.resize(newWidth, newHeight);
+    this.renderer.view.style.newWidth = `${newWidth} px`
+    this.renderer.view.style.newHeight = `${newHeight} px`
+    this.renderer.resize(newWidth, newHeight)
   },
 
   /**
    * Loop over our currentScene's update function, unless it's paused.
    */
   loop() {
-    requestAnimationFrame(() => this.loop());
-    if (!this.currentScene || this.currentScene.isPaused()) return;
-    this.currentScene.update();
-    this.renderer.render(this.currentScene);
+    requestAnimationFrame(() => this.loop())
+    if (!this.currentScene || this.currentScene.isPaused()) return
+    this.currentScene.update()
+    this.renderer.render(this.currentScene)
   },
 
   /**
@@ -76,11 +77,11 @@ export const ScenesManager = {
    * @return {Object}           Our newly created scene.
    */
   createScene(id, SceneType = BaseScene) {
-    if (this.scenes[id]) return undefined;
-    const scene = Object.create(SceneType);
-    scene.id = id;
-    this.scenes[id] = scene;
-    return scene;
+    if (this.scenes[id]) return undefined
+    const scene = Object.create(SceneType)
+    scene.id = id
+    this.scenes[id] = scene
+    return scene
   },
 
   /**
@@ -91,10 +92,10 @@ export const ScenesManager = {
    * @return {Boolean}    Represents whether the scene we want to use exists.
    */
   goToScene(id) {
-    if (!this.scenes[id]) return false;
-    if (this.currentScene) this.currentScene.pause();
-    this.currentScene = this.scenes[id];
-    this.currentScene.resume();
-    return true;
+    if (!this.scenes[id]) return false
+    if (this.currentScene) this.currentScene.pause()
+    this.currentScene = this.scenes[id]
+    this.currentScene.resume()
+    return true
   },
-};
+}

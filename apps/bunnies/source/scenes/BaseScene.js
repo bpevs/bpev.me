@@ -1,4 +1,6 @@
-const identity = (item) => item;
+import * as PIXI from 'pixi'
+
+const identity = (item) => item
 
 /**
  * Scene extends Pixi containers, allowing us to pause containers and update
@@ -21,28 +23,28 @@ export const BaseScene = Object.assign(new PIXI.Container(), {
    * @parameter {Function} updateCB
    */
   onUpdate(updateCB = identity) {
-    this.updateCB = updateCB;
+    this.updateCB = updateCB
   },
 
   /**
    * Runs updateCB.  This will be directly called by requestAnimationFrame.
    */
   update() {
-    this.updateCB();
+    this.updateCB()
   },
 
   /**
    * Pauses the scene by setting paused to true.
    */
   pause() {
-    this.paused = true;
+    this.paused = true
   },
 
   /**
    * Resumes the scene by setting paused to false.
    */
   resume() {
-    this.paused = false;
+    this.paused = false
   },
 
   /**
@@ -51,6 +53,6 @@ export const BaseScene = Object.assign(new PIXI.Container(), {
    * @return {Boolean} this.paused Represents whether the current scene is paused.
    */
   isPaused() {
-    return this.paused;
+    return this.paused
   },
-});
+})

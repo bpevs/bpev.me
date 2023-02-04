@@ -1,10 +1,12 @@
+import { fromEvent } from "rxjs";
+
 /**
  * Attaches reactive events to dom elements.
  */
 export function addListeners(element, events) {
   events.forEach(function addListener(event) {
-    element[event + "s"] = Observable.fromEvent(element, event);
-  });
+    element[event + 's'] = fromEvent(element, event)
+  })
 }
 
 /**
@@ -16,7 +18,7 @@ export function addListeners(element, events) {
 export function distance(p1, p2) {
   return Math.sqrt(
     (p2.x - p1.x) * (p2.x - p1.x) + (p2.y - p1.y) * (p2.y - p1.y),
-  );
+  )
 }
 
 /**
@@ -27,9 +29,9 @@ export function distance(p1, p2) {
  * @return {Number}         The weight of the object.
  */
 export function getWeight(mass, gravity = 9.8) {
-  return mass * gravity;
+  return mass * gravity
 }
 
 export function random(lower, upper) {
-  return Math.floor(Math.random() * upper) + lower;
+  return Math.floor(Math.random() * upper) + lower
 }

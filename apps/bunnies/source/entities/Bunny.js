@@ -1,4 +1,5 @@
-import { random } from "../utilities/index.js";
+import {Sprite} from 'pixi'
+import { random } from '../utilities/index.js'
 
 /**
  * Makes Bunnies by creating a Sprite, then extending the resulting sprite with
@@ -8,7 +9,7 @@ import { random } from "../utilities/index.js";
  * @property {Number} rotationSpeed The speed of rotation of a bunny in degrees/frame.
  */
 export function Bunny() {
-  return Object.assign(PIXI.Sprite.fromImage("assets/bunny.png"), {
+  return Object.assign(Sprite.from('assets/bunny.png'), {
     anchor: { x: null, y: null },
     mass: 0,
     rotation: null,
@@ -22,12 +23,12 @@ export function Bunny() {
      * @return {Object} The newly created bunny.
      */
     initialize() {
-      this.scale.x = this.scale.y = random(0.6, 1);
-      this.rotationSpeed = random(-0.05, 0.05);
-      this.rotation = random(0, 360);
-      this.mass = random(0.1, 0.3);
-      this.anchor.x = this.anchor.y = 0.5;
-      return this;
+      this.scale.x = this.scale.y = random(0.6, 1)
+      this.rotationSpeed = random(-0.05, 0.05)
+      this.rotation = random(0, 360)
+      this.mass = random(0.1, 0.3)
+      this.anchor.x = this.anchor.y = 0.5
+      return this
     },
-  });
+  })
 }

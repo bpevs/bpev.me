@@ -1,5 +1,5 @@
-import { ScenesManager } from "./ScenesManager.js";
-import { BunnyScene } from "./scenes/index.js";
+import { ScenesManager } from './ScenesManager.js'
+import { BunnyScene } from './scenes/index.js'
 
 /**
  * Main
@@ -9,7 +9,7 @@ import { BunnyScene } from "./scenes/index.js";
  * scenes.
  */
 
-const scenesManager = Object.create(ScenesManager);
-scenesManager.initialize(window.innerWidth, window.innerHeight);
-scenesManager.createScene("bunnyScene", BunnyScene).initialize();
-scenesManager.goToScene("bunnyScene");
+const scenesManager = Object.create(ScenesManager)
+scenesManager.initialize(window.innerWidth, window.innerHeight)
+scenesManager.createScene('bunnyScene', BunnyScene).initialize()
+scenesManager.goToScene('bunnyScene')

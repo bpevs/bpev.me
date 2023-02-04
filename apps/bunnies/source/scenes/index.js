@@ -1,2 +1,2 @@
-export * from "./BaseScene.js";
-export * from "./BunnyScene.js";
+export * from './BaseScene.js'
+export * from './BunnyScene.js'

@@ -1,0 +1,6 @@
+{
+  "importMap": "./import_map.json",
+  "tasks": {
+    "start": "deno run --allow-read  --allow-net --allow-run --allow-write=/var --allow-env=ESBUILD_BINARY_PATH,HOME --watch main.js"
+  }
+}
