@@ -7,7 +7,12 @@
   },
   "fmt": {
     "options": {
-      "proseWrap": "never"
+      "proseWrap": "never",
+      "singleQuote": true,
+      "semiColons": false
+    },
+    "files": {
+      "exclude": ["apps/", "components/markup"]
     }
   },
   "lint": {

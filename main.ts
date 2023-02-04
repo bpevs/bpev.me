@@ -4,29 +4,29 @@
 /// <reference lib="dom.asynciterable" />
 /// <reference lib="deno.ns" />
 
-import { InnerRenderFunction, RenderContext, start } from "$fresh/server.ts";
-import manifest from "./fresh.gen.ts";
-import * as log from "$std/log/mod.ts";
+import { InnerRenderFunction, RenderContext, start } from '$fresh/server.ts'
+import manifest from './fresh.gen.ts'
+import * as log from '$std/log/mod.ts'
 
 await log.setup({
   handlers: {
-    console: new log.handlers.ConsoleHandler("DEBUG"),
+    console: new log.handlers.ConsoleHandler('DEBUG'),
   },
 
   loggers: {
     default: {
-      level: "DEBUG",
-      handlers: ["console"],
+      level: 'DEBUG',
+      handlers: ['console'],
     },
   },
-});
+})
 
-const stylesheet = await Deno.readTextFile("./styles/index.css");
-const theme = await Deno.readTextFile("./styles/theme.css");
+const stylesheet = await Deno.readTextFile('./styles/index.css')
+const theme = await Deno.readTextFile('./styles/theme.css')
 
 function render(ctx: RenderContext, innerRender: InnerRenderFunction) {
-  innerRender();
-  ctx.styles.splice(0, ctx.styles.length, theme, stylesheet);
+  innerRender()
+  ctx.styles.splice(0, ctx.styles.length, theme, stylesheet)
 }
 
-await start(manifest, { render });
+await start(manifest, { render })

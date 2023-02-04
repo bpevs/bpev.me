@@ -1,7 +1,7 @@
 {
   "imports": {
     "@/": "./",
-    "$civility/": "https://raw.githubusercontent.com/bpevs/civility/master/",
+    "$civility/": "https://raw.githubusercontent.com/bpevs/civility/0.3.0/",
     "$fresh/": "https://deno.land/x/fresh@1.1.2/",
     "$std/": "https://deno.land/std@0.173.0/",
     "preact": "https://esm.sh/preact@10.11.0",

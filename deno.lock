@@ -827,6 +827,9 @@
     "https://esm.sh/v106/typo-js@1.2.2/X-dHMvZGVmYXVsdA/deno/typo-js.js": "fcff51ac7e0e699f37587b5d95d9b3114b19783de28b12271d250c8fa2b54f35",
     "https://esm.sh/v106/typo-js@1.2.2/deno/typo-js.js": "01c9afadf9129ae7c0062d9e173308b17cc4e7386f7f1e406170fe3b940a41af",
     "https://esm.sh/v106/w3c-keyname@2.2.6/deno/w3c-keyname.js": "c77e8b2dbfcbad06ce72f2a70a5522d66b18852b315eecf45e81b158516ce079",
+    "https://raw.githubusercontent.com/bpevs/civility/0.3.0/components/mod.ts": "334906d3e1d363c50cf761a36393b23d9d837ea312d70f9b67086a6995b89629",
+    "https://raw.githubusercontent.com/bpevs/civility/0.3.0/components/only.tsx": "b0d3d7f183cff47f391eeb4e4ed707742fa4f5e27a76eab9f4ed632b538d0327",
+    "https://raw.githubusercontent.com/bpevs/civility/0.3.0/components/switch.tsx": "b41658eddc6d11b5133a4a176032b0e01572dc71ec40f71bf3d7d4797d8a9cd3",
     "https://raw.githubusercontent.com/jshttp/mime-db/v1.52.0/db.json": "85c8e1ba609079947c8df83c092900ab0226e1d7b60e5e7105fb7dd701833263",
     "https://unpkg.com/tiny-markdown-editor@0.1.5/dist/tiny-mde.min.js": "10bc4418a3196282176218c9e5e31ef5ea626b38bdd91123b204ebf37ebe5a9e"
   },

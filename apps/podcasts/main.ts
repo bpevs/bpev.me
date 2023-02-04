@@ -1,31 +1,31 @@
-import "https://deno.land/x/dotenv/load.ts";
-import { serve } from "https://deno.land/std@0.137.0/http/server.ts";
-import type { Channel, Episode, Podcast, Video } from "./types.ts";
+import 'https://deno.land/x/dotenv/load.ts'
+import { serve } from 'https://deno.land/std@0.137.0/http/server.ts'
+import type { Channel, Episode, Podcast, Video } from './types.ts'
 
-const env = Deno.env.get;
-const NUM_LATEST_VIDEOS: number = Number(env("NUM_LATEST_VIDEOS")) || 10;
-const INVIDIOUS: string = env("INVIDIOUS_INSTANCE") || "";
-const INVIDIOUS_VIDEO: string = env("INVIDIOUS_VIDEO_INSTANCE") || "";
+const env = Deno.env.get
+const NUM_LATEST_VIDEOS: number = Number(env('NUM_LATEST_VIDEOS')) || 10
+const INVIDIOUS: string = env('INVIDIOUS_INSTANCE') || ''
+const INVIDIOUS_VIDEO: string = env('INVIDIOUS_VIDEO_INSTANCE') || ''
 const EXPIRE_CHANNEL_CACHE_MS: number =
-  Number(env("EXPIRE_CHANNEL_CACHE_MS")) || 1000 * 60 * 10;
+  Number(env('EXPIRE_CHANNEL_CACHE_MS')) || 1000 * 60 * 10
 
-const channelCache: { [url: string]: Channel } = {};
-const videoCache: { [url: string]: Video } = {};
+const channelCache: { [url: string]: Channel } = {}
+const videoCache: { [url: string]: Video } = {}
 
 serve(async function handler(req: Request): Promise<Response> {
-  const [type, channelId] = (new URL(req.url)).pathname.split("/").slice(1, 3);
+  const [type, channelId] = (new URL(req.url)).pathname.split('/').slice(1, 3)
 
-  if (type === "channel" && channelId) {
-    const podcast = parseInvidious(await fetchChannel(channelId));
-    podcast.podcastUrl = req.url;
+  if (type === 'channel' && channelId) {
+    const podcast = parseInvidious(await fetchChannel(channelId))
+    podcast.podcastUrl = req.url
     return new Response(createPodcastXML(podcast), {
       status: 200,
-      headers: { "content-type": "application/rss+xml; charset=utf-8" },
-    });
+      headers: { 'content-type': 'application/rss+xml; charset=utf-8' },
+    })
   }
 
-  return new Response("No ChannelId Given", { status: 404 });
-});
+  return new Response('No ChannelId Given', { status: 404 })
+})
 
 /**
  * Fetch Channel Data from Invidious, then request data for individual videos,
@@ -34,49 +34,49 @@ serve(async function handler(req: Request): Promise<Response> {
  * Cache videos indefinitely for the same reason.
  */
 async function fetchChannel(channelId: string): Promise<Channel> {
-  const BASE_URL = `https://${INVIDIOUS}/api/v1`;
-  const FIELDS = "author,latestVideos,authorUrl,description,authorThumbnails";
-  const url = `${BASE_URL}/channels/${channelId}?fields=${FIELDS}`;
-  if (channelCache[url]) return channelCache[url];
+  const BASE_URL = `https://${INVIDIOUS}/api/v1`
+  const FIELDS = 'author,latestVideos,authorUrl,description,authorThumbnails'
+  const url = `${BASE_URL}/channels/${channelId}?fields=${FIELDS}`
+  if (channelCache[url]) return channelCache[url]
 
-  console.log(`Fetching channel: ${channelId}`);
-  console.log(url);
+  console.log(`Fetching channel: ${channelId}`)
+  console.log(url)
 
-  const channel = await fetch(url).then((resp) => resp.json());
-  const latestVideos = (channel.latestVideos || []).slice(0, NUM_LATEST_VIDEOS);
+  const channel = await fetch(url).then((resp) => resp.json())
+  const latestVideos = (channel.latestVideos || []).slice(0, NUM_LATEST_VIDEOS)
   channel.latestVideos = await Promise.all(
     latestVideos.map(async ({ videoId }: Video): Promise<Video> => {
-      const FIELDS = "title,description,lengthSeconds,videoId,published";
-      const url = `${BASE_URL}/videos/${videoId}?fields=${FIELDS}`;
+      const FIELDS = 'title,description,lengthSeconds,videoId,published'
+      const url = `${BASE_URL}/videos/${videoId}?fields=${FIELDS}`
       if (!videoCache[url]) {
-        console.log(`  Fetching Episode: ${videoId}`);
-        videoCache[url] = await fetch(url).then((resp) => resp.json());
+        console.log(`  Fetching Episode: ${videoId}`)
+        videoCache[url] = await fetch(url).then((resp) => resp.json())
       }
-      return videoCache[url];
+      return videoCache[url]
     }),
-  );
+  )
 
-  channelCache[url] = channel;
+  channelCache[url] = channel
   setTimeout(() => {
-    delete channelCache[url];
-  }, EXPIRE_CHANNEL_CACHE_MS);
+    delete channelCache[url]
+  }, EXPIRE_CHANNEL_CACHE_MS)
 
-  return channel;
+  return channel
 }
 
 // Parse Invidious response into "podcast-like" data format.
 function parseInvidious(
   { author, latestVideos, authorUrl, description, authorThumbnails }: Channel,
 ): Podcast {
-  const INSTANCE = INVIDIOUS_VIDEO || INVIDIOUS;
-  const BASE_VIDEO_URL = `https://${INSTANCE}/latest_version`;
+  const INSTANCE = INVIDIOUS_VIDEO || INVIDIOUS
+  const BASE_VIDEO_URL = `https://${INSTANCE}/latest_version`
 
   return {
     podcastTitle: author,
     podcastUrl: authorUrl,
     podcastAuthor: author,
     podcastDescription: description,
-    podcastImage: (authorThumbnails || []).reverse()[0]?.url || "",
+    podcastImage: (authorThumbnails || []).reverse()[0]?.url || '',
     episodes: latestVideos.map((video: Video): Episode => ({
       episodeTitle: video.title,
       episodeDescription: video.description,
@@ -87,9 +87,9 @@ function parseInvidious(
       publishDate: video.published,
       videoId: video.videoId,
     })).filter((video: Episode) => {
-      return video.mp3.duration > 120;
+      return video.mp3.duration > 120
     }),
-  };
+  }
 }
 
 // Formats an xml rss response, based loosely on itunes spec.
@@ -114,7 +114,7 @@ function createPodcastXML({
   <pubDate>${String(new Date(publishDate * 1000))}</pubDate>
   <guid isPermaLink="false">${videoId}</guid>
   <enclosure url="${mp3.url}" length="${mp3.duration}" type="audio/mpeg" />
-</item>`).join("\n");
+</item>`).join('\n')
 
   return `\
 <?xml version="1.0" encoding="UTF-8"?>
@@ -145,5 +145,5 @@ function createPodcastXML({
     ${episodeXML}
   </channel>
 </rss>
-`;
+`
 }
