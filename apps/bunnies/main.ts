@@ -15,7 +15,14 @@ import * as esbuildNative from 'esbuild/mod.js'
 
 // @ts-ignore
 const esbuild = Deno.run === undefined ? esbuildWasm : esbuildNative
-let importMapURL = new URL('file://' + resolve('./import_map.json'))
+const importMapURL = new URL('file://' + resolve('./import_map.json'))
+const absWorkingDir = Deno.cwd()
+const cache = new Map()
+const absDirUrlLength = toFileUrl(absWorkingDir).href.length
+
+let esbuildInitialized: boolean | Promise<void> = false;
+
+await ensureEsbuildInitialized()
 
 let bundle = await esbuild.build({
   entryPoints: ['source/index.js'],
@@ -30,12 +37,6 @@ let bundle = await esbuild.build({
   plugins: [denoPlugin({ importMapURL })],
 })
 
-let esbuildInitialized: boolean | Promise<void> = false;
-const absWorkingDir = Deno.cwd()
-await ensureEsbuildInitialized()
-
-const cache = new Map()
-const absDirUrlLength = toFileUrl(absWorkingDir).href.length
 for (const file of bundle.outputFiles) {
   cache.set(
     toFileUrl(file.path).href.substring(absDirUrlLength),
