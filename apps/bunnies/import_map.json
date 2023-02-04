@@ -1,7 +1,7 @@
 {
   "imports": {
     "$std/": "https://deno.land/std@0.173.0/",
-    "esbuild": "https://deno.land/x/esbuild@v0.15.10/mod.js",
+    "esbuild/": "https://deno.land/x/esbuild@v0.15.10/",
     "esbuild_deno_loader": "https://deno.land/x/esbuild_deno_loader@0.6.0/mod.ts",
     "rxjs": "https://esm.sh/rxjs@7.8.0?target=es2020",
     "pixi": "https://esm.sh/pixi.js@7.1.2?target=es2020"
