@@ -25,9 +25,8 @@ const absDirUrlLength = toFileUrl(absWorkingDir).href.length
 let esbuildInitialized: boolean | Promise<void> = false
 
 await ensureEsbuildInitialized()
-
 let bundle = await esbuild.build({
-  entryPoints: ['source/index.js'],
+  entryPoints: [new URL("./source/index.js", import.meta.url).href],
   outdir: 'dist',
   format: 'esm',
   metafile: true,
