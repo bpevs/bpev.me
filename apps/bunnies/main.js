@@ -9,12 +9,9 @@ import {
 } from '$std/path/mod.ts'
 
 import { denoPlugin } from 'esbuild_deno_loader'
-// @deno-types="https://deno.land/x/esbuild@v0.14.51/mod.d.ts"
-import * as esbuildWasm from 'esbuild/wasm.js'
-import * as esbuildNative from 'esbuild/mod.js'
+import * as esbuild from 'esbuild/mod.js'
 
 // @ts-ignore
-const esbuild = Deno.run === undefined ? esbuildWasm : esbuildNative
 let importMapURL = new URL('file://' + resolve('./import_map.json'))
 
 let bundle = await esbuild.build({
