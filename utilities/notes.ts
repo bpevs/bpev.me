@@ -1,7 +1,7 @@
 import { extract } from '$std/encoding/front_matter.ts'
 import { join } from '$std/path/mod.ts'
-import { markdownToHtml, markdownToPlaintext } from "parsedown";
-import {render} from './markdown/gfm.ts'
+import { markdownToHtml, markdownToPlaintext } from 'parsedown'
+import { render } from './markdown/parse_markdown.ts'
 
 import * as b2 from '@/utilities/b2.ts'
 import { BLOG_ROOT, FEATURE } from '@/constants.ts'
@@ -16,14 +16,14 @@ export interface Note {
   updated?: Date
   lastChecked?: Date
   content: {
-    commonmark: string;
-    html?: string;
-    text?: string;
-  };
+    commonmark: string
+    html?: string
+    text?: string
+  }
   statistics?: {
-    reading_time?: number;
-    word_count?: number;
-  };
+    readingTime?: number
+    wordCount?: number
+  }
 }
 
 export async function getNotes(): Promise<Note[]> {
@@ -46,26 +46,30 @@ export async function getNotes(): Promise<Note[]> {
   }
 }
 
-const ONE_DAY = 8.64e+7;
+const ONE_DAY = 8.64e+7
 export async function getNote(slug: string): Promise<Note | null> {
-  const note = notesCache[slug];
+  const note = notesCache[slug]
   if (!note || ((Date.now() - note?.lastChecked) > ONE_DAY)) {
     const composite = await (await fetch(join(BLOG_ROOT, slug + '.md'))).text()
     if (!composite) return null
     const { attrs, body: commonmark } = extract(composite)
-    const [text, { html, headings, statistics }, gfm] = await Promise.all([
+    const [text, html] = await Promise.all([
       markdownToPlaintext(commonmark),
       markdownToHtml(commonmark),
-      render(commonmark)
-    ]);
+      render(commonmark),
+    ])
+    const wordCount = text.split(' ').length
     notesCache[slug] = {
       slug,
       title: String(attrs.title),
       published: new Date(attrs.published as any),
       updated: new Date(attrs.updated as any),
-      content: { commonmark, html: gfm, text },
-      statistics,
-      lastChecked: Date.now()
+      content: { commonmark, html: html.html, text },
+      statistics: {
+        wordCount: html.word_count,
+        readingTime: html.reading_time,
+      },
+      lastChecked: Date.now(),
     }
   }
 
@@ -83,3 +87,4 @@ export async function postNote(note: Note): Promise<void> {
   delete notesCache[note.slug]
   return result
 }
+

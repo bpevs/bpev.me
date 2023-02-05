@@ -14,22 +14,22 @@ export default function Page(
       data-light-theme='light'
       data-dark-theme='dark'
     >
-      <Only if={isAuthorized === true}>
-        <nav>
-          <ul>
-            <li>
-              <a href='/'>Home</a>
-            </li>
+      <nav>
+        <ul>
+          <li>
+            <a href='/'>Home</a>
+          </li>
+          <Only if={isAuthorized === true}>
             {navItems ? navItems : ''}
             <li>
-              <a href='/note/new'>New Note</a>
+              <a href='/note/new'>bpev.me</a>
             </li>
             <li>
               <a href='/api/logout'>Logout</a>
             </li>
-          </ul>
-        </nav>
-      </Only>
+          </Only>
+        </ul>
+      </nav>
       {children}
     </body>
   )

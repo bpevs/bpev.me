@@ -54,15 +54,19 @@ export interface RenderOptions {
   mediaBaseUrl?: string
 }
 
-export async function render(markdown: string, opts: RenderOptions = {}): string {
+export async function render(
+  markdown: string,
+  opts: RenderOptions = {},
+): string {
   opts.mediaBaseUrl ??= opts.baseUrl
   markdown = emojify(markdown)
 
-  const html = Marked.marked(markdown, {
+  Marked.marked.use({
     baseUrl: opts.baseUrl,
     renderer: new Renderer(),
-    pedantic: true,
-    async: true
-  })
-  return html
+    pedantic: false,
+    async: true,
+  });
+
+  return Marked.marked(markdown)
 }

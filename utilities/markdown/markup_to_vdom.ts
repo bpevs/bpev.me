@@ -1,23 +1,21 @@
 // @ts-nocheck
 import { VNode } from 'preact'
 
-import parseMarkup from './parse_markup.ts'
+import parseHTML from './parse_html.ts'
 import toVdom from './to_vdom.ts'
 const EMPTY_OBJ = {}
 
 // Convert markup into a virtual DOM.
 export default function markupToVdom(
   markup: string, // HTML or XML markup (indicate via `type`)
-  reviver: (...args: any[]) => any, // The JSX/hyperscript reviver (`h` function) to use. For example, Preact's `h` or `ReactDOM.createElement`.
   map?: { [name: string]: VNode }, // Optional map of custom element names to Components or variant element names.
-  options?: { allowEvents: boolean; allowScripts },
 ) {
-  const dom = parseMarkup(markup)
+  const dom = parseHTML(markup)
   if (dom?.error) throw new Error(dom.error)
 
   const body = dom?.body || dom
   visitor.map = map || EMPTY_OBJ
-  const vdom = body && toVdom(body, visitor, reviver, options)
+  const vdom = body && toVdom(body, visitor)
   visitor.map = null
 
   return vdom?.props?.children || null
@@ -30,8 +28,6 @@ function toCamelCase(name) {
 function visitor(node) {
   const name = (node.type || '').toLowerCase()
   const map = visitor.map
-
-  // eslint-disable-next-line no-prototype-builtins
   if (map && map.hasOwnProperty(name)) {
     node.type = map[name]
     node.props = Object.keys(node.props || {}).reduce((attrs, attrName) => {

@@ -20,7 +20,6 @@ export default function NotesIndexPage(props: PageProps<Props>) {
   return (
     <Page isAuthorized={isAuthorized}>
       <main>
-        <h1>Notes</h1>
         <ul class='notes-list'>
           {notes.map((note: Note) => <NoteCard note={note} />)}
         </ul>

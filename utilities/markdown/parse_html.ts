@@ -1,15 +1,13 @@
 // @ts-nocheck
 import { DOMParser } from 'https://deno.land/x/deno_dom@v0.1.36-alpha/deno-dom-wasm.ts'
-let parserDoc
 
 export default function parseMarkup(markup: string) {
-  let doc, parserError, tag, wrappedMarkup
+  let doc, parserError
 
-  // wrap with an element so we can find it after parsing, and to support multiple root nodes
-  tag = 'body'
-  wrappedMarkup = `<!DOCTYPE html><html lang="en">${markup}</html>`
+  // wrap with an element so we can find it after parsing
+  const wrappedMarkup = `<!DOCTYPE html><html lang="en">${markup}</html>`
 
-  // if available (browser support varies), using DOMPaser in HTML mode is much faster, safer and cleaner than injecting HTML into an iframe.
+  // if available (browser support varies), using DOMPaser in HTML mode is best
   try {
     doc = new DOMParser().parseFromString(wrappedMarkup, 'text/html')
   } catch (err) {
@@ -19,12 +17,10 @@ export default function parseMarkup(markup: string) {
   if (!doc) return
 
   // retrieve our wrapper node
-  const out = doc.getElementsByTagName(tag)[0]
+  const out = doc.getElementsByTagName('body')[0]
   const fc = out.firstChild
 
-  if (markup && !fc) {
-    out.error = 'Document parse failed.'
-  }
+  if (markup && !fc) out.error = 'Document parse failed.'
 
   // pluck out parser errors
   if (fc && String(fc.nodeName).toLowerCase() === 'parsererror') {

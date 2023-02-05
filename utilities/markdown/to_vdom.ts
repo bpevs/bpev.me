@@ -1,13 +1,15 @@
-import { h } from "preact"
 // @ts-nocheck
+import { h } from 'preact'
 const EMPTY_OBJ = {}
+const allowScripts = false
+const allowEvents = false
 
 // deeply convert an XML DOM to VDOM
 export default function toVdom(node, visitor, options) {
   walk.visitor = visitor
-  walk.h = h
   walk.options = options || EMPTY_OBJ
-  return walk(node)
+  const nodes = walk(node)
+  return nodes
 }
 
 function walk(n, index, arr) {
@@ -15,13 +17,12 @@ function walk(n, index, arr) {
     return 'textContent' in n ? n.textContent : n.nodeValue || ''
   }
   if (n.nodeType !== 1) return null
-
   const nodeName = String(n.nodeName).toLowerCase()
 
   // Do not allow script tags unless explicitly specified
-  if (nodeName === 'script' && !walk.options.allowScripts) return null
+  if (nodeName === 'script' && !allowScripts) return null
 
-  const out = walk.h(
+  const out = h(
     nodeName,
     getProps(n.attributes),
     walkChildren(n.childNodes),
@@ -39,8 +40,8 @@ function getProps(attrs) {
   const props = {}
   for (let i = 0; i < len; i++) {
     let { name, value } = attrs[i]
-    if (name.substring(0, 2) === 'on' && walk.options.allowEvents) {
-      value = new Function(value) // eslint-disable-line no-new-func
+    if (name.substring(0, 2) === 'on' && allowEvents) {
+      value = new Function(value)
     }
     props[name] = value
   }
@@ -48,7 +49,7 @@ function getProps(attrs) {
   return props
 }
 
-function walkChildren(children) {
-  let c = [...(children && Array.prototype.map.call(children, walk))]
-  return c && c.length ? c : null
+function walkChildren(toWalk) {
+  const children = Array.from(toWalk).map(walk)
+  return children?.length ? children : null
 }
