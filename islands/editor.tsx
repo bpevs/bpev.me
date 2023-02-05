@@ -26,7 +26,7 @@ export default function Editor(props: { note?: Note }) {
     e.preventDefault()
     const content = { commonmark: tinyMDE?.current?.getContent!() || '' }
     const nextNote = { ...note.value, content, updated: new Date() }
-    await fetch(`/api/note/${slug}`, {
+    await fetch(`/api/notes/${slug}`, {
       method: 'POST',
       body: JSON.stringify(nextNote),
     })

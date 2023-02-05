@@ -56,9 +56,9 @@ export async function getNote(slug: string): Promise<Note | null> {
 
     notesCache[slug] = {
       slug,
-      title: String(attrs.title),
-      published: new Date(attrs.published as string),
-      updated: new Date(attrs.updated as string),
+      title: String(attrs?.title),
+      published: new Date(attrs?.published as string),
+      updated: new Date(attrs?.updated as string),
       content: { commonmark, html, text },
       lastChecked: Date.now(),
     }

@@ -21,7 +21,7 @@ function auth(
   req: Request,
   ctx: MiddlewareHandlerContext,
 ): Promise<Response> {
-  if (new RegExp('(/edit|/new|/api/note)').test(req.url)) {
+  if (new RegExp('(/edit|/new|/api/notes)').test(req.url)) {
     if (!isAuthorized(req)) {
       const url = new URL(req.url)
       url.pathname = '/'

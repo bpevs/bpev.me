@@ -4,9 +4,11 @@ import { Only } from '$civility/components/mod.ts'
 
 export default function Page(
   { children, isAuthorized = false, navItems = null }: {
-    children?: VNode<unknown> | null
+    // deno-lint-ignore no-explicit-any
+    children?: any
     isAuthorized?: boolean
-    navItems?: VNode<unknown> | null
+    // deno-lint-ignore no-explicit-any
+    navItems?: any
   },
 ) {
   return (
@@ -23,7 +25,7 @@ export default function Page(
           <Only if={isAuthorized === true}>
             {navItems ? navItems : ''}
             <li>
-              <a href='/note/new'>New Note</a>
+              <a href='/notes/new'>New Note</a>
             </li>
             <li>
               <a href='/api/logout'>Logout</a>

@@ -11,9 +11,11 @@ import * as $4 from './routes/api/logout.ts'
 import * as $5 from './routes/api/note/[slug].tsx'
 import * as $6 from './routes/dashboard.tsx'
 import * as $7 from './routes/index.tsx'
-import * as $8 from './routes/note/[slug].tsx'
-import * as $9 from './routes/note/[slug]/edit.tsx'
-import * as $10 from './routes/note/new.tsx'
+import * as $8 from './routes/notes/[slug].tsx'
+import * as $9 from './routes/notes/[slug]/edit.tsx'
+import * as $10 from './routes/notes/index.tsx'
+import * as $11 from './routes/notes/new.tsx'
+import * as $12 from './routes/rss.ts'
 import * as $$0 from './islands/editor.tsx'
 import * as $$1 from './islands/playlist.tsx'
 
@@ -27,9 +29,11 @@ const manifest = {
     './routes/api/note/[slug].tsx': $5,
     './routes/dashboard.tsx': $6,
     './routes/index.tsx': $7,
-    './routes/note/[slug].tsx': $8,
-    './routes/note/[slug]/edit.tsx': $9,
-    './routes/note/new.tsx': $10,
+    './routes/notes/[slug].tsx': $8,
+    './routes/notes/[slug]/edit.tsx': $9,
+    './routes/notes/index.tsx': $10,
+    './routes/notes/new.tsx': $11,
+    './routes/rss.ts': $12,
   },
   islands: {
     './islands/editor.tsx': $$0,
