@@ -2,20 +2,19 @@ import { FunctionalComponent, VNode } from 'preact'
 import { useMemo } from 'preact/hooks'
 import { Handlers, PageProps } from '$fresh/server.ts'
 import { Only } from '$civility/components/mod.ts'
+
+import Page from '@/components/page.tsx'
+import Playlist from '@/islands/playlist.tsx'
+import { getNote, Note } from '@/utilities/notes.ts'
 import markupToVdom, {
   ComponentsMap,
   createComponentMap,
-} from '@/utilities/markdown/markup_to_vdom.ts'
-import Page from '@/components/Page.tsx'
-import Playlist from '@/islands/Playlist.tsx'
-import { getNote, Note } from '@/utilities/notes.ts'
+} from '@/utilities/markup_to_vdom.ts'
 import { isAuthorized } from '@/utilities/session.ts'
 
 const components: ComponentsMap = createComponentMap({
   playlist: ({ ...props }) => (
-    <div>
-      <Playlist src={props.src} />
-    </div>
+    <div class='md-island' children={<Playlist src={props.src} />} />
   ),
 })
 

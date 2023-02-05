@@ -1,7 +1,7 @@
 import { Handlers, PageProps } from '$fresh/server.ts'
 import { isAuthorized } from '@/utilities/session.ts'
 import { getNotes, Note } from '@/utilities/notes.ts'
-import Page from '@/components/Page.tsx'
+import Page from '@/components/page.tsx'
 
 interface Props {
   isAuthorized: boolean

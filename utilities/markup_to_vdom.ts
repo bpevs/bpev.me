@@ -24,7 +24,7 @@ interface Visitor {
 }
 
 interface Walk {
-  (node: Node): VNode<unknown> | null
+  (node: Node): VNode<unknown> | string | null
   visitor: Visitor
 }
 
@@ -58,7 +58,7 @@ export default function markupToVdom(
   const vdom = body && toVdom(body, visitor)
   visitor.map = null
 
-  return vdom?.props?.children || null
+  return vdom && vdom?.props?.children || null
 }
 
 function toCamelCase(name: string): string {
@@ -67,32 +67,35 @@ function toCamelCase(name: string): string {
 
 const TEXT_NODE = 3
 const ELEMENT_NODE = 1
-const walk: Walk = Object.assign((n: ExtendedNode): VNode<unknown> | null => {
-  if (n.nodeType === TEXT_NODE) {
-    return ('textContent' in n) ? n.textContent : n.nodeValue || ''
-  }
-  if (n.nodeType !== ELEMENT_NODE) return null
-  const nodeName = String(n.nodeName).toLowerCase()
+const walk: Walk = Object.assign(
+  (n: ExtendedNode): VNode<unknown> | string | null => {
+    if (n.nodeType === TEXT_NODE) {
+      return ('textContent' in n) ? n.textContent : null
+    }
+    if (n.nodeType !== ELEMENT_NODE) return null
+    const nodeName = String(n.nodeName).toLowerCase()
 
-  if (nodeName === 'script' && !allowScripts) return null
+    if (nodeName === 'script' && !allowScripts) return null
 
-  const out = h(
-    nodeName,
-    getProps(n.attributes),
-    walkChildren(n.childNodes),
-  )
+    const out = h(
+      nodeName,
+      getProps(n.attributes),
+      walkChildren(n.childNodes),
+    )
 
-  if (walk.visitor) walk.visitor(out)
+    if (walk.visitor) walk.visitor(out)
 
-  return out
-}, {
-  visitor,
-})
+    return out
+  },
+  {
+    visitor,
+  },
+)
 
 // deeply convert an XML DOM to VDOM
 function toVdom(node: Node, visitor: Visitor): VNode<unknown> | null {
   walk.visitor = visitor
-  return walk(node)
+  return walk(node) as (VNode<unknown> | null)
 }
 
 function getProps(attrs?: NamedNodeMap) {
@@ -102,7 +105,9 @@ function getProps(attrs?: NamedNodeMap) {
   return props
 }
 
-function walkChildren(toWalk: NodeList): Array<VNode<unknown> | null> | null {
+function walkChildren(
+  toWalk: NodeList,
+): Array<VNode<unknown> | null | string> | null {
   const children = Array.from(toWalk).map(walk)
   return children?.length ? children : null
 }

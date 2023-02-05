@@ -1,8 +1,8 @@
 import { Handlers, PageProps } from '$fresh/server.ts'
 import { getNote, Note } from '@/utilities/notes.ts'
 
-import Login from '@/components/Login.tsx'
-import Editor from '@/islands/Editor.tsx'
+import Page from '@/components/page.tsx'
+import Editor from '@/islands/editor.tsx'
 
 export const handler: Handlers<{ note: Note }> = {
   async GET(_req, ctx) {
@@ -14,12 +14,8 @@ export const handler: Handlers<{ note: Note }> = {
 
 export default function NewNote({ data }: PageProps<{ note: Note }>) {
   return (
-    <body
-      data-color-mode='auto'
-      data-light-theme='light'
-      data-dark-theme='dark'
-    >
+    <Page>
       <Editor note={data.note} />
-    </body>
+    </Page>
   )
 }

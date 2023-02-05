@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useRef } from 'preact/hooks'
 import { useSignal } from '@preact/signals'
 import { IS_BROWSER } from '$fresh/runtime.ts'
+import * as TinyMDE from 'tiny-markdown-editor'
 import { Note, postNote } from '@/utilities/notes.ts'
 
 const defaultNote = Object.freeze({
@@ -11,21 +12,14 @@ const defaultNote = Object.freeze({
 
 export default function Editor(props: { note?: Note }) {
   const textRef = useRef<HTMLTextAreaElement>(null)
-  const tinyMDE = useRef<TinyMDE>(null)
+  const tinyMDE = useRef<typeof TinyMDE.Editor>(null)
   const note = useSignal<Note>(props.note || { ...defaultNote })
 
   useEffect(() => {
-    async function loadEasyMDE() {
-      if (IS_BROWSER && textRef?.current) {
-        // https://github.com/jefago/tiny-markdown-editor
-        const TinyMDE = (await import(
-          'https://unpkg.com/tiny-markdown-editor@0.1.5/dist/tiny-mde.min.js'
-        )).default
-        tinyMDE.current = new TinyMDE.Editor({ element: textRef.current })
-        tinyMDE.current.setContent(props?.note?.content?.commonmark || '')
-      }
+    if (IS_BROWSER && textRef?.current) {
+      tinyMDE.current = new TinyMDE.Editor({ element: textRef.current })
+      tinyMDE.current.setContent(props?.note?.content?.commonmark || '')
     }
-    loadEasyMDE()
   }, [textRef])
 
   const onSubmit = useCallback(async (e: Event) => {
