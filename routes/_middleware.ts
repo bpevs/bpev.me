@@ -1,15 +1,13 @@
-import { MiddlewareHandlerContext } from '$fresh/server.ts'
+import { MiddlewareHandlerContext as Context } from '$fresh/server.ts'
 import { isAuthorized } from '@/utilities/session.ts'
 
 export const handler = [
+  redirect,
   logging,
   auth,
 ]
 
-async function logging(
-  req: Request,
-  ctx: MiddlewareHandlerContext,
-): Promise<Response> {
+async function logging(req: Request, ctx: Context): Promise<Response> {
   const res = await ctx.next()
   if (!/(_frsh|static)/.test(req.url)) {
     console.log(`${req.method} ${req.url} ${res.status}`)
@@ -17,16 +15,23 @@ async function logging(
   return res
 }
 
-function auth(
-  req: Request,
-  ctx: MiddlewareHandlerContext,
-): Promise<Response> {
+function auth(req: Request, ctx: Context): Promise<Response> {
   if (new RegExp('(/edit|/new|/api/notes)').test(req.url)) {
     if (!isAuthorized(req)) {
       const url = new URL(req.url)
       url.pathname = '/dashboard'
       return Promise.resolve(Response.redirect(url, 307))
     }
+  }
+  return ctx.next()
+}
+
+function redirect(req: Request, ctx: Context): Promise<Response> {
+  if (new RegExp('blog').test(req.url)) {
+    console.log(req.url)
+    const url = new URL(req.url)
+    url.pathname = url.pathname.replace('blog', 'notes')
+    return Promise.resolve(Response.redirect(url, 301))
   }
   return ctx.next()
 }
