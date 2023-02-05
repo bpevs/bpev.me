@@ -16,10 +16,12 @@ let apiUrl: string
 let authorizationToken: string
 
 export async function getNotes() {
-  return (await basicReq<any>('/b2api/v2/b2_list_file_names')).files
+  return (await basicReq<{
+    files: Array<{ fileName: string }>
+  }>('/b2api/v2/b2_list_file_names')).files
 }
 
-export async function postNote(note: any) {
+export async function postNote(note: { body: string; path: string }) {
   if (!upload) {
     upload = await basicReq<{
       uploadUrl: string

@@ -1,11 +1,12 @@
+import { VNode } from 'preact'
 import { PageProps } from '$fresh/server.ts'
 import { Only } from '$civility/components/mod.ts'
 
 export default function Page(
   { children, isAuthorized = false, navItems = null }: {
-    children?: any
+    children?: VNode<unknown> | null
     isAuthorized?: boolean
-    navItems?: any
+    navItems?: VNode<unknown> | null
   },
 ) {
   return (

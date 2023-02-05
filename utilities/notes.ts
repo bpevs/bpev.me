@@ -6,22 +6,18 @@ import * as b2 from '@/utilities/b2.ts'
 import { BLOG_ROOT, FEATURE } from '@/constants.ts'
 const notesCache: { [slug: string]: Note } = {}
 
-if (!BLOG_ROOT) throw new Error('no BLOG_ROOT')
+const localNotes = ['vx1', 'weblinks', 'vx1-session-getaway'].map(getNote)
 
 export interface Note {
   slug: string
   title: string
   published?: Date | null
   updated?: Date
-  lastChecked?: Date
+  lastChecked?: number
   content: {
     commonmark: string
     html?: string
     text?: string
-  }
-  statistics?: {
-    readingTime?: number
-    wordCount?: number
   }
 }
 
@@ -39,34 +35,31 @@ export async function getNotes(): Promise<Note[]> {
     })
     return notes
   } else {
-    return (await Promise.all(['vx1', 'weblinks'].map(getNote))).filter(
+    return (await Promise.all(localNotes)).filter(
       Boolean,
     ) as Note[]
   }
 }
 
-const ONE_DAY = 8.64e+7
+const ONE_WEEK = 8.64e+7 * 7
 export async function getNote(slug: string): Promise<Note | null> {
   const note = notesCache[slug]
-  if (!note || ((Date.now() - note?.lastChecked) > ONE_DAY)) {
+  if (!note || ((Date.now() - (note?.lastChecked ?? 0)) > ONE_WEEK)) {
+    if (!BLOG_ROOT) throw new Error('no BLOG_ROOT')
     const composite = await (await fetch(join(BLOG_ROOT, slug + '.md'))).text()
     if (!composite) return null
     const { attrs, body: commonmark } = extract(composite)
-    const [text, { html, word_count, reading_time }] = await Promise.all([
+    const [text, { html }] = await Promise.all([
       markdownToPlaintext(commonmark),
       markdownToHtml(commonmark),
     ])
-    const wordCount = text.split(' ').length
+
     notesCache[slug] = {
       slug,
       title: String(attrs.title),
       published: new Date(attrs.published as string),
       updated: new Date(attrs.updated as string),
       content: { commonmark, html, text },
-      statistics: {
-        wordCount: word_count,
-        readingTime: reading_time,
-      },
       lastChecked: Date.now(),
     }
   }

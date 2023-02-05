@@ -1,18 +1,18 @@
-import { useCallback, useEffect } from 'preact/hooks'
+import { useEffect } from 'preact/hooks'
 import { useComputed, useSignal } from '@preact/signals'
-import { fetchPlaylist } from '@/utilities/playlist.ts'
+import { fetchPlaylist, Track } from '@/utilities/playlist.ts'
 
-export default function Playlist({ src }: { src: string }) {
-  const tracks = useSignal([])
-  const currIndex = useSignal(0)
-  const currTrack = useComputed(() => tracks.value?.[currIndex.value] || null)
+export default function Playlist({ src }: { src?: string }) {
+  const tracks = useSignal<Track[]>([])
+  const currIndex = useSignal<number>(0)
+  const currTrack = useComputed<Track>(() =>
+    tracks.value?.[currIndex.value] || null
+  )
 
-  const switchTrack = useCallback((index) => {
-    currIndex.value = index
-  }, [currIndex])
+  const switchTrack = (index: number) => currIndex.value = index
 
   useEffect(() => {
-    if (src) fetchPlaylist(src).then((resp) => tracks.value = resp)
+    if (src) fetchPlaylist(src).then((resp: Track[]) => tracks.value = resp)
   }, [src])
 
   return (

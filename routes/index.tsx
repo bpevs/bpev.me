@@ -34,7 +34,7 @@ function NoteCard({ note }: { note: Note }) {
       <a href={`/note/${note.slug}`}>
         <strong>{note.title} –</strong>
         <time style={{ opacity: 0.8, fontSize: '0.8em' }}>
-          {new Date(note.published).toLocaleDateString('en-us', {
+          {new Date(note.published || '').toLocaleDateString('en-us', {
             year: 'numeric',
             month: 'long',
             day: 'numeric',

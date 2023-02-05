@@ -6,12 +6,12 @@ import { Note, postNote } from '@/utilities/notes.ts'
 const defaultNote = Object.freeze({
   title: '',
   slug: '',
-  content: '',
+  content: { commonmark: '' },
 })
 
 export default function Editor(props: { note?: Note }) {
   const textRef = useRef<HTMLTextAreaElement>(null)
-  const tinyMDE = useRef<any>(null)
+  const tinyMDE = useRef<TinyMDE>(null)
   const note = useSignal<Note>(props.note || { ...defaultNote })
 
   useEffect(() => {
@@ -41,8 +41,10 @@ export default function Editor(props: { note?: Note }) {
 
   const onChangeMeta = useCallback((e: Event) => {
     const { name, value } = e.target as HTMLInputElement
-    if (name === 'published') note.value[name] = value ? new Date(value) : null
-    else note.value[name] = value
+    if (name === 'published') {
+      note.value.published = value ? new Date(value) : null
+    } else if (name === 'title') note.value.title = value
+    else if (name === 'slug') note.value.slug = value
   }, [note])
 
   if (!IS_BROWSER) return <div />
@@ -71,7 +73,7 @@ export default function Editor(props: { note?: Note }) {
         <input name='slug' value={slug} onChange={onChangeMeta} />
         <label for='content'>content</label>
         <textarea ref={textRef} name='content' rows={20} cols={60} />
-        <button type='submit' style={{ width: '5em', padding: '10px' }}>
+        <button type='submit'>
           Submit
         </button>
       </form>
