@@ -24,7 +24,7 @@ function auth(
   if (new RegExp('(/edit|/new|/api/notes)').test(req.url)) {
     if (!isAuthorized(req)) {
       const url = new URL(req.url)
-      url.pathname = '/'
+      url.pathname = '/dashboard'
       return Promise.resolve(Response.redirect(url, 307))
     }
   }
