@@ -1,5 +1,5 @@
 import { crypto } from '$std/crypto/mod.ts'
-import { toHashString } from '$std/crypto/to_hash_string.ts'
+import { toHashString } from 'https://deno.land/std@0.173.0/crypto/to_hash_string.ts'
 import { encode } from '$std/encoding/base64.ts'
 import {
   B2_APPLICATION_KEY,
