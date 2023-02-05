@@ -9,12 +9,18 @@ import { getNote, Note } from '@/utilities/notes.ts'
 import { isAuthorized } from '@/utilities/session.ts'
 
 const components = {
-  playlist: ({ ...props }) => <div><Playlist {...props} /></div>
+  playlist: ({ ...props }) => (
+    <div>
+      <Playlist {...props} />
+    </div>
+  ),
 }
-const componentsMap: { [name: string]: ComponentConstructor<any, any> | FunctionalComponent<any> } = {}
-for (let i in components) {
+const componentsMap: {
+  [name: string]: ComponentConstructor<any, any> | FunctionalComponent<any>
+} = {}
+for (const i in components) {
   if (components.hasOwnProperty(i)) {
-    let name = i.replace(
+    const name = i.replace(
       /([A-Z]+)([A-Z][a-z0-9])|([a-z0-9]+)([A-Z])/g,
       '$1$3-$2$4',
     ).toLowerCase()

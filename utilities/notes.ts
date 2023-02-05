@@ -1,7 +1,6 @@
 import { extract } from '$std/encoding/front_matter.ts'
 import { join } from '$std/path/mod.ts'
 import { markdownToHtml, markdownToPlaintext } from 'parsedown'
-import { render } from './markdown/parse_markdown.ts'
 
 import * as b2 from '@/utilities/b2.ts'
 import { BLOG_ROOT, FEATURE } from '@/constants.ts'
@@ -53,21 +52,20 @@ export async function getNote(slug: string): Promise<Note | null> {
     const composite = await (await fetch(join(BLOG_ROOT, slug + '.md'))).text()
     if (!composite) return null
     const { attrs, body: commonmark } = extract(composite)
-    const [text, html] = await Promise.all([
+    const [text, { html, word_count, reading_time }] = await Promise.all([
       markdownToPlaintext(commonmark),
       markdownToHtml(commonmark),
-      render(commonmark),
     ])
     const wordCount = text.split(' ').length
     notesCache[slug] = {
       slug,
       title: String(attrs.title),
-      published: new Date(attrs.published as any),
-      updated: new Date(attrs.updated as any),
-      content: { commonmark, html: html.html, text },
+      published: new Date(attrs.published as string),
+      updated: new Date(attrs.updated as string),
+      content: { commonmark, html, text },
       statistics: {
-        wordCount: html.word_count,
-        readingTime: html.reading_time,
+        wordCount: word_count,
+        readingTime: reading_time,
       },
       lastChecked: Date.now(),
     }
@@ -87,4 +85,3 @@ export async function postNote(note: Note): Promise<void> {
   delete notesCache[note.slug]
   return result
 }
-

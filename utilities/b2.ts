@@ -6,7 +6,6 @@ import {
   B2_BLOG_BUCKET_ID as bucketId,
   B2_KEY_ID,
 } from '../constants.ts'
-import type { Note } from './notes.ts'
 
 const POST = 'POST'
 let upload: {

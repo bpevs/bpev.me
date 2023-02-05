@@ -17,12 +17,12 @@ export default function Page(
       <nav>
         <ul>
           <li>
-            <a href='/'>Home</a>
+            <a href='/'>bpev.me</a>
           </li>
           <Only if={isAuthorized === true}>
             {navItems ? navItems : ''}
             <li>
-              <a href='/note/new'>bpev.me</a>
+              <a href='/note/new'>New Note</a>
             </li>
             <li>
               <a href='/api/logout'>Logout</a>
@@ -31,6 +31,12 @@ export default function Page(
         </ul>
       </nav>
       {children}
+      <footer style={{ textAlign: 'center' }}>
+        <p>
+          Made with ☕️ by Ben. Read the{' '}
+          <a href='https://github.com/bpevs/bpev.me'>code</a>.
+        </p>
+      </footer>
     </body>
   )
 }
