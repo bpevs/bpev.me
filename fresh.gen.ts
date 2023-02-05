@@ -8,7 +8,7 @@ import * as $1 from './routes/_500.tsx'
 import * as $2 from './routes/_middleware.ts'
 import * as $3 from './routes/api/login.ts'
 import * as $4 from './routes/api/logout.ts'
-import * as $5 from './routes/api/note/[slug].tsx'
+import * as $5 from './routes/api/notes/[slug].tsx'
 import * as $6 from './routes/dashboard.tsx'
 import * as $7 from './routes/index.tsx'
 import * as $8 from './routes/notes/[slug].tsx'
@@ -26,7 +26,7 @@ const manifest = {
     './routes/_middleware.ts': $2,
     './routes/api/login.ts': $3,
     './routes/api/logout.ts': $4,
-    './routes/api/note/[slug].tsx': $5,
+    './routes/api/notes/[slug].tsx': $5,
     './routes/dashboard.tsx': $6,
     './routes/index.tsx': $7,
     './routes/notes/[slug].tsx': $8,
