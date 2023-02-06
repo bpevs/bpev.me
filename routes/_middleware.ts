@@ -30,7 +30,7 @@ function auth(req: Request, ctx: Context): Promise<Response> {
 
 async function imageFetch(req: Request, ctx: Context): Promise<Response> {
   const url = new URL(req.url)
-  if (/\.(jpg|jpeg|png|webp)$/i.test(url.pathname)) {
+  if (/\.(jpg|jpeg|png|webp|avif)$/i.test(url.pathname)) {
     const { image, headers } = await processImage(url)
     return new Response(image, { status: 200, headers })
   }

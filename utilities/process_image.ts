@@ -18,6 +18,7 @@ export const FORMAT = {
   JPEG: 'JPEG',
   PNG: 'PNG',
   WEBP: 'WEBP',
+  AVIF: 'AVIF',
 }
 
 export const SIZE = {
@@ -29,12 +30,14 @@ export const SIZE = {
 export const SIZE_MAP = {
   [SIZE.FAST]: 500,
   [SIZE.NORMAL]: 1200,
+  [SIZE.DETAILED]: 3000,
 }
 
 const FORMAT_MAP = {
   [FORMAT.JPEG]: MagickFormat.Jpeg,
   [FORMAT.PNG]: MagickFormat.Png,
   [FORMAT.WEBP]: MagickFormat.Webp,
+  [FORMAT.AVIF]: MagickFormat.Avif,
 }
 
 const imageCache = new Map()
@@ -65,6 +68,8 @@ export default async function (url: URL): Promise<{
       if (size) image.resize(size, size)
       image.write((data) => {
         imageCache.set(url.href, Array.from(data))
+        console.log(MagickFormat.Avif)
+        console.log(image.toString())
         resolve({ headers, image: data })
       }, FORMAT_MAP[format])
     })
@@ -75,6 +80,7 @@ function getFormatFromUrl(ext: string) {
   if (/\.(jpg|jpeg)$/i.test(ext)) return FORMAT.JPEG
   if (/\.(png)$/i.test(ext)) return FORMAT.PNG
   if (/\.(webp)$/i.test(ext)) return FORMAT.WEBP
+  if (/\.(avif)$/i.test(ext)) return FORMAT.AVIF
   throw new Error(`bad format: ${ext}`)
 }
 
