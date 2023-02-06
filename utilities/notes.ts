@@ -3,10 +3,8 @@ import { join } from '$std/path/mod.ts'
 import { markdownToHtml, markdownToPlaintext } from 'parsedown'
 
 import * as b2 from '@/utilities/b2.ts'
-import { BLOG_ROOT, FEATURE } from '@/constants.ts'
+import { BLOG_ROOT, FEATURE, URL_BLOG_LOCAL } from '@/constants.ts'
 const notesCache: { [slug: string]: Note } = {}
-
-const localNotes = ['vx1', 'weblinks', 'vx1-session-getaway'].map(getNote)
 
 export interface Note {
   slug: string
@@ -22,31 +20,46 @@ export interface Note {
 }
 
 export async function getNotes(): Promise<Note[]> {
+  const notes$ = []
   if (FEATURE.B2) {
-    const notePromises = (await b2.getNotes())
-      .map(({ fileName }: { fileName: string }) =>
-        getNote(fileName.replace(/\.md$/, ''))
-      )
-    const notes = (await Promise.all(notePromises)).filter(Boolean) as Note[]
-    notes.sort((a, b) => {
-      if (a?.published == null) return -1
-      else if (b?.published == null) return 1
-      else return b.published.getTime() - a.published.getTime()
-    })
-    return notes
+    for (const file of await b2.getNotes()) {
+      notes$.push(getNote(file.fileName.replace(/\.md$/, '')))
+    }
   } else {
-    return (await Promise.all(localNotes)).filter(
-      Boolean,
-    ) as Note[]
+    if (URL_BLOG_LOCAL) {
+      for await (const dirEntry of Deno.readDir(URL_BLOG_LOCAL)) {
+        notes$.push(getNote(dirEntry.name.replace(/\.md$/, '')))
+      }
+    } else throw new Error('No URL_BLOG_LOCAL')
   }
+
+  const notes = (await Promise.all(notes$)).filter(Boolean) as Note[]
+  notes.sort((a, b) => {
+    if (a?.published == null) return -1
+    else if (b?.published == null) return 1
+    else return b.published.getTime() - a.published.getTime()
+  })
+  return notes
 }
 
 const ONE_WEEK = 8.64e+7 * 7
 export async function getNote(slug: string): Promise<Note | null> {
   const note = notesCache[slug]
   if (!note || ((Date.now() - (note?.lastChecked ?? 0)) > ONE_WEEK)) {
-    if (!BLOG_ROOT) throw new Error('no BLOG_ROOT')
-    const composite = await (await fetch(join(BLOG_ROOT, slug + '.md'))).text()
+    let filePath = ''
+
+    if (FEATURE.B2) {
+      if (BLOG_ROOT) filePath = join(BLOG_ROOT, slug + '.md')
+      else throw new Error('no BLOG_ROOT')
+    } else {
+      if (URL_BLOG_LOCAL) filePath = join(URL_BLOG_LOCAL, slug + '.md')
+      else throw new Error('no URL_BLOG_LOCAL')
+    }
+
+    const composite = FEATURE.B2
+      ? await (await fetch(filePath)).text()
+      : new TextDecoder('utf-8').decode(await Deno.readFile(filePath))
+
     if (!composite) return null
     const { attrs, body: commonmark } = extract(composite)
     const [text, { html }] = await Promise.all([
