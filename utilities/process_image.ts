@@ -5,7 +5,7 @@ import {
   Magick,
   MagickFormat,
   Quantum,
-} from '@imagemagick/magick-wasm'
+} from 'imagemagick'
 
 await initializeImageMagick()
 
