@@ -15,10 +15,20 @@ let upload: {
 let apiUrl: string
 let authorizationToken: string
 
+interface File {
+  action: string
+  contentLength: number
+  contentMd5: string | null
+  contentSha1: string | null
+  contentType: string | null
+  fileName: string
+  uploadTimestamp: number
+}
+
 export async function getNotes() {
-  return (await basicReq<{
-    files: Array<{ fileName: string }>
-  }>('/b2api/v2/b2_list_file_names')).files
+  const body = { delimiter: '/' }
+  const url = '/b2api/v2/b2_list_file_names'
+  return (await basicReq<{ files: Array<File> }>(url, body)).files
 }
 
 export async function postNote(note: { body: string; path: string }) {
@@ -42,13 +52,13 @@ export async function postNote(note: { body: string; path: string }) {
 }
 
 const EXPIRED_AUTH = 401
-async function basicReq<T>(path: string): Promise<T> {
+async function basicReq<T>(path: string, body = {}): Promise<T> {
   try {
     if (!apiUrl) await authorize()
     const response = await (await fetch(apiUrl + path, {
       method: POST,
       headers: new Headers({ Authorization: authorizationToken }),
-      body: JSON.stringify({ bucketId }),
+      body: JSON.stringify({ bucketId, ...body }),
     })).json()
     return response
   } catch (e) {
@@ -57,7 +67,7 @@ async function basicReq<T>(path: string): Promise<T> {
       return (await fetch(apiUrl + path, {
         method: POST,
         headers: new Headers({ Authorization: authorizationToken }),
-        body: JSON.stringify({ bucketId }),
+        body: JSON.stringify({ bucketId, ...body }),
       })).json()
     } else {
       throw new Error(e)

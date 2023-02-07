@@ -23,7 +23,9 @@ export async function getNotes(): Promise<Note[]> {
   const notes$ = []
   if (FEATURE.B2) {
     for (const file of await b2.getNotes()) {
-      notes$.push(getNote(file.fileName.replace(/\.md$/, '')))
+      if (file.contentType === 'text/markdown') {
+        notes$.push(getNote(file.fileName.replace(/\.md$/, '')))
+      }
     }
   } else {
     if (URL_BLOG_LOCAL) {
@@ -61,19 +63,24 @@ export async function getNote(slug: string): Promise<Note | null> {
       : new TextDecoder('utf-8').decode(await Deno.readFile(filePath))
 
     if (!composite) return null
-    const { attrs, body: commonmark } = extract(composite)
-    const [text, { html }] = await Promise.all([
-      markdownToPlaintext(commonmark),
-      markdownToHtml(commonmark),
-    ])
 
-    notesCache[slug] = {
-      slug,
-      title: String(attrs?.title),
-      published: new Date(attrs?.published as string),
-      updated: new Date(attrs?.updated as string),
-      content: { commonmark, html, text },
-      lastChecked: Date.now(),
+    try {
+      const { attrs, body: commonmark } = extract(composite)
+      const [text, { html }] = await Promise.all([
+        markdownToPlaintext(commonmark),
+        markdownToHtml(commonmark),
+      ])
+      notesCache[slug] = {
+        slug,
+        title: String(attrs?.title),
+        published: new Date(attrs?.published as string),
+        updated: new Date(attrs?.updated as string),
+        content: { commonmark, html, text },
+        lastChecked: Date.now(),
+      }
+    } catch (e) {
+      console.log(`Invalid Note! `, slug)
+      console.error(e)
     }
   }
 
