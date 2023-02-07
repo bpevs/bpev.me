@@ -23,7 +23,10 @@ export async function getNotes(): Promise<Note[]> {
   const notes$ = []
   if (FEATURE.B2) {
     for (const file of await b2.getNotes()) {
-      if (file.contentType === 'text/markdown') {
+      if (
+        file.contentType === 'text/markdown' ||
+        /\.md$/i.test(file.fileName)
+      ) {
         notes$.push(getNote(file.fileName.replace(/\.md$/, '')))
       }
     }
