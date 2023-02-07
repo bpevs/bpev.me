@@ -80,3 +80,10 @@ async function authorize(): Promise<{
   authorizationToken = response.authorizationToken
   return response
 }
+
+export async function cacheImage(
+  _cacheURL: string,
+  _headers: Headers,
+  _imgArray: Uint8Array,
+) {
+}
