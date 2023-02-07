@@ -33,10 +33,15 @@ export const handler: Handlers<Props> = {
       const note = await getNote(ctx.params.slug.split('.json')[0])
       if (!note) return ctx.renderNotFound()
       return new Response(JSON.stringify(note), { status: 200 })
+    } else if (/\.md$/.test(ctx.params.slug)) {
+      const note = await getNote(ctx.params.slug.split('.md')[0])
+      if (!note) return ctx.renderNotFound()
+      return new Response(note.content.commonmark, { status: 200 })
+    } else {
+      const note = await getNote(ctx.params.slug)
+      if (!note) return ctx.renderNotFound()
+      return ctx.render!({ note, isAuthorized: isAuthorized(req) })
     }
-    const note = await getNote(ctx.params.slug)
-    if (!note) return ctx.renderNotFound()
-    return ctx.render!({ note, isAuthorized: isAuthorized(req) })
   },
 }
 
