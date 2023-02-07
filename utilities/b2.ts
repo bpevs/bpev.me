@@ -7,14 +7,6 @@ import {
   B2_KEY_ID,
 } from '../constants.ts'
 
-const POST = 'POST'
-let upload: {
-  uploadUrl: string
-  authorizationToken: string
-}
-let apiUrl: string
-let authorizationToken: string
-
 interface File {
   action: string
   contentLength: number
@@ -25,6 +17,16 @@ interface File {
   uploadTimestamp: number
 }
 
+interface Upload {
+  uploadUrl: string
+  authorizationToken: string
+}
+
+const POST = 'POST'
+let upload: Upload
+let apiUrl: string
+let authorizationToken: string
+
 export async function getNotes() {
   const body = { delimiter: '/' }
   const url = '/b2api/v2/b2_list_file_names'
@@ -32,12 +34,7 @@ export async function getNotes() {
 }
 
 export async function postNote(note: { body: string; path: string }) {
-  if (!upload) {
-    upload = await basicReq<{
-      uploadUrl: string
-      authorizationToken: string
-    }>('/b2api/v2/b2_get_upload_url')
-  }
+  if (!upload) upload = await basicReq<Upload>('/b2api/v2/b2_get_upload_url')
   const { uploadUrl, authorizationToken: Authorization } = upload
   const body = new TextEncoder().encode(note.body)
   const hash = toHashString(await crypto.subtle.digest('SHA-1', body))
@@ -92,8 +89,31 @@ async function authorize(): Promise<{
 }
 
 export async function cacheImage(
-  _cacheURL: string,
-  _headers: Headers,
-  _imgArray: Uint8Array,
+  cachePath: string,
+  contentType: string,
+  imgArray: Uint8Array,
 ) {
+  if (!upload) upload = await basicReq<Upload>('/b2api/v2/b2_get_upload_url')
+  const { uploadUrl, authorizationToken: Authorization } = upload
+
+  const array = Uint8Array.from(imgArray)
+  const body: ArrayBuffer = array.buffer.slice(
+    array.byteOffset,
+    array.byteLength + array.byteOffset,
+  )
+
+  const hash = toHashString(await crypto.subtle.digest('SHA-1', body))
+
+  const headers = new Headers({
+    Authorization,
+    'X-Bz-File-Name': encodeURI(cachePath),
+    'Content-Type': contentType,
+    'Content-Length': String(body.byteLength + hash.length),
+    'X-Bz-Content-Sha1': hash,
+  })
+  console.log('CACHING', uploadUrl)
+  const result = await fetch(uploadUrl, { headers, body, method: POST })
+  if (result.ok) console.log('CACHED', cachePath)
+  else console.error(result)
+  return result
 }

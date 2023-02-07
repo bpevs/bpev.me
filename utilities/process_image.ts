@@ -54,13 +54,12 @@ export default async function (url: URL): Promise<{
   image: Uint8Array
   headers: Headers
 }> {
-  const { baseURL, cacheURL, format, dimensions } = parseURL(url)
-  const headers = new Headers({
-    'Content-Type': `image/${format.toLowerCase()}`,
-  })
+  const { baseURL, cacheURL, cachePath, format, dimensions } = parseURL(url)
+  const contentType = `image/${format.toLowerCase()}`
+  const headers = new Headers({ 'Content-Type': contentType })
 
   const staticResp = await getBestImage(baseURL, cacheURL)
-  console.log('BEST_IMG ', staticResp.url, staticResp.isFromCache)
+  console.log('IMG', staticResp.url, staticResp.isFromCache)
 
   if (staticResp.isFromCache) {
     if (staticResp.url !== 'local') {
@@ -74,8 +73,12 @@ export default async function (url: URL): Promise<{
       if (dimensions?.[0] || dimensions?.[1]) image.resize(...dimensions)
       image.write((imgArray: Uint8Array) => {
         if (FEATURE.B2 && !staticResp.isFromCache) {
-          // Parallel async; don't block resp
-          cacheImage(cacheURL, headers, imgArray)
+          try {
+            // Parallel async; don't block resp
+            cacheImage(cachePath, contentType, imgArray)
+          } catch (e) {
+            console.error('Cache failed', e)
+          }
         }
         resolve({ headers, image: imgArray })
       }, FORMAT_MAP[format])
@@ -130,6 +133,7 @@ function handleResp(resp: Response) {
 function parseURL(url: URL): {
   baseURL: string
   cacheURL: string
+  cachePath: string
   format: Format
   dimensions: [number, number]
 } {
@@ -137,10 +141,12 @@ function parseURL(url: URL): {
   const sizeReq = (new URLSearchParams(url.search)).get('size')
   const sizeName = (sizeReq || SIZE.NORMAL).toUpperCase()
   const format = getFormatFromUrl(ext)
+  const cachePath = join('cache', sizeName, dir, `${name}.${format}`)
   return {
     baseURL: 'https://' + join('static.bpev.me', dir, name),
     format,
     dimensions: DIMENSIONS[sizeName] || [0, 0],
-    cacheURL: URL_STATIC + join('cache', sizeName, dir, `${name}.${format}`),
+    cachePath,
+    cacheURL: URL_STATIC + cachePath,
   }
 }
