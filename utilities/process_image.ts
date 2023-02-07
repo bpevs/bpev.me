@@ -73,12 +73,11 @@ export default async function (url: URL): Promise<{
       if (dimensions?.[0] || dimensions?.[1]) image.resize(...dimensions)
       image.write((imgArray: Uint8Array) => {
         if (FEATURE.B2 && !staticResp.isFromCache) {
-          try {
-            // Parallel async; don't block resp
-            cacheImage(cachePath, contentType, imgArray)
-          } catch (e) {
-            console.error('Cache failed', e)
-          }
+          // Parallel async; don't block resp
+          cacheImage(cachePath, contentType, imgArray)
+            .catch((e) => {
+              console.error('Cache failed', e)
+            })
         }
         resolve({ headers, image: imgArray })
       }, FORMAT_MAP[format])

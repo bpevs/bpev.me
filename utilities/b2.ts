@@ -23,9 +23,8 @@ interface Upload {
 }
 
 const POST = 'POST'
-let upload: Upload
-let apiUrl: string
-let authorizationToken: string
+let apiUrl: Promise<string>
+let authorizationToken: Promise<string>
 
 export async function getNotes() {
   const body = { delimiter: '/' }
@@ -34,7 +33,7 @@ export async function getNotes() {
 }
 
 export async function postNote(note: { body: string; path: string }) {
-  if (!upload) upload = await basicReq<Upload>('/b2api/v2/b2_get_upload_url')
+  const upload = await basicReq<Upload>('/b2api/v2/b2_get_upload_url')
   const { uploadUrl, authorizationToken: Authorization } = upload
   const body = new TextEncoder().encode(note.body)
   const hash = toHashString(await crypto.subtle.digest('SHA-1', body))
@@ -52,18 +51,18 @@ const EXPIRED_AUTH = 401
 async function basicReq<T>(path: string, body = {}): Promise<T> {
   try {
     if (!apiUrl) await authorize()
-    const response = await (await fetch(apiUrl + path, {
+    const response = await (await fetch((await apiUrl) + path, {
       method: POST,
-      headers: new Headers({ Authorization: authorizationToken }),
+      headers: new Headers({ Authorization: await authorizationToken }),
       body: JSON.stringify({ bucketId, ...body }),
     })).json()
     return response
   } catch (e) {
     if (e.status === EXPIRED_AUTH) {
       await authorize()
-      return (await fetch(apiUrl + path, {
+      return (await fetch((await apiUrl) + path, {
         method: POST,
-        headers: new Headers({ Authorization: authorizationToken }),
+        headers: new Headers({ Authorization: await authorizationToken }),
         body: JSON.stringify({ bucketId, ...body }),
       })).json()
     } else {
@@ -76,15 +75,20 @@ async function authorize(): Promise<{
   apiUrl: string
   authorizationToken: string
 }> {
+  console.log('B2 AUTH')
   const AUTH_URL = 'https://api.backblazeb2.com/b2api/v2/b2_authorize_account'
   const Authorization = `Basic ${encode(B2_KEY_ID + ':' + B2_APPLICATION_KEY)}`
+  let apiResolve: (arg: string) => void
+  let authTokenResolve: (arg: string) => void
+  apiUrl = new Promise((resolve) => apiResolve = resolve)
+  authorizationToken = new Promise((resolve) => authTokenResolve = resolve)
   const response = await (await fetch(AUTH_URL, {
     method: 'GET',
     headers: new Headers({ Authorization }),
     credentials: 'include',
   })).json()
-  apiUrl = response.apiUrl
-  authorizationToken = response.authorizationToken
+  apiResolve!(response.apiUrl)
+  authTokenResolve!(response.authorizationToken)
   return response
 }
 
@@ -93,15 +97,10 @@ export async function cacheImage(
   contentType: string,
   imgArray: Uint8Array,
 ) {
-  if (!upload) upload = await basicReq<Upload>('/b2api/v2/b2_get_upload_url')
+  const upload = await basicReq<Upload>('/b2api/v2/b2_get_upload_url')
   const { uploadUrl, authorizationToken: Authorization } = upload
-
-  const array = Uint8Array.from(imgArray)
-  const body: ArrayBuffer = array.buffer.slice(
-    array.byteOffset,
-    array.byteLength + array.byteOffset,
-  )
-
+  console.log('CACHING', uploadUrl)
+  const body = typedArrayToBuffer(imgArray)
   const hash = toHashString(await crypto.subtle.digest('SHA-1', body))
 
   const headers = new Headers({
@@ -111,9 +110,12 @@ export async function cacheImage(
     'Content-Length': String(body.byteLength + hash.length),
     'X-Bz-Content-Sha1': hash,
   })
-  console.log('CACHING', uploadUrl)
   const result = await fetch(uploadUrl, { headers, body, method: POST })
   if (result.ok) console.log('CACHED', cachePath)
   else console.error(result)
   return result
+}
+
+function typedArrayToBuffer(arr: Uint8Array): ArrayBuffer {
+  return arr.buffer.slice(arr.byteOffset, arr.byteLength + arr.byteOffset)
 }
