@@ -1,9 +1,10 @@
-import { FunctionalComponent, VNode } from 'preact'
-import { useMemo } from 'preact/hooks'
+import { createContext, FunctionalComponent, VNode } from 'preact'
+import { useContext, useMemo } from 'preact/hooks'
 import { Handlers, PageProps } from '$fresh/server.ts'
 import { Only } from '$civility/components/mod.ts'
 
 import Page from '@/components/page.tsx'
+import Photo from '@/islands/photo.tsx'
 import Playlist from '@/islands/playlist.tsx'
 import { getNote, Note } from '@/utilities/notes.ts'
 import markupToVdom, {
@@ -12,9 +13,20 @@ import markupToVdom, {
 } from '@/utilities/markup_to_vdom.ts'
 import { isAuthorized } from '@/utilities/session.ts'
 
+const NoteContext = createContext<Note | null>(null)
+
 const components: ComponentsMap = createComponentMap({
   playlist: ({ ...props }) => (
-    <div class='md-island' children={<Playlist src={props.src} />} />
+    <div
+      class='md-island'
+      children={<Playlist {...props} note={useContext(NoteContext)} />}
+    />
+  ),
+  photo: ({ ...props }) => (
+    <div
+      class='md-island'
+      children={<Photo {...props} note={useContext(NoteContext)} />}
+    />
   ),
 })
 
@@ -50,7 +62,7 @@ export default function NotePage(props: PageProps<Props>) {
 
   const vdom = useMemo(() => {
     if (note.content.html == null) return null
-    return markupToVdom(note.content.html, components) || null
+    else return markupToVdom(note.content.html, components) || null
   }, [note])
 
   return (
@@ -64,9 +76,11 @@ export default function NotePage(props: PageProps<Props>) {
         </Only>
       }
     >
-      <main style={{ paddingTop: '20px', paddingBottom: '20px' }}>
-        <div class='markup'>{vdom}</div>
-      </main>
+      <NoteContext.Provider value={note}>
+        <main style={{ paddingTop: '20px', paddingBottom: '20px' }}>
+          <div class='markup'>{vdom}</div>
+        </main>
+      </NoteContext.Provider>
     </Page>
   )
 }

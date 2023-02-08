@@ -5,7 +5,6 @@ import {
   B2_APPLICATION_KEY,
   B2_BLOG_BUCKET_ID as bucketId,
   B2_KEY_ID,
-  B2_STATIC_BUCKET_ID,
 } from '../constants.ts'
 
 interface File {
@@ -33,13 +32,13 @@ export async function getNotes() {
   return (await basicReq<{ files: Array<File> }>(url, body)).files
 }
 
-export async function listImages(bodyInput) {
+export async function listImages(bodyInput?: { bucketId?: string }) {
   const body = { prefix: 'notes/', maxFileCount: 10000, ...bodyInput }
   const url = '/b2api/v2/b2_list_file_names'
   return (await basicReq<{ files: Array<File> }>(url, body))
 }
 
-export async function listCachedImages(bodyInput) {
+export async function listCachedImages(bodyInput: { bucketId?: string }) {
   const body = { prefix: 'cache/', maxFileCount: 10000, ...bodyInput }
   const url = '/b2api/v2/b2_list_file_names'
   return (await basicReq<{ files: Array<File> }>(url, body))
@@ -115,7 +114,10 @@ export async function cacheImage(
   const body = typedArrayToBuffer(imgArray)
   const hash = toHashString(await crypto.subtle.digest('SHA-1', body))
 
-  const upload = await basicReq<Upload>('/b2api/v2/b2_get_upload_url', inputBody)
+  const upload = await basicReq<Upload>(
+    '/b2api/v2/b2_get_upload_url',
+    inputBody,
+  )
   const { uploadUrl, authorizationToken: Authorization } = upload
 
   const headers = new Headers({
@@ -126,20 +128,13 @@ export async function cacheImage(
     'X-Bz-Content-Sha1': hash,
   })
   const result = await fetch(uploadUrl, { headers, body, method: POST })
-  if (!result.ok) throw new Error(result)
+  if (!result.ok) {
+    console.error(result)
+    throw new Error('failed to cache image')
+  }
   return result
 }
 
 function typedArrayToBuffer(arr: Uint8Array): ArrayBuffer {
   return arr.buffer.slice(arr.byteOffset, arr.byteLength + arr.byteOffset)
-}
-
-function arrayToArrayBuffer(array) {
-  var length = array.length;
-  var buffer = new ArrayBuffer( length * 2 );
-  var view = new Uint16Array(buffer);
-  for ( var i = 0; i < length; i++) {
-      view[i] = array[i];
-  }
-  return buffer;
 }

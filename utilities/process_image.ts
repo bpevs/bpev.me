@@ -8,6 +8,7 @@ import {
 } from 'imagemagick'
 import { FEATURE, URL_STATIC } from '@/constants.ts'
 import { cacheImage } from '@/utilities/b2.ts'
+import { DIMENSIONS, FORMAT, Format, SIZE } from './image.ts'
 
 await initializeImageMagick()
 
@@ -18,31 +19,10 @@ console.log('Quantum:', Quantum.depth)
 
 const imageCache: { [url: string]: ArrayBuffer } = {}
 
-export const FORMAT = Object.freeze({
-  JPG: 'JPG',
-  PNG: 'PNG',
-  WEBP: 'WEBP',
-})
-export type Format = keyof typeof FORMAT
-
-export const SIZE = Object.freeze({
-  FAST: 'FAST',
-  NORMAL: 'NORMAL',
-  DETAILED: 'DETAILED',
-})
-export type Size = keyof typeof SIZE
-
-export const DIMENSIONS: { [key: string]: [number, number] } = Object.freeze({
-  [SIZE.FAST]: [500, 500],
-  [SIZE.NORMAL]: [1800, 1800],
-  [SIZE.DETAILED]: [1450, 2560],
-})
-
-export const FORMAT_MAP = Object.freeze({
+export const FORMAT_MAP: { [value: string]: MagickFormat } = Object.freeze({
   [FORMAT.JPG]: MagickFormat.Jpeg,
   [FORMAT.PNG]: MagickFormat.Png,
   [FORMAT.WEBP]: MagickFormat.Webp,
-  [FORMAT.AVIF]: MagickFormat.Avif,
 })
 
 /**
@@ -66,10 +46,6 @@ export default async function (url: URL): Promise<{
     return { headers, image: new Uint8Array(staticResp.buffer) }
   }
 
-  return processImage()
-}
-
-export function processImage(staticResp, cachePath, contentType) {
   return new Promise((resolve) => {
     ImageMagick.read(new Uint8Array(staticResp.buffer), (image) => {
       if (dimensions?.[0] || dimensions?.[1]) image.resize(...dimensions)
@@ -91,7 +67,6 @@ export function getFormatFromUrl(ext: string): Format {
   if (/\.(jpg|jpeg)$/i.test(ext)) return FORMAT.JPG
   if (/\.(png)$/i.test(ext)) return FORMAT.PNG
   if (/\.(webp)$/i.test(ext)) return FORMAT.WEBP
-  if (/\.(avif)$/i.test(ext)) return FORMAT.AVIF
   throw new Error(`bad format: ${ext}`)
 }
 

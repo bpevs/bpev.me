@@ -8,15 +8,8 @@
 import { join, parse } from '$std/path/mod.ts'
 import { pooledMap } from '$std/async/pool.ts'
 import { cacheImage, listCachedImages, listImages } from '../utilities/b2.ts'
-import {
-  DIMENSIONS,
-  FORMAT,
-  Format,
-  FORMAT_MAP,
-  getFormatFromUrl,
-  SIZE,
-  Size,
-} from '../utilities/process_image.ts'
+import { FORMAT_MAP, getFormatFromUrl } from '../utilities/process_image.ts'
+import { DIMENSIONS, FORMAT, Format, SIZE } from '../utilities/image.ts'
 import { B2_STATIC_BUCKET_ID, URL_STATIC } from '../constants.ts'
 import { ImageMagick } from 'imagemagick'
 
@@ -24,12 +17,11 @@ interface Entity {
   downloadPath: string
   downloadFormat: Format
   uploadPath: string
-  uploadFormat: Format
-  uploadSize: Size
+  uploadFormat: string
+  uploadSize: string
 }
 
 const { PNG, JPG } = FORMAT
-const CACHE_ROOT = `${URL_STATIC}cache`
 const bucketId = B2_STATIC_BUCKET_ID
 const CONCURRENT = 12
 
@@ -44,23 +36,23 @@ const entities: Entity[] = (await listImages({ bucketId })).files
     createUploadEntities(fileName)
       .filter((entity) => {
         const alreadyDone = previouslyCached.has(entity.uploadPath)
-        if (alreadyDone) console.log("SKIPPED", entity.uploadPath)
+        if (alreadyDone) console.log('SKIPPED', entity.uploadPath)
         return !alreadyDone
       })
   ).flat()
 console.log(`Writing ${entities.length} images...`)
 
-let count = 0;
-const errors = [];
+let count = 0
+const errors: string[] = []
 
 const prevResponsePromises = new Map()
-const statuses: string[] = await pooledMap(
+const statuses: AsyncIterableIterator<string> = await pooledMap(
   CONCURRENT,
   entities,
   async (entity) => {
     const downloadURL = URL_STATIC + entity.downloadPath
     const prevResponse = prevResponsePromises.get(downloadURL)
-    const buffer =
+    const buffer: ArrayBuffer =
       await (prevResponse
         ? prevResponse
         : fetch(downloadURL).then((response) => {
@@ -72,7 +64,7 @@ const statuses: string[] = await pooledMap(
         entity.uploadPath,
         `image/${entity.uploadFormat.toLowerCase().replace('jpg', 'jpeg')}`,
         await buildImage(entity, buffer),
-        { bucketId }
+        { bucketId },
       )
       return `SUCCESS ${entity.uploadPath}`
     } catch (e) {
@@ -86,17 +78,17 @@ for await (const status of statuses) {
   count++
   console.log(`${count}/${entities.length} ${status}`)
 }
-console.log("ERRORS")
+console.log('ERRORS')
 errors.forEach((error) => {
   console.log(error)
 })
 
-function buildImage(entity: Entity, buffer) {
+function buildImage(entity: Entity, buffer: ArrayBuffer): Promise<Uint8Array> {
   const [x, y] = DIMENSIONS[entity.uploadSize] || [0, 0]
   return new Promise((resolve) => {
     ImageMagick.read(new Uint8Array(buffer), (image) => {
       if (x || y) image.resize(x, y)
-      image.write(async (imgArray: Uint8Array) => {
+      image.write((imgArray: Uint8Array) => {
         resolve(imgArray)
       }, FORMAT_MAP[entity.uploadFormat])
     })

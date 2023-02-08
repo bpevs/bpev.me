@@ -1,11 +1,9 @@
 import { MiddlewareHandlerContext as Context } from '$fresh/server.ts'
 import { isAuthorized } from '@/utilities/session.ts'
-import processImage from '@/utilities/process_image.ts'
 
 export const handler = [
   logging,
   auth,
-  imageFetch,
   redirect, // Must be after imageFetch
 ]
 
@@ -24,15 +22,6 @@ function auth(req: Request, ctx: Context): Promise<Response> {
       url.pathname = '/dashboard'
       return Promise.resolve(Response.redirect(url, 307))
     }
-  }
-  return ctx.next()
-}
-
-async function imageFetch(req: Request, ctx: Context): Promise<Response> {
-  const url = new URL(req.url)
-  if (/\.(jpg|jpeg|png|webp|avif)$/i.test(url.pathname)) {
-    const { image, headers } = await processImage(url)
-    return new Response(image, { status: 200, headers })
   }
   return ctx.next()
 }
