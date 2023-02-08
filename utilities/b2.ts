@@ -5,6 +5,7 @@ import {
   B2_APPLICATION_KEY,
   B2_BLOG_BUCKET_ID as bucketId,
   B2_KEY_ID,
+  B2_STATIC_BUCKET_ID,
 } from '../constants.ts'
 
 interface File {
@@ -30,6 +31,18 @@ export async function getNotes() {
   const body = { delimiter: '/' }
   const url = '/b2api/v2/b2_list_file_names'
   return (await basicReq<{ files: Array<File> }>(url, body)).files
+}
+
+export async function listImages(bodyInput) {
+  const body = { prefix: 'notes/', maxFileCount: 10000, ...bodyInput }
+  const url = '/b2api/v2/b2_list_file_names'
+  return (await basicReq<{ files: Array<File> }>(url, body))
+}
+
+export async function listCachedImages(bodyInput) {
+  const body = { prefix: 'cache/', maxFileCount: 10000, ...bodyInput }
+  const url = '/b2api/v2/b2_list_file_names'
+  return (await basicReq<{ files: Array<File> }>(url, body))
 }
 
 export async function postNote(note: { body: string; path: string }) {
@@ -96,12 +109,14 @@ export async function cacheImage(
   cachePath: string,
   contentType: string,
   imgArray: Uint8Array,
+  inputBody = {},
 ) {
-  const upload = await basicReq<Upload>('/b2api/v2/b2_get_upload_url')
-  const { uploadUrl, authorizationToken: Authorization } = upload
-  console.log('CACHING', uploadUrl)
+  // console.log('CACHING', cachePath)
   const body = typedArrayToBuffer(imgArray)
   const hash = toHashString(await crypto.subtle.digest('SHA-1', body))
+
+  const upload = await basicReq<Upload>('/b2api/v2/b2_get_upload_url', inputBody)
+  const { uploadUrl, authorizationToken: Authorization } = upload
 
   const headers = new Headers({
     Authorization,
@@ -111,11 +126,20 @@ export async function cacheImage(
     'X-Bz-Content-Sha1': hash,
   })
   const result = await fetch(uploadUrl, { headers, body, method: POST })
-  if (result.ok) console.log('CACHED', cachePath)
-  else console.error(result)
+  if (!result.ok) throw new Error(result)
   return result
 }
 
 function typedArrayToBuffer(arr: Uint8Array): ArrayBuffer {
   return arr.buffer.slice(arr.byteOffset, arr.byteLength + arr.byteOffset)
+}
+
+function arrayToArrayBuffer(array) {
+  var length = array.length;
+  var buffer = new ArrayBuffer( length * 2 );
+  var view = new Uint16Array(buffer);
+  for ( var i = 0; i < length; i++) {
+      view[i] = array[i];
+  }
+  return buffer;
 }
