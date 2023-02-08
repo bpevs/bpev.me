@@ -23,7 +23,7 @@ interface Entity {
 
 const { PNG, JPG } = FORMAT
 const bucketId = B2_STATIC_BUCKET_ID
-const CONCURRENT = 12
+const CONCURRENT = 2
 
 const previouslyCached: Set<string> = new Set(
   (await listCachedImages({ bucketId })).files.map((image) => image.fileName),

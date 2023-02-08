@@ -24,12 +24,15 @@ export default function Image({ src, size = 'normal', note }: Props) {
   const webpPath = 'notes/' + note.slug + '/' + name + '.WEBP'
 
   return (
-    <picture>
-      <source srcset={URLS[normalizedSize] + webpPath} />
-      <img
-        srcset={URLS[normalizedSize] + originalPath}
-        src={URLS.ORIGINAL + originalPath}
-      />
-    </picture>
+    <a href={URLS.DETAILED + originalPath}>
+      <picture>
+        <source srcset={URLS[normalizedSize] + webpPath} type='image/webp' />
+        <img
+          type={`image/${ext.replace('.', '')}`}
+          srcset={URLS[normalizedSize] + originalPath}
+          src={URLS.ORIGINAL + originalPath}
+        />
+      </picture>
+    </a>
   )
 }
