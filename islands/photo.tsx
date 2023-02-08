@@ -29,7 +29,6 @@ export default function Image({ src, size = 'normal', note }: Props) {
         textAlign: 'center',
         display: 'block',
         width: '100%',
-        maxHeight: '800px',
       }}
     >
       <picture>
@@ -46,6 +45,7 @@ export default function Image({ src, size = 'normal', note }: Props) {
         />
         <source srcset={URLS.FAST + originalPath} type={`image/${ext}`} />
         <img
+          style={{ maxHeight: '600px' }}
           type={`image/${ext}`}
           src={URLS.ORIGINAL + originalPath}
         />
