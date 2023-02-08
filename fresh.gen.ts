@@ -17,7 +17,8 @@ import * as $10 from './routes/notes/index.tsx'
 import * as $11 from './routes/notes/new.tsx'
 import * as $12 from './routes/rss.ts'
 import * as $$0 from './islands/editor.tsx'
-import * as $$1 from './islands/playlist.tsx'
+import * as $$1 from './islands/photo.tsx'
+import * as $$2 from './islands/playlist.tsx'
 
 const manifest = {
   routes: {
@@ -37,7 +38,8 @@ const manifest = {
   },
   islands: {
     './islands/editor.tsx': $$0,
-    './islands/playlist.tsx': $$1,
+    './islands/photo.tsx': $$1,
+    './islands/playlist.tsx': $$2,
   },
   baseUrl: import.meta.url,
   config,

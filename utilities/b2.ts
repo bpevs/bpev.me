@@ -32,6 +32,18 @@ export async function getNotes() {
   return (await basicReq<{ files: Array<File> }>(url, body)).files
 }
 
+export async function listImages(bodyInput?: { bucketId?: string }) {
+  const body = { prefix: 'notes/', maxFileCount: 10000, ...bodyInput }
+  const url = '/b2api/v2/b2_list_file_names'
+  return (await basicReq<{ files: Array<File> }>(url, body))
+}
+
+export async function listCachedImages(bodyInput: { bucketId?: string }) {
+  const body = { prefix: 'cache/', maxFileCount: 10000, ...bodyInput }
+  const url = '/b2api/v2/b2_list_file_names'
+  return (await basicReq<{ files: Array<File> }>(url, body))
+}
+
 export async function postNote(note: { body: string; path: string }) {
   const upload = await basicReq<Upload>('/b2api/v2/b2_get_upload_url')
   const { uploadUrl, authorizationToken: Authorization } = upload
@@ -96,12 +108,17 @@ export async function cacheImage(
   cachePath: string,
   contentType: string,
   imgArray: Uint8Array,
+  inputBody = {},
 ) {
-  const upload = await basicReq<Upload>('/b2api/v2/b2_get_upload_url')
-  const { uploadUrl, authorizationToken: Authorization } = upload
-  console.log('CACHING', uploadUrl)
+  // console.log('CACHING', cachePath)
   const body = typedArrayToBuffer(imgArray)
   const hash = toHashString(await crypto.subtle.digest('SHA-1', body))
+
+  const upload = await basicReq<Upload>(
+    '/b2api/v2/b2_get_upload_url',
+    inputBody,
+  )
+  const { uploadUrl, authorizationToken: Authorization } = upload
 
   const headers = new Headers({
     Authorization,
@@ -111,8 +128,10 @@ export async function cacheImage(
     'X-Bz-Content-Sha1': hash,
   })
   const result = await fetch(uploadUrl, { headers, body, method: POST })
-  if (result.ok) console.log('CACHED', cachePath)
-  else console.error(result)
+  if (!result.ok) {
+    console.error(result)
+    throw new Error('failed to cache image')
+  }
   return result
 }
 
