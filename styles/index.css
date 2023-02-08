@@ -24,7 +24,7 @@ nav ul li {
 }
 
 .markup {
-  max-width: 34rem;
+  max-width: 800px;
   margin: auto;
 }
 
@@ -53,4 +53,8 @@ nav ul li {
 
 iframe {
   background-color: transparent;
+}
+
+.md-island {
+  width: 100%;
 }
