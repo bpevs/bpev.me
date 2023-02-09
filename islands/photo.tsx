@@ -1,5 +1,8 @@
+import { useCallback } from 'preact/hooks'
+import { useSignal } from '@preact/signals'
+
 import type { Note } from '@/utilities/notes.ts'
-import { URL_STATIC } from '@/constants.ts'
+import { URL_STATIC } from '@/constants_client.ts'
 import { SIZE, Size } from '@/utilities/image.ts'
 
 interface Props {
@@ -17,10 +20,12 @@ export default function Image({ src, size = 'normal', note }: Props) {
     ORIGINAL: `${URL_STATIC}`,
   }
   const normalizedSize = size.toUpperCase() || NORMAL
+  const webpExtension = useSignal('WEBP')
 
   const [name, ext] = src.split('.')
-  const originalPath = 'notes/' + note.slug + '/' + name + ext.toUpperCase()
-  const webpPath = 'notes/' + note.slug + '/' + name + '.WEBP'
+  const originalPath = 'notes/' + note.slug + '/' + name + '.' +
+    ext.toUpperCase()
+  const webpPath = 'notes/' + note.slug + '/' + name + '.' + webpExtension.value
 
   return (
     <a
@@ -48,6 +53,10 @@ export default function Image({ src, size = 'normal', note }: Props) {
           style={{ maxHeight: '600px' }}
           type={`image/${ext}`}
           src={URLS.ORIGINAL + originalPath}
+          onError={useCallback((e: Event) => {
+            console.error((e.target as HTMLImageElement).src)
+            webpExtension.value = ext.toUpperCase()
+          }, [webpExtension, ext])}
         />
       </picture>
     </a>

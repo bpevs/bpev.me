@@ -27,7 +27,7 @@ function auth(req: Request, ctx: Context): Promise<Response> {
 }
 
 function redirect(req: Request, ctx: Context): Promise<Response> {
-  if (/blog/.test(req.url)) {
+  if (/blog(\/|$)/.test(req.url)) {
     const url = new URL(req.url)
     url.pathname = url.pathname.replace('blog', 'notes')
     return Promise.resolve(Response.redirect(url, 301))
