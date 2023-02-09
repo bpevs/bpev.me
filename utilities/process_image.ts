@@ -48,17 +48,18 @@ export default async function (url: URL): Promise<{
 
   return new Promise((resolve) => {
     ImageMagick.read(new Uint8Array(staticResp.buffer), (image) => {
-      if (dimensions?.[0] || dimensions?.[1]) image.resize(...dimensions)
+      image.resize(...dimensions)
+      image.autoOrient()
       image.write((imgArray: Uint8Array) => {
-        if (FEATURE.B2 && !staticResp.isFromCache) {
-          // Parallel async; don't block resp
-          cacheImage(cachePath, contentType, imgArray)
-            .catch((e) => {
-              console.error('Cache failed', e)
-            })
-        }
-        resolve({ headers, image: imgArray })
-      }, FORMAT_MAP[format])
+          if (FEATURE.B2 && !staticResp.isFromCache) {
+            // Parallel async; don't block resp
+            cacheImage(cachePath, contentType, imgArray)
+              .catch((e) => {
+                console.error('Cache failed', e)
+              })
+          }
+          resolve({ headers, image: imgArray })
+        }, FORMAT_MAP[format])
     })
   })
 }

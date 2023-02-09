@@ -13,8 +13,8 @@ export const B2_BLOG_BUCKET_ID = Deno.env.get('B2_BUCKET_ID_BLOG')
 export const B2_STATIC_BUCKET_ID = Deno.env.get('B2_BUCKET_ID_STATIC')
 
 export const BLOG_ROOT = Deno.env.get('URL_BLOG')
-export const URL_BLOG_LOCAL = Deno.env.get('URL_BLOG_LOCAL')
-export const URL_STATIC = Deno.env.get('URL_STATIC')
+export const URL_BLOG_LOCAL = './local_notes/'
+export const URL_STATIC = 'https://static.bpev.me/'
 
 const FEATURE: {
   [key: string]: boolean

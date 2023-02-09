@@ -4,7 +4,8 @@
     "dev": "deno run -A --watch=static/,routes/,local_notes/ dev.ts --env=DEVELOPMENT",
     "start": "deno run -A main.ts --dev=PRODUCTION",
     "check": "deno check main.ts",
-    "hash": "deno run -A utilities/gen_hash.ts"
+    "hash": "deno run -A scripts/gen_pass_hash.ts",
+    "photos": "deno run -A scripts/process_images.ts"
   },
   "fmt": {
     "options": {

@@ -34,11 +34,7 @@ const entities: Entity[] = (await listImages({ bucketId })).files
   .filter(({ fileName }) => /\.(jpg|png|jpeg)$/i.test(fileName))
   .map(({ fileName }) =>
     createUploadEntities(fileName)
-      .filter((entity) => {
-        const alreadyDone = previouslyCached.has(entity.uploadPath)
-        if (alreadyDone) console.log('SKIPPED', entity.uploadPath)
-        return !alreadyDone
-      })
+      .filter((entity) => !previouslyCached.has(entity.uploadPath))
   ).flat()
 console.log(`Writing ${entities.length} images...`)
 
@@ -88,6 +84,7 @@ function buildImage(entity: Entity, buffer: ArrayBuffer): Promise<Uint8Array> {
   return new Promise((resolve) => {
     ImageMagick.read(new Uint8Array(buffer), (image) => {
       if (x || y) image.resize(x, y)
+      image.autoOrient()
       image.write((imgArray: Uint8Array) => {
         resolve(imgArray)
       }, FORMAT_MAP[entity.uploadFormat])
