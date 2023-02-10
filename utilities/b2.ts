@@ -3,9 +3,10 @@ import { toHashString } from '$std/crypto/to_hash_string.ts'
 import { encode } from '$std/encoding/base64.ts'
 import {
   B2_APPLICATION_KEY,
-  B2_BLOG_BUCKET_ID as bucketId,
+  B2_BLOG_BUCKET_ID,
   B2_KEY_ID,
-} from '../constants.ts'
+  B2_STATIC_BUCKET_ID,
+} from '@/constants.ts'
 
 interface File {
   action: string
@@ -23,50 +24,61 @@ interface Upload {
 }
 
 const POST = 'POST'
+const EXPIRED_AUTH = 401
+
+const URL_AUTH = 'https://api.backblazeb2.com/b2api/v2/b2_authorize_account'
+const URL_LIST_FILES = '/b2api/v2/b2_list_file_names'
+const URL_UPLOAD = '/b2api/v2/b2_get_upload_url'
+
 let apiUrl: Promise<string>
 let authorizationToken: Promise<string>
 
-export async function getNotes() {
-  const body = { delimiter: '/' }
-  const url = '/b2api/v2/b2_list_file_names'
-  return (await basicReq<{ files: Array<File> }>(url, body)).files
-}
+export const listNotes = (): Promise<Array<File>> =>
+  basicReq<{ files: Array<File> }>(URL_LIST_FILES, {
+    delimiter: '/',
+    bucketId: B2_BLOG_BUCKET_ID,
+  }).then((resp) => resp.files)
 
-export async function listImages(bodyInput?: { bucketId?: string }) {
-  const body = { prefix: 'notes/', maxFileCount: 10000, ...bodyInput }
-  const url = '/b2api/v2/b2_list_file_names'
-  return (await basicReq<{ files: Array<File> }>(url, body))
-}
+export const listImageNames = (maxCount = 100): Promise<Set<string>> =>
+  basicReq<{ files: Array<File> }>(URL_LIST_FILES, {
+    prefix: 'notes/',
+    maxFileCount: maxCount,
+    bucketId: B2_STATIC_BUCKET_ID,
+  }).then((resp) => new Set(resp.files.map(({ fileName }) => fileName)))
 
-export async function listCachedImages(bodyInput: { bucketId?: string }) {
-  const body = { prefix: 'cache/', maxFileCount: 10000, ...bodyInput }
-  const url = '/b2api/v2/b2_list_file_names'
-  return (await basicReq<{ files: Array<File> }>(url, body))
-}
+export const listCachedImageNames = (maxCount = 100): Promise<Set<string>> =>
+  basicReq<{ files: Array<File> }>(URL_LIST_FILES, {
+    prefix: 'cache/',
+    maxFileCount: maxCount,
+    bucketId: B2_STATIC_BUCKET_ID,
+  }).then((resp) => new Set(resp.files.map(({ fileName }) => fileName)))
 
-export async function postNote(note: { body: string; path: string }) {
-  const upload = await basicReq<Upload>('/b2api/v2/b2_get_upload_url')
-  const { uploadUrl, authorizationToken: Authorization } = upload
-  const body = new TextEncoder().encode(note.body)
+export async function uploadFile(
+  bucketId: string,
+  path: string,
+  body: ArrayBuffer,
+  headerOverrides: { [key: string]: string },
+) {
   const hash = toHashString(await crypto.subtle.digest('SHA-1', body))
+  const upload = await basicReq<Upload>(URL_UPLOAD, { bucketId })
+
   const headers = new Headers({
-    Authorization,
-    'X-Bz-File-Name': encodeURI(note.path),
-    'Content-Type': 'text/markdown',
-    'Content-Length': String(body.length + hash.length),
+    Authorization: upload.authorizationToken,
+    'X-Bz-File-Name': encodeURI(path),
+    'Content-Length': String(body.byteLength + hash.length),
     'X-Bz-Content-Sha1': hash,
+    ...headerOverrides,
   })
-  return (await fetch(uploadUrl, { headers, body, method: POST })).json()
+  return (await fetch(upload.uploadUrl, { headers, body, method: POST })).json()
 }
 
-const EXPIRED_AUTH = 401
 async function basicReq<T>(path: string, body = {}): Promise<T> {
   try {
     if (!apiUrl) await authorize()
     const response = await (await fetch((await apiUrl) + path, {
       method: POST,
       headers: new Headers({ Authorization: await authorizationToken }),
-      body: JSON.stringify({ bucketId, ...body }),
+      body: JSON.stringify(body),
     })).json()
     return response
   } catch (e) {
@@ -75,7 +87,7 @@ async function basicReq<T>(path: string, body = {}): Promise<T> {
       return (await fetch((await apiUrl) + path, {
         method: POST,
         headers: new Headers({ Authorization: await authorizationToken }),
-        body: JSON.stringify({ bucketId, ...body }),
+        body: JSON.stringify(body),
       })).json()
     } else {
       throw new Error(e)
@@ -87,14 +99,12 @@ async function authorize(): Promise<{
   apiUrl: string
   authorizationToken: string
 }> {
-  console.log('B2 AUTH')
-  const AUTH_URL = 'https://api.backblazeb2.com/b2api/v2/b2_authorize_account'
   const Authorization = `Basic ${encode(B2_KEY_ID + ':' + B2_APPLICATION_KEY)}`
   let apiResolve: (arg: string) => void
   let authTokenResolve: (arg: string) => void
   apiUrl = new Promise((resolve) => apiResolve = resolve)
   authorizationToken = new Promise((resolve) => authTokenResolve = resolve)
-  const response = await (await fetch(AUTH_URL, {
+  const response = await (await fetch(URL_AUTH, {
     method: 'GET',
     headers: new Headers({ Authorization }),
     credentials: 'include',
@@ -102,39 +112,4 @@ async function authorize(): Promise<{
   apiResolve!(response.apiUrl)
   authTokenResolve!(response.authorizationToken)
   return response
-}
-
-export async function cacheImage(
-  cachePath: string,
-  contentType: string,
-  imgArray: Uint8Array,
-  inputBody = {},
-) {
-  // console.log('CACHING', cachePath)
-  const body = typedArrayToBuffer(imgArray)
-  const hash = toHashString(await crypto.subtle.digest('SHA-1', body))
-
-  const upload = await basicReq<Upload>(
-    '/b2api/v2/b2_get_upload_url',
-    inputBody,
-  )
-  const { uploadUrl, authorizationToken: Authorization } = upload
-
-  const headers = new Headers({
-    Authorization,
-    'X-Bz-File-Name': encodeURI(cachePath),
-    'Content-Type': contentType,
-    'Content-Length': String(body.byteLength + hash.length),
-    'X-Bz-Content-Sha1': hash,
-  })
-  const result = await fetch(uploadUrl, { headers, body, method: POST })
-  if (!result.ok) {
-    console.error(result)
-    throw new Error('failed to cache image')
-  }
-  return result
-}
-
-function typedArrayToBuffer(arr: Uint8Array): ArrayBuffer {
-  return arr.buffer.slice(arr.byteOffset, arr.byteLength + arr.byteOffset)
 }

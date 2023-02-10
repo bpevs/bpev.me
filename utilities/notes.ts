@@ -3,7 +3,12 @@ import { join } from '$std/path/mod.ts'
 import { markdownToHtml, markdownToPlaintext } from 'parsedown'
 
 import * as b2 from '@/utilities/b2.ts'
-import { BLOG_ROOT, FEATURE, URL_BLOG_LOCAL } from '@/constants.ts'
+import {
+  B2_BLOG_BUCKET_ID,
+  BLOG_ROOT,
+  FEATURE,
+  URL_BLOG_LOCAL,
+} from '@/constants.ts'
 const notesCache: { [slug: string]: Note } = {}
 
 export interface Note {
@@ -22,12 +27,9 @@ export interface Note {
 export async function getNotes(): Promise<Note[]> {
   const notes$ = []
   if (FEATURE.B2) {
-    for (const file of await b2.getNotes()) {
-      if (
-        file.contentType === 'text/markdown' ||
-        /\.md$/i.test(file.fileName)
-      ) {
-        notes$.push(getNote(file.fileName.replace(/\.md$/, '')))
+    for (const { fileName, contentType } of await b2.listNotes()) {
+      if (contentType === 'text/markdown' || /\.md$/i.test(fileName)) {
+        notes$.push(getNote(fileName.replace(/\.md$/, '')))
       }
     }
   } else {
@@ -91,13 +93,21 @@ export async function getNote(slug: string): Promise<Note | null> {
 }
 
 export async function postNote(note: Note): Promise<void> {
-  const path = `${note.slug}.md`
-  const body = '---\n' +
-    `published: ${note.published}\n` +
-    `title: "${note.title}"\n` +
+  if (!B2_BLOG_BUCKET_ID) throw new Error('No Blog Bucket ID')
+
+  const body = new TextEncoder().encode(
     '---\n' +
-    note.content.commonmark
-  const result = await b2.postNote({ path, body })
+      `published: ${note.published}\n` +
+      `title: "${note.title}"\n` +
+      '---\n' +
+      note.content.commonmark,
+  )
+  const result = await b2.uploadFile(
+    B2_BLOG_BUCKET_ID,
+    `${note.slug}.md`,
+    body,
+    { 'Content-Type': 'text/markdown' },
+  )
   delete notesCache[note.slug]
   return result
 }
