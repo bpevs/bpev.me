@@ -9,7 +9,7 @@ export interface Entity {
 }
 
 export interface ImageMeta {
-  averageColor: [number, number, number, number]
+  averageColor: number[]
   height: number
   width: number
 }

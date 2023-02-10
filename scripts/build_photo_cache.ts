@@ -6,14 +6,14 @@ import * as helpers from '@/utilities/photo_helpers.ts'
 
 interface Result {
   entity: Entity
-  imageMeta?: ImageMeta
+  imageMeta?: { [size: string]: ImageMeta }
   uploadResponse?: Response
   error?: Error
 }
 
 const UPLOAD_TO_CACHE = false
 const COLLECT_IMAGE_META = true
-const CONCURRENT = 2
+const CONCURRENT = 12
 const MAX_UPLOAD = 10000
 
 console.log('Fetching FileNames...')
@@ -30,26 +30,32 @@ const entities: Entity[] = Array.from(imageNames)
   .filter((fileName) => /\.(jpg|png|jpeg)$/i.test(fileName))
   .map((fileName) => helpers.createUploadEntities(fileName)).flat()
 
+const imageDataMap: { [url: string]: { [url: string]: ImageMeta } } = {}
+
 const results: AsyncIterableIterator<Result> = await pooledMap(
   CONCURRENT,
   entities,
   async (entity: Entity): Promise<Result> => {
     const result: Result = { entity }
+    const { downloadPath, uploadFormat, uploadPath } = entity
     try {
       const originalBuffer: ArrayBuffer = await helpers.fetchBuffer(entity)
       const bufferArr: Uint8Array = new Uint8Array(originalBuffer)
 
       if (COLLECT_IMAGE_META) {
-        result.imageMeta = await helpers.parseBufferData(bufferArr)
+        if (!imageDataMap[downloadPath]) {
+          imageDataMap[downloadPath] = await helpers.parseBufferData(bufferArr)
+        }
+        result.imageMeta = imageDataMap[downloadPath]
       }
 
-      if (UPLOAD_TO_CACHE && !cachedImageNames.has(entity.uploadPath)) {
+      if (UPLOAD_TO_CACHE && !cachedImageNames.has(uploadPath)) {
         if (!B2_STATIC_BUCKET_ID) throw new Error('No Static Bucket ID')
 
-        const type = entity.uploadFormat.toLowerCase().replace('jpg', 'jpeg')
+        const type = uploadFormat.toLowerCase().replace('jpg', 'jpeg')
         result.uploadResponse = await b2.uploadFile(
           B2_STATIC_BUCKET_ID,
-          entity.uploadPath,
+          uploadPath,
           typedArrayToBuffer(await helpers.formatBuffer(bufferArr, entity)),
           { 'Content-Type': `image/${type}` },
         )
@@ -62,17 +68,16 @@ const results: AsyncIterableIterator<Result> = await pooledMap(
 )
 
 let count = 0
-const imageDataMap: { [url: string]: ImageMeta } = {}
 const errors: [string, Error][] = []
 
 try {
-  for await (const { entity, imageMeta, error } of results) {
-    if (imageMeta) imageDataMap[entity.uploadPath] = imageMeta
+  for await (const { entity, error, imageMeta } of results) {
     if (error) errors.push([entity.uploadPath, error])
     const status = error ? 'FAILURE' : 'SUCCESS'
     const entityCountDigits = String(entities.length).length
     const countLog = String(++count).padStart(entityCountDigits, '0')
     console.log(`${countLog}/${entities.length} ${status} ${entity.uploadPath}`)
+    console.log(imageMeta)
   }
 } catch (e) {
   console.error(e)
@@ -81,6 +86,17 @@ try {
 console.log('ERRORS')
 console.log(errors)
 if (!B2_STATIC_BUCKET_ID) throw new Error('No Static Bucket ID')
+
+const imageDataFileNames = Object.keys(imageDataMap)
+const bySlug: {
+  [slug: string]: { [fileName: string]: { [size: string]: ImageMeta } }
+} = {}
+imageDataFileNames.forEach((fileName) => {
+  const [_notes, slug] = fileName.split('/')
+  if (!bySlug[slug]) bySlug[slug] = {}
+  bySlug[slug][fileName] = imageDataMap[fileName]
+})
+
 b2.uploadFile(
   B2_STATIC_BUCKET_ID,
   'cache/image_data.json',

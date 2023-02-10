@@ -2,14 +2,14 @@ import { extract } from '$std/encoding/front_matter.ts'
 import { join } from '$std/path/mod.ts'
 import { markdownToHtml, markdownToPlaintext } from 'parsedown'
 
-import * as b2 from '@/utilities/b2.ts'
 import {
   B2_BLOG_BUCKET_ID,
   BLOG_ROOT,
   FEATURE,
   URL_BLOG_LOCAL,
 } from '@/constants.ts'
-const notesCache: { [slug: string]: Note } = {}
+import * as b2 from '@/utilities/b2.ts'
+import { ImageMeta } from '@/utilities/photo_constants.ts'
 
 export interface Note {
   slug: string
@@ -17,6 +17,7 @@ export interface Note {
   published?: Date | null
   updated?: Date
   lastChecked?: number
+  images?: { [slug: string]: { [imageSlug: string]: ImageMeta } }
   content: {
     commonmark: string
     html?: string
@@ -24,12 +25,17 @@ export interface Note {
   }
 }
 
+const notesCache: { [slug: string]: Note } = {}
+
+const IMAGE_DATA_URL = 'https://static.bpev.me/cache/image_data.json'
+const imageInfoBySlug = await fetch(IMAGE_DATA_URL).then((r) => r.json())
+
 export async function getNotes(): Promise<Note[]> {
   const notes$ = []
   if (FEATURE.B2) {
     for (const { fileName, contentType } of await b2.listNotes()) {
       if (contentType === 'text/markdown' || /\.md$/i.test(fileName)) {
-        notes$.push(getNote(fileName.replace(/\.md$/, '')))
+        notes$.push(getNote(fileName.replace(/\.md$/i, '')))
       }
     }
   } else {
@@ -46,6 +52,7 @@ export async function getNotes(): Promise<Note[]> {
     else if (b?.published == null) return 1
     else return b.published.getTime() - a.published.getTime()
   })
+
   return notes
 }
 
@@ -82,6 +89,7 @@ export async function getNote(slug: string): Promise<Note | null> {
         updated: new Date(attrs?.updated as string),
         content: { commonmark, html, text },
         lastChecked: Date.now(),
+        images: imageInfoBySlug?.[slug],
       }
     } catch (e) {
       console.log(`Invalid Note! `, slug)

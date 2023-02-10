@@ -1,7 +1,7 @@
 import '$std/dotenv/load.ts'
 import { parse } from '$std/flags/mod.ts'
 
-export { URL_BLOG_LOCAL, URL_STATIC } from './constants_client.ts'
+import config from './config.ts'
 
 export const isDev = parse(Deno.args).env === 'DEVELOPMENT'
 export const isProd = parse(Deno.args).env === 'PRODUCTION'
@@ -16,12 +16,10 @@ export const B2_STATIC_BUCKET_ID = Deno.env.get('B2_BUCKET_ID_STATIC')
 
 export const BLOG_ROOT = Deno.env.get('URL_BLOG')
 
-const FEATURE: {
-  [key: string]: boolean
-} = {
-  B2: true,
-  DASHBOARD: true,
-}
+export const URL_BLOG_LOCAL = config.URL_BLOG_LOCAL
+export const URL_STATIC = config.URL_STATIC
+
+const FEATURE: { [key: string]: boolean } = config.FEATURE
 
 Object.keys(FEATURE).forEach((key: string) => {
   const value = Deno.env.get(`FEATURE_${key}`)

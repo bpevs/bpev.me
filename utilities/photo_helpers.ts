@@ -1,13 +1,12 @@
 import type { Entity, Format, ImageMeta } from './photo_constants.ts'
 
 import { join, parse } from '$std/path/mod.ts'
-import { FastAverageColor } from 'https://esm.sh/fast-average-color'
+import { Image } from 'https://deno.land/x/imagescript@1.2.15/mod.ts'
 import { ImageMagick, initializeImageMagick } from 'imagemagick'
 import { URL_STATIC } from '@/constants.ts'
 import { DIMENSIONS, FORMAT, FORMAT_MAP, SIZE } from './photo_constants.ts'
 
 initializeImageMagick()
-const fac = new FastAverageColor()
 
 const cachedBufferResponses: { [url: string]: Promise<ArrayBuffer> } = {}
 
@@ -19,11 +18,22 @@ export function fetchBuffer(entity: Entity): Promise<ArrayBuffer> {
   return cachedBufferResponses[url]
 }
 
-export function parseBufferData(bufferArr: Uint8Array): Promise<ImageMeta> {
-  const averageColor = fac.getColorFromArray4(bufferArr)
+export async function parseBufferData(
+  bufferArr: Uint8Array,
+): Promise<{ [size: string]: ImageMeta }> {
+  const image = await Image.decode(bufferArr)
+  const averageColor = Image.colorToRGBA(image.averageColor())
   return new Promise((resolve) => {
-    ImageMagick.read(bufferArr, ({ height, width }) => {
-      resolve({ averageColor, height, width })
+    ImageMagick.read(bufferArr, (image) => {
+      const imageMeta: { [size: string]: ImageMeta } = {}
+      Object.keys(SIZE).forEach((size) => {
+        const [x, y] = DIMENSIONS[size] || [0, 0]
+        if (x || y) image.resize(x, y)
+        image.autoOrient()
+        const { height, width } = image
+        imageMeta[size] = { averageColor, height, width }
+      })
+      resolve(imageMeta)
     })
   })
 }

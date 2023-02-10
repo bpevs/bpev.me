@@ -2,62 +2,96 @@ import { useCallback } from 'preact/hooks'
 import { useSignal } from '@preact/signals'
 
 import type { Note } from '@/utilities/notes.ts'
-import { URL_STATIC } from '@/constants_client.ts'
+import config from '@/config.ts'
 import { SIZE, Size } from '@/utilities/image.ts'
 
 interface Props {
   src: string
-  size: string
+  loading: 'lazy' | 'eager'
   note: Note
 }
 
-export default function Image({ src, size = 'normal', note }: Props) {
+export default function Image({ src, loading = 'lazy', note }: Props) {
   const { FAST, NORMAL, DETAILED } = SIZE
-  const URLS: { [type: string]: string } = {
-    [FAST]: `${URL_STATIC}cache/fast/`,
-    [NORMAL]: `${URL_STATIC}cache/normal/`,
-    [DETAILED]: `${URL_STATIC}cache/detailed/`,
-    ORIGINAL: `${URL_STATIC}`,
+  const root: { [type: string]: string } = {
+    [FAST]: `${config.URL_STATIC}cache/fast/`,
+    [NORMAL]: `${config.URL_STATIC}cache/normal/`,
+    [DETAILED]: `${config.URL_STATIC}cache/detailed/`,
+    ORIGINAL: `${config.URL_STATIC}`,
   }
-  const normalizedSize = size.toUpperCase() || NORMAL
-  const webpExtension = useSignal('WEBP')
+  const imagePath = `notes/${note.slug}/`
 
   const [name, ext] = src.split('.')
-  const originalPath = 'notes/' + note.slug + '/' + name + '.' +
-    ext.toUpperCase()
-  const webpPath = 'notes/' + note.slug + '/' + name + '.' + webpExtension.value
+  const upgradedExt = useSignal('WEBP')
+  const isLoaded = useSignal(false)
+
+  const originalName = `${name}.${ext.toUpperCase()}`
+  const upgradedName = `${name}.${upgradedExt.value}`
+
+  const imageMeta = note.images?.[imagePath + originalName]
+  const { height, width } = imageMeta?.DETAILED || {}
+  const normalSize = imageMeta?.NORMAL
+  const fastSize = imageMeta?.FAST
+  const [r, g, b, a] = normalSize?.averageColor || []
+  const averageColor = `rgba(${r}, ${g}, ${b}, ${a})`
 
   return (
     <a
-      href={URLS.NORMAL + webpPath}
+      href={root[NORMAL] + imagePath + upgradedName}
       style={{
         textAlign: 'center',
         display: 'block',
-        width: '100%',
       }}
     >
       <picture>
         <source
-          srcset={URLS[normalizedSize] + webpPath}
           media='(min-width: 900px)'
+          srcset={root[NORMAL] + imagePath + upgradedName}
           type='image/webp'
+          height={normalSize?.height}
+          width={normalSize?.width}
         />
-        <source srcset={URLS.FAST + webpPath} type='image/webp' />
         <source
-          srcset={URLS[normalizedSize] + originalPath}
           media='(min-width: 900px)'
+          srcset={root[NORMAL] + imagePath + originalName}
           type={`image/${ext}`}
+          height={normalSize?.height}
+          width={normalSize?.width}
         />
-        <source srcset={URLS.FAST + originalPath} type={`image/${ext}`} />
-        <img
-          style={{ maxHeight: '600px' }}
+        <source
+          srcset={root[FAST] + imagePath + upgradedName}
+          type='image/webp'
+          height={fastSize?.height}
+          width={fastSize?.width}
+        />
+        <source
+          srcset={root[FAST] + imagePath + originalName}
           type={`image/${ext}`}
-          src={URLS.ORIGINAL + originalPath}
+          height={fastSize?.height}
+          width={fastSize?.width}
+        />
+        <img
+          style={{
+            color: averageColor,
+            maxHeight: '600px',
+            objectFit: 'contain',
+            width: 'auto',
+            height: 'auto',
+            opacity: isLoaded.value ? 1 : 0,
+            transition: 'opacity 500ms ease-in 0ms',
+            textAlign: 'center',
+          }}
+          src={root.ORIGINAL + imagePath + originalName}
+          height={height}
+          width={width}
+          loading={loading}
+          onLoad={useCallback(() => isLoaded.value = true, [])}
           onError={useCallback((e: Event) => {
             console.error((e.target as HTMLImageElement).src)
-            webpExtension.value = ext.toUpperCase()
-          }, [webpExtension, ext])}
-        />
+            upgradedExt.value = ext.toUpperCase()
+          }, [upgradedExt, ext])}
+        >
+        </img>
       </picture>
     </a>
   )
