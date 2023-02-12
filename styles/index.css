@@ -89,6 +89,16 @@ input[type=range]::-webkit-slider-runnable-track  {
   background: transparent;
 }
 
+.player {
+  background-color: rgba(128, 128, 128, 0.3);
+  border-radius: 5px;
+}
+
+.player-header {
+  background-color: rgba(128, 128, 128, 0.1);
+  padding: 20px;
+}
+
 .back,
 .forward,
 .toggle-play {
@@ -99,6 +109,12 @@ input[type=range]::-webkit-slider-runnable-track  {
   font: inherit;
   cursor: pointer;
   outline: inherit;
+}
+
+.toggle-play {
+  font-size: 2.5em;
+  vertical-align: middle;
+  padding: 0 5px 0 5px;
 }
 
 .tracks {
@@ -126,4 +142,28 @@ input[type=range]::-webkit-slider-runnable-track  {
  {
   background-color: rgba(256, 256, 256, 0.2);
   border-radius: 5px;
+}
+
+svg.feather {
+  background-color: transparent;
+  stroke: whitesmoke;
+  vertical-align: middle;
+}
+
+.track-number {
+  font-size: 0.7em;
+  opacity: 0.8;
+  width: 2em;
+}
+
+.track-title {
+  margin-left: 10px;
+  color: white;
+  flex-grow: 1;
+}
+
+.track-length {
+  margin-right: 10px;
+  font-size: 0.8em;
+  opacity: 0.8;
 }

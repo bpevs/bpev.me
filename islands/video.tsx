@@ -6,8 +6,8 @@ export default function (
       src={embed}
       width='100%'
       height='500'
-      allowfullscreen
-      sandbox
+      allowFullScreen
+      sandbox='true'
       style={{ border: 'none' }}
     >
     </iframe>
