@@ -29,7 +29,6 @@ export default function Image({ src, loading = 'lazy', note }: Props) {
   const upgradedName = `${name}.${upgradedExt.value}`
 
   const imageMeta = note.images?.[imagePath + originalName]
-  const { height, width } = imageMeta?.DETAILED || {}
   const normalSize = imageMeta?.NORMAL
   const fastSize = imageMeta?.FAST
   const [r, g, b, a] = normalSize?.averageColor || []
@@ -81,9 +80,9 @@ export default function Image({ src, loading = 'lazy', note }: Props) {
             transition: 'opacity 500ms ease-in 0ms',
             textAlign: 'center',
           }}
-          src={root.ORIGINAL + imagePath + originalName}
-          height={height}
-          width={width}
+          src={root[NORMAL] + imagePath + originalName}
+          height={normalSize?.height}
+          width={normalSize?.width}
           loading={loading}
           onLoad={useCallback(() => isLoaded.value = true, [])}
           onError={useCallback((e: Event) => {

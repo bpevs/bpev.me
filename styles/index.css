@@ -59,3 +59,71 @@ iframe {
 .md-island {
   width: 100%;
 }
+
+input[type="range"] {
+  -webkit-appearance: none;
+  margin-right: 15px;
+  width: 200px;
+  height: 7px;
+  background: rgba(40, 40, 40, 0.6);
+  border-radius: 5px;
+  background-image: linear-gradient(white, white);
+  background-size: 70% 100%;
+  background-repeat: no-repeat;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  height: 20px;
+  width: 10px;
+  border-radius: 20%;
+  background: white;
+  cursor: ew-resize;
+  transition: background .3s ease-in-out;
+}
+
+input[type=range]::-webkit-slider-runnable-track  {
+  -webkit-appearance: none;
+  box-shadow: none;
+  border: none;
+  background: transparent;
+}
+
+.back,
+.forward,
+.toggle-play {
+  padding: 0;
+  background: none;
+  color: inherit;
+  border: none;
+  font: inherit;
+  cursor: pointer;
+  outline: inherit;
+}
+
+.tracks {
+  max-height: 200px;
+  overflow: scroll;
+  padding: 0 10px 0 10px;
+  margin: 0;
+}
+
+.track {
+  cursor: pointer;
+  display: flex;
+  flex-direction: row;
+  padding: 10px;
+  align-Items: center;
+  justify-content: flex-start;
+}
+
+.track:first-child {
+  margin-top: 20px;
+}
+
+.track:hover,
+.selected
+ {
+  background-color: rgba(256, 256, 256, 0.2);
+  border-radius: 5px;
+}

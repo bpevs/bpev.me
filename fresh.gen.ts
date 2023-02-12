@@ -16,9 +16,11 @@ import * as $9 from './routes/notes/[slug]/edit.tsx'
 import * as $10 from './routes/notes/index.tsx'
 import * as $11 from './routes/notes/new.tsx'
 import * as $12 from './routes/rss.ts'
-import * as $$0 from './islands/editor.tsx'
-import * as $$1 from './islands/photo.tsx'
-import * as $$2 from './islands/playlist.tsx'
+import * as $$0 from './islands/audio.tsx'
+import * as $$1 from './islands/editor.tsx'
+import * as $$2 from './islands/photo.tsx'
+import * as $$3 from './islands/player.tsx'
+import * as $$4 from './islands/video.tsx'
 
 const manifest = {
   routes: {
@@ -37,9 +39,11 @@ const manifest = {
     './routes/rss.ts': $12,
   },
   islands: {
-    './islands/editor.tsx': $$0,
-    './islands/photo.tsx': $$1,
-    './islands/playlist.tsx': $$2,
+    './islands/audio.tsx': $$0,
+    './islands/editor.tsx': $$1,
+    './islands/photo.tsx': $$2,
+    './islands/player.tsx': $$3,
+    './islands/video.tsx': $$4,
   },
   baseUrl: import.meta.url,
   config,
