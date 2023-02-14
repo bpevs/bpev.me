@@ -176,8 +176,13 @@ export default function Player(p: Props) {
           currentTime={state.currTime.value}
           // @ts-ignore ts doesn't recognize
           duration={state.currDuration.value}
+<<<<<<< Updated upstream
           onCanPlay={useCallback(() => isLoading.value = false, [])}
           onLoadStart={useCallback(() => isLoading.value = true, [])}
+=======
+          onLoadStart={useCallback(() => isLoading.value = true, [])}
+          onProgress={useCallback(() => isLoading.value = false, [])}
+>>>>>>> Stashed changes
         >
         </audio>
         <Time t={state.currDisplayTime.value || 0} style={{ float: 'left' }} />
