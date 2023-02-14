@@ -4,6 +4,8 @@ import { Only } from '$civility/components/mod.ts'
 import { asset } from '$fresh/runtime.ts'
 import { fetchPlaylist, Track } from '@/utilities/playlist.ts'
 import {
+  Download,
+  Loader,
   PauseIcon,
   PlayIcon,
   SkipBackButton,
@@ -27,7 +29,7 @@ function useAudioPlayer(tracks: Signal<Track[]>) {
   const progressBar = useRef<HTMLInputElement>(null)
 
   const isPlaying = useSignal<boolean>(false)
-  const isSelectingTime = useSignal<boolean>(false)
+  const isSeeking = useSignal<boolean>(false)
 
   const currTrackNum = useSignal<number>(0)
   const currTime = useSignal<number>(0) // time used by audio player
@@ -56,7 +58,7 @@ function useAudioPlayer(tracks: Signal<Track[]>) {
     const value = Number(bar?.value || 0)
     const min = Number(bar?.min || 0)
     const max = Number(bar?.max || 100)
-    if (bar?.style?.backgroundSize) {
+    if (bar?.style?.backgroundSize != null) {
       bar.style.backgroundSize = (value - min) * 100 / (max - min) + '% 100%'
     }
   }, [progressBar])
@@ -71,7 +73,7 @@ function useAudioPlayer(tracks: Signal<Track[]>) {
     ref: { audioElement, progressBar },
     state: {
       isPlaying,
-      isSelectingTime,
+      isSeeking,
       currTrackNum,
       currTrack,
       currTime,
@@ -103,7 +105,7 @@ function useAudioPlayer(tracks: Signal<Track[]>) {
     },
     listener: {
       onChangeTime: useCallback((e: Event) => {
-        if (!isSelectingTime.value && audioElement.current?.currentTime) {
+        if (!isSeeking.value && audioElement.current?.currentTime) {
           const value = (e.target as HTMLInputElement).value
           audioElement.current.currentTime = Number(value)
           currTime.value = Number(value)
@@ -111,7 +113,7 @@ function useAudioPlayer(tracks: Signal<Track[]>) {
         }
       }, [audioElement]),
       onTimeUpdate: useCallback(() => {
-        if (!isSelectingTime.value) {
+        if (!isSeeking.value) {
           currDisplayTime.value = Number(audioElement.current?.currentTime)
         }
       }, [audioElement]),
@@ -120,12 +122,16 @@ function useAudioPlayer(tracks: Signal<Track[]>) {
 }
 
 export default function Player(p: Props) {
+  const isLoading = useSignal<boolean>(true)
   const tracks = useSignal<Track[]>(Array.isArray(p.tracks) ? p.tracks : [])
   const { action, state, listener, ref } = useAudioPlayer(tracks)
 
   useEffect(() => {
     if (typeof p.tracks === 'string') {
-      fetchPlaylist(p.tracks).then((resp: Track[]) => tracks.value = resp)
+      fetchPlaylist(p.tracks)
+        .then((resp: Track[]) => {
+          tracks.value = resp
+        })
     }
   }, [p.tracks])
 
@@ -141,6 +147,9 @@ export default function Player(p: Props) {
         <Only if={Boolean(p.artist)}>
           <h4>{p.artist}</h4>
         </Only>
+        <Only if={Boolean(state.currTrack.value?.title)}>
+          <h4>{state.currTrack.value?.title}</h4>
+        </Only>
         <input
           style={{ backgroundColor: 'rgba(40, 40, 40, 0.6)', width: '100%' }}
           class='progress'
@@ -150,9 +159,9 @@ export default function Player(p: Props) {
           ref={ref.progressBar}
           onChange={listener.onChangeTime}
           onInput={action.updateProgress}
-          onMouseDown={() => state.isSelectingTime.value = true}
+          onMouseDown={() => state.isSeeking.value = true}
           onMouseUp={(e) => {
-            state.isSelectingTime.value = false
+            state.isSeeking.value = false
             listener.onChangeTime(e)
           }}
         >
@@ -167,15 +176,22 @@ export default function Player(p: Props) {
           currentTime={state.currTime.value}
           // @ts-ignore ts doesn't recognize
           duration={state.currDuration.value}
+          onCanPlay={useCallback(() => isLoading.value = false, [])}
+          onLoadStart={useCallback(() => isLoading.value = true, [])}
         >
         </audio>
         <Time t={state.currDisplayTime.value || 0} style={{ float: 'left' }} />
         <Time t={state.currDuration.value || 0} style={{ float: 'right' }} />
-        <div style={{ textAlign: 'center', margin: 'auto' }}>
+        <div style={{ textAlign: 'center', margin: 'auto', paddingTop: '5px' }}>
           <SkipBackButton onClick={action.skipBack} />
-          <button class='toggle-play' onClick={action.togglePlayback}>
-            {state.isPlaying.value ? <PauseIcon /> : <PlayIcon />}
-          </button>
+          <Only if={!isLoading.value}>
+            <button class='toggle-play' onClick={action.togglePlayback}>
+              {state.isPlaying.value ? <PauseIcon /> : <PlayIcon />}
+            </button>
+          </Only>
+          <Only if={isLoading.value}>
+            <Loader />
+          </Only>
           <SkipForwardButton onClick={action.skipForward} />
         </div>
       </div>
@@ -204,9 +220,9 @@ export default function Player(p: Props) {
                 <div class='track-length'>
                   <Time t={track.length || 0} />
                 </div>
-                <noscript>
-                  <audio controls preload='metadata' src={track.file}></audio>
-                </noscript>
+                <a class='track-download' href={track.file}>
+                  <Download />
+                </a>
               </div>
             )
           })}

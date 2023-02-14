@@ -68,7 +68,7 @@ input[type="range"] {
   background: rgba(40, 40, 40, 0.6);
   border-radius: 5px;
   background-image: linear-gradient(white, white);
-  background-size: 70% 100%;
+  background-size: 00% 100%;
   background-repeat: no-repeat;
 }
 
@@ -90,31 +90,50 @@ input[type=range]::-webkit-slider-runnable-track  {
 }
 
 .player {
-  background-color: rgba(128, 128, 128, 0.3);
-  border-radius: 5px;
+  color: rgba(256, 256, 256, 0.7);
+  background-color: #565656;
+  border-radius: 8px;
 }
 
 .player-header {
-  background-color: rgba(128, 128, 128, 0.1);
-  padding: 20px;
+  background-color: rgba(128, 128, 128, 0.3);
+  padding: 5px 20px 20px 20px;
+}
+
+.player-header h2 {
+  color: white;
+  border: 0;
+  padding: 0;
+  margin-bottom: 5px;
+}
+
+.player-header h4 {
+  margin-top: 0;
+}
+
+svg.icon {
+  background-color: transparent;
+  stroke: whitesmoke;
+  fill: whitesmoke;
 }
 
 .back,
 .forward,
-.toggle-play {
-  padding: 0;
+.toggle-play,
+.loader {
+  padding: 0 0 0 0;
   background: none;
   color: inherit;
   border: none;
   font: inherit;
   cursor: pointer;
   outline: inherit;
+  vertical-align: middle;
 }
 
-.toggle-play {
-  font-size: 2.5em;
-  vertical-align: middle;
-  padding: 0 5px 0 5px;
+.toggle-play,
+.loader {
+  padding: 0 10px 0 10px;
 }
 
 .tracks {
@@ -131,6 +150,7 @@ input[type=range]::-webkit-slider-runnable-track  {
   padding: 10px;
   align-Items: center;
   justify-content: flex-start;
+  height: 1.5em;
 }
 
 .track:first-child {
@@ -138,22 +158,21 @@ input[type=range]::-webkit-slider-runnable-track  {
 }
 
 .track:hover,
-.selected
- {
-  background-color: rgba(256, 256, 256, 0.2);
+.selected {
+  background-color: rgba(0, 0, 0, 0.2);
   border-radius: 5px;
 }
 
-svg.feather {
-  background-color: transparent;
-  stroke: whitesmoke;
-  vertical-align: middle;
-}
-
 .track-number {
-  font-size: 0.7em;
+  font-size: 0.8em;
   opacity: 0.8;
   width: 2em;
+}
+
+.track-number svg {
+  height: 1.2em;
+  width: 1.2em;
+  vertical-align: middle;
 }
 
 .track-title {
@@ -167,3 +186,57 @@ svg.feather {
   font-size: 0.8em;
   opacity: 0.8;
 }
+
+.track-download {
+  opacity: 0.8;
+}
+
+/* https://glennmccomb.com/articles/building-a-pure-css-animated-svg-spinner/ */
+svg.loader circle {
+  animation: 1.4s ease-in-out infinite both circle-animation;
+  display: block;
+  fill: transparent;
+  stroke-linecap: round;
+  stroke-dasharray: 283;
+  stroke-dashoffset: 280;
+  stroke-width: 10px;
+  transform-origin: 50% 50%;
+}
+
+svg.loader {
+  animation: 2s linear infinite svg-animation;
+  max-width: 100px;
+}
+
+svg.icon.download {
+  fill: transparent;
+  height: 1em;
+  width: 1em;
+  margin: 0px;
+  vertical-align: text-top;
+}
+
+@keyframes svg-animation {
+  0% {
+    transform: rotateZ(0deg);
+  }
+  100% {
+    transform: rotateZ(360deg)
+  }
+}
+
+@keyframes circle-animation {
+  0%, 25% {
+    stroke-dashoffset: 280;
+    transform: rotate(0);
+  }
+  50%, 75% {
+    stroke-dashoffset: 75;
+    transform: rotate(45deg);
+  }
+  100% {
+    stroke-dashoffset: 280;
+    transform: rotate(360deg);
+  }
+}
+
