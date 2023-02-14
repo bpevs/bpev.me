@@ -5,7 +5,7 @@ import { Only } from '$civility/components/mod.ts'
 
 import Page from '@/components/page.tsx'
 import Photo from '@/islands/photo.tsx'
-import Playlist from '@/islands/playlist.tsx'
+import Player from '@/islands/player.tsx'
 import { getNote, Note } from '@/utilities/notes.ts'
 import markupToVdom, {
   ComponentsMap,
@@ -19,7 +19,7 @@ const components: ComponentsMap = createComponentMap({
   playlist: ({ ...props }) => (
     <div
       class='md-island'
-      children={<Playlist {...props} note={useContext(NoteContext)} />}
+      children={<Player {...props} note={useContext(NoteContext)} />}
     />
   ),
   photo: ({ ...props }) => (
