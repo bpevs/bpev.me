@@ -28,7 +28,10 @@ export interface Note {
 const notesCache: { [slug: string]: Note } = {}
 
 const IMAGE_DATA_URL = 'https://static.bpev.me/cache/image_data.json'
-const imageInfoBySlug = await fetch(IMAGE_DATA_URL).then((r) => r.json())
+
+// Pre-cache info
+const imageInfoBySlug = fetch(IMAGE_DATA_URL).then((r) => r.json())
+getNotes()
 
 export async function getNotes(): Promise<Note[]> {
   const notes$ = []
@@ -89,7 +92,7 @@ export async function getNote(slug: string): Promise<Note | null> {
         updated: new Date(attrs?.updated as string),
         content: { commonmark, html, text },
         lastChecked: Date.now(),
-        images: imageInfoBySlug?.[slug],
+        images: (await imageInfoBySlug)?.[slug],
       }
     } catch (e) {
       console.log(`Invalid Note! `, slug)
