@@ -21,6 +21,7 @@ export default function notesToRSS(notes: Note[]): string {
         .replace(/</g, '&lt;')
         .replace(/>/g, '&gt;')
         .replace(/&/g, '&amp;')
+        .replace(/\n/g, '&#10;&#13;')
     }</description>
 </item>
 `).join('')
