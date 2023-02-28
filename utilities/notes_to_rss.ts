@@ -1,3 +1,6 @@
+// RSS Reference: https://www.rssboard.org/rss-specification
+// Char Replacement Reference: https://html.spec.whatwg.org/multipage/named-characters.html#named-character-references
+
 import { Note } from './notes.ts'
 
 export default function notesToRSS(notes: Note[]): string {
