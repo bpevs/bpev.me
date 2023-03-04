@@ -17,8 +17,6 @@ export default function () {
     const next = event?.layer?.properties
     if (next?.name && selected.value?.name != next?.name) {
       selected.value = event.layer.properties
-      const coords = next.location.coords
-      geomap.current.panTo(new L.LatLng(coords[0], coords[1]), 14)
     }
   }, [selected.value])
   const onClose = useCallback(() => {
