@@ -3,12 +3,13 @@ import { PageProps } from '$fresh/server.ts'
 import { Only } from '$civility/components/mod.ts'
 
 export default function Page(
-  { children, isAuthorized = false, navItems = null }: {
+  { children, isAuthorized = false, navItems = null, hideFooter = false }: {
     // deno-lint-ignore no-explicit-any
     children?: any
     isAuthorized?: boolean
     // deno-lint-ignore no-explicit-any
     navItems?: any
+    hideFooter?: boolean
   },
 ) {
   return (
@@ -34,12 +35,14 @@ export default function Page(
         </ul>
       </nav>
       {children}
-      <footer style={{ textAlign: 'center' }}>
-        <p>
-          Made with ☕️ by Ben. Read the{' '}
-          <a href='https://github.com/bpevs/bpev.me'>code</a>.
-        </p>
-      </footer>
+      <Only if={!hideFooter}>
+        <footer style={{ textAlign: 'center' }}>
+          <p>
+            Made with ☕️ by Ben. Read the{' '}
+            <a href='https://github.com/bpevs/bpev.me'>code</a>.
+          </p>
+        </footer>
+      </Only>
     </body>
   )
 }

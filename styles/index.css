@@ -243,3 +243,11 @@ svg.icon.download {
 .marker {
   font-size: 20px;
 }
+
+.hover-copy {
+  cursor: pointer;
+}
+
+.hover-copy:hover {
+  background: rgba(256, 256, 256, 0.1);
+}
