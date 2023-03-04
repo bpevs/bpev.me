@@ -13,14 +13,17 @@ import * as $6 from './routes/dashboard.tsx'
 import * as $7 from './routes/index.tsx'
 import * as $8 from './routes/notes/[slug].tsx'
 import * as $9 from './routes/notes/[slug]/edit.tsx'
-import * as $10 from './routes/notes/index.tsx'
-import * as $11 from './routes/notes/new.tsx'
-import * as $12 from './routes/rss.ts'
+import * as $10 from './routes/notes/[slug]/sf-recs.tsx'
+import * as $11 from './routes/notes/index.tsx'
+import * as $12 from './routes/notes/new.tsx'
+import * as $13 from './routes/recs/sf.tsx'
+import * as $14 from './routes/rss.ts'
 import * as $$0 from './islands/audio.tsx'
 import * as $$1 from './islands/editor.tsx'
-import * as $$2 from './islands/photo.tsx'
-import * as $$3 from './islands/player.tsx'
-import * as $$4 from './islands/video.tsx'
+import * as $$2 from './islands/geomap.tsx'
+import * as $$3 from './islands/photo.tsx'
+import * as $$4 from './islands/player.tsx'
+import * as $$5 from './islands/video.tsx'
 
 const manifest = {
   routes: {
@@ -34,16 +37,19 @@ const manifest = {
     './routes/index.tsx': $7,
     './routes/notes/[slug].tsx': $8,
     './routes/notes/[slug]/edit.tsx': $9,
-    './routes/notes/index.tsx': $10,
-    './routes/notes/new.tsx': $11,
-    './routes/rss.ts': $12,
+    './routes/notes/[slug]/sf-recs.tsx': $10,
+    './routes/notes/index.tsx': $11,
+    './routes/notes/new.tsx': $12,
+    './routes/recs/sf.tsx': $13,
+    './routes/rss.ts': $14,
   },
   islands: {
     './islands/audio.tsx': $$0,
     './islands/editor.tsx': $$1,
-    './islands/photo.tsx': $$2,
-    './islands/player.tsx': $$3,
-    './islands/video.tsx': $$4,
+    './islands/geomap.tsx': $$2,
+    './islands/photo.tsx': $$3,
+    './islands/player.tsx': $$4,
+    './islands/video.tsx': $$5,
   },
   baseUrl: import.meta.url,
   config,

@@ -23,10 +23,11 @@ await log.setup({
 
 const stylesheet = await Deno.readTextFile('./styles/index.css')
 const theme = await Deno.readTextFile('./styles/theme.css')
+const leafletStyles = await Deno.readTextFile('./styles/leaflet.css')
 
 function render(ctx: RenderContext, innerRender: InnerRenderFunction) {
   innerRender()
-  ctx.styles.splice(0, ctx.styles.length, theme, stylesheet)
+  ctx.styles.splice(0, ctx.styles.length, theme, leafletStyles, stylesheet)
 }
 
 await start(manifest, { render })
