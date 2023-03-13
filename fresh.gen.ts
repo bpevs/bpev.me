@@ -10,14 +10,15 @@ import * as $3 from './routes/api/login.ts'
 import * as $4 from './routes/api/logout.ts'
 import * as $5 from './routes/api/notes/[slug].tsx'
 import * as $6 from './routes/dashboard.tsx'
-import * as $7 from './routes/index.tsx'
-import * as $8 from './routes/notes/[slug].tsx'
-import * as $9 from './routes/notes/[slug]/edit.tsx'
-import * as $10 from './routes/notes/[slug]/sf-recs.tsx'
-import * as $11 from './routes/notes/index.tsx'
-import * as $12 from './routes/notes/new.tsx'
-import * as $13 from './routes/recs/sf.tsx'
-import * as $14 from './routes/rss.ts'
+import * as $7 from './routes/maps.tsx'
+import * as $8 from './routes/maps/[slug].tsx'
+import * as $9 from './routes/notes.tsx'
+import * as $10 from './routes/notes/[slug].tsx'
+import * as $11 from './routes/notes/[slug]/edit.tsx'
+import * as $12 from './routes/notes/[slug]/sf-recs.tsx'
+import * as $13 from './routes/notes/new.tsx'
+import * as $14 from './routes/recs/sf.tsx'
+import * as $15 from './routes/rss.ts'
 import * as $$0 from './islands/audio.tsx'
 import * as $$1 from './islands/editor.tsx'
 import * as $$2 from './islands/geomap.tsx'
@@ -34,14 +35,15 @@ const manifest = {
     './routes/api/logout.ts': $4,
     './routes/api/notes/[slug].tsx': $5,
     './routes/dashboard.tsx': $6,
-    './routes/index.tsx': $7,
-    './routes/notes/[slug].tsx': $8,
-    './routes/notes/[slug]/edit.tsx': $9,
-    './routes/notes/[slug]/sf-recs.tsx': $10,
-    './routes/notes/index.tsx': $11,
-    './routes/notes/new.tsx': $12,
-    './routes/recs/sf.tsx': $13,
-    './routes/rss.ts': $14,
+    './routes/maps.tsx': $7,
+    './routes/maps/[slug].tsx': $8,
+    './routes/notes.tsx': $9,
+    './routes/notes/[slug].tsx': $10,
+    './routes/notes/[slug]/edit.tsx': $11,
+    './routes/notes/[slug]/sf-recs.tsx': $12,
+    './routes/notes/new.tsx': $13,
+    './routes/recs/sf.tsx': $14,
+    './routes/rss.ts': $15,
   },
   islands: {
     './islands/audio.tsx': $$0,

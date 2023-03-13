@@ -1,0 +1,13 @@
+{
+  "san-francisco": {
+    "tilesURL": "https://static.bpev.me/tiles/sf.pmtiles",
+    "recsURL": "https://static.bpev.me/recs/sf.yaml",
+    "center": [37.774, -122.419],
+    "bounds": {
+      "N": 37.88840230008824,
+      "E": -122.55896347350851,
+      "S": 37.64305348359734,
+      "W": -122.18857235064957
+    }
+  }
+}

@@ -6,7 +6,12 @@ import { Only } from '$civility/components/mod.ts'
 
 const markers = {}
 
-export default function () {
+export default function ({
+  tilesURL,
+  recsURL,
+  center,
+  bounds,
+}) {
   const geomap = useRef(null)
   const hovered = useSignal('')
   const selected = useSignal(null)
@@ -26,9 +31,7 @@ export default function () {
     navigator.clipboard.writeText(event.target.innerText)
   })
   useEffect(() => {
-    fetch('https://static.bpev.me/recs/sf.yaml').then(async (resp) =>
-      recs.value = parse(await resp.text())
-    )
+    fetch(recsURL).then(async (resp) => recs.value = parse(await resp.text()))
   }, [])
 
   useEffect(() => {
@@ -38,12 +41,10 @@ export default function () {
         import('https://esm.sh/protomaps'),
       ]).then(([L, protomaps]) => {
         const { coffee, drink, food, other } = recs.value
-
-        const southWest = L.latLng(37.64305348359734, -122.18857235064957)
-        const northEast = L.latLng(37.88840230008824, -122.55896347350851)
+        const { N, E, S, W } = bounds
 
         geomap.current = L.map('geomap', {
-          maxBounds: L.latLngBounds(southWest, northEast),
+          maxBounds: L.latLngBounds(L.latLng(S, W), L.latLng(N, E)),
           minZoom: 12,
         })
 
@@ -67,11 +68,11 @@ export default function () {
           const marker = markers[coords.join(',')]
           if (marker) marker.openPopup()
         } else {
-          geomap.current.setView(new L.LatLng(37.774, -122.419), 13)
+          geomap.current.setView(new L.LatLng(...center), 13)
         }
 
         protomaps
-          .leafletLayer({ url: 'https://static.bpev.me/tiles/sf.pmtiles' })
+          .leafletLayer({ url: tilesURL })
           .addTo(geomap.current)
       })
     }

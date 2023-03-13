@@ -73,13 +73,12 @@ export async function getNote(slug: string): Promise<Note | null> {
       else throw new Error('no URL_BLOG_LOCAL')
     }
 
-    const composite = FEATURE.B2
-      ? await (await fetch(filePath)).text()
-      : new TextDecoder('utf-8').decode(await Deno.readFile(filePath))
-
-    if (!composite) return null
-
     try {
+      const composite = FEATURE.B2
+        ? await (await fetch(filePath)).text()
+        : new TextDecoder('utf-8').decode(await Deno.readFile(filePath))
+
+      if (!composite) return null
       const { attrs, body: commonmark } = extract(composite)
       const [text, { html }] = await Promise.all([
         markdownToPlaintext(commonmark),
