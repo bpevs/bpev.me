@@ -114,6 +114,7 @@ export default function ({
             border: '1px solid white',
             margin: 'auto',
             zIndex: 0,
+            minHeight: '50vh'
           }}
         >
         </div>
