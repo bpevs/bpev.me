@@ -5,6 +5,19 @@ import { parse } from '$std/encoding/yaml.ts'
 import { Only } from '$civility/components/mod.ts'
 
 const markers = {}
+const iconsMap = {
+  coffee: "☕️",
+  food: "🍖",
+  drink: "🍻",
+  sushi: "🍣",
+  ramen: "🍜",
+  tonkatsu: "🍖",
+  tempura: "🍤",
+  curry: "🥘",
+  cooworking: "👨‍💻",
+  climbing: "🧗‍♀️",
+  attraction: "📸"
+}
 
 export default function ({
   tilesURL,
@@ -31,7 +44,10 @@ export default function ({
     navigator.clipboard.writeText(event.target.innerText)
   })
   useEffect(() => {
-    fetch(recsURL).then(async (resp) => recs.value = parse(await resp.text()))
+    fetch(recsURL).then(async (resp) => {
+      const responseText = await resp.text()
+      recs.value = parse(responseText)
+    })
   }, [])
 
   useEffect(() => {
@@ -40,7 +56,6 @@ export default function ({
         import('https://esm.sh/leaflet'),
         import('https://esm.sh/protomaps'),
       ]).then(([L, protomaps]) => {
-        const { coffee, drink, food, other } = recs.value
         const { N, E, S, W } = bounds
 
         geomap.current = L.map('geomap', {
@@ -49,10 +64,10 @@ export default function ({
         })
 
         const markersLayer = L.featureGroup().addTo(geomap.current)
-        drawMarkers(markersLayer, L, coffee, '☕️')
-        drawMarkers(markersLayer, L, food, '🍖')
-        drawMarkers(markersLayer, L, drink, '🍻')
-        drawMarkers(markersLayer, L, other, '👓')
+        Object.keys(recs.value).forEach(key => {
+          const icon = iconsMap[key] || "📍";
+          drawMarkers(markersLayer, L, recs.value[key], icon)
+        })
         markersLayer.on('click', onClick)
         markersLayer.on('popupclose', onClose)
         markersLayer.on('mouseover', function (event) {
@@ -138,12 +153,10 @@ export default function ({
       </Only>
       <Only if={mode.value === 'LIST'}>
         <ul>
-          {recs.value?.coffee
-            .concat(recs.value?.food)
-            .concat(recs.value?.drink)
+          {Object.keys(recs.value || {}).map(key => recs.value[key]).flat()
             .sort((a, b) => a.name.localeCompare(b.name))
             .map((rec) => (
-              <h2
+              <h4
                 style={{ cursor: 'pointer' }}
                 onClick={(evt) => {
                   const loc = rec.locations[0]
@@ -153,7 +166,7 @@ export default function ({
               >
                 {(rec.tags || []).includes('recommended') ? '⭐️' : ''}
                 {rec.name}
-              </h2>
+              </h4>
             ))}
         </ul>
       </Only>
