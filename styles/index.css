@@ -22,7 +22,13 @@ a {
 }
 
 .markup a {
-  color: rgb(9, 105, 218);
+  color: #0969da;
+}
+
+@media (prefers-color-scheme: dark) {
+  .markup a {
+    color: #58a6ff;
+  }
 }
 
 nav ul {
