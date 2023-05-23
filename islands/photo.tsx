@@ -33,7 +33,6 @@ export default function Image({ src, loading = 'lazy', note }: Props) {
   const fastSize = imageMeta?.FAST
   const [r, g, b, a] = normalSize?.averageColor || []
   const averageColor = `rgba(${r}, ${g}, ${b}, ${a})`
-  console.log(fastSize)
 
   return (
     <a

@@ -15,9 +15,8 @@ import * as $8 from './routes/maps/[slug].tsx'
 import * as $9 from './routes/notes.tsx'
 import * as $10 from './routes/notes/[slug].tsx'
 import * as $11 from './routes/notes/[slug]/edit.tsx'
-import * as $12 from './routes/notes/[slug]/sf-recs.tsx'
-import * as $13 from './routes/notes/new.tsx'
-import * as $14 from './routes/rss.ts'
+import * as $12 from './routes/notes/new.tsx'
+import * as $13 from './routes/rss.ts'
 import * as $$0 from './islands/audio.tsx'
 import * as $$1 from './islands/editor.tsx'
 import * as $$2 from './islands/geomap.tsx'
@@ -39,9 +38,8 @@ const manifest = {
     './routes/notes.tsx': $9,
     './routes/notes/[slug].tsx': $10,
     './routes/notes/[slug]/edit.tsx': $11,
-    './routes/notes/[slug]/sf-recs.tsx': $12,
-    './routes/notes/new.tsx': $13,
-    './routes/rss.ts': $14,
+    './routes/notes/new.tsx': $12,
+    './routes/rss.ts': $13,
   },
   islands: {
     './islands/audio.tsx': $$0,
