@@ -11,8 +11,8 @@ interface Result {
   error?: Error
 }
 
-const UPLOAD_TO_CACHE = false
-const COLLECT_IMAGE_META = true
+const UPLOAD_TO_CACHE = true
+const COLLECT_IMAGE_META = false
 const CONCURRENT = 12
 const MAX_UPLOAD = 10000
 
@@ -77,7 +77,7 @@ try {
     const entityCountDigits = String(entities.length).length
     const countLog = String(++count).padStart(entityCountDigits, '0')
     console.log(`${countLog}/${entities.length} ${status} ${entity.uploadPath}`)
-    console.log(imageMeta)
+    if (COLLECT_IMAGE_META) console.log(imageMeta)
   }
 } catch (e) {
   console.error(e)

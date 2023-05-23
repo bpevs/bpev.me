@@ -6,17 +6,17 @@ import { Only } from '$civility/components/mod.ts'
 
 const markers = {}
 const iconsMap = {
-  coffee: "☕️",
-  food: "🍖",
-  drink: "🍻",
-  sushi: "🍣",
-  ramen: "🍜",
-  tonkatsu: "🍖",
-  tempura: "🍤",
-  curry: "🥘",
-  cooworking: "👨‍💻",
-  climbing: "🧗‍♀️",
-  attraction: "📸"
+  coffee: '☕️',
+  food: '🍖',
+  drink: '🍻',
+  sushi: '🍣',
+  ramen: '🍜',
+  tonkatsu: '🍖',
+  tempura: '🍤',
+  curry: '🥘',
+  cooworking: '👨‍💻',
+  climbing: '🧗‍♀️',
+  attraction: '📸',
 }
 
 export default function ({
@@ -64,8 +64,8 @@ export default function ({
         })
 
         const markersLayer = L.featureGroup().addTo(geomap.current)
-        Object.keys(recs.value).forEach(key => {
-          const icon = iconsMap[key] || "📍";
+        Object.keys(recs.value).forEach((key) => {
+          const icon = iconsMap[key] || '📍'
           drawMarkers(markersLayer, L, recs.value[key], icon)
         })
         markersLayer.on('click', onClick)
@@ -129,7 +129,7 @@ export default function ({
             border: '1px solid white',
             margin: 'auto',
             zIndex: 0,
-            minHeight: '50vh'
+            minHeight: '50vh',
           }}
         >
         </div>
@@ -153,7 +153,7 @@ export default function ({
       </Only>
       <Only if={mode.value === 'LIST'}>
         <ul>
-          {Object.keys(recs.value || {}).map(key => recs.value[key]).flat()
+          {Object.keys(recs.value || {}).map((key) => recs.value[key]).flat()
             .sort((a, b) => a.name.localeCompare(b.name))
             .map((rec) => (
               <h4
