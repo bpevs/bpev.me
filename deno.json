@@ -8,19 +8,13 @@
     "photos": "deno run -A scripts/build_photo_cache.ts"
   },
   "fmt": {
-    "options": {
-      "proseWrap": "never",
-      "singleQuote": true,
-      "semiColons": false
-    },
-    "files": {
-      "exclude": ["components/markup"]
-    }
+    "proseWrap": "never",
+    "singleQuote": true,
+    "semiColons": false,
+    "exclude": ["components/markup"]
   },
   "lint": {
-    "files": {
-      "exclude": ["apps/", "components/markup"]
-    }
+    "exclude": ["apps/", "components/markup"]
   },
   "compilerOptions": {
     "jsx": "react-jsx",

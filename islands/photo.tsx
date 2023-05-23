@@ -58,7 +58,7 @@ export default function Image({ src, loading = 'lazy', note }: Props) {
         />
         <img
           style={{
-            border: "5px solid black",
+            border: '5px solid black',
             backgroundColor: `1px solid ${averageColor}`,
             maxHeight: '600px',
             objectFit: 'contain',
