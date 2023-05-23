@@ -44,20 +44,6 @@ export default function Image({ src, loading = 'lazy', note }: Props) {
     >
       <picture>
         <source
-          media='(min-width: 900px)'
-          srcset={root[NORMAL] + imagePath + upgradedName}
-          type='image/webp'
-          height={normalSize?.height}
-          width={normalSize?.width}
-        />
-        <source
-          media='(min-width: 900px)'
-          srcset={root[NORMAL] + imagePath + originalName}
-          type={`image/${ext}`}
-          height={normalSize?.height}
-          width={normalSize?.width}
-        />
-        <source
           srcset={root[FAST] + imagePath + upgradedName}
           type='image/webp'
           height={fastSize?.height}
@@ -71,13 +57,12 @@ export default function Image({ src, loading = 'lazy', note }: Props) {
         />
         <img
           style={{
-            color: averageColor,
+            border: '5px solid black',
+            backgroundColor: `1px solid ${averageColor}`,
             maxHeight: '600px',
             objectFit: 'contain',
             width: 'auto',
             height: 'auto',
-            opacity: isLoaded.value ? 1 : 0,
-            transition: 'opacity 500ms ease-in 0ms',
             textAlign: 'center',
           }}
           src={root[NORMAL] + imagePath + originalName}
