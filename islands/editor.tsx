@@ -1,7 +1,5 @@
 import { useCallback, useEffect, useRef } from 'preact/hooks'
 import { useSignal } from '@preact/signals'
-import { IS_BROWSER } from '$fresh/runtime.ts'
-import * as TinyMDE from 'tiny-markdown-editor'
 import { Note, postNote } from '@/utilities/notes.ts'
 
 const defaultNote = Object.freeze({
@@ -11,27 +9,17 @@ const defaultNote = Object.freeze({
 })
 
 export default function Editor(props: { note?: Note }) {
-  const textRef = useRef<HTMLTextAreaElement>(null)
-  const tinyMDE = useRef<typeof TinyMDE.Editor>(null)
   const note = useSignal<Note>(props.note || { ...defaultNote })
-
-  useEffect(() => {
-    if (IS_BROWSER && textRef?.current) {
-      tinyMDE.current = new TinyMDE.Editor({ element: textRef.current })
-      tinyMDE.current.setContent(props?.note?.content?.commonmark || '')
-    }
-  }, [textRef])
 
   const onSubmit = useCallback(async (e: Event) => {
     e.preventDefault()
-    const content = { commonmark: tinyMDE?.current?.getContent!() || '' }
     const nextNote = { ...note.value, content, updated: new Date() }
     await fetch(`/api/notes/${slug}`, {
       method: 'POST',
       body: JSON.stringify(nextNote),
     })
     location.replace(location.href.replace('/edit', '/'))
-  }, [note, tinyMDE])
+  }, [note])
 
   const onChangeMeta = useCallback((e: Event) => {
     const { name, value } = e.target as HTMLInputElement
@@ -39,11 +27,10 @@ export default function Editor(props: { note?: Note }) {
       note.value.published = value ? new Date(value) : null
     } else if (name === 'title') note.value.title = value
     else if (name === 'slug') note.value.slug = value
+    else if (name === 'content') note.value.content.commonmark = value
   }, [note])
 
-  if (!IS_BROWSER) return <div />
-
-  const { title, slug } = note.value
+  const { content, title, slug } = note.value
   const published = (note.value.published || '').toString()
 
   return (
@@ -66,15 +53,17 @@ export default function Editor(props: { note?: Note }) {
         <label for='slug'>slug</label>
         <input name='slug' value={slug} onChange={onChangeMeta} />
         <label for='content'>content</label>
-        <textarea ref={textRef} name='content' rows={20} cols={60} />
+        <textarea
+          name='content'
+          value={content.commonmark}
+          onChange={onChangeMeta}
+          rows={20}
+          cols={60}
+        />
         <button type='submit'>
           Submit
         </button>
       </form>
-      <link
-        rel='stylesheet'
-        href='https://unpkg.com/tiny-markdown-editor@0.1.5/dist/tiny-mde.min.css'
-      />
     </div>
   )
 }
