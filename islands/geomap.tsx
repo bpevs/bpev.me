@@ -28,7 +28,7 @@ export default function ({
   const geomap = useRef(null)
   const hovered = useSignal('')
   const selected = useSignal(null)
-  const mode = useSignal('MAP')
+  const mode = useSignal('LIST')
   const recs = useSignal(null)
 
   const onClick = useCallback((event) => {
