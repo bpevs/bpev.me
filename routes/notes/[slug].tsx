@@ -52,7 +52,7 @@ export const handler: Handlers<Props> = {
     } else {
       const note = await getNote(ctx.params.slug)
       if (!note) return ctx.renderNotFound()
-      return ctx.render!({ note, isAuthorized: isAuthorized(req) })
+      return ctx.render!({ note, isAuthorized: await isAuthorized(req) })
     }
   },
 }

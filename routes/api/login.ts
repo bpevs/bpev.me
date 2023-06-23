@@ -16,7 +16,7 @@ export const handler: Handlers = {
       const headers = new Headers()
       setCookie(headers, {
         name: 'auth',
-        value: createSessionId(),
+        value: await createSessionId(),
         maxAge: 120000,
         sameSite: 'Strict', // this is important to prevent CSRF attacks
         domain: url.hostname,

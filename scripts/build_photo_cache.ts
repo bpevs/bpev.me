@@ -39,6 +39,11 @@ const results: AsyncIterableIterator<Result> = await pooledMap(
     const result: Result = { entity }
     const { downloadPath, uploadFormat, uploadPath } = entity
     try {
+      if (cachedImageNames.has(uploadPath)) {
+        result.error = new Error("is cached")
+        return result
+      }
+
       const originalBuffer: ArrayBuffer = await helpers.fetchBuffer(entity)
       const bufferArr: Uint8Array = new Uint8Array(originalBuffer)
 
@@ -49,7 +54,7 @@ const results: AsyncIterableIterator<Result> = await pooledMap(
         result.imageMeta = imageDataMap[downloadPath]
       }
 
-      if (UPLOAD_TO_CACHE && !cachedImageNames.has(uploadPath)) {
+      if (UPLOAD_TO_CACHE) {
         if (!B2_STATIC_BUCKET_ID) throw new Error('No Static Bucket ID')
 
         const type = uploadFormat.toLowerCase().replace('jpg', 'jpeg')
@@ -73,7 +78,9 @@ const errors: [string, Error][] = []
 try {
   for await (const { entity, error, imageMeta } of results) {
     if (error) errors.push([entity.uploadPath, error])
-    const status = error ? 'FAILURE' : 'SUCCESS'
+    let status = error ? 'FAILURE' : 'SUCCESS'
+    if (cachedImageNames.has(entity.uploadPath)) status = 'CACHED'
+
     const entityCountDigits = String(entities.length).length
     const countLog = String(++count).padStart(entityCountDigits, '0')
     console.log(`${countLog}/${entities.length} ${status} ${entity.uploadPath}`)

@@ -1,22 +1,24 @@
 import { v1 } from '$std/uuid/mod.ts'
 import { getCookies } from '$std/http/cookie.ts'
 
-const store = new Set()
+const store = await Deno.openKv();
 
 export default store
 
-export function createSessionId() {
+export async function createSessionId(): Promise<any> {
   const id = v1.generate()
-  store.add(id)
+  await store.set([id], true)
   return id.toString()
 }
-export function hasSessionId(id: string) {
-  return store.has(id)
-}
-export function deleteSessionId(id: string) {
-  return store.delete(id)
+export async function hasSessionId(id: string): Promise<any> {
+  if (!id) return false;
+  return Boolean((await store.get([id])).value)
 }
 
-export function isAuthorized(req: Request) {
+export function deleteSessionId(id: string): Promise<any> {
+  return store.delete([id])
+}
+
+export function isAuthorized(req: Request): Promise<any> {
   return hasSessionId(getCookies(req.headers)?.auth)
 }

@@ -11,7 +11,7 @@ interface Props {
 export const handler: Handlers<Props> = {
   async GET(req, ctx) {
     const notes = await getNotes()
-    return ctx.render!({ isAuthorized: isAuthorized(req), notes })
+    return ctx.render!({ isAuthorized: await isAuthorized(req), notes })
   },
 }
 

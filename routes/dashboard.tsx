@@ -6,8 +6,8 @@ import Page from '@/components/page.tsx'
 import { isAuthorized } from '@/utilities/session.ts'
 
 export const handler: Handlers<Data> = {
-  GET(req, ctx) {
-    return ctx.render!({ isAuthorized: isAuthorized(req) })
+  async GET(req, ctx) {
+    return ctx.render!({ isAuthorized: await isAuthorized(req) })
   },
 }
 
