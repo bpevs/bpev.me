@@ -17,7 +17,7 @@ async function logging(req: Request, ctx: Context): Promise<Response> {
 
 async function auth(req: Request, ctx: Context): Promise<Response> {
   if (new RegExp('(/edit|/new|/api/notes)').test(req.url)) {
-    const hasAccess = await isAuthorized(req);
+    const hasAccess = await isAuthorized(req)
     if (!hasAccess) {
       const url = new URL(req.url)
       url.pathname = '/dashboard'

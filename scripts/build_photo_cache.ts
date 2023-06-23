@@ -40,7 +40,7 @@ const results: AsyncIterableIterator<Result> = await pooledMap(
     const { downloadPath, uploadFormat, uploadPath } = entity
     try {
       if (cachedImageNames.has(uploadPath)) {
-        result.error = new Error("is cached")
+        result.error = new Error('is cached')
         return result
       }
 
