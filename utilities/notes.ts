@@ -1,6 +1,6 @@
 import { extract } from '$std/encoding/front_matter.ts'
 import { join } from '$std/path/mod.ts'
-import { markdownToHtml, markdownToPlaintext } from 'parsedown'
+import { markdownToHtml } from 'parsedown'
 
 import {
   B2_BLOG_BUCKET_ID,
@@ -9,7 +9,20 @@ import {
   URL_BLOG_LOCAL,
 } from '@/constants.ts'
 import * as b2 from '@/utilities/b2.ts'
+import store from '@/utilities/store.ts'
 import { ImageMeta } from '@/utilities/photo_constants.ts'
+
+export async function setCachedNote(slug, note) {
+  await store.set(['notes', slug], note)
+}
+export async function getCachedNote(slug: string) {
+  if (!slug) return null
+  return (await store.get(['notes', slug])).value
+}
+
+export function deleteCachedNote(slug: string) {
+  return store.delete(['notes', slug])
+}
 
 export interface Note {
   slug: string
@@ -20,12 +33,8 @@ export interface Note {
   images?: { [slug: string]: { [imageSlug: string]: ImageMeta } }
   content: {
     commonmark: string
-    html?: string
-    text?: string
   }
 }
-
-const notesCache: { [slug: string]: Note } = {}
 
 const IMAGE_DATA_URL = 'https://static.bpev.me/cache/image_data.json'
 
@@ -61,7 +70,7 @@ export async function getNotes(): Promise<Note[]> {
 
 const ONE_WEEK = 8.64e+7 * 7
 export async function getNote(slug: string): Promise<Note | null> {
-  const note = notesCache[slug]
+  let note = await getCachedNote(slug)
   if (!note || ((Date.now() - (note?.lastChecked ?? 0)) > ONE_WEEK)) {
     let filePath = ''
 
@@ -80,26 +89,24 @@ export async function getNote(slug: string): Promise<Note | null> {
 
       if (!composite) return null
       const { attrs, body: commonmark } = extract(composite)
-      const [text, { html }] = await Promise.all([
-        markdownToPlaintext(commonmark),
-        markdownToHtml(commonmark),
-      ])
-      notesCache[slug] = {
+      const { html } = await markdownToHtml(commonmark)
+      note = {
         slug,
         title: String(attrs?.title),
         published: new Date(attrs?.published as string),
         updated: new Date(attrs?.updated as string),
-        content: { commonmark, html, text },
+        content: { commonmark, html },
         lastChecked: Date.now(),
         images: (await imageInfoBySlug)?.[slug],
       }
+      await setCachedNote(slug, note)
     } catch (e) {
       console.log(`Invalid Note! `, slug)
       console.error(e)
     }
   }
 
-  return notesCache[slug]
+  return note
 }
 
 export async function postNote(note: Note): Promise<void> {
@@ -118,6 +125,6 @@ export async function postNote(note: Note): Promise<void> {
     body,
     { 'Content-Type': 'text/markdown' },
   )
-  delete notesCache[note.slug]
+  await deleteCachedNote(note.slug)
   return result
 }

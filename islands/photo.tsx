@@ -31,7 +31,7 @@ export default function Image({ src, loading = 'lazy', note }: Props) {
   const imageMeta = note.images?.[imagePath + originalName]
   const normalSize = imageMeta?.NORMAL
   const fastSize = imageMeta?.FAST
-  const [r, g, b, a] = normalSize?.averageColor || []
+  const [r, g, b, a] = normalSize?.averageColor || [0, 0, 0, 0.5]
   const averageColor = `rgba(${r}, ${g}, ${b}, ${a})`
 
   return (
@@ -42,7 +42,14 @@ export default function Image({ src, loading = 'lazy', note }: Props) {
         display: 'block',
       }}
     >
-      <picture>
+      <picture
+        style={{
+          backgroundColor: averageColor,
+          maxHeight: '600px',
+        }}
+        height={fastSize?.height}
+        width={fastSize?.width}
+      >
         <source
           srcset={root[FAST] + imagePath + upgradedName}
           type='image/webp'
@@ -57,12 +64,9 @@ export default function Image({ src, loading = 'lazy', note }: Props) {
         />
         <img
           style={{
-            border: '5px solid black',
-            backgroundColor: `1px solid ${averageColor}`,
+            backgroundColor: averageColor,
             maxHeight: '600px',
             objectFit: 'contain',
-            width: 'auto',
-            height: 'auto',
             textAlign: 'center',
           }}
           src={root[NORMAL] + imagePath + originalName}

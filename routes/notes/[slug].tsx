@@ -2,6 +2,7 @@ import { createContext, FunctionalComponent, VNode } from 'preact'
 import { useContext, useMemo } from 'preact/hooks'
 import { Handlers, PageProps } from '$fresh/server.ts'
 import { Only } from '$civility/components/mod.ts'
+import { markdownToPlaintext } from 'parsedown'
 
 import Page from '@/components/page.tsx'
 import Photo from '@/islands/photo.tsx'
@@ -40,7 +41,9 @@ export const handler: Handlers<Props> = {
     if (/\.txt$/.test(ctx.params.slug)) {
       const note = await getNote(ctx.params.slug.split('.txt')[0])
       if (!note) return ctx.renderNotFound()
-      return new Response(note.content.text, { status: 200 })
+      return new Response(await markdownToPlaintext(note.content.commonmark), {
+        status: 200,
+      })
     } else if (/\.json$/.test(ctx.params.slug)) {
       const note = await getNote(ctx.params.slug.split('.json')[0])
       if (!note) return ctx.renderNotFound()
