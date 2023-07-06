@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useRef } from 'preact/hooks'
 import { useSignal } from '@preact/signals'
 import { IS_BROWSER } from '$fresh/runtime.ts'
-import { parse } from '$std/encoding/yaml.ts'
+import { parse } from '$std/yaml/mod.ts'
 import { Only } from '$civility/components/mod.ts'
 
 const markers = {}

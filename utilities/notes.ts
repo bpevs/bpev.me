@@ -1,4 +1,4 @@
-import { extract } from '$std/encoding/front_matter.ts'
+import { extract } from '$std/front_matter/any.ts'
 import { join } from '$std/path/mod.ts'
 import { markdownToHtml } from 'parsedown'
 
@@ -19,10 +19,6 @@ export async function setCachedNote(slug, note) {
 export async function getCachedNote(slug: string) {
   if (!slug) return null
   return (await store.get(['notes', slug])).value
-}
-
-export function deleteCachedNote(slug: string) {
-  return store.delete(['notes', slug])
 }
 
 export interface Note {
@@ -106,6 +102,9 @@ export async function getNote(slug: string): Promise<Note | null> {
       console.error(e)
     }
   }
+  note.published = new Date(note.published)
+  note.updated = new Date(note.updated)
+  note.lastChecked = new Date(note.lastChecked)
 
   return note
 }
