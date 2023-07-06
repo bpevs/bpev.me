@@ -15,6 +15,7 @@ import { ImageMeta } from '@/utilities/photo_constants.ts'
 export async function setCachedNote(slug, note) {
   await store.set(['notes', slug], note)
 }
+
 export async function getCachedNote(slug: string) {
   if (!slug) return null
   return (await store.get(['notes', slug])).value
@@ -125,6 +126,6 @@ export async function postNote(note: Note): Promise<void> {
     body,
     { 'Content-Type': 'text/markdown' },
   )
-  await deleteCachedNote(note.slug)
+  await setCachedNote(note.slug, note)
   return result
 }
