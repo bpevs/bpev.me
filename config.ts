@@ -8,5 +8,6 @@ export default {
   FEATURE: {
     B2: true,
     DASHBOARD: true,
+    CACHE: true,
   },
 }

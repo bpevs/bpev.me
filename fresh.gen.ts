@@ -5,17 +5,19 @@
 import * as $0 from './routes/_404.tsx'
 import * as $1 from './routes/_500.tsx'
 import * as $2 from './routes/_middleware.ts'
-import * as $3 from './routes/api/login.ts'
-import * as $4 from './routes/api/logout.ts'
-import * as $5 from './routes/api/notes/[slug].tsx'
-import * as $6 from './routes/dashboard.tsx'
-import * as $7 from './routes/maps.tsx'
-import * as $8 from './routes/maps/[slug].tsx'
-import * as $9 from './routes/notes.tsx'
-import * as $10 from './routes/notes/[slug].tsx'
-import * as $11 from './routes/notes/[slug]/edit.tsx'
-import * as $12 from './routes/notes/new.tsx'
-import * as $13 from './routes/rss.ts'
+import * as $3 from './routes/api/clear.ts'
+import * as $4 from './routes/api/login.ts'
+import * as $5 from './routes/api/logout.ts'
+import * as $6 from './routes/api/notes/[slug].ts'
+import * as $7 from './routes/api/notes/[slug]/refresh.ts'
+import * as $8 from './routes/dashboard.tsx'
+import * as $9 from './routes/maps.tsx'
+import * as $10 from './routes/maps/[slug].tsx'
+import * as $11 from './routes/notes.tsx'
+import * as $12 from './routes/notes/[slug].tsx'
+import * as $13 from './routes/notes/[slug]/edit.tsx'
+import * as $14 from './routes/notes/new.tsx'
+import * as $15 from './routes/rss.ts'
 import * as $$0 from './islands/audio.tsx'
 import * as $$1 from './islands/editor.tsx'
 import * as $$2 from './islands/geomap.tsx'
@@ -28,17 +30,19 @@ const manifest = {
     './routes/_404.tsx': $0,
     './routes/_500.tsx': $1,
     './routes/_middleware.ts': $2,
-    './routes/api/login.ts': $3,
-    './routes/api/logout.ts': $4,
-    './routes/api/notes/[slug].tsx': $5,
-    './routes/dashboard.tsx': $6,
-    './routes/maps.tsx': $7,
-    './routes/maps/[slug].tsx': $8,
-    './routes/notes.tsx': $9,
-    './routes/notes/[slug].tsx': $10,
-    './routes/notes/[slug]/edit.tsx': $11,
-    './routes/notes/new.tsx': $12,
-    './routes/rss.ts': $13,
+    './routes/api/clear.ts': $3,
+    './routes/api/login.ts': $4,
+    './routes/api/logout.ts': $5,
+    './routes/api/notes/[slug].ts': $6,
+    './routes/api/notes/[slug]/refresh.ts': $7,
+    './routes/dashboard.tsx': $8,
+    './routes/maps.tsx': $9,
+    './routes/maps/[slug].tsx': $10,
+    './routes/notes.tsx': $11,
+    './routes/notes/[slug].tsx': $12,
+    './routes/notes/[slug]/edit.tsx': $13,
+    './routes/notes/new.tsx': $14,
+    './routes/rss.ts': $15,
   },
   islands: {
     './islands/audio.tsx': $$0,

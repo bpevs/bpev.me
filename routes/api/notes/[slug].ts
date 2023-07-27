@@ -1,8 +1,8 @@
 import { Handlers } from '$fresh/server.ts'
-import { Note, postNote } from '@/utilities/notes.ts'
+import { postNote } from '@/utilities/notes.ts'
 
 export const handler: Handlers = {
-  async POST(req, ctx) {
+  async POST(req) {
     await postNote(await req.json())
     return new Response(null, { status: 200 })
   },

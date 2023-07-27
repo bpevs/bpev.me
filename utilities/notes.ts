@@ -1,6 +1,6 @@
 import { extract } from '$std/front_matter/any.ts'
 import { join } from '$std/path/mod.ts'
-import { markdownToHtml } from 'parsedown'
+import { markdownToHtml, markdownToPlaintext } from 'parsedown'
 
 import {
   B2_BLOG_BUCKET_ID,
@@ -12,11 +12,23 @@ import * as b2 from '@/utilities/b2.ts'
 import store from '@/utilities/store.ts'
 import { ImageMeta } from '@/utilities/photo_constants.ts'
 
+export async function deleteCachedNote(slug) {
+  if (!FEATURE.CACHE) return
+  await store.delete(['notes', slug])
+}
+
+export async function deleteAllCachedNotes() {
+  if (!FEATURE.CACHE) return
+  await store.delete(['notes'])
+}
+
 export async function setCachedNote(slug, note) {
+  if (!FEATURE.CACHE) return
   await store.set(['notes', slug], note)
 }
 
 export async function getCachedNote(slug: string) {
+  if (!FEATURE.CACHE) return null
   if (!slug) return null
   return (await store.get(['notes', slug])).value
 }
@@ -30,6 +42,8 @@ export interface Note {
   images?: { [slug: string]: { [imageSlug: string]: ImageMeta } }
   content: {
     commonmark: string
+    html?: string
+    text?: string
   }
 }
 
@@ -67,46 +81,58 @@ export async function getNotes(): Promise<Note[]> {
 
 const ONE_WEEK = 8.64e+7 * 7
 export async function getNote(slug: string): Promise<Note | null> {
-  let note = await getCachedNote(slug)
-  if (!note || ((Date.now() - (note?.lastChecked ?? 0)) > ONE_WEEK)) {
-    let filePath = ''
+  let { composite, lastChecked } = (await getCachedNote(slug)) || {}
 
-    if (FEATURE.B2) {
-      if (BLOG_ROOT) filePath = join(BLOG_ROOT, slug + '.md')
-      else throw new Error('no BLOG_ROOT')
-    } else {
-      if (URL_BLOG_LOCAL) filePath = join(URL_BLOG_LOCAL, slug + '.md')
-      else throw new Error('no URL_BLOG_LOCAL')
-    }
-
+  if (!composite || ((Date.now() - (lastChecked ?? 0)) > ONE_WEEK)) {
+    console.log('Fetching Note: ', slug)
     try {
-      const composite = FEATURE.B2
-        ? await (await fetch(filePath)).text()
-        : new TextDecoder('utf-8').decode(await Deno.readFile(filePath))
-
-      if (!composite) return null
-      const { attrs, body: commonmark } = extract(composite)
-      const { html } = await markdownToHtml(commonmark)
-      note = {
-        slug,
-        title: String(attrs?.title),
-        published: new Date(attrs?.published as string),
-        updated: new Date(attrs?.updated as string),
-        content: { commonmark, html },
-        lastChecked: Date.now(),
-        images: (await imageInfoBySlug)?.[slug],
+      let filePath = ''
+      if (FEATURE.B2) {
+        if (BLOG_ROOT) filePath = join(BLOG_ROOT, slug + '.md')
+        else throw new Error('no BLOG_ROOT')
+        const response = await fetch(filePath)
+        composite = await response.text()
+      } else {
+        if (URL_BLOG_LOCAL) filePath = join(URL_BLOG_LOCAL, slug + '.md')
+        else throw new Error('no URL_BLOG_LOCAL')
+        const response = await Deno.readFile(filePath)
+        composite = new TextDecoder('utf-8').decode(response)
       }
-      await setCachedNote(slug, note)
+
+      if (composite) {
+        console.log('Caching Note: ', slug)
+        await setCachedNote(slug, {
+          composite,
+          lastChecked: Date.now(),
+        })
+      }
     } catch (e) {
       console.log(`Invalid Note! `, slug)
       console.error(e)
     }
+  } else {
+    console.log('Using Cached Note: ', slug)
   }
-  note.published = new Date(note.published)
-  note.updated = new Date(note.updated)
-  note.lastChecked = new Date(note.lastChecked)
 
-  return note
+  if (!composite) return null
+
+  return parseNote(slug, composite)
+}
+
+async function parseNote(slug, composite: string): Promise<Note | null> {
+  const { attrs, body: commonmark } = extract(composite)
+  const [text, { html }] = await Promise.all([
+    markdownToPlaintext(commonmark),
+    markdownToHtml(commonmark),
+  ])
+  return {
+    slug,
+    title: String(attrs?.title),
+    published: new Date(attrs?.published as string),
+    updated: new Date(attrs?.updated as string),
+    content: { commonmark, html, text },
+    images: (await imageInfoBySlug)?.[slug],
+  }
 }
 
 export async function postNote(note: Note): Promise<void> {
@@ -125,6 +151,7 @@ export async function postNote(note: Note): Promise<void> {
     body,
     { 'Content-Type': 'text/markdown' },
   )
+  await deleteCachedNote(note.slug)
   await setCachedNote(note.slug, note)
   return result
 }
