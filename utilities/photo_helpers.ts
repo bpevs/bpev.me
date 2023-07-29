@@ -2,11 +2,14 @@ import type { Entity, Format, ImageMeta } from './photo_constants.ts'
 
 import { join, parse } from '$std/path/mod.ts'
 import { Image } from 'https://deno.land/x/imagescript@1.2.15/mod.ts'
-import { ImageMagick, initializeImageMagick } from 'imagemagick'
+import {
+  ImageMagick,
+  initialize,
+} from 'https://deno.land/x/imagemagick_deno/mod.ts'
 import { URL_STATIC } from '@/constants.ts'
 import { DIMENSIONS, FORMAT, FORMAT_MAP, SIZE } from './photo_constants.ts'
 
-initializeImageMagick()
+await initialize()
 
 const cachedBufferResponses: { [url: string]: Promise<ArrayBuffer> } = {}
 
@@ -44,17 +47,20 @@ export function formatBuffer(
 ): Promise<Uint8Array> {
   const [x, y] = DIMENSIONS[entity.uploadSize] || [0, 0]
   return new Promise((resolve) => {
-    ImageMagick.read(bufferArr, (image) => {
-      if (x || y) image.resize(x, y)
-      image.autoOrient()
-      image.write((imgArray: Uint8Array) => {
+    return ImageMagick.read(bufferArr, async (img) => {
+      if (x || y) img.resize(x, y)
+      await img.autoOrient()
+      img.write(FORMAT_MAP[entity.uploadFormat], (imgArray: Uint8Array) => {
         resolve(imgArray)
-      }, FORMAT_MAP[entity.uploadFormat])
+      })
     })
   })
 }
 
-export function createUploadEntities(downloadPath: string): Entity[] {
+export function createUploadEntities(
+  downloadPath: string,
+  localPath?: string,
+): Entity[] {
   const { ext, dir, name } = parse(downloadPath)
   const downloadFormat = getFormatFromUrl(ext)
 
@@ -66,9 +72,14 @@ export function createUploadEntities(downloadPath: string): Entity[] {
 
     Object.keys(SIZE).forEach((uploadSize) => {
       entities.push({
-        downloadPath,
+        downloadPath: localPath ? join(localPath, downloadPath) : downloadPath,
         downloadFormat,
-        uploadPath: join('cache', uploadSize.toLowerCase(), dir, file),
+        uploadPath: join(
+          localPath || 'cache',
+          uploadSize.toLowerCase(),
+          dir,
+          file,
+        ),
         uploadFormat,
         uploadSize,
       })

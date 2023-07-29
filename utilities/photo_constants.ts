@@ -1,4 +1,4 @@
-import { MagickFormat } from 'imagemagick'
+import { MagickFormat } from 'https://deno.land/x/imagemagick_deno/mod.ts'
 
 export interface Entity {
   downloadPath: string
@@ -29,7 +29,7 @@ export const SIZE = Object.freeze({
 export type Size = keyof typeof SIZE
 
 export const DIMENSIONS: { [key: string]: [number, number] } = Object.freeze({
-  [SIZE.FAST]: [500, 500],
+  [SIZE.FAST]: [700, 700],
   [SIZE.NORMAL]: [1800, 1800],
   [SIZE.DETAILED]: [1450, 2560],
 })

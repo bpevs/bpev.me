@@ -50,6 +50,20 @@ export default function Image({ src, loading = 'lazy', note }: Props) {
         height={fastSize?.height}
         width={fastSize?.width}
       >
+        {!isLoaded.value ? [] : [
+          <source
+            srcset={root[NORMAL] + imagePath + upgradedName}
+            type='image/webp'
+            height={normalSize?.height}
+            width={normalSize?.width}
+          />,
+          <source
+            srcset={root[NORMAL] + imagePath + originalName}
+            type={`image/${ext}`}
+            height={normalSize?.height}
+            width={normalSize?.width}
+          />,
+        ]}
         <source
           srcset={root[FAST] + imagePath + upgradedName}
           type='image/webp'
