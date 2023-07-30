@@ -27,7 +27,6 @@ export default function Image({ src, loading = 'lazy', note }: Props) {
 
   const originalName = `${name}.${ext.toUpperCase()}`
   const upgradedName = `${name}.${upgradedExt.value}`
-
   const imageMeta = note.images?.[imagePath + originalName]
   const normalSize = imageMeta?.NORMAL
   const fastSize = imageMeta?.FAST
@@ -43,10 +42,7 @@ export default function Image({ src, loading = 'lazy', note }: Props) {
       }}
     >
       <picture
-        style={{
-          backgroundColor: averageColor,
-          maxHeight: '600px',
-        }}
+        style={{ maxHeight: '600px' }}
         height={fastSize?.height}
         width={fastSize?.width}
       >
@@ -82,6 +78,7 @@ export default function Image({ src, loading = 'lazy', note }: Props) {
             maxHeight: '600px',
             objectFit: 'contain',
             textAlign: 'center',
+            width: 'auto'
           }}
           src={root[NORMAL] + imagePath + originalName}
           height={normalSize?.height}

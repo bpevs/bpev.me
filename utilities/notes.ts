@@ -39,7 +39,13 @@ export interface Note {
   published?: Date | null
   updated?: Date
   lastChecked?: number
-  images?: { [slug: string]: { [imageSlug: string]: ImageMeta } }
+  images?: {
+    [slug: string]: {
+      [imageSlug: string]: {
+        [size: string]: ImageMeta
+      }
+    }
+  }
   content: {
     commonmark: string
     html?: string
@@ -50,8 +56,8 @@ export interface Note {
 const IMAGE_DATA_URL = 'https://static.bpev.me/cache/image_data.json'
 
 // Pre-cache info
-const imageInfoBySlug = fetch(IMAGE_DATA_URL).then((r) => r.json())
-getNotes()
+const imageInfo = await fetch(IMAGE_DATA_URL).then((r) => r.json())
+const imageInfoKeys = Object.keys(imageInfo)
 
 export async function getNotes(): Promise<Note[]> {
   const notes$ = []
@@ -125,13 +131,20 @@ async function parseNote(slug, composite: string): Promise<Note | null> {
     markdownToPlaintext(commonmark),
     markdownToHtml(commonmark),
   ])
+
+  const images = {}
+  imageInfoKeys.filter((key) => key.includes(slug)).forEach(key => {
+    images[key] = imageInfo[key]
+  })
+  console.log(images)
+
   return {
     slug,
     title: String(attrs?.title),
     published: new Date(attrs?.published as string),
     updated: new Date(attrs?.updated as string),
     content: { commonmark, html, text },
-    images: (await imageInfoBySlug)?.[slug],
+    images
   }
 }
 
