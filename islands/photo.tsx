@@ -78,7 +78,7 @@ export default function Image({ src, loading = 'lazy', note }: Props) {
             maxHeight: '600px',
             objectFit: 'contain',
             textAlign: 'center',
-            width: 'auto'
+            width: 'auto',
           }}
           src={root[NORMAL] + imagePath + originalName}
           height={normalSize?.height}

@@ -133,7 +133,7 @@ async function parseNote(slug, composite: string): Promise<Note | null> {
   ])
 
   const images = {}
-  imageInfoKeys.filter((key) => key.includes(slug)).forEach(key => {
+  imageInfoKeys.filter((key) => key.includes(slug)).forEach((key) => {
     images[key] = imageInfo[key]
   })
   console.log(images)
@@ -144,7 +144,7 @@ async function parseNote(slug, composite: string): Promise<Note | null> {
     published: new Date(attrs?.published as string),
     updated: new Date(attrs?.updated as string),
     content: { commonmark, html, text },
-    images
+    images,
   }
 }
 
