@@ -74,12 +74,20 @@ export function createUploadEntities(
       entities.push({
         downloadPath: localPath ? join(localPath, downloadPath) : downloadPath,
         downloadFormat,
-        uploadPath: join(
-          localPath || 'cache',
-          uploadSize.toLowerCase(),
-          dir,
-          file,
-        ),
+        uploadPath: localPath
+          ? join(
+            localPath,
+            'cache',
+            uploadSize.toLowerCase(),
+            dir,
+            file,
+          )
+          : join(
+            'cache',
+            uploadSize.toLowerCase(),
+            dir,
+            file,
+          ),
         uploadFormat,
         uploadSize,
       })

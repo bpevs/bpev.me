@@ -1,4 +1,7 @@
 import { pooledMap } from '$std/async/pool.ts'
+import { walk } from '$std/fs/walk.ts'
+import { parse } from '$std/path/mod.ts'
+import { ensureDir } from '$std/fs/ensure_dir.ts'
 import { Entity, ImageMeta } from '@/utilities/photo_constants.ts'
 import * as helpers from '@/utilities/photo_helpers.ts'
 
@@ -16,12 +19,16 @@ const CONCURRENT = 12
 console.log('Fetching FileNames...')
 
 const imageNames = new Set()
-for await (const dirEntry of Deno.readDir(localPath)) {
-  if (/\.(jpg|jpeg|png)$/i.test(dirEntry.name)) {
-    imageNames.add(dirEntry.name)
-  }
+for await (
+  const dirEntry of walk(localPath, {
+    exts: ['png', 'jpg', 'jpeg', 'PNG', 'JPG', 'JPEG'],
+    includeDirs: false,
+    match: [/.*(\/notes.*)$/],
+  })
+) {
+  const [_, name] = dirEntry?.path?.match(/.*(\/notes.*)$/) || []
+  imageNames.add(name)
 }
-
 console.log('Images:', imageNames.size)
 
 const entities: Entity[] = Array.from(imageNames)
@@ -40,6 +47,7 @@ const results: AsyncIterableIterator<Result> = await pooledMap(
         const bufferArr: Uint8Array = await Deno.readFile(downloadPath)
         const imgArray = await helpers.formatBuffer(bufferArr, entity)
         const bytes = typedArrayToBuffer(imgArray)
+        await ensureDir(parse(uploadPath).dir)
         await Deno.writeFile(uploadPath, bytes, { createNew: true })
       } catch (error) {
         if (!(error instanceof Deno.errors.AlreadyExists)) {
