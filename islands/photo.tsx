@@ -33,6 +33,8 @@ export default function Image({ src, loading = 'lazy', note }: Props) {
   const [r, g, b, a] = normalSize?.averageColor || [0, 0, 0, 0.5]
   const averageColor = `rgba(${r}, ${g}, ${b}, ${a})`
 
+  const isPortrait = normalSize?.height > normalSize?.width
+
   return (
     <a
       href={root[NORMAL] + imagePath + upgradedName}
@@ -43,8 +45,8 @@ export default function Image({ src, loading = 'lazy', note }: Props) {
     >
       <picture
         style={{ maxHeight: '600px' }}
-        height={fastSize?.height}
-        width={fastSize?.width}
+        height={normalSize?.height}
+        width={normalSize?.width}
       >
         {!isLoaded.value ? [] : [
           <source
@@ -78,7 +80,8 @@ export default function Image({ src, loading = 'lazy', note }: Props) {
             maxHeight: '600px',
             objectFit: 'contain',
             textAlign: 'center',
-            width: 'auto',
+            width: isPortrait ? 'auto' : normalSize.width,
+            height: isPortrait ? normalSize?.height : 'auto',
           }}
           src={root[NORMAL] + imagePath + originalName}
           height={normalSize?.height}

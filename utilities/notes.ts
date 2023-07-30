@@ -136,7 +136,6 @@ async function parseNote(slug, composite: string): Promise<Note | null> {
   imageInfoKeys.filter((key) => key.includes(slug)).forEach((key) => {
     images[key] = imageInfo[key]
   })
-  console.log(images)
 
   return {
     slug,
