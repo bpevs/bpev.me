@@ -1,6 +1,6 @@
 import { pooledMap } from '$std/async/pool.ts'
 import { walk } from '$std/fs/walk.ts'
-import { parse } from '$std/path/mod.ts'
+import { join, parse } from '$std/path/mod.ts'
 import { ensureDir } from '$std/fs/ensure_dir.ts'
 import { Entity, ImageMeta } from '@/utilities/photo_constants.ts'
 import * as helpers from '@/utilities/photo_helpers.ts'
@@ -15,7 +15,7 @@ const localPath = Deno.args[0]
 
 const imageDataMap: { [url: string]: { [url: string]: ImageMeta } } = {}
 const COLLECT_IMAGE_META = true
-const CONCURRENT = 0
+const CONCURRENT = 10
 
 console.log('Fetching FileNames...')
 
@@ -41,33 +41,40 @@ const results: AsyncIterableIterator<Result> = await pooledMap(
   async (entity: Entity): Promise<Result> => {
     const result: Result = { entity }
     const { downloadPath, uploadPath } = entity
+    let shouldWrite = false
+
     try {
       await Deno.lstat(uploadPath)
-      if (!COLLECT_IMAGE_META) return result
     } catch {
       // continue
+      shouldWrite = true
     }
 
     try {
       const bufferArr: Uint8Array = await Deno.readFile(downloadPath)
       const [imgArray, imgData] = await Promise.all([
-        helpers.formatBuffer(bufferArr, entity),
+        shouldWrite
+          ? helpers.formatBuffer(bufferArr, entity)
+          : Promise.resolve(),
         (COLLECT_IMAGE_META && !imageDataMap[downloadPath])
           ? helpers.parseBufferData(bufferArr)
           : Promise.resolve(),
       ])
 
-      const bytes = typedArrayToBuffer(imgArray)
-
       if (imgData) {
         imageDataMap[downloadPath] = imgData
         result.imageMeta = imgData
       }
-
-      await ensureDir(parse(uploadPath).dir)
-      await Deno.writeFile(uploadPath, bytes, { createNew: true })
+      if (imgArray) {
+        const bytes = typedArrayToBuffer(imgArray)
+        await ensureDir(parse(uploadPath).dir)
+        await Deno.writeFile(uploadPath, bytes, { createNew: true })
+      }
     } catch (error) {
-      if (!(error instanceof Deno.errors.AlreadyExists)) {
+      console.log(error)
+      if (error instanceof Deno.errors.AlreadyExists) {
+        result.skipped = true
+      } else {
         result.error = error
       }
     }
@@ -80,9 +87,10 @@ let count = 0
 const errors: [string, Error][] = []
 
 try {
-  for await (const { entity, error } of results) {
+  for await (const { entity, error, skipped } of results) {
     if (error) errors.push([entity.uploadPath, error])
-    const status = error ? 'FAILURE' : 'SUCCESS'
+    let status = error ? 'FAILURE' : 'SUCCESS'
+    if (skipped) status = 'SKIPPED'
 
     const entityCountDigits = String(entities.length).length
     const countLog = String(++count).padStart(entityCountDigits, '0')
@@ -93,7 +101,7 @@ try {
 }
 
 Deno.writeTextFileSync(
-  localPath + 'cache/image-data.json',
+  join(localPath, 'cache/image-data.json'),
   JSON.stringify(imageDataMap),
 )
 

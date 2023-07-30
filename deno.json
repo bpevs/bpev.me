@@ -5,7 +5,7 @@
     "start": "deno run -A --unstable main.ts --dev=PRODUCTION",
     "check": "deno check main.ts",
     "hash": "deno run -A scripts/gen_pass_hash.ts",
-    "photos": "deno run -A scripts/build_local_photo_cache.ts"
+    "photos": "deno run -A scripts/build_local_photo_cache.ts '/Users/ben/Vault/10-19 Notes/18 bpev.me/13.01 static'"
   },
   "fmt": {
     "proseWrap": "never",

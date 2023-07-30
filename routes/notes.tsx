@@ -20,6 +20,12 @@ export default function NotesIndexPage(props: PageProps<Props>) {
   return (
     <Page isAuthorized={isAuthorized}>
       <main>
+        <p class='intro'>
+          Hi I'm Ben! 👋 Welcome to my blog! <br />{' '}
+          Also feel free to check out my <a href='https://vx1.bpev.me'>music</a>
+          {' '}
+          or my <a href='https://github.com/bpevs'>code</a>!
+        </p>
         <ul class='notes-list'>
           {notes.map((note: Note) => <NoteCard note={note} />)}
         </ul>
