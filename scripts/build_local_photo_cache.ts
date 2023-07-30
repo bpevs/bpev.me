@@ -13,8 +13,9 @@ interface Result {
 }
 const localPath = Deno.args[0]
 
-const COLLECT_IMAGE_META = false
-const CONCURRENT = 12
+const imageDataMap: { [url: string]: { [url: string]: ImageMeta } } = {}
+const COLLECT_IMAGE_META = true
+const CONCURRENT = 0
 
 console.log('Fetching FileNames...')
 
@@ -42,17 +43,32 @@ const results: AsyncIterableIterator<Result> = await pooledMap(
     const { downloadPath, uploadPath } = entity
     try {
       await Deno.lstat(uploadPath)
+      if (!COLLECT_IMAGE_META) return result
     } catch {
-      try {
-        const bufferArr: Uint8Array = await Deno.readFile(downloadPath)
-        const imgArray = await helpers.formatBuffer(bufferArr, entity)
-        const bytes = typedArrayToBuffer(imgArray)
-        await ensureDir(parse(uploadPath).dir)
-        await Deno.writeFile(uploadPath, bytes, { createNew: true })
-      } catch (error) {
-        if (!(error instanceof Deno.errors.AlreadyExists)) {
-          result.error = error
-        }
+      // continue
+    }
+
+    try {
+      const bufferArr: Uint8Array = await Deno.readFile(downloadPath)
+      const [imgArray, imgData] = await Promise.all([
+        helpers.formatBuffer(bufferArr, entity),
+        (COLLECT_IMAGE_META && !imageDataMap[downloadPath])
+          ? helpers.parseBufferData(bufferArr)
+          : Promise.resolve(),
+      ])
+
+      const bytes = typedArrayToBuffer(imgArray)
+
+      if (imgData) {
+        imageDataMap[downloadPath] = imgData
+        result.imageMeta = imgData
+      }
+
+      await ensureDir(parse(uploadPath).dir)
+      await Deno.writeFile(uploadPath, bytes, { createNew: true })
+    } catch (error) {
+      if (!(error instanceof Deno.errors.AlreadyExists)) {
+        result.error = error
       }
     }
 
@@ -64,18 +80,22 @@ let count = 0
 const errors: [string, Error][] = []
 
 try {
-  for await (const { entity, error, imageMeta } of results) {
+  for await (const { entity, error } of results) {
     if (error) errors.push([entity.uploadPath, error])
     const status = error ? 'FAILURE' : 'SUCCESS'
 
     const entityCountDigits = String(entities.length).length
     const countLog = String(++count).padStart(entityCountDigits, '0')
     console.log(`${countLog}/${entities.length} ${status} ${entity.uploadPath}`)
-    if (COLLECT_IMAGE_META) console.log(imageMeta)
   }
 } catch (e) {
   console.error(e)
 }
+
+Deno.writeTextFileSync(
+  localPath + 'cache/image-data.json',
+  JSON.stringify(imageDataMap),
+)
 
 console.log(errors)
 

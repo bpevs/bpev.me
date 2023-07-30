@@ -36,6 +36,7 @@ export async function parseBufferData(
         const { height, width } = image
         imageMeta[size] = { averageColor, height, width }
       })
+      console.log(imageMeta)
       resolve(imageMeta)
     })
   })
