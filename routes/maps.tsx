@@ -16,7 +16,7 @@ export default function GeomapRoute({ data }) {
   return (
     <Page hideFooter>
       <ul>
-        {(data.names).map((name) => (
+        {data.names.map((name) => (
           <li>
             <a href={`/maps/${name}`}>{name}</a>
           </li>

@@ -23,7 +23,6 @@ export default function Image({ src, loading = 'lazy', note }: Props) {
 
   const [name, ext] = src.split('.')
   const upgradedExt = useSignal('WEBP')
-  const isLoaded = useSignal(false)
 
   const originalName = `${name}.${ext.toUpperCase()}`
   const upgradedName = `${name}.${upgradedExt.value}`
@@ -48,20 +47,20 @@ export default function Image({ src, loading = 'lazy', note }: Props) {
         height={normalSize?.height}
         width={normalSize?.width}
       >
-        {!isLoaded.value ? [] : [
-          <source
-            srcset={root[NORMAL] + imagePath + upgradedName}
-            type='image/webp'
-            height={normalSize?.height}
-            width={normalSize?.width}
-          />,
-          <source
-            srcset={root[NORMAL] + imagePath + originalName}
-            type={`image/${ext}`}
-            height={normalSize?.height}
-            width={normalSize?.width}
-          />,
-        ]}
+        <source
+          srcset={root[NORMAL] + imagePath + upgradedName}
+          type='image/webp'
+          media='(min-width:650px)'
+          height={normalSize?.height}
+          width={normalSize?.width}
+        />
+        <source
+          srcset={root[NORMAL] + imagePath + originalName}
+          type={`image/${ext}`}
+          media='(min-width:650px)'
+          height={normalSize?.height}
+          width={normalSize?.width}
+        />
         <source
           srcset={root[FAST] + imagePath + upgradedName}
           type='image/webp'
@@ -83,11 +82,10 @@ export default function Image({ src, loading = 'lazy', note }: Props) {
             width: isPortrait ? 'auto' : normalSize.width,
             height: isPortrait ? normalSize?.height : 'auto',
           }}
-          src={root[NORMAL] + imagePath + originalName}
+          src={root[NORMAL] + imagePath + upgradedName}
           height={normalSize?.height}
           width={normalSize?.width}
           loading={loading}
-          onLoad={useCallback(() => isLoaded.value = true, [])}
           onError={useCallback((e: Event) => {
             console.error((e.target as HTMLImageElement).src)
             upgradedExt.value = ext.toUpperCase()
