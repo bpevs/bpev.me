@@ -24,10 +24,10 @@ for await (
   const dirEntry of walk(localPath, {
     exts: ['png', 'jpg', 'jpeg', 'PNG', 'JPG', 'JPEG'],
     includeDirs: false,
-    match: [/.*(\/notes.*)$/],
+    match: [/.*(\/(notes|pages).*)$/],
   })
 ) {
-  const [_, name] = dirEntry?.path?.match(/.*(\/notes.*)$/) || []
+  const [_, name] = dirEntry?.path?.match(/.*(\/(notes|pages).*)$/) || []
   imageNames.add(name)
 }
 console.log('Images:', imageNames.size)

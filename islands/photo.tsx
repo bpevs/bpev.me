@@ -19,7 +19,9 @@ export default function Image({ src, loading = 'lazy', note }: Props) {
     [DETAILED]: `${config.URL_STATIC}cache/detailed/`,
     ORIGINAL: `${config.URL_STATIC}`,
   }
-  const imagePath = `notes/${note.slug}/`
+  const imagePath = note.slug == 'pages/projects/'
+    ? note.slug
+    : `notes/${note.slug}/`
 
   const [name, ext] = src.split('.')
   const upgradedExt = useSignal('WEBP')
@@ -79,7 +81,7 @@ export default function Image({ src, loading = 'lazy', note }: Props) {
             maxHeight: '600px',
             objectFit: 'contain',
             textAlign: 'center',
-            width: isPortrait ? 'auto' : normalSize.width,
+            width: isPortrait ? 'auto' : normalSize?.width,
             height: isPortrait ? normalSize?.height : 'auto',
           }}
           src={root[NORMAL] + imagePath + upgradedName}

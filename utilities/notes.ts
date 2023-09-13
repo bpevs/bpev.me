@@ -125,7 +125,7 @@ export async function getNote(slug: string): Promise<Note | null> {
   return parseNote(slug, composite)
 }
 
-async function parseNote(slug, composite: string): Promise<Note | null> {
+export async function parseNote(slug, composite: string): Promise<Note | null> {
   const { attrs, body: commonmark } = extract(composite)
   const [text, { html }] = await Promise.all([
     markdownToPlaintext(commonmark),
