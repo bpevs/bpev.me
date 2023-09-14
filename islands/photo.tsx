@@ -11,7 +11,7 @@ interface Props {
   note: Note
 }
 
-export default function Image({ src, loading = 'lazy', note }: Props) {
+export default function Image({ src, loading = 'eager', note }: Props) {
   const { FAST, NORMAL, DETAILED } = SIZE
   const root: { [type: string]: string } = {
     [FAST]: `${config.URL_STATIC}cache/fast/`,
