@@ -23,8 +23,8 @@ export type Format = keyof typeof FORMAT
 
 export const SIZE = Object.freeze({
   FAST: 'FAST',
-  // NORMAL: 'NORMAL',
-  // DETAILED: 'DETAILED',
+  NORMAL: 'NORMAL',
+  DETAILED: 'DETAILED',
 })
 export type Size = keyof typeof SIZE
 
