@@ -15,7 +15,7 @@ const localPath = Deno.args[0]
 
 const imageDataMap: { [url: string]: { [url: string]: ImageMeta } } = {}
 const COLLECT_IMAGE_META = true
-const CONCURRENT = 10
+const CONCURRENT = 1
 
 console.log('Fetching FileNames...')
 

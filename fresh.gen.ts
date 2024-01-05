@@ -2,61 +2,62 @@
 // This file SHOULD be checked into source version control.
 // This file is automatically updated during development when running `dev.ts`.
 
-import * as $0 from './routes/_404.tsx'
-import * as $1 from './routes/_500.tsx'
-import * as $2 from './routes/_app.tsx'
-import * as $3 from './routes/_middleware.ts'
-import * as $4 from './routes/api/clear.ts'
-import * as $5 from './routes/api/login.ts'
-import * as $6 from './routes/api/logout.ts'
-import * as $7 from './routes/api/notes/[slug].ts'
-import * as $8 from './routes/api/notes/[slug]/refresh.ts'
-import * as $9 from './routes/dashboard.tsx'
-import * as $10 from './routes/maps.tsx'
-import * as $11 from './routes/maps/[slug].tsx'
-import * as $12 from './routes/notes.tsx'
-import * as $13 from './routes/notes/[slug].tsx'
-import * as $14 from './routes/notes/[slug]/edit.tsx'
-import * as $15 from './routes/notes/new.tsx'
-import * as $16 from './routes/projects.tsx'
-import * as $17 from './routes/rss.ts'
-import * as $$0 from './islands/audio.tsx'
-import * as $$1 from './islands/editor.tsx'
-import * as $$2 from './islands/geomap.tsx'
-import * as $$3 from './islands/photo.tsx'
-import * as $$4 from './islands/player.tsx'
-import * as $$5 from './islands/video.tsx'
+import * as $_404 from './routes/_404.tsx'
+import * as $_500 from './routes/_500.tsx'
+import * as $_app from './routes/_app.tsx'
+import * as $_middleware from './routes/_middleware.ts'
+import * as $api_clear from './routes/api/clear.ts'
+import * as $api_login from './routes/api/login.ts'
+import * as $api_logout from './routes/api/logout.ts'
+import * as $api_notes_slug_ from './routes/api/notes/[slug].ts'
+import * as $api_notes_slug_refresh from './routes/api/notes/[slug]/refresh.ts'
+import * as $dashboard from './routes/dashboard.tsx'
+import * as $maps from './routes/maps.tsx'
+import * as $maps_slug_ from './routes/maps/[slug].tsx'
+import * as $notes from './routes/notes.tsx'
+import * as $notes_slug_ from './routes/notes/[slug].tsx'
+import * as $notes_slug_edit from './routes/notes/[slug]/edit.tsx'
+import * as $notes_new from './routes/notes/new.tsx'
+import * as $projects from './routes/projects.tsx'
+import * as $rss from './routes/rss.ts'
+import * as $audio from './islands/audio.tsx'
+import * as $editor from './islands/editor.tsx'
+import * as $geomap from './islands/geomap.tsx'
+import * as $photo from './islands/photo.tsx'
+import * as $player from './islands/player.tsx'
+import * as $video from './islands/video.tsx'
+import { type Manifest } from '$fresh/server.ts'
 
 const manifest = {
   routes: {
-    './routes/_404.tsx': $0,
-    './routes/_500.tsx': $1,
-    './routes/_app.tsx': $2,
-    './routes/_middleware.ts': $3,
-    './routes/api/clear.ts': $4,
-    './routes/api/login.ts': $5,
-    './routes/api/logout.ts': $6,
-    './routes/api/notes/[slug].ts': $7,
-    './routes/api/notes/[slug]/refresh.ts': $8,
-    './routes/dashboard.tsx': $9,
-    './routes/maps.tsx': $10,
-    './routes/maps/[slug].tsx': $11,
-    './routes/notes.tsx': $12,
-    './routes/notes/[slug].tsx': $13,
-    './routes/notes/[slug]/edit.tsx': $14,
-    './routes/notes/new.tsx': $15,
-    './routes/projects.tsx': $16,
-    './routes/rss.ts': $17,
+    './routes/_404.tsx': $_404,
+    './routes/_500.tsx': $_500,
+    './routes/_app.tsx': $_app,
+    './routes/_middleware.ts': $_middleware,
+    './routes/api/clear.ts': $api_clear,
+    './routes/api/login.ts': $api_login,
+    './routes/api/logout.ts': $api_logout,
+    './routes/api/notes/[slug].ts': $api_notes_slug_,
+    './routes/api/notes/[slug]/refresh.ts': $api_notes_slug_refresh,
+    './routes/dashboard.tsx': $dashboard,
+    './routes/maps.tsx': $maps,
+    './routes/maps/[slug].tsx': $maps_slug_,
+    './routes/notes.tsx': $notes,
+    './routes/notes/[slug].tsx': $notes_slug_,
+    './routes/notes/[slug]/edit.tsx': $notes_slug_edit,
+    './routes/notes/new.tsx': $notes_new,
+    './routes/projects.tsx': $projects,
+    './routes/rss.ts': $rss,
   },
   islands: {
-    './islands/audio.tsx': $$0,
-    './islands/editor.tsx': $$1,
-    './islands/geomap.tsx': $$2,
-    './islands/photo.tsx': $$3,
-    './islands/player.tsx': $$4,
-    './islands/video.tsx': $$5,
+    './islands/audio.tsx': $audio,
+    './islands/editor.tsx': $editor,
+    './islands/geomap.tsx': $geomap,
+    './islands/photo.tsx': $photo,
+    './islands/player.tsx': $player,
+    './islands/video.tsx': $video,
   },
   baseUrl: import.meta.url,
-}
+} satisfies Manifest
 
 export default manifest

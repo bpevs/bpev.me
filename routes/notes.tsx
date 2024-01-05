@@ -25,7 +25,9 @@ export default function NotesIndexPage(props: PageProps<Props>) {
           <a href='/projects'>stuff I've made</a>
         </p>
         <ul class='notes-list'>
-          {notes.map((note: Note) => <NoteCard note={note} />)}
+          {notes
+            .filter((note: Note) => note.published)
+            .map((note: Note) => <NoteCard note={note} />)}
         </ul>
       </main>
     </Page>

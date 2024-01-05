@@ -126,24 +126,29 @@ export async function getNote(slug: string): Promise<Note | null> {
 }
 
 export async function parseNote(slug, composite: string): Promise<Note | null> {
-  const { attrs, body: commonmark } = extract(composite)
-  const [text, { html }] = await Promise.all([
-    markdownToPlaintext(commonmark),
-    markdownToHtml(commonmark),
-  ])
+  try {
+    const { attrs, body: commonmark } = extract(composite)
+    const [text, { html }] = await Promise.all([
+      markdownToPlaintext(commonmark),
+      markdownToHtml(commonmark),
+    ])
 
-  const images = {}
-  imageInfoKeys.filter((key) => key.includes(slug)).forEach((key) => {
-    images[key] = imageInfo[key]
-  })
+    const images = {}
+    imageInfoKeys.filter((key) => key.includes(slug)).forEach((key) => {
+      images[key] = imageInfo[key]
+    })
 
-  return {
-    slug,
-    title: String(attrs?.title),
-    published: new Date(attrs?.published as string),
-    updated: new Date(attrs?.updated as string),
-    content: { commonmark, html, text },
-    images,
+    return {
+      slug,
+      title: String(attrs?.title),
+      published: new Date(attrs?.published as string),
+      updated: new Date(attrs?.updated as string),
+      content: { commonmark, html, text },
+      images,
+    }
+  } catch (e) {
+    console.log(e)
+    console.log(slug)
   }
 }
 
