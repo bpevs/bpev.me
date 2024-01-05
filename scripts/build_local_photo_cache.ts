@@ -94,7 +94,7 @@ try {
       continue
     }
     if (error) errors.push([entity.uploadPath, error])
-    let status = error ? 'FAILURE' : 'SUCCESS'
+    const status = error ? 'FAILURE' : 'SUCCESS'
 
     const entityCountDigits = String(entities.length).length
     const countLog = String(++count).padStart(entityCountDigits, '0')
@@ -117,7 +117,3 @@ Deno.writeTextFileSync(
 )
 
 console.log(errors)
-
-function typedArrayToBuffer(arr: Uint8Array): ArrayBuffer {
-  return arr.buffer.slice(arr.byteOffset, arr.byteLength + arr.byteOffset)
-}
