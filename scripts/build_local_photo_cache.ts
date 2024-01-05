@@ -60,15 +60,16 @@ const results: AsyncIterableIterator<Result> = await pooledMap(
           ? helpers.parseBufferData(bufferArr)
           : Promise.resolve(),
       ])
+      if (!shouldWrite) result.skipped = true
 
       if (imgData) {
         imageDataMap[downloadPath] = imgData
         result.imageMeta = imgData
       }
       if (imgArray) {
-        const bytes = typedArrayToBuffer(imgArray)
         await ensureDir(parse(uploadPath).dir)
-        await Deno.writeFile(uploadPath, bytes, { createNew: true })
+        if (!imgArray.length) throw new Error('Invalid array length')
+        await Deno.writeFile(uploadPath, imgArray, { createNew: true })
       }
     } catch (error) {
       console.log(error)
@@ -88,13 +89,23 @@ const errors: [string, Error][] = []
 
 try {
   for await (const { entity, error, skipped } of results) {
+    if (skipped) {
+      count++
+      continue
+    }
     if (error) errors.push([entity.uploadPath, error])
     let status = error ? 'FAILURE' : 'SUCCESS'
-    if (skipped) status = 'SKIPPED'
 
     const entityCountDigits = String(entities.length).length
     const countLog = String(++count).padStart(entityCountDigits, '0')
-    console.log(`${countLog}/${entities.length} ${status} ${entity.uploadPath}`)
+    console.log(
+      `${countLog}/${entities.length} ${status} ${
+        entity.uploadPath.replace(
+          '/Users/ben/Vault/10-19 Notes/18 bpev.me/13.01 static/cache/',
+          '',
+        )
+      }`,
+    )
   }
 } catch (e) {
   console.error(e)

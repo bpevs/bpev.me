@@ -1,6 +1,6 @@
 import { crypto } from '$std/crypto/mod.ts'
-import { encodeBase64 } from "$std/encoding/base64.ts"
-import { encodeHex } from "$std/encoding/hex.ts"
+import { encodeBase64 } from '$std/encoding/base64.ts'
+import { encodeHex } from '$std/encoding/hex.ts'
 import {
   B2_APPLICATION_KEY,
   B2_BLOG_BUCKET_ID,
@@ -100,7 +100,9 @@ async function authorize(): Promise<{
   apiUrl: string
   authorizationToken: string
 }> {
-  const Authorization = `Basic ${encodeBase64(B2_KEY_ID + ':' + B2_APPLICATION_KEY)}`
+  const Authorization = `Basic ${
+    encodeBase64(B2_KEY_ID + ':' + B2_APPLICATION_KEY)
+  }`
   let apiResolve: (arg: string) => void
   let authTokenResolve: (arg: string) => void
   apiUrl = new Promise((resolve) => apiResolve = resolve)
