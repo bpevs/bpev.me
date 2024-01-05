@@ -153,8 +153,12 @@ export default function ({
       </Only>
       <Only if={mode.value === 'LIST'}>
         <ul>
-          {Object.keys(recs.value || {}).map((key) => recs.value[key]).flat()
-            .sort((a, b) => a.name.localeCompare(b.name))
+          {Object.keys(recs.value || {})
+            .map((key) => recs.value[key].map((val) => ({ ...val, key })))
+            .flat()
+            .sort((a, b) => {
+              return a.name.localeCompare(b.name)
+            })
             .map((rec) => (
               <h4
                 style={{ cursor: 'pointer' }}
@@ -166,6 +170,7 @@ export default function ({
               >
                 {(rec.tags || []).includes('recommended') ? '⭐️' : ''}
                 {rec.name}
+                {iconsMap[rec.key]}
               </h4>
             ))}
         </ul>

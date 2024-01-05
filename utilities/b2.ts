@@ -1,6 +1,6 @@
 import { crypto } from '$std/crypto/mod.ts'
-import { toHashString } from '$std/crypto/to_hash_string.ts'
-import { encode } from '$std/encoding/base64.ts'
+import { encodeBase64 } from "$std/encoding/base64.ts"
+import { encodeHex } from "$std/encoding/hex.ts"
 import {
   B2_APPLICATION_KEY,
   B2_BLOG_BUCKET_ID,
@@ -59,7 +59,8 @@ export async function uploadFile(
   body: ArrayBuffer,
   headerOverrides: { [key: string]: string },
 ) {
-  const hash = toHashString(await crypto.subtle.digest('SHA-1', body))
+  const hash = encodeHex(await crypto.subtle.digest('SHA-1', body))
+  console.log(hash)
   const upload = await basicReq<Upload>(URL_UPLOAD, { bucketId })
 
   const headers = new Headers({
@@ -99,7 +100,7 @@ async function authorize(): Promise<{
   apiUrl: string
   authorizationToken: string
 }> {
-  const Authorization = `Basic ${encode(B2_KEY_ID + ':' + B2_APPLICATION_KEY)}`
+  const Authorization = `Basic ${encodeBase64(B2_KEY_ID + ':' + B2_APPLICATION_KEY)}`
   let apiResolve: (arg: string) => void
   let authTokenResolve: (arg: string) => void
   apiUrl = new Promise((resolve) => apiResolve = resolve)

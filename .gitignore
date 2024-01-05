@@ -6,3 +6,6 @@
 .env
 logs
 /local_notes
+
+# Fresh build directory
+_fresh/
