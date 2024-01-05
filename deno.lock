@@ -1,5 +1,5 @@
 {
-  "version": "3",
+  "version": "2",
   "redirects": {
     "https://deno.land/x/imagemagick_deno/mod.ts": "https://deno.land/x/imagemagick_deno@0.0.25/mod.ts",
     "https://esm.sh/leaflet": "https://esm.sh/leaflet@1.9.4",

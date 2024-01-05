@@ -16,7 +16,7 @@ export default function Playlist({ src }: { src?: string }) {
   }, [src])
 
   return (
-    <>
+    <div>
       <div class='controls'>
         <strong>{currTrack.value?.title}</strong>
         <span>{currTrack.value?.length}</span>
@@ -35,6 +35,6 @@ export default function Playlist({ src }: { src?: string }) {
           </span>
         </div>
       </div>
-    </>
+    </div>
   )
 }

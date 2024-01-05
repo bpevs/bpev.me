@@ -10,7 +10,6 @@ interface Props {
   loading: 'lazy' | 'eager'
   note: Note
 }
-
 export default function Image({ src, loading = 'eager', note }: Props) {
   const { FAST, NORMAL, DETAILED } = SIZE
   const root: { [type: string]: string } = {
@@ -89,6 +88,7 @@ export default function Image({ src, loading = 'eager', note }: Props) {
           width={normalSize?.width}
           loading={loading}
           onError={useCallback((e: Event) => {
+            console.error('Image failed to load. Attempting to load backup.')
             console.error((e.target as HTMLImageElement).src)
             upgradedExt.value = ext.toUpperCase()
           }, [upgradedExt, ext])}

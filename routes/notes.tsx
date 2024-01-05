@@ -26,7 +26,9 @@ export default function NotesIndexPage(props: PageProps<Props>) {
         </p>
         <ul class='notes-list'>
           {notes
-            .filter((note: Note) => note.published)
+            .filter((note: Note) => {
+              return Boolean(note.published != 'Invalid Date')
+            })
             .map((note: Note) => <NoteCard note={note} />)}
         </ul>
       </main>
