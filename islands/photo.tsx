@@ -25,7 +25,7 @@ export default function Image({ src, loading = 'eager', note }: Props) {
   const [name, ext] = src.split('.')
   const upgradedExt = useSignal('WEBP')
 
-  const originalName = `${name}.${ext.toUpperCase()}`
+  const originalName = `${name}.${ext.toLowerCase()}`
   const upgradedName = `${name}.${upgradedExt.value}`
   const imageMeta = note.images?.[imagePath + originalName]
   const normalSize = imageMeta?.NORMAL
@@ -90,7 +90,7 @@ export default function Image({ src, loading = 'eager', note }: Props) {
           onError={useCallback((e: Event) => {
             console.error('Image failed to load. Attempting to load backup.')
             console.error((e.target as HTMLImageElement).src)
-            upgradedExt.value = ext.toUpperCase()
+            upgradedExt.value = ext.toLowerCase()
           }, [upgradedExt, ext])}
         >
         </img>
