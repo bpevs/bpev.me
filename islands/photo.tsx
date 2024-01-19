@@ -23,7 +23,7 @@ export default function Image({ src, loading = 'eager', note }: Props) {
     : `notes/${note.slug}/`
 
   const [name, ext] = src.split('.')
-  const upgradedExt = useSignal('WEBP')
+  const upgradedExt = useSignal('webp')
 
   const originalName = `${name}.${ext.toLowerCase()}`
   const upgradedName = `${name}.${upgradedExt.value}`
@@ -83,7 +83,7 @@ export default function Image({ src, loading = 'eager', note }: Props) {
             width: isPortrait ? 'auto' : normalSize?.width,
             height: isPortrait ? normalSize?.height : 'auto',
           }}
-          src={root[NORMAL] + imagePath + upgradedName}
+          src={root[FAST] + imagePath + upgradedName}
           height={normalSize?.height}
           width={normalSize?.width}
           loading={loading}
