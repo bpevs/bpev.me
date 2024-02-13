@@ -1,37 +1,20 @@
 {
   "tasks": {
-    "dev": "deno run -A --unstable --watch=static/,routes/,local_notes/,styles/ dev.ts --env=DEVELOPMENT",
-    "start": "deno run -A --unstable main.ts --dev=PRODUCTION",
-    "check": "deno check main.ts",
-    "hash": "deno run -A scripts/gen_pass_hash.ts",
-    "photos": "deno run -A scripts/build_local_photo_cache.ts '/Users/ben/Vault/10-19 Notes/18 bpev.me/13.01 static'",
-    "build": "deno run -A dev.ts build",
-    "preview": "deno run -A --unstable main.ts",
-    "update": "deno run -A -r https://fresh.deno.dev/update ."
+    "dev": "deno run -A --watch=static/,routes/,local_notes/,styles/ main.tsx --env=DEVELOPMENT",
+    "start": "deno run -A main.tsx --dev=PRODUCTION",
+    "test": "deno fmt && deno lint && deno check main.tsx && deno test"
   },
   "fmt": {
     "proseWrap": "never",
     "singleQuote": true,
-    "semiColons": false,
-    "exclude": ["components/markup"]
+    "semiColons": false
   },
-  "lint": {
-    "exclude": ["apps/", "components/markup"],
-    "rules": { "tags": ["fresh", "recommended"] }
-  },
-  "compilerOptions": { "jsx": "react-jsx", "jsxImportSource": "preact" },
   "imports": {
     "@/": "./",
-    "$civility/": "https://raw.githubusercontent.com/bpevs/civility/0.3.0/",
-    "$fresh/": "https://deno.land/x/fresh@1.6.3/",
-    "$std/": "https://deno.land/std@0.211.0/",
-    "preact": "https://esm.sh/preact@10.19.2",
-    "preact/": "https://esm.sh/preact@10.19.2/",
-    "preact-render-to-string": "https://esm.sh/*preact-render-to-string@6.2.1",
-    "@preact/signals": "https://esm.sh/*@preact/signals@1.2.1",
-    "@preact/signals-core": "https://esm.sh/*@preact/signals-core@1.5.0",
-    "parsedown": "https://deno.land/x/parsedown@1.4.1/mod.ts",
-    "imagemagick": "https://deno.land/x/imagemagick_deno@0.0.26/mod.ts"
-  },
-  "exclude": ["**/_fresh/*"]
+    "$std/": "https://deno.land/std@0.215.0/",
+    "hono": "https://deno.land/x/hono@v4.0.1/mod.ts",
+    "hono/": "https://deno.land/x/hono@v4.0.1/",
+    "cheerio": "npm:cheerio",
+    "parsedown": "https://deno.land/x/parsedown@1.4.1/mod.ts"
+  }
 }

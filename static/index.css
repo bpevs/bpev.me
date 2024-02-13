@@ -555,3 +555,9 @@ svg.icon.download {
   text-align: center;
   padding-top: 2px;
 }
+
+.note-image {
+  max-height: 600px;
+  object-fit: contain;
+  text-align: center;
+}

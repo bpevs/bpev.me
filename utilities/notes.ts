@@ -1,36 +1,34 @@
 import { extract } from '$std/front_matter/any.ts'
 import { join } from '$std/path/mod.ts'
 import { markdownToHtml, markdownToPlaintext } from 'parsedown'
+import * as cheerio from 'cheerio'
 
-import {
-  B2_BLOG_BUCKET_ID,
-  BLOG_ROOT,
-  FEATURE,
-  URL_BLOG_LOCAL,
-} from '@/constants.ts'
+import { BLOG_ROOT, FEATURE, URL_BLOG_LOCAL, URL_STATIC } from '@/config.ts'
 import * as b2 from '@/utilities/b2.ts'
-import store from '@/utilities/store.ts'
-import { ImageMeta } from '@/utilities/photo_constants.ts'
 
-export async function deleteCachedNote(slug) {
-  if (!FEATURE.CACHE) return
-  await store.delete(['notes', slug])
+const { FAST, NORMAL, DETAILED } = Object.freeze({
+  FAST: 'FAST',
+  NORMAL: 'NORMAL',
+  DETAILED: 'DETAILED',
+})
+
+const root: { [type: string]: string } = Object.freeze({
+  [FAST]: `${URL_STATIC}cache/fast/`,
+  [NORMAL]: `${URL_STATIC}cache/normal/`,
+  [DETAILED]: `${URL_STATIC}cache/detailed/`,
+  ORIGINAL: `${URL_STATIC}`,
+})
+
+export interface ImageMeta {
+  averageColor: [number, number, number, number]
+  height: number
+  width: number
 }
 
-export async function deleteAllCachedNotes() {
-  if (!FEATURE.CACHE) return
-  await store.delete(['notes'])
-}
-
-export async function setCachedNote(slug, note) {
-  if (!FEATURE.CACHE) return
-  await store.set(['notes', slug], note)
-}
-
-export async function getCachedNote(slug: string) {
-  if (!FEATURE.CACHE) return null
-  if (!slug) return null
-  return (await store.get(['notes', slug])).value
+export interface ImageMetaMap {
+  [imageSlug: string]: {
+    [size: string]: ImageMeta
+  }
 }
 
 export interface Note {
@@ -39,13 +37,7 @@ export interface Note {
   published?: Date | null
   updated?: Date
   lastChecked?: number
-  images?: {
-    [slug: string]: {
-      [imageSlug: string]: {
-        [size: string]: ImageMeta
-      }
-    }
-  }
+  images?: ImageMetaMap
   content: {
     commonmark: string
     html?: string
@@ -85,61 +77,51 @@ export async function getNotes(): Promise<Note[]> {
   return notes
 }
 
-const ONE_WEEK = 8.64e+7 * 7
-export async function getNote(slug: string): Promise<Note | null> {
-  let { composite, lastChecked } = (await getCachedNote(slug)) || {}
-
-  if (!composite || ((Date.now() - (lastChecked ?? 0)) > ONE_WEEK)) {
-    console.log('Fetching Note: ', slug)
-    try {
-      let filePath = ''
-      if (FEATURE.B2) {
-        if (BLOG_ROOT) filePath = join(BLOG_ROOT, slug + '.md')
-        else throw new Error('no BLOG_ROOT')
-        const response = await fetch(filePath)
-        composite = await response.text()
-      } else {
-        if (URL_BLOG_LOCAL) filePath = join(URL_BLOG_LOCAL, slug + '.md')
-        else throw new Error('no URL_BLOG_LOCAL')
-        const response = await Deno.readFile(filePath)
-        composite = new TextDecoder('utf-8').decode(response)
-      }
-
-      if (composite) {
-        console.log('Caching Note: ', slug)
-        await setCachedNote(slug, {
-          composite,
-          lastChecked: Date.now(),
-        })
-      }
-    } catch (e) {
-      console.log(`Invalid Note! `, slug)
-      console.error(e)
+export async function getNote(id: string): Promise<Note | null> {
+  let composite
+  console.log('Fetching Note: ', id)
+  try {
+    let filePath = ''
+    if (FEATURE.B2) {
+      if (BLOG_ROOT) filePath = join(BLOG_ROOT, id + '.md')
+      else throw new Error('no BLOG_ROOT')
+      composite = await (await fetch(filePath)).text()
+    } else {
+      if (URL_BLOG_LOCAL) filePath = join(URL_BLOG_LOCAL, id + '.md')
+      else throw new Error('no URL_BLOG_LOCAL')
+      composite = new TextDecoder('utf-8').decode(await Deno.readFile(filePath))
     }
-  } else {
-    console.log('Using Cached Note: ', slug)
+  } catch (e) {
+    console.log(`Invalid Note! `, id)
+    console.error(e)
   }
 
   if (!composite) return null
 
-  return parseNote(slug, composite)
+  return parseNote(id, composite)
 }
 
-export async function parseNote(slug, composite: string): Promise<Note | null> {
+export async function parseNote(
+  id: string,
+  composite: string,
+): Promise<Note | null> {
+  console.log('Parsing Note: ', id)
   try {
+    const images: ImageMetaMap = {}
+    imageInfoKeys
+      .filter((key: string) => key.includes(id))
+      .forEach((key: string) => {
+        if (key) images[key] = imageInfo[key]
+      })
+
     const { attrs, body: commonmark } = extract(composite)
-    const [text, { html }] = await Promise.all([
+    const [text, html] = await Promise.all([
       markdownToPlaintext(commonmark),
-      markdownToHtml(commonmark),
+      decorateHTML(await markdownToHtml(commonmark), id, images),
     ])
 
-    const images = {}
-    imageInfoKeys.filter((key) => key.includes(slug)).forEach((key) => {
-      images[key] = imageInfo[key]
-    })
-
     return {
-      slug,
+      slug: id,
       title: String(attrs?.title),
       published: new Date(attrs?.published as string),
       updated: new Date(attrs?.updated as string),
@@ -148,27 +130,90 @@ export async function parseNote(slug, composite: string): Promise<Note | null> {
     }
   } catch (e) {
     console.log(e)
-    console.log(slug)
+    console.log(id)
+    return null
   }
 }
 
-export async function postNote(note: Note): Promise<void> {
-  if (!B2_BLOG_BUCKET_ID) throw new Error('No Blog Bucket ID')
+function decorateHTML(
+  // deno-lint-ignore no-explicit-any
+  { html }: any,
+  id: string,
+  images: ImageMetaMap,
+): string {
+  if (!html) return ''
+  const $ = cheerio.load(html)
 
-  const body = new TextEncoder().encode(
-    '---\n' +
-      `published: ${note.published}\n` +
-      `title: "${note.title}"\n` +
-      '---\n' +
-      note.content.commonmark,
-  )
-  const result = await b2.uploadFile(
-    B2_BLOG_BUCKET_ID,
-    `${note.slug}.md`,
-    body,
-    { 'Content-Type': 'text/markdown' },
-  )
-  await deleteCachedNote(note.slug)
-  await setCachedNote(note.slug, note)
-  return result
+  $('Photo').each((_i, el) => {
+    const src = $(el).attr('src')
+    if (!src) return
+    const notePath = (id == 'projects/') ? id : `notes/${id}/`
+
+    const [name, unformattedExt] = src.split('.')
+    const ext = unformattedExt.toLowerCase()
+    const upgradedExt = 'webp'
+    const imageMeta = images?.[notePath + name + '.' + ext]
+
+    const size = imageMeta?.NORMAL
+    const [r, g, b, a] = size?.averageColor || [0, 0, 0, 0.5]
+    const averageColor = `rgba(${r}, ${g}, ${b}, ${a})`
+    const isPortrait = size?.height > size?.width
+    const displayWidth = isPortrait ? 'auto' : (size?.width + 'px')
+    const displayHeight = isPortrait ? (size?.height + 'px') : 'auto'
+
+    $(el).replaceWith(`
+      <div class='md-island'>
+        <a
+          href=${root[NORMAL] + notePath + name + '.' + upgradedExt}
+          style='text-align: center; display: block'
+        >
+          <picture
+            style='max-height: 600px;'
+            height=${size?.height}
+            width=${size?.width}
+          >
+            <source
+              srcset=${root[NORMAL] + notePath + name + '.' + upgradedExt}
+              type='image/webp'
+              media='(min-width:650px)'
+              height=${size?.height}
+              width=${size?.width}
+            />
+            <source
+              srcset=${root[NORMAL] + notePath + name + '.' + ext}
+              type='image/${ext}'
+              media='(min-width:650px)'
+              height=${size?.height}
+              width=${size?.width}
+            />
+            <source
+              srcset=${root[FAST] + notePath + name + '.' + upgradedExt}
+              type='image/webp'
+              height=${imageMeta?.FAST?.height}
+              width=${imageMeta?.FAST?.width}
+            />
+            <source
+              srcset=${root[FAST] + notePath + name + '.' + ext}
+              type='image/${ext}'
+              height=${imageMeta?.FAST?.height}
+              width=${imageMeta?.FAST?.width}
+            />
+            <img
+              class='note-image'
+              style='width: ${displayWidth}; height: ${displayHeight}; background-color: ${averageColor};'
+              src=${root[FAST] + notePath + name + '.' + upgradedExt}
+              height=${size?.height}
+              width=${size?.width}
+              loading='eager'
+              onerror='this.onerror=null;this.src=${
+      root[NORMAL] + notePath + name + '.' + ext
+    };'
+            >
+            </img>
+          </picture>
+        </a>
+      </div>
+    `)
+  })
+  return $.html() || ''
 }
