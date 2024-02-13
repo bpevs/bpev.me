@@ -10,14 +10,14 @@ const app = new Hono()
 
 app.use('*', logger(), poweredBy())
 app.get('/rss', async (c) => c.text(notesToRSS(await getNotes())))
-// app.get(
-//   '*',
-//   cache({
-//     cacheName: 'everything',
-//     cacheControl: 'max-age=3600',
-//     wait: true,
-//   }),
-// )
+app.get(
+  '*',
+  cache({
+    cacheName: 'everything',
+    cacheControl: 'max-age=3600',
+    wait: true,
+  }),
+)
 app.get('/', (c) => c.redirect('/notes'))
 app.get('/notes', async (c) =>
   c.html(
