@@ -66,23 +66,25 @@ app.get('/notes/:slug', async (c) => {
   }
 })
 app.get('/projects', async (c) => {
-  const response = await fetch('https://static.bpev.me/pages/projects.md')
+  const response = await fetch('https://static.bpev.me/projects.md')
   const note = await parseNote('projects/', await response.text())
   const inner = { __html: (await note?.content?.html) || '404' }
   return c.html(
     <Html>
-      <div dangerouslySetInnerHTML={inner} />
+      <div class='markup'>
+        <div dangerouslySetInnerHTML={inner} />
+      </div>
     </Html>,
   )
 })
 
 app.get('/projects.md', async (c) => {
-  const response = await fetch('https://static.bpev.me/pages/projects.md')
+  const response = await fetch('https://static.bpev.me/projects.md')
   const note = await parseNote('projects/', await response.text())
   return c.text(note?.content?.commonmark || '404')
 })
 app.get('/projects.txt', async (c) => {
-  const response = await fetch('https://static.bpev.me/pages/projects.md')
+  const response = await fetch('https://static.bpev.me/projects.md')
   const note = await parseNote('projects/', await response.text())
   return c.text(note?.content?.text || '404')
 })

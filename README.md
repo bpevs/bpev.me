@@ -28,6 +28,7 @@ deno task start --dev
 
 # Scripts
 
-| Script           | Purpose                                               |
-| ---------------- | ----------------------------------------------------- |
-| `blog_images.sh` | Format small, mid, and big images in og format + webp |
+| Script               | Purpose                                               |
+| -------------------- | ----------------------------------------------------- |
+| `blog_images.sh`     | Format small, mid, and big images in og format + webp |
+| `blog_image_data.js` | Generate image_data.json                              |
