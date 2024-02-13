@@ -28,20 +28,25 @@ app.get('/notes', async (c) =>
           <a href='/projects'>stuff I've made</a>
         </p>
         <ul class='notes-list'>
-          {(await getNotes()).map((note) => (
-            <li>
-              <a href={`/notes/${note.slug}`}>
-                <strong>{note.title} –{' '}</strong>
-                <time style={{ opacity: 0.8, fontSize: '0.8em' }}>
-                  {new Date(note.published || '').toLocaleDateString('en-us', {
-                    year: 'numeric',
-                    month: 'long',
-                    day: 'numeric',
-                  })}
-                </time>
-              </a>
-            </li>
-          ))}
+          {(await getNotes())
+            .filter((note) => !isNaN(Number(new Date(note.published || ''))))
+            .map((note) => (
+              <li>
+                <a href={`/notes/${note.slug}`}>
+                  <strong>{note.title} –{' '}</strong>
+                  <time style={{ opacity: 0.8, fontSize: '0.8em' }}>
+                    {new Date(note.published || '').toLocaleDateString(
+                      'en-us',
+                      {
+                        year: 'numeric',
+                        month: 'long',
+                        day: 'numeric',
+                      },
+                    )}
+                  </time>
+                </a>
+              </li>
+            ))}
         </ul>
       </main>
     </Html>,
